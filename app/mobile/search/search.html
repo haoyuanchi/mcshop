@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>搜索</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no,width=320,target-densitydpi=142">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+<link href="../../resources/mobile/css/common.css" tppabs="http://www.mo-co.com/resources/mobile/css/common.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../resources/mobile/js/jquery.min.js" tppabs="http://www.mo-co.com/resources/mobile/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../resources/mobile/js/common.js" tppabs="http://www.mo-co.com/resources/mobile/js/common.js"></script>
+<script type="text/javascript" src="../../resources/mobile/js/mobile.js" tppabs="http://www.mo-co.com/resources/mobile/js/mobile.js"></script>
+<script type="text/javascript">
+$().ready(function(){ 
+    $("#searchValue").keydown(function(event){
+		if(event.keyCode == 13){ 
+		    m$.search.search .submit();
+		 }
+	   });
+ });
+ 
+</script>
+<script type="text/javascript">
+    var nextPageHtml = '';
+	var _serverName = 'moshop';
+	var listData = '';
+	var scrollbarLocation = 0;
+	var typeName = '';
+	var typeId = '';
+	var pageParams = {
+	        pageNumber: 0,
+	        pageCount:0,
+	        pageSize: 0,
+	        total: 0,
+	        totalPages: 0,
+	        searchValue: '',
+	        orderType: ''
+	};
+  _listPop(window.location.href, 'get');
+  var listUrl = "/mobile/search/listSearchProduct.jhtml?";
+  var listParam = '';
+  var nextPageIndex = 0;
+
+function divOnclick() {
+    m$.search.search.submit();
+}
+
+function hotSreachOnclick(onclickItem) {
+    var $hotSearchValue = onclickItem.attributes.hotsearch.value;
+    $("#searchValue").val($hotSearchValue);
+    m$.search.search.submit();
+}
+
+</script>
+</head>
+<body>
+<div class="fullscreen" id="fullscreen">
+<div>
+<table cellpadding="0" cellspacing="0" border="0" style="margin-top:40px;height:40px;border:1px solid #000;margin-left: 10px;width: 90%;"">
+                 <tr>
+                     <td>
+                         <input type="text" name="searchValue" id = "searchValue" placeholder="搜索产品" 
+                        style="margin-left: 5px;height: 40px; width:95%;border:0;font-size:1em;"/>
+                     </td>
+                      <td style="width:19%">
+							<div style="border-left:1px solid #000;float:right;height:40px;width: 80%;" id="searchBtn" onclick="divOnclick();">
+			                    <img src="../../resources/mobile/images/search.png" tppabs="http://www.mo-co.com/resources/mobile/images/search.png" style="width:24px;height:24px; padding-left: 15px;padding-top: 9px;"/>
+			                </div>
+                     </td>
+                 </tr>
+             </table>
+            </div>
+             <div id="hotSearch" style="margin-left: 12px;">
+               <ul>
+                  <li class="hotSearch-li-title"> 热门搜索</li>
+                      <li class="hotSearch-li-content">
+		                    <div  onclick="hotSreachOnclick(this);" hotsearch = "大衣">
+		                       <div class="hotSearch-li_content_div_spe1" >1</div >
+		                        <div class="hotSearch-li_content_div">大衣</div >
+					        </div>
+				      </li>
+                      <li class="hotSearch-li-content">
+		                    <div  onclick="hotSreachOnclick(this);" hotsearch = "鞋">
+		                       <div class="hotSearch-li_content_div_spe1" >2</div >
+		                        <div class="hotSearch-li_content_div">鞋</div >
+					        </div>
+				      </li>
+                 </ul> 
+             </div>
+            <ul class="list_box" id="listBox">
+              <!--  <li class="page_loading" id="pageLoading"><div class="loading" style="display: none;"><div class="rotate"></div></div></li>-->
+
+					<li><a href="../product/content.html?brandId=18&amp;productCategoryId=84&amp;productId=9819"><img datasrc="http://images.mo-co.com/upload/image/201604/3345cce6-5c34-48cf-a392-21cad52285a6.jpg@360w_100Q_1x.jpg" src="http://images.mo-co.com/upload/image/201604/3345cce6-5c34-48cf-a392-21cad52285a6.jpg@360w_100Q_1x.jpg" width="150" haslazy="true" style="opacity: 1;"></a><span class="list_price"> 长流苏半身裙</span><span class="list_price"><span>SALE</span> ￥909.30- <del style="color:#9a9a9a">￥1299.00</del></span></li>
+					<li><a href="../product/content.html?brandId=18&amp;productCategoryId=84&amp;productId=9819"><img datasrc="http://images.mo-co.com/upload/image/201603/2efd30ac-f35e-46b8-a378-6abf44453584.jpg@360w_100Q_1x.jpg" src="http://images.mo-co.com/upload/image/201603/2efd30ac-f35e-46b8-a378-6abf44453584.jpg@360w_100Q_1x.jpg" width="150" haslazy="true" style="opacity: 1;"></a><span class="list_price"> 七分宽松阔腿裤</span><span class="list_price"><span>SALE</span> ￥779.40- <del style="color:#9a9a9a">￥1299.00</del></span></li>
+
+            </ul>  
+<nav class="footer" id="footer">
+		<a href="../mobileIndex.html" tppabs="http://www.mo-co.com/mobile/product/productCategory.jhtml?brandId=&tagIds=" id="navCategory" class="navCategory">
+		    <em></em>
+		</a>
+	     <a href="../cart/index.html" tppabs="http://www.mo-co.com/mobile/cart/index.jhtml" id="navCart" class="navCart">
+		     <em>
+		         <li id="navCartQuantity">
+		         
+		         </li>
+		     </em>
+		 </a>
+		 
+		 <a href="../login/index.html" tppabs="http://www.mo-co.com/mobile/login/index.jhtml" id="navAccount" class="navAccount">
+		     <em></em>
+		 </a>
+		 
+		 <a href="../storeInfo/index.html" tppabs="http://www.mo-co.com/mobile/storeInfo/index.jhtml" id="navStoreInfo" class="navStoreInfo">
+		    <em></em>
+		 </a>
+		 
+		 <a href="search.html" tppabs="http://www.mo-co.com/mobile/search/search.jhtml" id="navSearch" class="navSearch">
+		     <em></em>
+		 </a>
+</nav>
+	<span style="display: none;">
+		<script type="text/javascript" src="../../../pw.cnzz.com/c.php-id=1251613148&l=2" tppabs="http://pw.cnzz.com/c.php?id=1251613148&l=2" charset="gb2312"></script>
+	</span>
+        </div>
+    </body>
+</html>

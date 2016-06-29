@@ -1,0 +1,82 @@
+
+
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /><meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /><meta name="format-detection" content="telephone=no" /><title>
+	
+我的订单
+
+</title><link href="Scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" /><link href="Scripts/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" /><link href="Demo/font-awesome/font-awesome.min.css" rel="stylesheet" /><link href="Demo/Resources/Mall.css" rel="stylesheet" /><link href="Demo/js/IosOverlay/css/iosOverlay.css" rel="stylesheet" /><link href="js/mobiscroll.trial/css/mobiscroll.custom-2.16.1.min.css" rel="stylesheet" type="text/css" /></head>
+<body>
+<script src="js/WebResource.js" type="text/javascript"></script>
+<script src="js/MicrosoftAjax.js" type="text/javascript"></script>
+<script src="js/MicrosoftAjaxWebForms.js" type="text/javascript"></script>
+<script src="Scripts/jquery.1.11.min.js" type="text/javascript"></script>
+<script src="Scripts/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="js/jweixin-1.0.0.js" type="text/javascript"></script>
+<script src="js/cookiehelper.js" type="text/javascript"></script>
+<script src="Scripts/Request.js" type="text/javascript"></script>
+<script src="Demo/js/IosOverlay/js/spin.min.js" type="text/javascript"></script>
+<script src="Demo/js/IosOverlay/js/iosOverlay.js" type="text/javascript"></script>
+<script src="Demo/js/MatrixGlobal.js" type="text/javascript"></script>
+<script src="js/mobiscroll.trial/js/mobiscroll.custom-2.16.1.min.js" type="text/javascript"></script>
+<script src="js/wx/wxbase.js" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5vT2TJiFj_bVa0lbE4';jsapi_appid = 'wx78d38a41cc2b7b64';jsapi_timestamp = '1465218934';jsapi_noncestr = 'HFkeQRHk3Aalpekp';jsapi_signature = '612ee05335fc1538defc645f5ff6c7b60c0772e8';jsapi_title = 'JNBY';jsapi_imgurl = 'http://wx.jnby.com/wxdata/public/brand/3-jnby.jpg';jsapi_link = 'http://wx.jnby.com/apptest/wx_portal.aspx?hash=jnby';jsapi_desc = '\u5FAE\u4FE1\u5546\u57CE';jsapi_type = 'default';jsapi_activityid = null;openId = 'oVFOhjjd8F5vT2TJiFj_bVa0lbE4';Hash = 'jnby';//]]>
+</script>
+<script src="js/wx/jsapi.js" type="text/javascript"></script>
+<script type="text/javascript" src="Scripts/jquery.lazyload.js"></script>
+
+  <div id="maincontent">
+    <div id="main">
+        <div class="title">我的订单</div>
+        <div id="mainArea">
+            <table id="orderTab">
+                <tr>
+                    <td class='AllOrder'>全部</td>
+                    <td class='DFK'>待付款</td>
+                    <td class='DFH'>待发货</td>
+                    <td class='YFH'>已发货</td>
+                    <td class='TK'>退款</td>
+                </tr>
+            </table>
+            <div class="myOrderList">
+            
+            </div>
+            <div class="mybojunOrderList" ></div>
+        </div>
+    </div> 
+    <div id="confirm_dialog" class="mod_dialog"  style="display:none;">
+        <div class="dialog_mask"></div>
+        <div class="mod-confirm"  style="position:fixed;">
+            <div class="mod-confirm__text" id="confirm_content"></div>
+            <div class="mod-confirm__btns">
+                <a href="javascript:void(0);" class="mod-confirm__btn mod-confirm__btn_border-right mod-confirm__btn_highlight" id="confirm_dialog_submit">确定</a>
+                <a href="javascript:void(0);" class="mod-confirm__btn" id="confirm_dialog_cancel">取消</a>
+            </div>
+        </div>
+	</div>
+	<div id="confirm_refund" class="new_refund"  style="display:none;">
+			<div class="refund_mask"></div>
+			<div class="new-confirm"  style="position:fixed;">
+				<div class="new-confirm_title">退货方式</div>
+				<div class="new-confirm_content">
+				<div class="content_radio"><input type="radio" name="refund_addr" value="company" /><span>邮寄到总仓</span></div>
+				<div class="content_radio"><input type="radio" name="refund_addr" value="store" /><span>直接到门店退货</span></div>
+				<div class="confirm_content_error"></div>
+				</div>	
+				
+				<div class="new-confirm__btns">
+					<a href="javascript:void(0);" class="new-confirm__btn new-confirm__btn_border-right new-confirm__btn_highlight" id="confirm_refund_submit">确定</a>
+					<a href="javascript:void(0);" class="new-confirm__btn" id="confirm_refund_cancel">取消</a>
+				</div>
+			</div>
+	</div>
+    <script type="text/javascript" src="js/wx/wxuserorder.js"></script>
+    <link href="css/wx/wxcart.css" rel="stylesheet" type="text/css" />
+    <link href="css/wx/wxrefund.css" rel="stylesheet" type="text/css" />
+</div>
+</form>
+</body>
+</html>

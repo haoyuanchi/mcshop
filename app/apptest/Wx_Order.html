@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /><meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /><meta name="format-detection" content="telephone=no" /><title>
+	
+订单确认 
+
+</title><link href="Scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" /><link href="Scripts/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" /><link href="Demo/font-awesome/font-awesome.min.css" rel="stylesheet" /><link href="Demo/Resources/Mall.css" rel="stylesheet" /><link href="Demo/js/IosOverlay/css/iosOverlay.css" rel="stylesheet" /><link href="js/mobiscroll.trial/css/mobiscroll.custom-2.16.1.min.css" rel="stylesheet" type="text/css" /></head>
+<body>
+    <form method="post" action="./Wx_Order.aspx?hash=jnby&amp;orderid=187746&amp;aid=0&amp;code=001mEDz91AGXuU1936B91TnCz91mEDzI&amp;state=STATE" id="Form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTY1NDU2MTA1MmRkdlp2wAXu55EC9ix71dX9GB9WHD5IsDdV0tj504V+kVw=" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="js/WebResource.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5vT2TJiFj_bVa0lbE4';jsapi_appid = 'wx78d38a41cc2b7b64';jsapi_timestamp = '1465128864';jsapi_noncestr = 'HSoZF7jbKlFQErpi';jsapi_signature = '1d991b763ff97fe1c4c172228d0d3976f65a6267';jsapi_title = 'JNBY';jsapi_imgurl = 'http://wx.jnby.com/wxdata/public/brand/3-jnby.jpg';jsapi_link = 'http://wx.jnby.com/apptest/wx_portal.aspx?hash=jnby';jsapi_desc = '\u5FAE\u4FE1\u5546\u57CE';jsapi_type = 'default';jsapi_activityid = null;openId = 'oVFOhjjd8F5vT2TJiFj_bVa0lbE4';Hash = 'jnby';//]]>
+</script>
+
+<script src="js/MicrosoftAjax.js" type="text/javascript"></script>
+<script src="js/MicrosoftAjaxWebForms.js" type="text/javascript"></script>
+<script src="Scripts/jquery.1.11.min.js" type="text/javascript"></script>
+<script src="Scripts/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="js/jweixin-1.0.0.js" type="text/javascript"></script>
+<script src="js/cookiehelper.js" type="text/javascript"></script>
+<script src="Scripts/Request.js" type="text/javascript"></script>
+<script src="Demo/js/IosOverlay/js/spin.min.js" type="text/javascript"></script>
+<script src="Demo/js/IosOverlay/js/iosOverlay.js" type="text/javascript"></script>
+<script src="Demo/js/MatrixGlobal.js" type="text/javascript"></script>
+<script src="js/mobiscroll.trial/js/mobiscroll.custom-2.16.1.min.js" type="text/javascript"></script>
+<script src="js/wx/wxbase.js" type="text/javascript"></script>
+<script src="js/wx/menu.js" type="text/javascript"></script>
+<script src="js/wx/jsapi.js" type="text/javascript"></script>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="149D25C9" />
+</div>
+      <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$jsDoc', 'Form1', [], [], [], 90, 'ctl00');
+//]]>
+</script>
+
+    <div id="menu" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id="menuInfo">
+                        <div id="userInfo">
+                            <table>
+                                <tr>
+                                    <td style="text-align: left;" colspan="3">
+                                        <i class="icon-angle-down icon-2x" style="margin-left: 20px;"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <div class="headArea">
+                                            <img src="Demo/Resources/images/Mall/head-icon.png" id="head" /></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <span id="username" style="line-height: 50px;">注册会员</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="btn_portal" style="border-right: 1px solid #eee;">
+                                        <img src="Demo/Resources/images/Mall/portal-icon.png" class="infoBtn" />
+                                    </td>
+                                    <td id="btn_cart" style="border-right: 1px solid #eee;">
+                                        <img src="Demo/Resources/images/Mall/cart-icon.png" class="infoBtn" />
+                                    </td>
+                                    <td id="btn_clt" style="border-right: 1px solid #eee;">
+                                        <img src="Demo/Resources/images/Mall/heart-icon.png" class="infoBtn" />
+                                    </td>
+                                    
+                                </tr>
+                            </table>
+                            <div class="input-group" style="width: 90%;">
+                                <input type="search" class="form-control" placeholder="搜索" style="box-shadow: none;">
+                            </div>
+                        </div>
+                        <div id="list">
+                        </div>
+                        <br style="clear: both;" />
+                        <div class="splitLine">
+                            <span>推荐类</span></div>
+                        <div id="recommend">
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="maincontent">
+        
+<script type="text/javascript" src="Scripts/jquery.lazyload.js"></script>
+    <div role="tabpanel">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist" style="display:none;">
+        <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab">main</a></li>
+        <li role="presentation"><a href="#addressList" aria-controls="addressList" role="tab" data-toggle="tab">addressList</a></li>
+        <li role="presentation"><a href="#addAddress" aria-controls="addAddress" role="tab" data-toggle="tab">addAddress</a></li>
+        <li role="presentation"><a href="#ticket" aria-controls="ticket" role="tab" data-toggle="tab">ticket</a></li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="main">
+            <div class="title">确认订单</div>
+            <div class="topBtn">
+               
+                <img id="menus" src="Demo/Resources/images/Mall/menu.jpg" />
+                <img id="lock" src="Demo/Resources/images/Mall/lock.jpg" />
+                <div id="buyNum">0</div>
+                
+              
+            </div>
+            <div id="mainArea" style="padding-bottom: 80px;">
+                <div class="orderInfo" >
+        
+                </div>
+                <div class="orderList">
+                    
+                        <table style="text-align:left;" class="orderitem">
+
+                        </table>
+                </div>
+                <div class="payInfo">
+                    <table>
+                        <tr>
+                            <td style="width: 5%;"></td>
+                            <td>您的服务门店:<span id="cardstore"></span></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="fixedBtn">
+                    <table>
+                        <tr>
+                            <td style="width: 70%;font-size: 0.6em;border-right-width: 1px;border-right-color: #fff;border-right-style: solid;padding: 0 10%;text-align: left;" >结算合计:￥<span id='HJ' id='sumprice'></span></td>
+                            <td style="width: 30%;font-size: 0.6em;" id="paysure">结算</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="addressList" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content" style="background-color: #e1e1e1;">
+                    <div class="modal-header">
+                        <button type="button" class="close" id="butclose1"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">&nbsp;</h4>
+                    </div>
+                    <div class="modal-body" style="background:none;" id="selecr_address" >
+    
+                    </div>
+                    <div class="modal-footer" id="clearPay">
+                        <div class="payBtn" style="position:relative;">
+                            新增收货地址
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="addAddress">
+            <div class="modal-dialog">
+                <div class="modal-content" style="background-color: #e1e1e1;">
+                    <div class="modal-header">
+                        <button type="button" class="close" id="butclose2"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="H1">&nbsp;</h4>
+                    </div>
+                    <div class="modal-body" style="background:none;">
+                        <div id="addressArea">
+                            <div id="addressInfo">
+                                <div class="inputGroup">
+                                    <span>收货人姓名:</span>
+                                    <input type="text" id="name">
+                                    <span><div class="warning"></div></span>
+                                </div>
+                                <div class="inputGroup">
+                                    <span>手机号码:</span>
+                                    <input type="tel" id="tel" maxlength="11">
+                                    <span><div class="warning"></div></span>
+                                </div>
+                                <div class="inputGroup" style="display:none;">
+                                    <span>地址:</span>
+                                    <input type="text" id="address" readonly="">
+                                    <span><div class="warning"></div></span>
+                                </div>
+                            </div>
+                            <select class="form-control" id="province">
+                                <option>省</option>
+                            </select>
+                            <select class="form-control" id="city">
+                                <option>市</option>
+                            </select>
+                            <select class="form-control" id="district">
+                                <option>区</option>
+                            </select>
+                            <textarea class="form-control" id="textarea" placeholder="详细地址"></textarea>
+                            <select class="form-control" id="store">
+                                <option>服务门店</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer" id="Add_address">
+                        
+                        <div class="payBtn" style="position:relative;" id='div_address'>
+                         <table>
+                                    <tr>
+                                        <td class="payBtn_address">确认</td>
+                                        <td style="background-color:white;width:5px"></td>
+                                        <td class="reload_address">刷新</td>
+                                    </tr>
+                                    </table>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="ticket">
+            <div class="modal-dialog">
+                <div class="modal-content" style="background-color: #e1e1e1;">
+                    <div class="modal-header">
+                        <button type="button" class="close" id='Vou_Close'><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="H2">&nbsp;</h4>
+                    </div>
+                    <div class="modal-body" style="background:none;">
+                        <div id="cardList" style="padding: 10px 0 0 0;">
+    
+                        </div>
+                    </div>
+                    <div class="modal-footer"  id='but_Vouchers'>
+                        <div class="payBtn" style="position:relative;" >
+                            确认
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+    </div>
+        
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="warning">
+      <div class="modal-dialog modal-sm" style="margin: 50px;width: auto;height: auto;">
+        <div class="modal-content"  style="min-height: 0;width: auto;text-align: center;border-radius: 6px;">
+            <div class="modal-body" style="padding: 30px 0;">
+                <div style="font-weight:bold;">温馨提示</div>
+                <div>记得15分钟内完成付款哦！</div>
+            </div>
+            <div class="modal-footer" data-dismiss="modal" style="color: lightblue;text-align: center;position: relative;padding: 15px;background: none;">
+                <div>我知道了</div>
+              </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+       
+        $(".orderInfo").click(function () {
+            $(".nav-tabs a").eq(1).click();
+            $(".modal-content").css("min-height", winHeight);
+            //$("#addressList").modal("show");
+        })
+
+       
+
+        $("#showTicket").click(function () {
+            select_vouchers();
+            $(".nav-tabs a").eq(3).click();
+            $(".modal-content").css("min-height", winHeight);
+            //$("#ticket").modal("show");
+        })
+
+        $("#butclose1").click(function () {
+            $(".nav-tabs a").eq(0).click();
+            $(".modal-content").css("min-height", winHeight);
+        })
+
+        $("#butclose2").click(function () {
+            $(".nav-tabs a").eq(1).click();
+            $(".modal-content").css("min-height", winHeight);
+        })
+
+        $("#Vou_Close").click(function () {
+            $(".nav-tabs a").eq(0).click();
+            $(".modal-content").css("min-height", winHeight);
+        })
+
+        $(".oMin").click(function () {
+            if (parseInt($(this).parent().parent().find("input").val()) <= 1) {
+                $(this).parent().parent().find("input").val("1");
+            } else {
+                $(this).parent().parent().find("input").val(parseInt($(this).parent().parent().find("input").val()) - 1);
+            }
+        });
+
+        $(".oPlus").click(function () {;
+            if ($.trim($(this).parent().parent().find("input").val()) == "") {
+                $(this).parent().parent().find("input").val("1");
+            } else {
+                $(this).parent().parent().find("input").val(parseInt($(this).parent().parent().find("input").val()) + 1);
+            }
+        });
+    </script>
+
+   <!-- <script type="text/javascript">
+        var jsUrl = "js/wx/wxorder.js";
+        AppendJs(jsUrl);
+    </script> 
+	-->
+
+    </div>
+	<script src="js/wx/wxorder.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $("#menus").click(function () {
+            $("#menu").modal("show");
+           // $("#maincontent").hide();
+        })
+
+        $(".icon-angle-down").click(function () {
+            //$("#maincontent").show();
+            $("#menu").modal("hide");
+        })
+    </script>
+    
+
+<script type="text/javascript">
+//<![CDATA[
+in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5vT2TJiFj_bVa0lbE4';jsapi_appid = 'wx78d38a41cc2b7b64';jsapi_timestamp = '1465128864';jsapi_noncestr = 'HSoZF7jbKlFQErpi';jsapi_signature = '1d991b763ff97fe1c4c172228d0d3976f65a6267';jsapi_title = 'JNBY';jsapi_imgurl = 'http://wx.jnby.com/wxdata/public/brand/3-jnby.jpg';jsapi_link = 'http://wx.jnby.com/apptest/wx_portal.aspx?hash=jnby';jsapi_desc = '\u5FAE\u4FE1\u5546\u57CE';jsapi_type = 'default';jsapi_activityid = null;openId = 'oVFOhjjd8F5vT2TJiFj_bVa0lbE4';Hash = 'jnby';//]]>
+</script>
+</form>
+</body>
+</html>

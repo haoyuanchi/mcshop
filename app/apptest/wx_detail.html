@@ -1,0 +1,398 @@
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no" />
+    <title>
+    商品详情
+    </title>
+    <link href="Scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="Scripts/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
+    <link href="Demo/font-awesome/font-awesome.min.css" rel="stylesheet" />
+    <link href="Demo/Resources/Mall.css" rel="stylesheet" />
+    <script src="Scripts/jquery.1.11.min.js" type="text/javascript"></script>
+    <script src="Scripts/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>   
+    <script src="js/jweixin-1.0.0.js" type="text/javascript"></script>        
+    <script src="Scripts/Request.js" type="text/javascript"></script>
+    <script type="text/javascript" src="Demo/js/IosOverlay/js/spin.min.js"></script>
+    <script type="text/javascript" src="Demo/js/IosOverlay/js/iosOverlay.js"></script>
+    <script type="text/javascript" src="Demo/js/MatrixGlobal.js"></script>
+    <link href="Demo/js/IosOverlay/css/iosOverlay.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="Demo/css/jquery.fullPage.css" />
+	<script type="text/javascript" src="Demo/js/jquery.fullPage.js"></script>
+
+<style type="text/css">
+.detRow td 
+{
+    font-weight:bolder;       
+    font-size:10px;
+    text-align:center;
+    width: 50px;
+    height: 30px;
+}
+</style>
+</head>
+<body>
+
+    <div id="main">
+        <div class="topBtn">
+            
+            
+            <img id="return" src="Demo/Resources/images/Mall/return.jpg" />
+            <img id="lock" src="Demo/Resources/images/Mall/lock.jpg" />
+            <div id="buyNum">0</div>
+           
+             
+        </div>
+        <div id="fullpage">
+
+        </div> 
+        <div class="price" data-toggle="modal" data-target="#pInfo" onclick="" style="position: fixed;bottom: 80px;right: 5%;background-color: #fff;padding: 10px;"><span style="padding-right: 10px;">加载中...</span><span style="border-left: 1px solid #ccc;padding-left: 10px;"><i class="icon-plus"></i>&nbsp;&nbsp;信息</span></div>
+        <div class="detailBtn">
+            <table style="height: 100%;">
+               <tr class="sty3">
+                    <td style="font-size: 0.7em;width: 20%;border-right:1px solid #e1e1e1;display:table-cell;" class="collect"><i class='icon-heart-empty'></i></td>
+                    <td style="font-size: 0.7em;width: 20%;border-right:1px solid #e1e1e1;display:table-cell;" class="addcart" data-toggle="modal" data-target="#product">加入购物车</td>                    
+                    <td style="font-size: 0.7em;width: 20%;border-right:1px solid #e1e1e1;display:table-cell;" class="buy" data-toggle="modal" data-target="#product">立即购买</td>                    
+                    
+                    <td style="width: 20%;display:none;" class="activeBtn" ><span id="activeMemo"></span>&nbsp;&nbsp;<span id="hh" style="margin: 0 2px;">00</span>:<span id="mm" style="margin: 0 2px;">00</span>:<span id="ss" style="margin: 0 2px;">00</span></td>                                                            
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="product" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: 20px 20px -40px 0; width:40px;height:40px;"><span aria-hidden="true">&times;</span></button>
+                    <div class="productInfo">
+                        <table>
+                            <tr>
+                                <td style="font-weight:bold;border-bottom: 1px solid #ccc;padding: 12px 3px;"><span id="productName">商品</span></td>
+                            </tr>
+                            <tr>
+                                <td style="border-bottom: 1px solid #ccc;padding: 12px 3px;">货号&nbsp;&nbsp;<span id="productCode">货号</span></td>
+                            </tr>
+                            <tr>
+                                <td style="border-bottom: 1px solid #ccc;padding: 12px 3px;">价格&nbsp;&nbsp;<span id="productPrice">价格</span>元</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 3px;">商品选择</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="oper">
+                        <div>颜色</div>
+                        <div  class="oper_val2">
+                             <table>
+                                <tr class="oper_val">
+                                </tr>
+                                <tr class="oper_val1">
+                                
+                                </tr>
+                                </table>
+                        </div>
+                         
+                        <div>尺码</div>
+                        <div>
+                            <table>
+                                <tr class="sizeRow">
+                                </tr>
+                                <tr class="detRow">
+                                
+                                </tr>
+                                </table>
+                        </div>
+                        <div style="float: left;margin-top: 25px;margin-right: 10px;">数量</div>
+                        <div class="input-group" style="width: 50%;margin-top: 20px;background-color: #eee;border-radius: 17px;">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="oMin" style="width: 34px;height:34px;border-radius: 50%;padding: 0;line-height: 34px;font-weight: normal;background-image: none;margin-right: 0;"><i class="icon-minus"></i></button>
+                            </span>
+                            <input id="qty" style="text-align: center;border: none;" type="text" pattern="[0-9]*" class="form-control" value="1" readonly="true">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="oPlus" style="width: 34px;height:34px;border-radius: 50%;padding: 0;line-height: 34px;font-weight: normal;background-image: none;margin-left: 0;"><i class="icon-plus"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <div class="payBtn" style="position:relative;">
+                        立即购买
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div> 
+    <div id="pInfo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: 20px 20px -40px 0; width:40px;height:40px;"><span aria-hidden="true">&times;</span></button>
+                    <div class="productInfo">
+                        <table>
+                            <tr>
+                                <td style="font-weight:bold;border-bottom: 1px solid #ccc;padding: 12px 0;"><span id="pName" style="font-size: 16px;">产品信息</span></td>
+                            </tr>
+                            <tr>
+                                <td style="border-bottom: 1px solid #ccc;padding: 12px 3px;">货号&nbsp;&nbsp;<span id="pCode">货号</span></td>
+                            </tr>
+                            <tr>
+                                <td style="border-bottom: 1px solid #ccc;padding: 12px 3px;">价格&nbsp;&nbsp;<span id="pPrice">价格</span>元</td>
+                            </tr>
+                            <tr>
+                                <td style="border-bottom: 1px solid #ccc;padding: 12px 3px;">
+                                    <span>服装尺寸</span><span style="float: right;"><i class="icon-angle-up icon-large"></i></span>
+                                    <div class="pDetail" style="padding: 0 5%;">
+                                        <table class="dataTable" id="clothSize" style="font-size: 13px;">
+                                            <tr>
+                                                <td>尺寸</td>
+                                                <td>01</td>
+                                                <td>02</td>
+                                                <td>03</td>
+                                                <td>04</td>
+                                                <td>05</td>
+                                            </tr>
+                                            
+                                        </table>
+                                        <div style="margin: 3px 10px 0 10px;font-size: 12px;">注:以上尺寸为实物实际测量;因测量方式不同会有1-2cm误差,相关数据仅作参考,以收到实物为准。</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-bottom: 1px solid #ccc;padding: 12px 3px;">
+                                    <span>成分与保养</span><span style="float: right;"><i class="icon-angle-down icon-large"></i></span>
+                                    <div class="pDetail" style="display:none;">
+                                        <div class="info">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-bottom: 1px solid #ccc;padding: 12px 3px;">
+                                    <span>寄送与退货</span><span style="float: right;"><i class="icon-angle-down icon-large"></i></span>
+                                    <div class="pDetail" style="padding: 0 5%;display:none;font-size: 13px;">
+                                        <div style="font-weight: bold;">配送方式:快递</div>
+                                        <div>1、江南布衣微信商城由不同实体门店进行配送，故不接受指定快递</div>
+                                        <div>2、选购商品可能会由不同实体门店发出，多件商品购买时可能会进行订单拆分，还望理解</div>
+                                        <div>3、配送方式为中国大陆地区全境及港澳台地区配送，</div>
+                                        <div>配送时间:正常情况下江南布衣会安排付款后48小时内发货。</div>
+                                        <div>(如遇法定节假日，发货时间另行通知)</div>
+                                        <div>*所有商品采用江南布衣指定包装箱和封箱带统一包装</div>
+                                        <div></div>
+                                        <div>您可以在已完成的订单中提交需退货的商品。</div>
+                                        <a href="wxothers.aspx?val=comp">更多关于退货条款的信息</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div> 
+        <form method="post" action="./wx_detail.aspx?hash=jnby&amp;goodsid=577949&amp;code=041bDU5N0Vmyhh2rCW3N0l6U5N0bDU5K&amp;state=STATE" id="ctl00">
+<div class="aspNetHidden">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTUxMTcwNzgxMGRk/NXykt7nLt0S3IrocQ61OTieX93W90p0ysxtvCHaedc=" />
+</div>
+
+
+<script type="text/javascript">
+//<![CDATA[
+in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = null;jsapi_appid = 'wx78d38a41cc2b7b64';jsapi_timestamp = '1465093070';jsapi_noncestr = 'IhdNvNPJhBkbDZp0';jsapi_signature = '38ee029caeae4a320337bb04ccbef9d9df8b6116';jsapi_title = 'JNBY \u4EA7\u54C1\u8BE6\u60C5';jsapi_imgurl = 'http://wx.jnby.com/WXDATA/JNBY/image/1/6D428-1.jpg';jsapi_link = 'http://wx.jnby.com/apptest/wx_detail.aspx?hash=jnby&goodsid=577949&code=041bDU5N0Vmyhh2rCW3N0l6U5N0bDU5K&state=STATE';jsapi_desc = 'T\u6064(\u77ED\u8896) \uFFE5360';jsapi_type = 'normal';jsapi_activityid = null;openId = null;Hash = 'jnby';//]]>
+</script>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="71CFECC2" />
+</div>
+        <script src="js/wx/wxbase.js" type="text/javascript"></script>
+        <script src="js/wx/jsapi.js" type="text/javascript"></script>
+       	<script type="text/javascript" src="js/wx/wxdetail.js"></script>
+       <!-- <script type="text/javascript">
+                 var jsUrl = "js/wx/wxdetail.js";
+                 AppendJs(jsUrl);
+        </script> 
+      -->
+
+<script type="text/javascript">
+//<![CDATA[
+in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = null;jsapi_appid = 'wx78d38a41cc2b7b64';jsapi_timestamp = '1465093070';jsapi_noncestr = 'IhdNvNPJhBkbDZp0';jsapi_signature = '38ee029caeae4a320337bb04ccbef9d9df8b6116';jsapi_title = 'JNBY \u4EA7\u54C1\u8BE6\u60C5';jsapi_imgurl = 'http://wx.jnby.com/WXDATA/JNBY/image/1/6D428-1.jpg';jsapi_link = 'http://wx.jnby.com/apptest/wx_detail.aspx?hash=jnby&goodsid=577949&code=041bDU5N0Vmyhh2rCW3N0l6U5N0bDU5K&state=STATE';jsapi_desc = 'T\u6064(\u77ED\u8896) \uFFE5360';jsapi_type = 'normal';jsapi_activityid = null;openId = null;Hash = 'jnby';in_ret = {
+  "goodsid" : 577949,
+  "code" : "5G461069",
+  "goodsname" : "T\u6064(\u77ED\u8896)",
+  "price" : 360,
+  "ori_price" : 360,
+  "unit" : "",
+  "typeid" : 1,
+  "status" : "Y",
+  "islife" : "Y",
+  "buy_limit" : 0,
+  "img_list" : [{
+    "imgurl" : "./WXDATA/JNBY/image/gooddetail/6D428-1.jpg"
+  }, {
+    "imgurl" : "./WXDATA/JNBY/image/gooddetail/6D428-2.jpg"
+  }, {
+    "imgurl" : "./WXDATA/JNBY/image/gooddetail/6D428-3.jpg"
+  }, {
+    "imgurl" : "./WXDATA/JNBY/image/gooddetail/6D428-4.jpg"
+  }, {
+    "imgurl" : "./WXDATA/JNBY/image/gooddetail/5G461069435-5.jpg"
+  }, {
+    "imgurl" : "./WXDATA/JNBY/image/gooddetail/5G461069099-6.jpg"
+  }, {
+    "imgurl" : "./WXDATA/JNBY/image/gooddetail/5G461069260-7.jpg"
+  }, {
+    "imgurl" : "./WXDATA/JNBY/image/gooddetail/5G461069415-8.jpg"
+  }, {
+    "imgurl" : "./WXDATA/JNBY/image/gooddetail/5G461069435-9.jpg"
+  }],
+  "color_list" : [{
+    "imgurl" : "./WXDATA/JNBY/image/gooddetail/5G461069260-7_1.jpg",
+    "colorval" : "260",
+    "colorname" : "\u8089\u5361\u5176"
+  }, {
+    "imgurl" : "./WXDATA/JNBY/image/gooddetail/5G461069435-5_1.jpg",
+    "colorval" : "435",
+    "colorname" : "\u5B9D\u84DD"
+  }, {
+    "imgurl" : "./WXDATA/JNBY/image/gooddetail/5G461069415-8_1.jpg",
+    "colorval" : "415",
+    "colorname" : "\u85CF\u9752"
+  }, {
+    "imgurl" : "./WXDATA/JNBY/image/gooddetail/5G461069099-6_1.jpg",
+    "colorval" : "099",
+    "colorname" : "\u9ED1\u8272\u7CFB\u82B1\u578B"
+  }],
+  "size_list" : [{
+    "size" : "XS",
+    "sizeval" : "01",
+    "sizedet" : "150/76A"
+  }, {
+    "size" : "S",
+    "sizeval" : "02",
+    "sizedet" : "155/80A"
+  }, {
+    "size" : "M",
+    "sizeval" : "03",
+    "sizedet" : "160/84A"
+  }, {
+    "size" : "L",
+    "sizeval" : "04",
+    "sizedet" : "165/88A"
+  }, {
+    "size" : "XL",
+    "sizeval" : "05",
+    "sizedet" : "170/92A"
+  }],
+  "coll_list" : [],
+  "sku_count" : 20,
+  "sku_list" : [{
+    "skuid" : 1153509,
+    "kcsl" : 0,
+    "colorval" : "415",
+    "sizeval" : "03"
+  }, {
+    "skuid" : 1153790,
+    "kcsl" : 145,
+    "colorval" : "435",
+    "sizeval" : "03"
+  }, {
+    "skuid" : 1153806,
+    "kcsl" : 23,
+    "colorval" : "435",
+    "sizeval" : "01"
+  }, {
+    "skuid" : 1153457,
+    "kcsl" : 51,
+    "colorval" : "415",
+    "sizeval" : "01"
+  }, {
+    "skuid" : 1153461,
+    "kcsl" : 302,
+    "colorval" : "415",
+    "sizeval" : "02"
+  }, {
+    "skuid" : 1153807,
+    "kcsl" : 141,
+    "colorval" : "435",
+    "sizeval" : "02"
+  }, {
+    "skuid" : 1153523,
+    "kcsl" : 148,
+    "colorval" : "415",
+    "sizeval" : "04"
+  }, {
+    "skuid" : 1153786,
+    "kcsl" : 91,
+    "colorval" : "435",
+    "sizeval" : "04"
+  }, {
+    "skuid" : 1153440,
+    "kcsl" : 34,
+    "colorval" : "415",
+    "sizeval" : "05"
+  }, {
+    "skuid" : 1153808,
+    "kcsl" : 22,
+    "colorval" : "435",
+    "sizeval" : "05"
+  }, {
+    "skuid" : 1152061,
+    "kcsl" : 17,
+    "colorval" : "260",
+    "sizeval" : "01"
+  }, {
+    "skuid" : 1152050,
+    "kcsl" : 146,
+    "colorval" : "260",
+    "sizeval" : "03"
+  }, {
+    "skuid" : 1152049,
+    "kcsl" : 111,
+    "colorval" : "260",
+    "sizeval" : "02"
+  }, {
+    "skuid" : 1152051,
+    "kcsl" : 90,
+    "colorval" : "260",
+    "sizeval" : "04"
+  }, {
+    "skuid" : 1152057,
+    "kcsl" : 15,
+    "colorval" : "260",
+    "sizeval" : "05"
+  }, {
+    "skuid" : 1150114,
+    "kcsl" : 2,
+    "colorval" : "099",
+    "sizeval" : "01"
+  }, {
+    "skuid" : 1150115,
+    "kcsl" : 27,
+    "colorval" : "099",
+    "sizeval" : "03"
+  }, {
+    "skuid" : 1150099,
+    "kcsl" : 23,
+    "colorval" : "099",
+    "sizeval" : "02"
+  }, {
+    "skuid" : 1150120,
+    "kcsl" : 55,
+    "colorval" : "099",
+    "sizeval" : "04"
+  }, {
+    "skuid" : 1150111,
+    "kcsl" : 14,
+    "colorval" : "099",
+    "sizeval" : "05"
+  }]
+};in_historypage = '';in_historyurl = '';//]]>
+</script>
+</form>
+ </body>
+ </html>

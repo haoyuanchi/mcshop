@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>MO&Co. e-shop</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no,width=320,target-densitydpi=142">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+<link href="../resources/mobile/css/common.css"  rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../resources/mobile/js/jquery.min.js" ></script>
+<script type="text/javascript" src="../resources/mobile/js/common.js" ></script>
+<script type="text/javascript" src="../resources/shop/js/jquery.slides.min.js" ></script>
+<script type="text/javascript">
+$().ready(function(){
+	$.ajax({
+		url:"http://localhost/PhalApi/Public/demo/?service=MobileIndex.GetCategoryInfo" ,
+		type:"get",
+		dataType: "json",
+		cache: false,
+		async: false,
+		error: function (data) {
+			var data={
+    "topCategory": {
+        "tag_id": "5",
+        "img": "http://images.mo-co.com/upload/image/201606/7d69dfd0-9c49-4f8f-8622-bdd6b899e44e.png"
+    },
+    "midCategory_list": [
+        {
+            "tag_id": 6,
+            "img": "http://images.mo-co.com/upload/image/201604/3a1b5143-289c-4c6f-8c13-de766269722e.jpg"
+        },
+        {
+            "tag_id": 6,
+            "img": "http://images.mo-co.com/upload/image/201604/885f71dc-ab03-40e8-a877-660b2cbd6a59.jpg"
+        },
+        {
+            "tag_id": 6,
+            "img": "http://images.mo-co.com/upload/image/201604/9904616c-008f-40d4-b75b-b910cbf7b36f.jpg"
+        }
+    ],
+    "brandCategory_list": [
+        {
+            "brand_id": 18,
+            "brand_name": "MO&Co",
+            "img": "http://images.mo-co.com/upload/image/201601/1f848522-2e43-4802-a497-9b907013da5d.jpg"
+        },
+        {
+            "brand_id": 19,
+            "brand_name": "Editon10",
+            "img": "http://images.mo-co.com/upload/image/201601/30e055d6-aa65-4f97-8d28-5df48c0dfa8f.jpg"
+        }
+    ]
+};
+			if(data.topCategory){
+				var topHtml="";
+				topHtml="<div><a href='list.html?tagIds="+data.topCategory.tag_id+"'><img src='"+
+							data.topCategory.img+"' class='index_category'/></a></div>";
+			}
+			$(".trendspotImage").before(topHtml);
+			var midHtml="";
+			for(var i=0;i<data.midCategory_list.length;i++){
+				midHtml+="<a href='list.html?tagIds='"+data.midCategory_list[i].tag_id+"'><img src='"+
+					data.midCategory_list[i].img+"' class='trendspot index_category'/></a>";
+			}
+			$(".trendspotImage").html(midHtml);
+			$('.trendspotImage').slidesjs({
+				width: 640,
+				height: 500,
+				play: {
+					active: true,
+					auto: true,
+					interval: 4000,
+					swap: true
+				},
+				pagination:{active:false,effect:"slide"}
+			});
+			var botomHtml="";
+			for(var i=0;i<data.brandCategory_list.length;i++){
+				botomHtml+="<div><a href='list.html?brandId="+data.brandCategory_list[i].brand_id+"'><img src='"+
+					data.brandCategory_list[i].img+"' class='trendspot index_category' alt='"+data.brandCategory_list[i].brand_name +"'/></a></div>";
+			}
+			$(".trendspotImage").after(botomHtml);
+		}
+
+	});
+});
+
+
+</script>
+<style>
+a.slidesjs-next, a.slidesjs-previous, a.slidesjs-play, a.slidesjs-stop { display:none;  }
+</style>
+</head>
+<body>
+<div class="fullscreen">
+<div class="trendspotImage" >
+
+</div>
+
+</div>
+</body>
+</html>

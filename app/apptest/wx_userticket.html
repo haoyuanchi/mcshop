@@ -1,0 +1,168 @@
+
+
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /><meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /><meta name="format-detection" content="telephone=no" /><title>
+	
+代金券
+
+</title><link href="Scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" /><link href="Scripts/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" /><link href="Demo/font-awesome/font-awesome.min.css" rel="stylesheet" /><link href="Demo/Resources/Mall.css" rel="stylesheet" /><link href="Demo/js/IosOverlay/css/iosOverlay.css" rel="stylesheet" /><link href="js/mobiscroll.trial/css/mobiscroll.custom-2.16.1.min.css" rel="stylesheet" type="text/css" /></head>
+<body>
+<script src="js/WebResource.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5vT2TJiFj_bVa0lbE4';jsapi_appid = 'wx78d38a41cc2b7b64';jsapi_timestamp = '1465192132';jsapi_noncestr = 'uDFGcubQxdMPcLJk';jsapi_signature = '0cde22c2b278a5e1055fcd7f11c62c548c8a1769';jsapi_title = 'JNBY';jsapi_imgurl = 'http://wx.jnby.com/wxdata/public/brand/3-jnby.jpg';jsapi_link = 'http://wx.jnby.com/apptest/wx_portal.html?hash=jnby';jsapi_desc = '\u5FAE\u4FE1\u5546\u57CE';jsapi_type = 'default';jsapi_activityid = null;openId = 'oVFOhjjd8F5vT2TJiFj_bVa0lbE4';Hash = 'jnby';//]]>
+</script>
+
+<script src="js/MicrosoftAjax.js" type="text/javascript"></script>
+<script src="js/MicrosoftAjaxWebForms.js" type="text/javascript"></script>
+<script src="Scripts/jquery.1.11.min.js" type="text/javascript"></script>
+<script src="Scripts/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="js/jweixin-1.0.0.js" type="text/javascript"></script>
+<script src="js/cookiehelper.js" type="text/javascript"></script>
+<script src="Scripts/Request.js" type="text/javascript"></script>
+<script src="Demo/js/IosOverlay/js/spin.min.js" type="text/javascript"></script>
+<script src="Demo/js/IosOverlay/js/iosOverlay.js" type="text/javascript"></script>
+<script src="Demo/js/MatrixGlobal.js" type="text/javascript"></script>
+<script src="js/mobiscroll.trial/js/mobiscroll.custom-2.16.1.min.js" type="text/javascript"></script>
+<script src="js/wx/wxbase.js" type="text/javascript"></script>
+<script src="js/wx/menu.js" type="text/javascript"></script>
+<script src="js/wx/jsapi.js" type="text/javascript"></script>
+
+
+    <div id="maincontent" style="color:#fff">
+		<div id="main" style="color: #676767;">
+			<div class="title">代金券（待修改仿我的订单）</div>
+			<div id="mainArea">
+				<table id="orderTab">
+					<tr>
+						<td class='AllOrder'>全部</td>
+						<td class='DFK'>未使用</td>
+						<td class='DFH'>已使用</td>
+						<td class='YFH'>已过期</td>
+
+					</tr>
+				</table>
+				<div class="myOrderList">
+				
+				</div>
+				<div class="mybojunOrderList" ></div>
+			</div>
+		</div> 
+		
+        <div role="tabpanel">
+			<ul class="nav nav-tabs" role="tablist" style="display:none">
+				 <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab"
+					data-toggle="tab">main</a></li>
+				<li role="presentation"><a href="#addressList" aria-controls="addressList" role="tab"
+					data-toggle="tab">addressList</a></li>
+				<li role="presentation"><a href="#power3" aria-controls="power3" role="tab"
+					data-toggle="tab">"power3</a></li>
+			</ul>
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane fade in active" id="main" style="background-color: #141414">
+					 <div id="ticket_list">
+
+					 </div>
+					 <div style="text-align:center">
+						<div style="padding-top:35px;padding-bottom:35px">
+							<input class="btn btn-default btn-submit"   id="use_rules" type="button" value="使用规则">
+							<input class="btn btn-default btn-submit"  style="margin-left: 45px;" id="suit_store" type="button" value="适用店铺">
+						</div>
+					 </div>
+				</div>
+				<div role="tabpanel" class="tab-pane fade" id="addressList" tabindex="-1" style="background-color: #141414">
+					<div class="modal-dialog">
+						<div class="modal-content" style="background-color: #141414">
+							<div class="modal-header" style="background-color: #262626;border-bottom: 1px solid #262626">
+								<button type="button" class="close" id="butclose1" style="    color: #E8E4E4; text-shadow: 0 1px 0 #fff; filter: alpha(opacity=100); opacity:1;>
+									<span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title" id="myModalLabel">
+									&nbsp;</h4>
+							</div>
+							<div class="modal-body" style="background: none;" id="selecr_address">
+								<table >
+									<tr>
+										<td style="text-align:left">
+											<p style="margin-bottom:0px;margin-top:25px;">详询全国客服热线800-830-5798或垂询店员。</p>
+											<p>EPO Fashion Co.Ltd公司在法律允许的范围内对活动内容拥有调整权。</p>
+											<p>以下为VIP积分抵用券适用店铺</p>
+										</td>
+									</tr>
+			
+									<tr>
+										<td style="padding:10px">
+											<select  id="province" class="form-control" style="height: 35px;margin-top: 5px;border: none;font-size: 1.1em;">
+
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td style="padding:10px">
+											<select id="city"  class="form-control" style="height: 35px;margin-top: 5px;border: none;font-size: 1.1em;">
+
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<ul id="store" style=" list-style-type: none">
+
+											</ul>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div role="tabpanel" class="tab-pane fade" id="power3" tabindex="-1" style="background-color: #141414">
+					<div class="modal-dialog">
+						<div class="modal-content" style="background-color: #141414">
+							<div class="modal-header" style="background-color: #262626;border-bottom: 1px solid #262626">
+								<button type="button" class="close" id="butclose2" style="    color: #E8E4E4; text-shadow: 0 1px 0 #fff; filter: alpha(opacity=100); opacity:1;>
+									<span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title" id="myModalLabel1">
+									&nbsp;</h4>
+							</div>
+							<div class="modal-body" style="background: none;" id="selecr_address">
+								<p style="margin-top:10px"> 开卡礼券使用规则：</p>
+								<p> 1).1次性于开卡店铺适用;</p>
+								<p> 2).1张礼券仅对应购买1件正价商品，不可兑换现金，不设找零;</p>
+								<p> 3).可于VIP折扣同时使用。</p>
+								<p>新开卡现金券自成功获取日起90个自然日内不限时与开卡店铺使用，逾期失效。</p>
+								<p>详询全国客服热线800-830-5798或垂询店员。</p>
+								<p >EPO Fashion Co.Ltd公司在法律允许的范围内对活动内容拥有调整权。</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+   
+        <script src="Scripts/jquery-barcode.js" type="text/javascript"></script>
+		<script src="js/wx/wxuserticket.js" type="text/javascript"></script>
+    </div>
+    <script type="text/javascript">
+        $("#menus").click(function () {
+            $("#menu").modal("show");
+           // $("#maincontent").hide();
+        })
+
+        $(".icon-angle-down").click(function () {
+            //$("#maincontent").show();
+            $("#menu").modal("hide");
+        })
+    </script>
+    
+
+<script type="text/javascript">
+//<![CDATA[
+in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5vT2TJiFj_bVa0lbE4';jsapi_appid = 'wx78d38a41cc2b7b64';jsapi_timestamp = '1465192132';jsapi_noncestr = 'uDFGcubQxdMPcLJk';jsapi_signature = '0cde22c2b278a5e1055fcd7f11c62c548c8a1769';jsapi_title = 'JNBY';jsapi_imgurl = 'http://wx.jnby.com/wxdata/public/brand/3-jnby.jpg';jsapi_link = 'http://wx.jnby.com/apptest/wx_portal.aspx?hash=jnby';jsapi_desc = '\u5FAE\u4FE1\u5546\u57CE';jsapi_type = 'default';jsapi_activityid = null;openId = 'oVFOhjjd8F5vT2TJiFj_bVa0lbE4';Hash = 'jnby';//]]>
+</script>
+</form>
+</body>
+</html>
