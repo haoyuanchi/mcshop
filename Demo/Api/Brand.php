@@ -13,12 +13,6 @@ class Api_Brand extends PhalApi_Api {
             'getList' => array(
 
             ),
-            'add' => array(
-                'goodId' => array('name' => 'good_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '商品id'),
-            ),
-            'del' => array(
-                'collectId' => array('name' => 'collect_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '收藏夹id'),
-            ),
         );
     }
 

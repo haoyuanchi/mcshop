@@ -22,7 +22,6 @@ class Domain_User {
         if ($isFirstWxChat) {
             // 获取用户信息
 
-
             $userId = Domain_User_User_Generator::createUserForWeixin($this->openId, $this->nickname, $this->avatar);
             if ($userId <= 0) {
                 //异常1：用户创建失败
@@ -42,9 +41,6 @@ class Domain_User {
         }
 
     }
-
-
-
 
 
     public function getBaseInfo($userId) {
