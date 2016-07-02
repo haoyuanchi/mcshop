@@ -32,9 +32,6 @@ DI()->notorm = new PhalApi_DB_NotORM(DI()->config->get('dbs'), !empty($_GET['__s
 //翻译语言包设定
 SL('zh_cn');
 
-/*//用户登录模块
-DI()->userLite = new User_Lite();*/
-
 /** ---------------- 定制注册 可选服务组件 ---------------- **/
 
 DI()->curl = new PhalApi_CUrl();
