@@ -11,6 +11,16 @@ class Model_Good extends PhalApi_Model_NotORM {
         return 'good';
     }
 
+    public function getAllListByBrand($brandId){
+        $sql = 'select t1.id as good_id, t2.id as brand_id, t1.category_id, t1.code, t1.price_origin, t1.price_point, t1.image, t1.name, t1.price, t2.cover'
+            .' from mc_good as t1 left join mc_brand t2 on t1.brand_id=t2.id'
+            .' where t1.brand_id=:brand_id';
+
+        $params = array(':brand_id' => $brandId);
+        $rows = $this->getORM()->queryAll($sql, $params);
+        return $rows;
+    }
+
     public function getListByBrand($brandId, $start, $num, $sort){
         $sql = 'select t1.id as good_id, t2.id as brand_id, t1.category_id, t1.code, t1.price_origin, t1.price_point, t1.image, t1.name, t1.price, t2.cover'
             .' from mc_good as t1 left join mc_brand t2 on t1.brand_id=t2.id where t1.brand_id=:brand_id order by sort limit :start, :num';

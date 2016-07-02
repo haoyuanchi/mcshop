@@ -21,7 +21,12 @@ class Api_Brand extends PhalApi_Api {
      * 获取品牌列表
      */
     public function getList() {
+        $ret['code'] = 0;
 
+        $model = new Model_Brand();
+        $ret['brand_list'] = $model->getList();
+
+        $ret['msg'] = '';
+        return $ret;
     }
-
 }

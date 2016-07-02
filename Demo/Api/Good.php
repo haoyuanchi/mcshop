@@ -66,7 +66,7 @@ class Api_Good extends PhalApi_Api {
         $start = $this->page * $page_size;
         $list = $model->getListByBrand($this->brandId, $start, $page_size, $this->sort);
 
-        $count = $model->getCount($this->brandId);
+        $count = $model->getCountByBrand($this->brandId);
         $tol_page = ceil($count / $page_size);
 
         $ret['brand_img'] = $list[0]['cover'];
@@ -99,7 +99,7 @@ class Api_Good extends PhalApi_Api {
         $start = $this->page * $page_size;
         $list = $model->getListByCategory($this->brandId, $this->categoryId, $start, $page_size, $this->sort);
 
-        $count = $model->getCatyCount($this->brandId, $this->categoryId);
+        $count = $model->getCountByCategory($this->brandId, $this->categoryId);
         $tol_page = ceil($count / $page_size);
 
         $ret['brand_img'] = $list[0]['cover'];

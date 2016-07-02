@@ -11,16 +11,19 @@ class Api_Cart extends PhalApi_Api {
     public function getRules() {
         return array(
             'getList' => array(
-
+                'userId' => array('name' => 'user_id', 'type' => 'int', 'require' => true, 'desc' => '用户id'),
             ),
             'add' => array(
+                'userId' => array('name' => 'user_id', 'type' => 'int', 'require' => true, 'desc' => '用户id'),
                 'barcodeId' => array('name' => 'id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '商品条形码ID--spec_id(barcode_id)'),
                 'quantity' => array('name' => 'quantity', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '购买数量'),
             ),
             'del' => array(
+                'userId' => array('name' => 'user_id', 'type' => 'int', 'require' => true, 'desc' => '用户id'),
                 'cartId' => array('name' => 'cart_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '购物车ID'),
             ),
             'update' => array(
+                'userId' => array('name' => 'user_id', 'type' => 'int', 'require' => true, 'desc' => '用户id'),
                 'cartId' => array('name' => 'cart_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '购物车ID'),
                 'goodId' => array('name' => 'good_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '商品ID'),
                 'quantity' => array('name' => 'quantity', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '购买数量'),
@@ -59,7 +62,23 @@ class Api_Cart extends PhalApi_Api {
      * @return string msg 提示信息
      */
     public function getList() {
+        $ret['code'] = 0;
 
+        $model = new Model_Cart();
+        $cartList = $model->getListByUserId($this->userId);
+
+        $barcodeGood = new Model_GoodBarcode();
+        foreach($cartList as $key => $cart){
+            $barcode = $barcodeGood->getDetailByBarcodeId($cart['barcode_id']);
+            $ret['list'][$key] = array_merge($cart, $barcode);
+            $tol_quantity = $tol_quantity + $cart['quantity'];
+            $tol_price_origin = $tol_price_origin + $barcode['price_origin'];
+            $tol_price = $tol_price + $barcode['price_origin'];
+        }
+
+        $ret['code'] = 0;
+
+        return $ret;
     }
 
 
@@ -71,7 +90,27 @@ class Api_Cart extends PhalApi_Api {
 	 * @return string message.content  成功or失败信息  "您选购的商品已加入购物车<br />购物车共有<span>xxx</span>件商品，合计:<span>￥xxxx</span>" 或者 xxx导致无法添加到购物车
      */
     public function add() {
+        $ret['code'] = 0;
 
+        $cart['member_id'] = $this->userId;
+        $cart['barcode_id'] = $this->barcodeId;
+        $cart['quantity'] = $this->quantity;
+        $cart['create_date'] = date('Y-m-d H:i:s');
+        $cart['modify_date'] = date('Y-m-d H:i:s');
+
+        $model = new Model_Cart();
+        $cartId = $model->insert($cart);
+
+        if($cartId > 0){
+            $ret['type'] = 'success';
+        }
+
+        // 获取购物车的商品总数和价格总数
+
+
+
+
+        return $ret;
 
     }
 

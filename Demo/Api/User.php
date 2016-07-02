@@ -30,9 +30,7 @@ class Api_User extends PhalApi_Api {
             ),
 			'getGift' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
-				'detail' => array('name' => 'detail', 'type' => 'string', 'require' => true, 'desc' => '具体地址'),
-				'cardId' => array('name' => 'card_id', 'type' => 'string', 'require' => true, 'desc' => '卡号'),
-				'tel' => array('name' => 'tel', 'type' => 'string', 'require' => true, 'desc' => '电话'),
+				'address' => array('name' => 'address', 'type' => 'string', 'require' => true, 'desc' => '全部地址'),
             ),
         );
     }
@@ -103,24 +101,43 @@ class Api_User extends PhalApi_Api {
         $userInfo['birth'] =date("Y-m-d", strtotime($this->birY.'-'.$this->birM.'-'.$this.birD));
 
         $userInfo['mobile'] = $this->tel;
-        $userInfo['pro'] = $this->province;
-        $userInfo['job'] = $this->province;
-        $userInfo['hobby'] = $this->province;
+        //$userInfo['pro'] = $this->pro;    // 行业
+        $userInfo['occupation'] = $this->job;
+        $userInfo['hobby'] = $this->hobby;
 
-        
+        $userModel = new Model_User();
 
+        $ret['code'] = $userModel->update($this->userId, $userInfo);
+
+        return $ret;
     }
 	
 	/**
      * 获取领取礼物权限 
      * @desc 获取领取礼物权限 
      * @return int code 操作码，
-	 * @return int Authority 相关权限，
+	 * @return int is_authority 是否能够领取礼物
+     * @return int rank 会员等级
+     * @return string addr 地址
+     * @return string vip_code VIP会员号
+     * @return string vip_number VIP卡号
+     * @return string tel 会员手机号
      * @return string msg 提示信息
      */
     public function getGiftAuthority() {
-        
+        // 获取生日为本月的所有用户， 查看用户是否在该用户中
+        $currentMonth = date('m',time());
+        $userModel = new Model_User();
+        $ret['is_authority'] = $userModel->isGiftAuthority($this->userId, $currentMonth);
 
+        $userInfo = $userModel->getByUserIdWithCache($this->userId);
+        $ret['rank'] = $userInfo['member_rank'];
+        $ret['addr'] = $userInfo['address'];
+        $ret['vip_code'] = $userInfo['vip_code'];
+        $ret['vip_number'] = $userInfo['vip_number'];
+        $ret['tel'] = $userInfo['mobile'];
+
+        return $ret;
     }
 	
 	/**
@@ -130,7 +147,14 @@ class Api_User extends PhalApi_Api {
      * @return string msg 提示信息
      */
     public function getGift() {
-        
+        // 输出用户级别
+        $userModel = new Model_User();
+        $userInfo['is_get_gift'] = 1;
+        $userInfo['address'] = $this->address;
+        $userModel->update($this->userId, $userInfo);
 
+        $ret['code'] = 0;
+
+        return $ret;
     }
 }

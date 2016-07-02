@@ -35,4 +35,25 @@ class Model_User extends PhalApi_Model_NotORM {
         return $rs;
     }
 
+    public function isGiftAuthority($userId, $mouth){
+        $num = $this->getORM()
+            ->where('id', $userId)->where('month(birth)', $mouth)
+            ->count('id');
+        return $num == 0 ? true : false;
+    }
+
+    public function getLevel($userId){
+        return $this->getORM()
+            ->select('member_rank')
+            ->where('id', $userId)
+            ->fetch();
+    }
+
+    public function getAddress($userId){
+        return $this->getORM()
+            ->select('address')
+            ->where('id', $userId)
+            ->fetch();
+    }
+
 }

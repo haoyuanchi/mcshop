@@ -12,8 +12,8 @@ class Model_Brand extends PhalApi_Model_NotORM {
     }
 
     public function getList(){
-        $row = $this->getORM()->select('*')->fetchAll();
-        return $row;
+        $rows = $this->getORM()->select('*')->fetchAll();
+        return $rows;
     }
 
     public function getByCode($code){
