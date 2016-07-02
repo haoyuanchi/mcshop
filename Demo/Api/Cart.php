@@ -68,6 +68,9 @@ class Api_Cart extends PhalApi_Api {
         $cartList = $model->getListByUserId($this->userId);
 
         $barcodeGood = new Model_GoodBarcode();
+        $tol_quantity = 0;
+        $tol_price_origin = 0.0;
+        $tol_price = 0.0;
         foreach($cartList as $key => $cart){
             $barcode = $barcodeGood->getDetailByBarcodeId($cart['barcode_id']);
             $ret['list'][$key] = array_merge($cart, $barcode);
@@ -75,6 +78,11 @@ class Api_Cart extends PhalApi_Api {
             $tol_price_origin = $tol_price_origin + $barcode['price_origin'];
             $tol_price = $tol_price + $barcode['price_origin'];
         }
+
+        $ret['tol_number'] = $tol_quantity;
+        $ret['tol_price'] = $tol_price_origin;
+        $ret['tol_actualPrice'] = $tol_price;
+        $ret['tol_save'] = $ret['tol_price'] - $ret['tol_actualPrice'];
 
         $ret['code'] = 0;
 
