@@ -48,7 +48,7 @@ class Api_Oauth2 extends PhalApi_Api {
             setcookie('openId',$this->openId, '86400*360'); //设置cookie长期有效
             $url="http://114.55.38.119/mcshop/app/mobile/list.html";
             echo '<!--<SCRIPT LANGUAGE="javascript">';
-            echo "location.href={$url}";
+            echo "location.href='{$url}'";
             echo "</SCRIPT>-->";
             exit;
         }
@@ -57,7 +57,7 @@ class Api_Oauth2 extends PhalApi_Api {
         setcookie('brand_id',$this->brandId, '60'); //设置cookie一个小时有效
         $url="http://114.55.38.119/mcshop/app/mobile/list.html";
         echo '<!--<SCRIPT LANGUAGE="javascript">';
-        echo "location.href={$url}";
+        echo "location.href='{$url}'";
         echo "</SCRIPT>-->";
         exit;
     }
