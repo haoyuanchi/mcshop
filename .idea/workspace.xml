@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="86c275e7-6211-4bdc-8399-0c142e0e215c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Demo/Api/Oauth2.php" afterPath="$PROJECT_DIR$/Demo/Api/Oauth2.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Demo/Domain/WxUser.php" afterPath="$PROJECT_DIR$/Demo/Domain/WxUser.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Public/init.php" afterPath="$PROJECT_DIR$/Public/init.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="PhalApi.iws" />
@@ -43,8 +41,8 @@
       <file leaf-file-name="Oauth2.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Demo/Api/Oauth2.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.3333335" vertical-offset="387" max-vertical-offset="1332">
-              <caret line="28" column="36" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="36" />
+            <state vertical-scroll-proportion="-14.0" vertical-offset="450" max-vertical-offset="1368">
+              <caret line="46" column="38" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="38" />
               <folding>
                 <element signature="e#6#86#0#PHP" expanded="true" />
               </folding>
@@ -52,21 +50,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WxUser.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="WxUser.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Demo/Model/WxUser.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.666667" vertical-offset="0" max-vertical-offset="594">
+            <state vertical-scroll-proportion="0.43564355" vertical-offset="0" max-vertical-offset="909">
               <caret line="27" column="38" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WxUser.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WxUser.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Demo/Domain/WxUser.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7128713" vertical-offset="0" max-vertical-offset="909">
-              <caret line="41" column="36" selection-start-line="41" selection-start-column="36" selection-end-line="41" selection-end-column="36" />
+            <state vertical-scroll-proportion="-6.6666665" vertical-offset="0" max-vertical-offset="846">
+              <caret line="15" column="54" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -85,9 +83,11 @@
       <file leaf-file-name="CUrl.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PhalApi/PhalApi/CUrl.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.4074073" vertical-offset="7" max-vertical-offset="1872">
-              <caret line="10" column="32" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="32" />
-              <folding />
+            <state vertical-scroll-proportion="-11.222222" vertical-offset="435" max-vertical-offset="1872">
+              <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+              <folding>
+                <element signature="e#6#599#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -132,8 +132,8 @@
         <option value="$PROJECT_DIR$/Demo/Model/WxUser.php" />
         <option value="$PROJECT_DIR$/Demo/Model/User.php" />
         <option value="$PROJECT_DIR$/Public/init.php" />
-        <option value="$PROJECT_DIR$/Demo/Api/Oauth2.php" />
         <option value="$PROJECT_DIR$/Demo/Domain/WxUser.php" />
+        <option value="$PROJECT_DIR$/Demo/Api/Oauth2.php" />
       </list>
     </option>
   </component>
@@ -493,7 +493,13 @@
       <option name="project" value="LOCAL" />
       <updated>1467450421174</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="修改会员登录接口">
+      <created>1467450594622</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1467450594622</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -976,6 +982,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/PhalApi/PhalApi/CUrl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.222222" vertical-offset="435" max-vertical-offset="1872">
+          <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+          <folding>
+            <element signature="e#6#599#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Public/init.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-15.0" vertical-offset="207" max-vertical-offset="1116">
@@ -984,36 +1000,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PhalApi/PhalApi/CUrl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.4074073" vertical-offset="7" max-vertical-offset="1872">
-          <caret line="10" column="32" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Demo/Api/Oauth2.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.3333335" vertical-offset="387" max-vertical-offset="1332">
-          <caret line="28" column="36" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="36" />
+        <state vertical-scroll-proportion="-14.0" vertical-offset="450" max-vertical-offset="1368">
+          <caret line="46" column="38" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="38" />
           <folding>
             <element signature="e#6#86#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Demo/Model/WxUser.php">
+    <entry file="file://$PROJECT_DIR$/Demo/Domain/WxUser.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.666667" vertical-offset="0" max-vertical-offset="594">
-          <caret line="27" column="38" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="38" />
+        <state vertical-scroll-proportion="-6.6666665" vertical-offset="0" max-vertical-offset="846">
+          <caret line="15" column="54" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="54" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Demo/Domain/WxUser.php">
+    <entry file="file://$PROJECT_DIR$/Demo/Model/WxUser.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7128713" vertical-offset="0" max-vertical-offset="909">
-          <caret line="41" column="36" selection-start-line="41" selection-start-column="36" selection-end-line="41" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.43564355" vertical-offset="0" max-vertical-offset="909">
+          <caret line="27" column="38" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="38" />
           <folding />
         </state>
       </provider>

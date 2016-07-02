@@ -13,7 +13,7 @@ class Api_Oauth2 extends PhalApi_Api {
     public function getRules() {
         return array(
             'authorization' => array(
-                'code' => array('name' => 'code', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '授权码'),
+                'code' => array('name' => 'code', 'type' => 'string', 'require' => true, 'desc' => '授权码'),
                 'brandId' => array('name' => 'brand_id', 'type' => 'int', 'min' => 1, 'require' => false, 'desc' => '品牌id'),
                 'openId' => array('name' => 'open_id', 'type' => 'int', 'min' => 1, 'require' => false, 'desc' => '用户openid'),
             ),
@@ -39,6 +39,8 @@ class Api_Oauth2 extends PhalApi_Api {
         $accessToken = $rs->access_token;
 
         DI()->logger->info('获取openid结果' , $rs);
+        DI()->logger->info('获取openid结果' , $openId);
+        DI()->logger->info('获取openid结果' , $accessToken);
 
         // 根据用户openid获取用户信息
         $domain = new Domain_WxUser();
