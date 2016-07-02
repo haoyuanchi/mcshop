@@ -40,8 +40,8 @@ class Api_Oauth2 extends PhalApi_Api {
         $wxUserInfo = $domain->getWxUserInfo($openId, $accessToken);
 
         // 判断是否绑定，没有绑定强制绑定
-        $model = new model_User();
-        $isFirstBind = $model->isFirstBind($this->openId);
+        $useModel = new model_User();
+        $isFirstBind = $useModel->isFirstBind($this->openId);
 
         // 跳转到绑定页面
         if($isFirstBind){
@@ -51,6 +51,9 @@ class Api_Oauth2 extends PhalApi_Api {
             exit;
         }
 
+        // 已经绑定则返回用户信息并跳转到首页
+        $userInfo = $useModel->getByOpenId($this->openId);
+        setcookie('user_info', $userInfo, '360', '/');
         // 跳转到首页
         setcookie('brand_id',$this->brandId, '360', '/'); //设置cookie 6分钟有效
         $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/list.html";

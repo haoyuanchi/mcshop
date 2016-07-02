@@ -13,9 +13,9 @@ class Api_User extends PhalApi_Api {
             ),
 			'modifyInfo' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
-				'provinceId' => array('name' => 'provice_id', 'type' => 'int', 'require' => true, 'desc' => '省id'),
-				'cityId ' => array('name' => 'city_id', 'type' => 'int', 'require' => true, 'desc' => '市id'),
-				'countyId' => array('name' => 'county_id', 'type' => 'int', 'require' => true, 'desc' => '县区id'),
+				'province' => array('name' => 'provice', 'type' => 'int', 'require' => true, 'desc' => '省'),
+				'city' => array('name' => 'city', 'type' => 'string', 'require' => true, 'desc' => '市'),
+				'area' => array('name' => 'area', 'type' => 'string', 'require' => true, 'desc' => '县区'),
 				'detail' => array('name' => 'detail', 'type' => 'string', 'require' => true, 'desc' => '具体地址'),
 				'birY' => array('name' => 'birthday_y', 'type' => 'string', 'require' => true, 'desc' => '出生年'),
 				'birM' => array('name' => 'birthday_m', 'type' => 'string', 'require' => true, 'desc' => '出生月'),
@@ -92,11 +92,21 @@ class Api_User extends PhalApi_Api {
 	/**
      * 完善基本信息 
      * @desc 完善个人资料获取积分
-     * @return int code 操作码，
-
+     * @return int code 操作码
      * @return string msg 提示信息
      */
     public function modifyInfo() {
+        $userInfo['province'] = $this->province;
+        $userInfo['city'] = $this->city;
+        $userInfo['area'] = $this->area;
+        $userInfo['address'] = $this->province.$this->city.$this->area.$this->detail;
+        $userInfo['birth'] =date("Y-m-d", strtotime($this->birY.'-'.$this->birM.'-'.$this.birD));
+
+        $userInfo['mobile'] = $this->tel;
+        $userInfo['pro'] = $this->province;
+        $userInfo['job'] = $this->province;
+        $userInfo['hobby'] = $this->province;
+
         
 
     }

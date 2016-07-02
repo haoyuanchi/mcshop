@@ -51,6 +51,7 @@ class PhalApi {
 
         // 解决跨域问题
         header('Access-Control-Allow-Origin:*');
+        header('Access-Control-Allow-Headers: X-Requested-With');
 
         try {
             $api = PhalApi_ApiFactory::generateService(); 
