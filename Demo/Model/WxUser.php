@@ -25,7 +25,7 @@ class Model_WxUser extends PhalApi_Model_NotORM {
         $key = 'wxuserinfo_' . $openId;
         $rs = DI()->cache->get($key);
         if ($rs === NULL) {
-            $rs = $this->getUserByWxOpenId($openId);
+            $rs = $this->getByWxOpenId($openId);
             DI()->cache->set($key, $rs['id'], 600);
         }
         return $rs;
