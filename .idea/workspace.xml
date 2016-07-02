@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="86c275e7-6211-4bdc-8399-0c142e0e215c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Demo/Api/Oauth2.php" afterPath="$PROJECT_DIR$/Demo/Api/Oauth2.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PhalApi/PhalApi/CUrl.php" afterPath="$PROJECT_DIR$/PhalApi/PhalApi/CUrl.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="PhalApi.iws" />
@@ -38,11 +38,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Oauth2.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Oauth2.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Demo/Api/Oauth2.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.25742576" vertical-offset="360" max-vertical-offset="1422">
-              <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="48" />
+            <state vertical-scroll-proportion="-10.666667" vertical-offset="360" max-vertical-offset="1422">
+              <caret line="36" column="48" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="48" />
               <folding>
                 <element signature="e#6#86#0#PHP" expanded="true" />
               </folding>
@@ -80,12 +80,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CUrl.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CUrl.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PhalApi/PhalApi/CUrl.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.666667" vertical-offset="0" max-vertical-offset="1872">
-              <caret line="13" column="93" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="93" />
-              <folding />
+            <state vertical-scroll-proportion="-0.00990099" vertical-offset="1017" max-vertical-offset="1926">
+              <caret line="56" column="40" selection-start-line="56" selection-start-column="40" selection-end-line="56" selection-end-column="40" />
+              <folding>
+                <element signature="e#6#599#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -132,6 +134,7 @@
         <option value="$PROJECT_DIR$/Public/init.php" />
         <option value="$PROJECT_DIR$/Demo/Domain/WxUser.php" />
         <option value="$PROJECT_DIR$/Demo/Api/Oauth2.php" />
+        <option value="$PROJECT_DIR$/PhalApi/PhalApi/CUrl.php" />
       </list>
     </option>
   </component>
@@ -503,7 +506,13 @@
       <option name="project" value="LOCAL" />
       <updated>1467451133088</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="修改会员登录接口">
+      <created>1467451313426</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1467451313426</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -978,14 +987,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Demo/Model/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.0" vertical-offset="0" max-vertical-offset="792">
-          <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Public/init.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-15.0" vertical-offset="207" max-vertical-offset="1116">
@@ -1010,20 +1011,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PhalApi/PhalApi/CUrl.php">
+    <entry file="file://$PROJECT_DIR$/Demo/Model/User.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.666667" vertical-offset="0" max-vertical-offset="1872">
-          <caret line="13" column="93" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="93" />
+        <state vertical-scroll-proportion="-12.0" vertical-offset="0" max-vertical-offset="792">
+          <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Demo/Api/Oauth2.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25742576" vertical-offset="360" max-vertical-offset="1422">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="48" />
+        <state vertical-scroll-proportion="-10.666667" vertical-offset="360" max-vertical-offset="1422">
+          <caret line="36" column="48" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="48" />
           <folding>
             <element signature="e#6#86#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PhalApi/PhalApi/CUrl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.00990099" vertical-offset="1017" max-vertical-offset="1926">
+          <caret line="56" column="40" selection-start-line="56" selection-start-column="40" selection-end-line="56" selection-end-column="40" />
+          <folding>
+            <element signature="e#6#599#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

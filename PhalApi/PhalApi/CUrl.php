@@ -51,7 +51,10 @@ class PhalApi_CUrl {
 	 * @return string 接口返回的内容，超时返回false
 	 */
     public function get($url, $timeoutMs = 3000) {
-        return $this->request($url, FALSE, $timeoutMs);
+
+        DI()->logger->info('执行链接' , $url);
+
+        return $this->request($url, null, $timeoutMs);
     } 
 
     /**
