@@ -13,7 +13,7 @@ class Domain_WxUser
         $model = new Model_WxUser();
         $isFirstWxChat = $model->isFirstWxChat($openId);
         if ($isFirstWxChat) {
-            $wxUserInfo = _getWxUserInfoByToken($openId, $accessToken);
+            $wxUserInfo = $this->_getWxUserInfoByToken($openId, $accessToken);
             // 插入数据库
             $wxUserId = $model->insert($wxUserInfo);
             if ($wxUserId <= 0) {
