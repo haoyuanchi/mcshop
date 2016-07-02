@@ -83,7 +83,7 @@ class Api_MobileIndex extends PhalApi_Api {
         foreach($brands as $key => $brand){
             $ret['brandCategory_list'][$key]['brand_id'] = $brand['id'];
             $ret['brandCategory_list'][$key]['brand_name'] = $brand['name'];
-            $ret['brandCategory_list'][$key]['img'] = $brand['image'];
+            $ret['brandCategory_list'][$key]['img'] = $brand['cover'];
         }
 
         return $ret;

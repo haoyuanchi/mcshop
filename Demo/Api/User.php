@@ -39,7 +39,7 @@ class Api_User extends PhalApi_Api {
 
     /**
      * 绑定微信用户
-     * @desc 完善个人资料获取积分
+     * @desc 绑定微信用户
      * @return int user_id
      * @return string msg 提示信息
      */
