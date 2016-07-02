@@ -49,6 +49,9 @@ class PhalApi {
     public function response() {
         $rs = DI()->response;
 
+        // 解决跨域问题
+        header('Access-Control-Allow-Origin:*');
+
         try {
             $api = PhalApi_ApiFactory::generateService(); 
 
