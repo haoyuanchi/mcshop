@@ -84,6 +84,7 @@ class PhalApi_CUrl {
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, $timeoutMs);
 
         if (!empty($data)) {
+            DI()->logger->info('执行数据' , $data);
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         }
@@ -91,6 +92,8 @@ class PhalApi_CUrl {
         $curRetryTimes = $this->retryTimes;
         do {
             $rs = curl_exec($ch);
+
+            DI()->logger->info('执行结果' , $rs);
             $curRetryTimes--;
         } while($rs === FALSE && $curRetryTimes >= 0);
 

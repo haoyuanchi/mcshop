@@ -83,8 +83,8 @@
       <file leaf-file-name="CUrl.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PhalApi/PhalApi/CUrl.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.00990099" vertical-offset="1017" max-vertical-offset="1926">
-              <caret line="56" column="40" selection-start-line="56" selection-start-column="40" selection-end-line="56" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.76237625" vertical-offset="1017" max-vertical-offset="1980">
+              <caret line="95" column="45" selection-start-line="95" selection-start-column="45" selection-end-line="95" selection-end-column="45" />
               <folding>
                 <element signature="e#6#599#0#PHP" expanded="true" />
               </folding>
@@ -512,7 +512,13 @@
       <option name="project" value="LOCAL" />
       <updated>1467451313426</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="修改会员登录接口">
+      <created>1467451546644</created>
+      <option name="number" value="00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1467451546644</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1031,8 +1037,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PhalApi/PhalApi/CUrl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.00990099" vertical-offset="1017" max-vertical-offset="1926">
-          <caret line="56" column="40" selection-start-line="56" selection-start-column="40" selection-end-line="56" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.76237625" vertical-offset="1017" max-vertical-offset="1980">
+          <caret line="95" column="45" selection-start-line="95" selection-start-column="45" selection-end-line="95" selection-end-column="45" />
           <folding>
             <element signature="e#6#599#0#PHP" expanded="true" />
           </folding>
