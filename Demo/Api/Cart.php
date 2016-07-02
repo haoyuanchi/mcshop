@@ -25,7 +25,7 @@ class Api_Cart extends PhalApi_Api {
             'update' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'require' => true, 'desc' => '用户id'),
                 'cartId' => array('name' => 'cart_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '购物车ID'),
-                'goodId' => array('name' => 'good_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '商品ID'),
+                'barcodeId' => array('name' => 'id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '商品条形码ID--spec_id(barcode_id)'),
                 'quantity' => array('name' => 'quantity', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '购买数量'),
             ),
         );
@@ -93,9 +93,11 @@ class Api_Cart extends PhalApi_Api {
     /**
      * 加入购物车
      * @desc 加入购物车
-	 * @return object message 返回信息
-	 * @return string message.type  添加是否成功 success or error两种情况
-	 * @return string message.content  成功or失败信息  "您选购的商品已加入购物车<br />购物车共有<span>xxx</span>件商品，合计:<span>￥xxxx</span>" 或者 xxx导致无法添加到购物车
+	 * @return int code 返回码
+	 * @return int total_quantity       总数量
+	 * @return int total_price_origin   总原价
+	 * @return int total_price          总价格
+	 * @return string msg 错误信息
      */
     public function add() {
         $ret['code'] = 0;
@@ -114,12 +116,16 @@ class Api_Cart extends PhalApi_Api {
         }
 
         // 获取购物车的商品总数和价格总数
+        $modelTotal = new Model_ViewCart();
+        $total = $modelTotal->getByUserId($this->userId);
 
+        $ret['total_quantity'] = $total['total_quantity'];
+        $ret['total_price_origin'] = $total['total_price_origin'];
+        $ret['total_price'] = $total['total_price'];
 
-
+        $ret['msg'] = '';
 
         return $ret;
-
     }
 
     /**
@@ -128,7 +134,16 @@ class Api_Cart extends PhalApi_Api {
      * @return int code 操作码，0表示成功
      */
     public function del() {
+        $ret['code'] = 0;
 
+        $model = new Model_Cart();
+        $cartId = $model->delete($this->cartId);
+        if($cartId <= 0){
+            $ret['code'] = 1;
+        }
+
+        $ret['msg'] = '';
+        return $ret;
     }
 
 
@@ -136,8 +151,20 @@ class Api_Cart extends PhalApi_Api {
      * 修改购物车
      * @desc 修改购物车
      * @return int code 操作码，0表示成功
+     * @return string msg 返回信息
      */
     public function update() {
+        $ret['code'] = 0;
 
+        $cart['barcode_id'] = $this->barcodeId;
+        $cart['quantity'] = $this->quantity;
+        $cart['modify_date'] = date('Y-m-d H:i:s');
+
+        $model = new Model_Cart();
+        $cartId = $model->update($this->cartId, $cart);
+
+        $ret['msg'] ='';
+
+        return $ret;
     }
 }
