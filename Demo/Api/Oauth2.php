@@ -33,6 +33,9 @@ class Api_Oauth2 extends PhalApi_Api {
 
         DI()->logger->info('获取openid地址' , $url);
 
+        $ret = $curl->get($url);
+        DI()->logger->info('获取openid结果' , $ret);
+
         // 执行url获取openid 和 Access Token
         $rs = json_decode($curl->get($url));
         $openId = $rs->openid;
