@@ -41,8 +41,8 @@
       <file leaf-file-name="Oauth2.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Demo/Api/Oauth2.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8267223" vertical-offset="666" max-vertical-offset="1242">
-              <caret line="59" column="36" selection-start-line="59" selection-start-column="36" selection-end-line="59" selection-end-column="36" />
+            <state vertical-scroll-proportion="0.75156575" vertical-offset="666" max-vertical-offset="1242">
+              <caret line="57" column="39" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
               <folding>
                 <element signature="e#6#86#0#PHP" expanded="true" />
               </folding>
@@ -591,7 +591,13 @@
       <option name="project" value="LOCAL" />
       <updated>1467455309275</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="修改会员登录接口">
+      <created>1467455384318</created>
+      <option name="number" value="00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1467455384318</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1117,8 +1123,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Demo/Api/Oauth2.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8267223" vertical-offset="666" max-vertical-offset="1242">
-          <caret line="59" column="36" selection-start-line="59" selection-start-column="36" selection-end-line="59" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.75156575" vertical-offset="666" max-vertical-offset="1242">
+          <caret line="57" column="39" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
           <folding>
             <element signature="e#6#86#0#PHP" expanded="true" />
           </folding>
