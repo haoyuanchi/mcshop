@@ -46,18 +46,18 @@ class Api_Oauth2 extends PhalApi_Api {
         // 跳转到绑定页面
         if($isFirstBind){
             setcookie('openId',$this->openId, '86400*360'); //设置cookie长期有效
-            $url="www.baidu.com";
+            $url="http://114.55.38.119/mcshop/app/mobile/list.html";
             echo '<!--<SCRIPT LANGUAGE="javascript">';
-            echo "location.href='$url'";
+            echo "location.href={$url}";
             echo "</SCRIPT>-->";
             exit;
         }
 
         // 跳转到首页
         setcookie('brand_id',$this->brandId, '60'); //设置cookie一个小时有效
-        $url="www.baidu.com";
+        $url="http://114.55.38.119/mcshop/app/mobile/list.html";
         echo '<!--<SCRIPT LANGUAGE="javascript">';
-        echo "location.href='$url'";
+        echo "location.href={$url}";
         echo "</SCRIPT>-->";
         exit;
     }
