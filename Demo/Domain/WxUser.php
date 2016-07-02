@@ -14,14 +14,14 @@ class Domain_WxUser
         $isFirstWxChat = $model->isFirstWxChat($openId);
         if ($isFirstWxChat) {
             $wxUserInfo = $this->_getWxUserInfoByToken($openId, $accessToken);
-            $wxUser['openid'] = $wxUserInfo['openid'];
-            $wxUser['nickname'] = $wxUserInfo['nickname'];
-            $wxUser['sex'] = $wxUserInfo['sex'];
-            $wxUser['city'] = $wxUserInfo['city'];
-            $wxUser['country'] = $wxUserInfo['country'];
-            $wxUser['headimgurl'] = $wxUserInfo['headimgurl'];
-            $wxUser['privilege'] = serialize($wxUserInfo['privilege']);
-            //$wxUser['unionid'] = $wxUserInfo['unionid'];
+            $wxUser['openid'] = $wxUserInfo->openid;
+            $wxUser['nickname'] = $wxUserInfo->nickname;
+            $wxUser['sex'] = $wxUserInfo->sex;
+            $wxUser['city'] = $wxUserInfo->city;
+            $wxUser['country'] = $wxUserInfo->country;
+            $wxUser['headimgurl'] = $wxUserInfo->headimgurl;
+            $wxUser['privilege'] = serialize($wxUserInfo->privilege);
+            //$wxUser['unionid'] = $wxUserInfo->unionid;
 
             // 插入数据库
             $wxUserId = $model->insert($wxUser);
