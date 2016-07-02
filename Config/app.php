@@ -11,13 +11,13 @@ return array(
         //其他原来的参数配置
         //'sign' => array('name' => 'sign', 'require' => true),
 
-        //登录信息
+        /*//登录信息
         'userId' => array(
             'name' => 'user_id', 'type' => 'int', 'default' => 0, 'require' => false,
         ),
         'token' => array(
             'name' => 'token', 'type' => 'string', 'default' => '', 'require' => false,
-        ),
+        ),*/
     ),
 
     'Wechat' => array(
