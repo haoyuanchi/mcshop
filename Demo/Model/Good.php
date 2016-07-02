@@ -63,9 +63,11 @@ class Model_Good extends PhalApi_Model_NotORM {
     }
 
     public function getListByTag($brandId, $tagId, $start, $num, $sort){
-        $sql = 'select t1.id as good_id, t2.tag_id, t2.name, t2.ed_mobile_cover, t2.mo_mobile_cover,'
+        $sql = 'select t1.id as good_id, t2.tag_id, t3.name, t3.ed_mobile_cover, t3.mo_mobile_cover,'
             .' t1.category_id, t1.code, t1.price_origin, t1.price_point, t1.image, t1.name, t1.price'
-            .' from mc_good as t1 left join mc_good_tag t2 on t1.id=t2.good_id'
+            .' from mc_good as t1 '
+            .' left join mc_good_tag t2 on t1.id=t2.good_id'
+            .' left join mc_tag t3 on t2.tag_id=t3.id'
             .' where t1.brand_id=:brand_id and t2.tag_id=:tagId'
             .' order by :sort'
             .' limit :start, :num';
