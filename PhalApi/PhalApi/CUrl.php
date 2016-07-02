@@ -80,7 +80,7 @@ class PhalApi_CUrl {
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, $timeoutMs);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
 
         if (!empty($data)) {
             curl_setopt($ch, CURLOPT_POST, 1);

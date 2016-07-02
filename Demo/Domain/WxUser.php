@@ -24,6 +24,7 @@ class Domain_WxUser
             $wxUser['country'] = $wxUserInfo['country'];
             $wxUser['headimgurl'] = $wxUserInfo['headimgurl'];
             $wxUser['privilege'] = $wxUserInfo['privilege'];
+            $wxUser['unionid'] = $wxUserInfo['unionid'];
 
             // 插入数据库
             $wxUserId = $model->insert($wxUser);
