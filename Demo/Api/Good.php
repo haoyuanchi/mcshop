@@ -98,7 +98,6 @@ class Api_Good extends PhalApi_Api {
         $page_size = $this->size;
         $start = $this->page * $page_size;
         $list = $model->getListByCategory($this->brandId, $this->categoryId, $start, $page_size, $this->sort);
-
         $count = $model->getCountByCategory($this->brandId, $this->categoryId);
         $tol_page = ceil($count / $page_size);
 
@@ -135,6 +134,13 @@ class Api_Good extends PhalApi_Api {
         $tol_page = ceil($count / $page_size);
 
         $ret['total_pages'] = $tol_page;
+        if($this->brandId == 18){
+            $ret['tag_img'] = $list[0]['mo_mobile_cover'];
+        }
+        else($this->brandId == 18){
+            $ret['tag_img'] = $list[0]['ed_mobile_cover'];
+        }
+
         $ret['good_list'] = $list;
         $ret['good_number'] = $page_size;
         return $ret;
