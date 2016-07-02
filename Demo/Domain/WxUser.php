@@ -14,6 +14,9 @@ class Domain_WxUser
         $isFirstWxChat = $model->isFirstWxChat($openId);
         if ($isFirstWxChat) {
             $wxUserInfo = $this->_getWxUserInfoByToken($openId, $accessToken);
+
+            DI()->logger->info('获取微信用户信息' ,$wxUserInfo);
+
             $wxUser['openid'] = $wxUserInfo['openid'];
             $wxUser['nickname'] = $wxUserInfo['nickname'];
             $wxUser['sex'] = $wxUserInfo['sex'];
