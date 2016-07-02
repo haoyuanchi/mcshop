@@ -24,9 +24,13 @@ class Api_Coupon extends PhalApi_Api {
      * @return string msg 提示信息
      */
     public function getCouponList() {
+        $ret['code'] = 0;
 
+        $model = new Model_ViewCoupon();
+        $couponList = $model->getListByUserId($this->userI, $this->isUsed, $this->isDated);
+        $ret['coupon_list'] = $couponList;
 
+        $ret['code'] = 0;
+        return $ret;
     }
-
-
 }

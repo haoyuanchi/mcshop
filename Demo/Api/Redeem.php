@@ -14,19 +14,23 @@ class Api_Redeem extends PhalApi_Api {
 				'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id，不同品牌兑换规则不同'),
             ),
             'redeemMO' => array(
+                'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
 				'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
 				'redeemNumber' => array('name' => 'redeem_umber', 'type' => 'int', 'require' => true, 'desc' => '兑换数量(MO)'),
             ),
             'getValue' => array(
+                'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
 				'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
 				'redeemIntegral ' => array('name' => 'integral', 'type' => 'int', 'require' => true, 'desc' => '兑换积分'),
             ),
             'redeemEd' => array(
+                'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
 				'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
 				'redeemIntegral' => array('name' => 'integral', 'type' => 'int', 'require' => true, 'desc' => '兑换积分'),
 				'coupon ' => array('name' => 'coupon', 'type' => 'float', 'require' => true, 'desc' => '兑换的面值'),
             ),
             'getStore' => array(
+                'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
 				'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
 				'provinceId' => array('name' => 'provice_id', 'type' => 'int', 'require' => true, 'desc' => '省id'),
 				'cityId ' => array('name' => 'city_id', 'type' => 'int', 'require' => true, 'desc' => '市id'),
@@ -45,6 +49,7 @@ class Api_Redeem extends PhalApi_Api {
      */
     public function getTheRules() {
 
+
     }
 
     /**
@@ -54,7 +59,36 @@ class Api_Redeem extends PhalApi_Api {
 	 * @return string msg 提示信息
      */
     public function redeemMO() {
+        $ret['code'] = 0;
 
+        // TODO 增加原子操作
+        $model = new Model_User();
+        $userInfo = $model->getByUserIdWithCache($this->userId);
+
+        if($userInfo['point'] < $this->redeemNumber * 10000){
+            $ret['code'] = 1;
+            $ret['msg'] = '积分不足，请重新输入兑换数量';
+            return $ret;
+        }
+        // 增加500优惠券
+        $modelCoupon = new Model_Coupon();
+        $coupon['create_date'] = date('Y-m-d H:i:s');
+        $coupon['modify_date'] = date('Y-m-d H:i:s');
+        $coupon['expiry_date'] = date('Y-m-d H:i:s', time() + 60 * 60 * 24 * 60);
+        //TODO
+        $coupon['code'] = 'VX151A0004861656';
+        $coupon['member_id'] = $this->userId;
+        $coupon['coupon_id'] = 1;
+        $coupon['coupon_price'] = 500;
+
+        $couponId = $modelCoupon->insert($coupon);
+
+        $use['point'] = $userInfo['point'] - $this->redeemNumber * 10000;
+        $userId = $model->update($this->userId, $userInfo);
+
+        $ret['msg'] = '';
+
+        return $ret;
     }
 	
     /**
@@ -64,7 +98,25 @@ class Api_Redeem extends PhalApi_Api {
 	 * @return string msg 提示信息
      */
     public function getValue() {
+        $ret['code'] = 0;
 
+        if($this->redeemIntegral >= 10000 && $this->redeemIntegral <= 29999){
+            $coupon_value = intval(($this->redeemIntegral * 0.05) / 100) * 100;
+        }
+        else if($this->redeemIntegral >= 30000 && $this->redeemIntegral <= 49999){
+            $coupon_value = intval(($this->redeemIntegral * 0.055) / 100) * 100;
+        }
+        else if($this->redeemIntegral >= 50000){
+            $coupon_value = intval(($this->redeemIntegral * 0.06) / 100) * 100;
+        }
+        else{
+            $coupon_value = 0;
+        }
+
+        $ret['coupon_value'] = $coupon_value;
+        $ret['msg'] = '';
+
+        return $ret;
     }
 
     /**
@@ -74,7 +126,55 @@ class Api_Redeem extends PhalApi_Api {
 	 * @return string msg 提示信息
      */
     public function redeemEd() {
+        $ret['code'] = 0;
 
+        // TODO 增加原子操作
+        $model = new Model_User();
+        $userInfo = $model->getByUserIdWithCache($this->userId);
+
+        if($userInfo['point'] < $this->redeemIntegral){
+            $ret['code'] = 1;
+            $ret['msg'] = '积分不足，请重新输入兑换数量';
+            return $ret;
+        }
+
+        $coupon_value = $this->coupon;
+
+        if($this->redeemIntegral >= 10000 && $this->redeemIntegral <= 29999){
+            //$coupon_value = intval(($this->redeemIntegral * 0.05) / 100) * 100;
+            $usedIntegral = $coupon_value / 0.05;
+        }
+        else if($this->redeemIntegral >= 30000 && $this->redeemIntegral <= 49999){
+            //$coupon_value = intval(($this->redeemIntegral * 0.055) / 100) * 100;
+            $usedIntegral = $coupon_value / 0.055;
+        }
+        else if($this->redeemIntegral >= 50000){
+            //$coupon_value = intval(($this->redeemIntegral * 0.06) / 100) * 100;
+            $usedIntegral = $coupon_value / 0.06;
+        }
+        else{
+            //$coupon_value = 0;
+            $usedIntegral = 0;
+        }
+
+        $modelCoupon = new Model_Coupon();
+        $coupon['create_date'] = date('Y-m-d H:i:s');
+        $coupon['modify_date'] = date('Y-m-d H:i:s');
+        $coupon['expiry_date'] = date('Y-m-d H:i:s', time() + 60 * 60 * 24 * 60);
+        //TODO
+        $coupon['code'] = 'VX151A0004861656';
+        $coupon['member_id'] = $this->userId;
+        $coupon['coupon_id'] = 1;
+        $coupon['coupon_price'] = $this->coupon;
+
+        $couponId = $modelCoupon->insert($coupon);
+
+        $use['point'] = $userInfo['point'] - $usedIntegral;
+        $userId = $model->update($this->userId, $userInfo);
+
+        $ret['msg'] = '';
+
+        return $ret;
     }
 	
     /**
