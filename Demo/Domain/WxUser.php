@@ -24,7 +24,7 @@ class Domain_WxUser
             $wxUser['country'] = $wxUserInfo['country'];
             $wxUser['headimgurl'] = $wxUserInfo['headimgurl'];
             $wxUser['privilege'] = $wxUserInfo['privilege'];
-            $wxUser['unionid'] = $wxUserInfo['unionid'];
+            //$wxUser['unionid'] = $wxUserInfo['unionid'];
 
             // 插入数据库
             $wxUserId = $model->insert($wxUser);
@@ -42,11 +42,7 @@ class Domain_WxUser
     private function _getWxUserInfoByToken($openId, $accessToken){
         $curl = new PhalApi_CUrl();
         $url = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$accessToken.'&openid='.$openId;
-
-        DI()->logger->info('获取微信用户信息url' , $url);
-
         $rs = json_decode($curl->get($url));
-
         DI()->logger->info('获取微信用户信息url' , var_dump($rs));
         return $rs;
     }
