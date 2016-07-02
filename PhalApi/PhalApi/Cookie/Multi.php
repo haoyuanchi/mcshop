@@ -12,7 +12,6 @@
  */
 
 class PhalApi_Cookie_Multi extends PhalApi_Cookie {
-
 	/**
 	 * @param $config['crypt'] 加密的服务，如果未设置，默认取DI()->crypt，须实现PhalApi_Crypt接口
 	 * @param $config['key'] $config['crypt']用的密钥，未设置时有一个md5串

@@ -38,14 +38,26 @@ class Api_Oauth2 extends PhalApi_Api {
         $domain = new Domain_WxUser();
         $wxUserInfo = $domain->getWxUserInfo($openId, $accessToken);
 
-        // 根据 brandId 决定跳转页面
-        if(empty($this->brandId)){
+        // 判断是否绑定，没有绑定强制绑定
+        $model = new model_User();
+        $isFirstBind = $model->isFirstBind($this->openId);
 
+        // 跳转到绑定页面
+        if($isFirstBind){
+            setcookie('openId',$this->openId, '86400*360'); //设置cookie长期有效
+            $url="www.baidu.com";
+            echo '<!--<SCRIPT LANGUAGE="javascript">';
+            echo "location.href='$url'";
+            echo "</SCRIPT>-->";
+            exit;
         }
-        else{
 
-        }
+        // 跳转到首页
+        setcookie('brand_id',$this->brandId, '60'); //设置cookie一个小时有效
+        $url="www.baidu.com";
+        echo '<!--<SCRIPT LANGUAGE="javascript">';
+        echo "location.href='$url'";
+        echo "</SCRIPT>-->";
+        exit;
     }
-
-
 }

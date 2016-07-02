@@ -142,7 +142,4 @@ class Api_Order extends PhalApi_Api {
 
         // 生成订单
     }
-	
-
-	
 }

@@ -3,10 +3,15 @@
 class Api_User extends PhalApi_Api {
     public function getRules() {
         return array(
+            'bind' => array(
+                'openId' => array('name' => 'openid', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
+                'name' => array('name' => 'name', 'type' => 'string', 'require' => true, 'desc' => '用户姓名'),
+                'tel' => array('name' => 'tel', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户手机号'),
+            ),
             'getBaseInfo' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
             ),
-			 'modifyInfo' => array(
+			'modifyInfo' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
 				'provinceId' => array('name' => 'provice_id', 'type' => 'int', 'require' => true, 'desc' => '省id'),
 				'cityId ' => array('name' => 'city_id', 'type' => 'int', 'require' => true, 'desc' => '市id'),
@@ -30,6 +35,19 @@ class Api_User extends PhalApi_Api {
 				'tel' => array('name' => 'tel', 'type' => 'string', 'require' => true, 'desc' => '电话'),
             ),
         );
+    }
+
+    /**
+     * 绑定微信用户
+     * @desc 完善个人资料获取积分
+     * @return int user_id
+     * @return string msg 提示信息
+     */
+    public function bind() {
+        $domain = new Domain_User();
+        $userId = $domain->bing($this->openId, $this->name, $this->tel);
+        $info = $domain->getBaseInfo($userId);
+        return $info;
     }
 
     /**

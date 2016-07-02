@@ -14,7 +14,7 @@ class Api_Cart extends PhalApi_Api {
 
             ),
             'add' => array(
-                'goodId' => array('name' => 'good_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '商品ID'),
+                'barcodeId' => array('name' => 'id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '商品条形码ID--spec_id(barcode_id)'),
                 'quantity' => array('name' => 'quantity', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '购买数量'),
             ),
             'del' => array(
@@ -71,6 +71,7 @@ class Api_Cart extends PhalApi_Api {
 	 * @return string message.content  成功or失败信息  "您选购的商品已加入购物车<br />购物车共有<span>xxx</span>件商品，合计:<span>￥xxxx</span>" 或者 xxx导致无法添加到购物车
      */
     public function add() {
+
 
     }
 

@@ -18,6 +18,14 @@ return array(
 	 ),
 
     /**
+     * file cache 缓存服务器参考配置
+     */
+    'fc' => array(
+        'path' => API_ROOT . '/Runtime',
+        'prefix' => 'mcshop',
+    ),
+
+    /**
      * 加密
      */
     'crypt' => array(

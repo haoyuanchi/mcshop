@@ -44,12 +44,14 @@ DI()->curl = new PhalApi_CUrl();
 DI()->filter = 'PhalApi_Filter_SimpleMD5';
  */
 
-/**
+
 //缓存 - Memcache/Memcached
-DI()->cache = function () {
+DI()->memcache = function () {
     return new PhalApi_Cache_Memcache(DI()->config->get('sys.mc'));
 };
- */
+
+DI()->cache = new PhalApi_Cache_File(DI()->config->get('sys.fc'));
+
 
 /**
 //支持JsonP的返回

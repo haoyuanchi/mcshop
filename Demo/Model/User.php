@@ -18,6 +18,13 @@ class Model_User extends PhalApi_Model_NotORM {
             ->fetch();
     }
 
+    public function getByOpenId($openId){
+        return $this->getORM()
+            ->select('*')
+            ->where('wx_open_id = ?', $openId)
+            ->fetch();
+    }
+
     public function getByUserIdWithCache($userId) {
         $key = 'userbaseinfo_' . $userId;
         $rs = DI()->cache->get($key);
@@ -28,8 +35,4 @@ class Model_User extends PhalApi_Model_NotORM {
         return $rs;
     }
 
-
-    public function insertWxUserInfo($wxUserInfo){
-        $this->getORM()->insert($wxUserInfo);
-    }
 }

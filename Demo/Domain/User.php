@@ -1,47 +1,36 @@
 <?php
 
 class Domain_User {
-
-    public function getUserInfo($openId, $accessToken) {
+    public function bing($openId, $name, $tel){
         $model = new Model_User();
-        $isFirstWxChat = $model->isFirstWxChat($openId);
+        $info= $model->getByOpenId($openId);
 
-        if ($isFirstWxChat) {
-            $wxUserInfo = getWxUserInfo($openId, $accessToken);
-            // 插入数据库
-            $model->insert($wxUserInfo);
-        }
-    }
+        if (empty($info)) {
+            // 获取微信用户信息，保存到user表
+            $wxmodel = new Model_WxUser();
+            $wxInfo = $wxmodel->getByWxOpenId($openId);
 
+            $user['create_date'] = date('Y-m-d H:i:s');
+            $user['modify_date'] = date('Y-m-d H:i:s');
+            $user['mobile'] = $tel;
+            $user['username'] = $name;
+            $user['password'] = $name;
 
-    public function getByWxOpenId($openId){
-        //
-        $model = new Model_User();
-        $isFirstWxChat = $model->isFirstWxChat($openId);
+            $user['wx_open_id'] = $openId;
+            $user['wx_city'] = $wxInfo['city'];
+            $user['wx_headimgurl'] = $wxInfo['headimgurl'];
+            $user['wx_nickname'] = $wxInfo['nickname'];
+            $user['wx_province'] = $wxInfo['province'];
+            $user['wx_sex'] = $wxInfo['sex'];
+            $user['wx_privilege'] = $wxInfo['privilege'];
 
-        if ($isFirstWxChat) {
-            // 获取用户信息
-
-            $userId = Domain_User_User_Generator::createUserForWeixin($this->openId, $this->nickname, $this->avatar);
-            if ($userId <= 0) {
-                //异常1：用户创建失败
-                DI()->logger->error('failed to create weixin user', array('openId' => $this->openId));
-                throw new PhalApi_Exception_InternalServerError(T('failed to create weixin user'));
-            }
-
-            $id = $domain->bindUser($userId, $this->openId, $this->token, $this->expiresIn);
-            if ($id <= 0) {
-                //异常2：绑定微信失败
-                DI()->logger->error('failed to bind user with weixin',
-                    array('userid' => $userId, 'openId' => $this->openId));
-                throw new PhalApi_Exception_InternalServerError(T('failed to bind user with weixin'));
-            }
+            $user_id = $model->insert($user);
         } else {
-            $userId = $domain->getUserIdByWxOpenId($this->openId);
+            $user_id = $info['id'];
         }
 
+        return $user_id;
     }
-
 
     public function getBaseInfo($userId) {
         $rs = array();
@@ -52,23 +41,20 @@ class Domain_User {
         }
 
 		// 版本1：简单的获取
-        $model = new Model_User();
-        $rs = $model->getByUserId($userId);
+        /*$model = new Model_User();
+        $rs = $model->getByUserId($userId);*/
 
 		// 版本2：使用单点缓存/多级缓存 (应该移至Model层中)
-		/**
         $model = new Model_User();
         $rs = $model->getByUserIdWithCache($userId);
-		*/
 
 		// 版本3：缓存 + 代理
-		/**
-		$query = new PhalApi_ModelQuery();
-		$query->id = $userId;
-		$modelProxy = new ModelProxy_UserBaseInfo();
-		$rs = $modelProxy->getData($query);
-		*/
-
+        /**
+        $query = new PhalApi_ModelQuery();
+        $query->id = $userId;
+        $modelProxy = new ModelProxy_UserBaseInfo();
+        $rs = $modelProxy->getData($query);
+         */
         return $rs;
     }
 }
