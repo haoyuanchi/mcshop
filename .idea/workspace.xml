@@ -53,8 +53,8 @@
       <file leaf-file-name="WxUser.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Demo/Domain/WxUser.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.51148224" vertical-offset="133" max-vertical-offset="882">
-              <caret line="26" column="14" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.6242171" vertical-offset="7" max-vertical-offset="810">
+              <caret line="22" column="70" selection-start-line="22" selection-start-column="70" selection-end-line="22" selection-end-column="70" />
               <folding />
             </state>
           </provider>
@@ -565,7 +565,13 @@
       <option name="project" value="LOCAL" />
       <updated>1467454754992</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="修改会员登录接口">
+      <created>1467454797991</created>
+      <option name="number" value="00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1467454797991</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1091,8 +1097,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Demo/Domain/WxUser.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.51148224" vertical-offset="133" max-vertical-offset="882">
-          <caret line="26" column="14" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.6242171" vertical-offset="7" max-vertical-offset="810">
+          <caret line="22" column="70" selection-start-line="22" selection-start-column="70" selection-end-line="22" selection-end-column="70" />
           <folding />
         </state>
       </provider>

@@ -14,16 +14,13 @@ class Domain_WxUser
         $isFirstWxChat = $model->isFirstWxChat($openId);
         if ($isFirstWxChat) {
             $wxUserInfo = $this->_getWxUserInfoByToken($openId, $accessToken);
-
-            DI()->logger->info('获取微信用户信息' , var_dump($wxUserInfo));
-
             $wxUser['openid'] = $wxUserInfo['openid'];
             $wxUser['nickname'] = $wxUserInfo['nickname'];
             $wxUser['sex'] = $wxUserInfo['sex'];
             $wxUser['city'] = $wxUserInfo['city'];
             $wxUser['country'] = $wxUserInfo['country'];
             $wxUser['headimgurl'] = $wxUserInfo['headimgurl'];
-            $wxUser['privilege'] = $wxUserInfo['privilege'];
+            $wxUser['privilege'] = serialize($wxUserInfo['privilege']);
             //$wxUser['unionid'] = $wxUserInfo['unionid'];
 
             // 插入数据库
@@ -43,7 +40,6 @@ class Domain_WxUser
         $curl = new PhalApi_CUrl();
         $url = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$accessToken.'&openid='.$openId;
         $rs = json_decode($curl->get($url));
-        DI()->logger->info('获取微信用户信息url' , var_dump($rs));
         return $rs;
     }
 }
