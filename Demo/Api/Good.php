@@ -137,7 +137,7 @@ class Api_Good extends PhalApi_Api {
         if($this->brandId == 18){
             $ret['tag_img'] = $list[0]['mo_mobile_cover'];
         }
-        else($this->brandId == 18){
+        else{
             $ret['tag_img'] = $list[0]['ed_mobile_cover'];
         }
 
