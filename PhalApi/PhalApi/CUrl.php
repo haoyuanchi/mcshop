@@ -82,6 +82,8 @@ class PhalApi_CUrl {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, $timeoutMs);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, true);
 
         if (!empty($data)) {
             DI()->logger->info('执行数据' , $data);
