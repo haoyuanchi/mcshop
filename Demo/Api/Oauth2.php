@@ -26,13 +26,15 @@ class Api_Oauth2 extends PhalApi_Api {
 
         }
 
+        $curl = new PhalApi_CUrl(2);
+
         // 使用code获取OpenID
         $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.$this->appid.'&secret='.$this->appSecret.'&code='.$this->code.'&grant_type=authorization_code';
 
         DI()->logger->info('获取openid地址' , $url);
 
         // 执行url获取openid 和 Access Token
-        $rs = json_decode(DI()->curl->get($url));
+        $rs = json_decode($curl->get($url));
         $openId = $rs->openid;
         $accessToken = $rs->access_token;
 

@@ -34,7 +34,7 @@ SL('zh_cn');
 
 /** ---------------- 定制注册 可选服务组件 ---------------- **/
 
-DI()->curl = new PhalApi_CUrl();
+/*DI()->curl = new PhalApi_CUrl();*/
 
 /**
 //签名验证服务

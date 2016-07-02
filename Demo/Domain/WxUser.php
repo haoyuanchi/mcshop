@@ -39,8 +39,9 @@ class Domain_WxUser
     }
 
     private function _getWxUserInfoByToken($openId, $accessToken){
+        $curl = new PhalApi_CUrl(2);
         $url = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$accessToken.'&openid='.$openId;
-        $rs = json_decode(DI()->curl->get($url));
+        $rs = json_decode($curl->get($url));
         return $rs;
     }
 }
