@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="86c275e7-6211-4bdc-8399-0c142e0e215c" name="Default" comment="增加地址接口">
+    <list default="true" id="86c275e7-6211-4bdc-8399-0c142e0e215c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Demo/Api/Good.php" afterPath="$PROJECT_DIR$/Demo/Api/Good.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Demo/Model/Good.php" afterPath="$PROJECT_DIR$/Demo/Model/Good.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="PhalApi.iws" />
@@ -39,21 +38,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Good.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Good.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Demo/Model/Good.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.030456852" vertical-offset="1260" max-vertical-offset="1854">
+            <state vertical-scroll-proportion="-14.0" vertical-offset="900" max-vertical-offset="1854">
               <caret line="76" column="34" selection-start-line="76" selection-start-column="34" selection-end-line="76" selection-end-column="34" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Good.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Good.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Demo/Api/Good.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.0" vertical-offset="4320" max-vertical-offset="4950">
-              <caret line="266" column="46" selection-start-line="266" selection-start-column="46" selection-end-line="266" selection-end-column="46" />
+            <state vertical-scroll-proportion="0.60913706" vertical-offset="4320" max-vertical-offset="4950">
+              <caret line="265" column="23" selection-start-line="265" selection-start-column="23" selection-end-line="265" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -192,8 +191,8 @@
         <option value="$PROJECT_DIR$/Demo/Model/User.php" />
         <option value="$PROJECT_DIR$/Demo/Domain/User.php" />
         <option value="$PROJECT_DIR$/Demo/Api/User.php" />
-        <option value="$PROJECT_DIR$/Demo/Api/Good.php" />
         <option value="$PROJECT_DIR$/Demo/Model/Good.php" />
+        <option value="$PROJECT_DIR$/Demo/Api/Good.php" />
       </list>
     </option>
   </component>
@@ -466,12 +465,6 @@
       <created>1466566780244</created>
       <option name="number" value="Default" />
       <updated>1466566780244</updated>
-    </task>
-    <task id="LOCAL-00007" summary="修改会员登录接口">
-      <created>1467450085075</created>
-      <option name="number" value="00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1467450085075</updated>
     </task>
     <task id="LOCAL-00008" summary="修改会员登录接口">
       <created>1467450183259</created>
@@ -761,7 +754,13 @@
       <option name="project" value="LOCAL" />
       <updated>1467554438897</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="增加地址接口">
+      <created>1467554819299</created>
+      <option name="number" value="00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1467554819299</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1240,14 +1239,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Demo/Model/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.11111" vertical-offset="195" max-vertical-offset="1890">
-          <caret line="38" column="36" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Demo/Api/User.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.666667" vertical-offset="1062" max-vertical-offset="3024">
@@ -1272,18 +1263,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Demo/Api/Good.php">
+    <entry file="file://$PROJECT_DIR$/Demo/Model/User.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.0" vertical-offset="4320" max-vertical-offset="4950">
-          <caret line="266" column="46" selection-start-line="266" selection-start-column="46" selection-end-line="266" selection-end-column="46" />
+        <state vertical-scroll-proportion="-18.11111" vertical-offset="195" max-vertical-offset="1890">
+          <caret line="38" column="36" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Demo/Model/Good.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.030456852" vertical-offset="1260" max-vertical-offset="1854">
+        <state vertical-scroll-proportion="-14.0" vertical-offset="900" max-vertical-offset="1854">
           <caret line="76" column="34" selection-start-line="76" selection-start-column="34" selection-end-line="76" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Demo/Api/Good.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.60913706" vertical-offset="4320" max-vertical-offset="4950">
+          <caret line="265" column="23" selection-start-line="265" selection-start-column="23" selection-end-line="265" selection-end-column="23" />
           <folding />
         </state>
       </provider>
