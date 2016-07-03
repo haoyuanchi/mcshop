@@ -128,11 +128,13 @@ class Api_User extends PhalApi_Api {
      */
     public function getGiftAuthority() {
         // 获取生日为本月的所有用户， 查看用户是否在该用户中
-        $currentMonth = date('m',time());
-        $userModel = new Model_User();
-        $ret['is_authority'] = $userModel->isGiftAuthority($this->userId, $currentMonth);
+        $currentMonth = intval(date('m',time()));
+        /*$modelCurrentBirth = new Model_ViewMemberCurrentBirth();
+        $ret['is_authority'] = $modelCurrentBirth->isGiftAuthority($this->userId);*/
 
-        $userInfo = $userModel->getByUserId($this->userId);
+        $modelUser = new Model_User();
+        $ret['is_authority'] = $modelUser->isGiftAuthority($this->userId, $currentMonth);
+        $userInfo = $modelUser->getByUserId($this->userId);
         $ret['rank_id'] = $userInfo['member_rank_id'];
         $ret['rank_name'] = $userInfo['member_rank_name'];
         $ret['addr'] = $userInfo['address'];
