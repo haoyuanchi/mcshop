@@ -27,13 +27,13 @@ class Api_Redeem extends PhalApi_Api {
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
 				'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
                 'redeemIntegral' => array('name' => 'redeem_integral', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '兑换积分'),
-				'coupon ' => array('name' => 'coupon', 'type' => 'float', 'require' => true, 'desc' => '兑换的面值'),
+				'coupon' => array('name' => 'coupon', 'type' => 'float', 'require' => true, 'desc' => '兑换的面值'),
             ),
             'getStore' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
 				'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
 				'provinceId' => array('name' => 'provice_id', 'type' => 'int', 'require' => true, 'desc' => '省id'),
-				'cityId ' => array('name' => 'city_id', 'type' => 'int', 'require' => true, 'desc' => '市id'),
+				'cityId' => array('name' => 'city_id', 'type' => 'int', 'require' => true, 'desc' => '市id'),
             ),
 			
 
