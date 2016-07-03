@@ -184,11 +184,14 @@ class Api_Cart extends PhalApi_Api {
         $cart['modify_date'] = date('Y-m-d H:i:s');
 
         $model = new Model_Cart();
-        $cartId = $model->update($this->cartId, $cart);
+        $isSuccess = $model->update($this->cartId, $cart);
 
-        $ret['cart_id'] = $cartId;
+        if(!$isSuccess){
+            $ret['is_success'] = $isSuccess;
+            $ret['msg'] ='更新失败！';
+        }
 
-        $ret['msg'] ='';
+        $ret['msg'] ='更新成功';
 
         return $ret;
     }
