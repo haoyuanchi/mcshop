@@ -72,7 +72,7 @@ class Api_User extends PhalApi_Api {
         $rs = array('code' => 0, 'msg' => '', 'info' => array());
 
         $domain = new Domain_User();
-        $info = $domain->getBaseInfo($this->userId);
+        $info = $domain->getBaseInfoWithCache($this->userId);
 
         if (empty($info)) {
             DI()->logger->debug('user not found', $this->userId);
@@ -109,6 +109,8 @@ class Api_User extends PhalApi_Api {
 
         $ret['code'] = $userModel->update($this->userId, $userInfo);
 
+        // 强制更新
+        $ret['user'] = $userModel->getByUserId($this->userId);
         return $ret;
     }
 	
