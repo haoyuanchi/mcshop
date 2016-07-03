@@ -72,7 +72,7 @@ class Api_User extends PhalApi_Api {
         $rs = array('code' => 0, 'msg' => '', 'info' => array());
 
         $domain = new Domain_User();
-        $info = $domain->getBaseInfoWithCache($this->userId);
+        $info = $domain->getBaseInfo($this->userId);
 
         if (empty($info)) {
             DI()->logger->debug('user not found', $this->userId);
@@ -132,7 +132,7 @@ class Api_User extends PhalApi_Api {
         $userModel = new Model_User();
         $ret['is_authority'] = $userModel->isGiftAuthority($this->userId, $currentMonth);
 
-        $userInfo = $userModel->getByUserIdWithCache($this->userId);
+        $userInfo = $userModel->getByUserId($this->userId);
         $ret['rank'] = $userInfo['member_rank'];
         $ret['addr'] = $userInfo['address'];
         $ret['vip_code'] = $userInfo['vip_code'];

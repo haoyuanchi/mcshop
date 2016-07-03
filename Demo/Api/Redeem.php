@@ -86,6 +86,8 @@ class Api_Redeem extends PhalApi_Api {
         $use['point'] = $userInfo['point'] - $this->redeemNumber * 10000;
         $userId = $model->update($this->userId, $userInfo);
 
+        $ret['$couponId'] = $couponId;
+
         $ret['msg'] = '';
 
         return $ret;
