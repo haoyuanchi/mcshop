@@ -63,7 +63,7 @@ class Api_Redeem extends PhalApi_Api {
 
         // TODO 增加原子操作
         $model = new Model_User();
-        $userInfo = $model->getByUserIdWithCache($this->userId);
+        $userInfo = $model->getByUserId($this->userId);
 
         if($userInfo['point'] < $this->redeemNumber * 10000){
             $ret['code'] = 1;
@@ -132,7 +132,7 @@ class Api_Redeem extends PhalApi_Api {
 
         // TODO 增加原子操作
         $model = new Model_User();
-        $userInfo = $model->getByUserIdWithCache($this->userId);
+        $userInfo = $model->getByUserId($this->userId);
 
         if($userInfo['point'] < $this->redeemIntegral){
             $ret['code'] = 1;
