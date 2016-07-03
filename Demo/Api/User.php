@@ -133,7 +133,8 @@ class Api_User extends PhalApi_Api {
         $ret['is_authority'] = $userModel->isGiftAuthority($this->userId, $currentMonth);
 
         $userInfo = $userModel->getByUserId($this->userId);
-        $ret['rank'] = $userInfo['member_rank'];
+        $ret['rank_id'] = $userInfo['member_rank_id'];
+        $ret['rank_name'] = $userInfo['member_rank_name'];
         $ret['addr'] = $userInfo['address'];
         $ret['vip_code'] = $userInfo['vip_code'];
         $ret['vip_number'] = $userInfo['vip_number'];

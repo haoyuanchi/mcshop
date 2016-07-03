@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="86c275e7-6211-4bdc-8399-0c142e0e215c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Demo/Api/Cart.php" afterPath="$PROJECT_DIR$/Demo/Api/Cart.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Demo/Api/User.php" afterPath="$PROJECT_DIR$/Demo/Api/User.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="PhalApi.iws" />
@@ -31,7 +31,7 @@
       <file leaf-file-name="User.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Demo/Model/User.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.333333" vertical-offset="0" max-vertical-offset="1890">
+            <state vertical-scroll-proportion="27.0" vertical-offset="981" max-vertical-offset="1890">
               <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
               <folding />
             </state>
@@ -58,11 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="User.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="User.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Demo/Api/User.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.333333" vertical-offset="1575" max-vertical-offset="3024">
-              <caret line="109" column="41" selection-start-line="109" selection-start-column="35" selection-end-line="109" selection-end-column="41" />
+            <state vertical-scroll-proportion="0.46534654" vertical-offset="2025" max-vertical-offset="3042">
+              <caret line="136" column="14" selection-start-line="136" selection-start-column="14" selection-end-line="136" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -98,10 +98,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Cart.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Cart.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Demo/Api/Cart.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8613861" vertical-offset="2601" max-vertical-offset="3564">
+            <state vertical-scroll-proportion="-29.0" vertical-offset="2601" max-vertical-offset="3564">
               <caret line="193" column="26" selection-start-line="193" selection-start-column="26" selection-end-line="193" selection-end-column="26" />
               <folding />
             </state>
@@ -184,9 +184,9 @@
         <option value="$PROJECT_DIR$/Demo/Api/Coupon.php" />
         <option value="$PROJECT_DIR$/Demo/Model/ViewCoupon.php" />
         <option value="$PROJECT_DIR$/Demo/Api/Oauth2.php" />
-        <option value="$PROJECT_DIR$/Demo/Api/User.php" />
         <option value="$PROJECT_DIR$/Demo/Api/Redeem.php" />
         <option value="$PROJECT_DIR$/Demo/Api/Cart.php" />
+        <option value="$PROJECT_DIR$/Demo/Api/User.php" />
       </list>
     </option>
   </component>
@@ -363,12 +363,6 @@
       <created>1466566780244</created>
       <option name="number" value="Default" />
       <updated>1466566780244</updated>
-    </task>
-    <task id="LOCAL-00036" summary="增加地址接口">
-      <created>1467477784172</created>
-      <option name="number" value="00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1467477784172</updated>
     </task>
     <task id="LOCAL-00037" summary="增加地址接口">
       <created>1467478455444</created>
@@ -658,7 +652,13 @@
       <option name="project" value="LOCAL" />
       <updated>1467568890616</updated>
     </task>
-    <option name="localTasksCounter" value="85" />
+    <task id="LOCAL-00085" summary="增加地址接口">
+      <created>1467569025434</created>
+      <option name="number" value="00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1467569025434</updated>
+    </task>
+    <option name="localTasksCounter" value="86" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1146,22 +1146,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Demo/Api/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.333333" vertical-offset="1575" max-vertical-offset="3024">
-          <caret line="109" column="41" selection-start-line="109" selection-start-column="35" selection-end-line="109" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Demo/Model/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.333333" vertical-offset="0" max-vertical-offset="1890">
-          <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Demo/Api/Redeem.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-28.333334" vertical-offset="1305" max-vertical-offset="3564">
@@ -1172,8 +1156,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Demo/Api/Cart.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8613861" vertical-offset="2601" max-vertical-offset="3564">
+        <state vertical-scroll-proportion="-29.0" vertical-offset="2601" max-vertical-offset="3564">
           <caret line="193" column="26" selection-start-line="193" selection-start-column="26" selection-end-line="193" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Demo/Model/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="27.0" vertical-offset="981" max-vertical-offset="1890">
+          <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Demo/Api/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.46534654" vertical-offset="2025" max-vertical-offset="3042">
+          <caret line="136" column="14" selection-start-line="136" selection-start-column="14" selection-end-line="136" selection-end-column="14" />
           <folding />
         </state>
       </provider>
