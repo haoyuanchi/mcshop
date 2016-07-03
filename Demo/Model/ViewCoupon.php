@@ -11,12 +11,12 @@ class Model_ViewCoupon extends PhalApi_Model_NotORM {
         return 'v_coupon';
     }
 
-    public function getListByUserId($userId, $isUsed, $isDated){
+    public function getListByUserId($userId, $isUsed, $isExpired){
         $row = $this->getORM()
             ->select('*')
             ->where('member_id', $userId)
             ->where('is_used', $isUsed)
-            ->where('is_dated', $isDated)
+            ->where('is_expired', $isExpired)
             ->fetch();
         return $row;
     }
