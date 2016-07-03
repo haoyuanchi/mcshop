@@ -25,7 +25,7 @@ class Api_Order extends PhalApi_Api {
             ),
             'commitOrder' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
-                'orderTempId' => array('name' => 'order_temp_id', 'type' => 'int',  'require' => true, 'desc' => '订单临时id'),
+                'cartIds' => array('name' => 'cart_ids', 'type' => 'array', 'format' => 'explode', 'require' => true, 'desc' => '购物篮ID，多个以逗号分割'),
 				'addressId' => array('name' => 'addr_id', 'type' => 'int', 'require' => true, 'desc' => '收货地址id'),
                 'invoiceType' => array('name' => 'invoice_type', 'type' => 'string', 'require' => false, 'desc' => '发票类型'),
                 'invoiceHeader' => array('name' => 'invoice_header', 'type' => 'string', 'require' => false, 'desc' => '发票抬头'),
@@ -113,7 +113,25 @@ class Api_Order extends PhalApi_Api {
      * @return string msg 提示信息
      */
     public function genOrderByCart() {
-        // 购物篮生成订单， 订单temp表
+        // 购物篮生成订单 获取用户的详细信息 和 用户的订单信息
+
+        // 根据cartid 获取 cart 信息
+        $modelTotal = new Model_ViewCart();
+        $total = $modelTotal->getByUserId($this->userId);
+
+        $ret['total_quantity'] = $total['total_quantity'];
+        $ret['total_price_origin'] = $total['total_price_origin'];
+        $ret['total_price'] = $total['total_price'];
+        $ret['tol_save'] = $ret['total_price_origin'] - $ret['total_price'];
+
+        $modelCart = new Model_ViewCartDetail();
+        $cartList = $modelCart->getListByUserId($this->userId);
+
+        if(empty($cartList)){
+            $ret['cart_list'] = null;
+            return;
+        }
+
 
 
     }

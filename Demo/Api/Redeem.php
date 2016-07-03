@@ -21,12 +21,12 @@ class Api_Redeem extends PhalApi_Api {
             'getValue' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
 				'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
-				'redeemIntegral ' => array('name' => 'integral', 'type' => 'int', 'require' => true, 'desc' => '兑换积分'),
+                'redeemIntegral' => array('name' => 'redeem_integral', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '兑换积分'),
             ),
             'redeemEd' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
 				'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
-				'redeemIntegral' => array('name' => 'integral', 'type' => 'int', 'require' => true, 'desc' => '兑换积分'),
+                'redeemIntegral' => array('name' => 'redeem_integral', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '兑换积分'),
 				'coupon ' => array('name' => 'coupon', 'type' => 'float', 'require' => true, 'desc' => '兑换的面值'),
             ),
             'getStore' => array(
@@ -141,15 +141,15 @@ class Api_Redeem extends PhalApi_Api {
         $coupon_value = $this->coupon;
 
         if($this->redeemIntegral >= 10000 && $this->redeemIntegral <= 29999){
-            //$coupon_value = intval(($this->redeemIntegral * 0.05) / 100) * 100;
+            //$coupon_value = intval(($this->integral * 0.05) / 100) * 100;
             $usedIntegral = $coupon_value / 0.05;
         }
         else if($this->redeemIntegral >= 30000 && $this->redeemIntegral <= 49999){
-            //$coupon_value = intval(($this->redeemIntegral * 0.055) / 100) * 100;
+            //$coupon_value = intval(($this->integral * 0.055) / 100) * 100;
             $usedIntegral = $coupon_value / 0.055;
         }
         else if($this->redeemIntegral >= 50000){
-            //$coupon_value = intval(($this->redeemIntegral * 0.06) / 100) * 100;
+            //$coupon_value = intval(($this->integral * 0.06) / 100) * 100;
             $usedIntegral = $coupon_value / 0.06;
         }
         else{

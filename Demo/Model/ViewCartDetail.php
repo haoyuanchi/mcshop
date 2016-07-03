@@ -18,4 +18,12 @@ class Model_ViewCartDetail extends PhalApi_Model_NotORM {
             ->fetchAll();
         return $rows;
     }
+
+    public function getByCartId($cartId){
+        $row = $this->getORM()
+            ->select('*')
+            ->where('member_id', $userId)
+            ->fetchAll();
+        return $rows;
+    }
 }
