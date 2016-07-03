@@ -14,7 +14,7 @@ class Model_ViewCoupon extends PhalApi_Model_NotORM {
     public function getListByUserId($userId, $isUsed, $isDated){
         $row = $this->getORM()
             ->select('*')
-            ->where('memeber_id', $userId)
+            ->where('member_id', $userId)
             ->where('is_used', $isUsed)
             ->where('is_dated', $isDated)
             ->fetch();
