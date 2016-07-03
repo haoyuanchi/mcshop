@@ -262,10 +262,11 @@ class Api_Good extends PhalApi_Api {
 
             $specImageList = $model->getList($barcode['id']);
 
+            if($key == 0){
+                $ret['good']['image_list'] = $specImageList;
+            }
+
             foreach($specImageList as $key2=>$specImage){
-                if($key == 0){
-                    $ret['good']['image_list'][$key] = $specImage['source'];
-                }
                 $ret['good']['spec_list'][$key]['image_list'][$key2] = $specImage['source'];
             }
         }
