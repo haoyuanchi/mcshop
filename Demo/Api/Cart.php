@@ -82,8 +82,6 @@ class Api_Cart extends PhalApi_Api {
             return;
         }
 
-        $ret['cart_list'] = $cartList;
-
         $modelGoodBarcode = new Model_GoodBarcode();
         foreach($cartList as $key => $cart){
             $ret['cart_list'][$key] = $cart;

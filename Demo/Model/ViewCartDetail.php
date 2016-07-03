@@ -15,7 +15,7 @@ class Model_ViewCartDetail extends PhalApi_Model_NotORM {
         $rows = $this->getORM()
             ->select('*')
             ->where('member_id', $userId)
-            ->fetch();
+            ->fetchAll();
         return $rows;
     }
 }
