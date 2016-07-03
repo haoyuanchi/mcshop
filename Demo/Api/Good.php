@@ -251,10 +251,12 @@ class Api_Good extends PhalApi_Api {
             $ret['good']['spec_list'][$key]['name'] = $barcode['full_name'];
             $ret['good']['spec_list'][$key]['barcode'] = $barcode['barcode'];
             $ret['good']['spec_list'][$key]['color_id'] = $barcode['color_id'];
-            $ret['good']['spec_list'][$key]['color_value'] = $barcode['color_value'];
+            $ret['good']['spec_list'][$key]['color_code'] = $barcode['color_code'];
+            $ret['good']['spec_list'][$key]['color_name'] = $barcode['color_name'];
             $ret['good']['spec_list'][$key]['color_image'] = $barcode['color_image'];
             $ret['good']['spec_list'][$key]['size_id'] = $barcode['size_id'];
-            $ret['good']['spec_list'][$key]['size_value'] = $barcode['size_value'];
+            $ret['good']['spec_list'][$key]['size_code'] = $barcode['size_code'];
+            $ret['good']['spec_list'][$key]['size_name'] = $barcode['size_name'];
             $ret['good']['spec_list'][$key]['remain_number'] = $barcode['remain_number'];
 
             $specImageList = $model->getList($barcode['id']);
