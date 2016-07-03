@@ -83,8 +83,8 @@ class Api_Redeem extends PhalApi_Api {
 
         $couponId = $modelCoupon->insert($coupon);
 
-        $use['point'] = $userInfo['point'] - $this->redeemNumber * 10000;
-        $userId = $model->update($this->userId, $userInfo);
+        $userInfoNew['point'] = $userInfo['point'] - $this->redeemNumber * 10000;
+        $userId = $model->update($this->userId, $userInfoNew);
 
         $ret['$couponId'] = $couponId;
 
@@ -171,8 +171,8 @@ class Api_Redeem extends PhalApi_Api {
 
         $couponId = $modelCoupon->insert($coupon);
 
-        $use['point'] = $userInfo['point'] - $usedIntegral;
-        $userId = $model->update($this->userId, $userInfo);
+        $userInfoNew['point'] = $userInfo['point'] - $usedIntegral;
+        $userId = $model->update($this->userId, $userInfoNew);
 
         $ret['msg'] = '';
 
