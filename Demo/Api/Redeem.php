@@ -102,6 +102,7 @@ class Api_Redeem extends PhalApi_Api {
     public function getValue() {
         $ret['code'] = 0;
 
+        // TODO 兑换面值的规则
         if($this->redeemIntegral >= 10000 && $this->redeemIntegral <= 29999){
             $coupon_value = intval(($this->redeemIntegral * 0.05) / 100) * 100;
         }
