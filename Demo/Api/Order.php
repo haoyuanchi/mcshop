@@ -10,19 +10,21 @@ class Api_Order extends PhalApi_Api {
     public function getRules() {
         return array(
             'getList' => array(
-
+                'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
+                'payStatus' => array('name' => 'pay_status', 'type' => 'int', 'require' => false, 'default'=>'0', 'desc' => '支付状态，0：未支付，1：已支付'),
+                'deliverStatus' => array('name' => 'deliver_status', 'type' => 'int', 'require' => false, 'default'=>'0', 'desc' => '发货状态，0：未发货，1：正在发货，2：已签收'),
+                'refundStatus' => array('name' => 'refund_status', 'type' => 'int', 'require' => false, 'default'=>'0', 'desc' => '退款状态，0：未退款，1：正在退款，2：退款成功'),
             ),
             'getInfo' => array(
+                'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
                 'orderId' => array('name' => 'cart_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '订单ID'),
             ),
             'genOrderByCart' => array(
+                'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
                 'cartIds' => array('name' => 'cart_ids', 'type' => 'array', 'format' => 'explode', 'require' => true, 'desc' => '购物篮ID，多个以逗号分割'),
             ),
-            'genOrderByGood' => array(
-                'goodId' => array('name' => 'good_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '商品ID'),
-                'quantity' => array('name' => 'quantity', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '购买数量'),
-            ),
             'commitOrder' => array(
+                'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
                 'orderTempId' => array('name' => 'order_temp_id', 'type' => 'int',  'require' => true, 'desc' => '订单临时id'),
 				'addressId' => array('name' => 'addr_id', 'type' => 'int', 'require' => true, 'desc' => '收货地址id'),
                 'invoiceType' => array('name' => 'invoice_type', 'type' => 'string', 'require' => false, 'desc' => '发票类型'),
@@ -109,21 +111,10 @@ class Api_Order extends PhalApi_Api {
 	 * @return string info.addr_list[]_address 收件人地址
 	 * @return string info.addr_list[]_postcodes收件人邮编
      * @return array info.coupon_list 订单可用优惠券对象列表
-     *
      * @return string msg 提示信息
      */
     public function genOrderByCart() {
 
-    }
-
-    /**
-     * 商品生成订单
-     * @desc 直接购买生成订单，跳转到处理订单页面
-	 * @return object message 返回信息
-	 * @return string message.type  生成订单是否成功 success or warn两种情况
-	 * @return string message.content  成功or失败信息  "订单生成成功" 或者 该商品库存不足
-     */
-    public function genOrderByGood() {
 
     }
 
