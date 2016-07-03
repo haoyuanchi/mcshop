@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="86c275e7-6211-4bdc-8399-0c142e0e215c" name="Default" comment="增加地址接口">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Demo/Model/MemberRank.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Demo/Api/User.php" afterPath="$PROJECT_DIR$/Demo/Api/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Demo/Domain/User.php" afterPath="$PROJECT_DIR$/Demo/Domain/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Demo/Model/User.php" afterPath="$PROJECT_DIR$/Demo/Model/User.php" />
+    <list default="true" id="86c275e7-6211-4bdc-8399-0c142e0e215c" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Demo/Api/Good.php" afterPath="$PROJECT_DIR$/Demo/Api/Good.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="PhalApi.iws" />
@@ -44,18 +41,18 @@
       <file leaf-file-name="Good.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Demo/Model/Good.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="28.0" vertical-offset="810" max-vertical-offset="1764">
+            <state vertical-scroll-proportion="18.0" vertical-offset="540" max-vertical-offset="1764">
               <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Good.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Good.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Demo/Api/Good.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.33333334" vertical-offset="4311" max-vertical-offset="4950">
-              <caret line="245" column="0" selection-start-line="245" selection-start-column="0" selection-end-line="245" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.79187816" vertical-offset="90" max-vertical-offset="4950">
+              <caret line="36" column="113" selection-start-line="36" selection-start-column="113" selection-end-line="36" selection-end-column="113" />
               <folding />
             </state>
           </provider>
@@ -100,17 +97,17 @@
       <file leaf-file-name="Order.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Demo/Api/Order.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-20.666666" vertical-offset="1530" max-vertical-offset="2556">
-              <caret line="116" column="27" selection-start-line="116" selection-start-column="27" selection-end-line="116" selection-end-column="27" />
+            <state vertical-scroll-proportion="-11.333333" vertical-offset="1530" max-vertical-offset="2556">
+              <caret line="102" column="50" selection-start-line="102" selection-start-column="50" selection-end-line="102" selection-end-column="50" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="User.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="User.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Demo/Api/User.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.48730963" vertical-offset="1062" max-vertical-offset="3024">
+            <state vertical-scroll-proportion="-10.666667" vertical-offset="1062" max-vertical-offset="3024">
               <caret line="75" column="0" selection-start-line="74" selection-start-column="21" selection-end-line="75" selection-end-column="0" />
               <folding />
             </state>
@@ -187,7 +184,6 @@
         <option value="$PROJECT_DIR$/Demo/Model/ViewCoupon.php" />
         <option value="$PROJECT_DIR$/Demo/Api/Coupon.php" />
         <option value="$PROJECT_DIR$/Demo/Api/Redeem.php" />
-        <option value="$PROJECT_DIR$/Demo/Api/Good.php" />
         <option value="$PROJECT_DIR$/Demo/Model/Cart.php" />
         <option value="$PROJECT_DIR$/Demo/Api/Order.php" />
         <option value="$PROJECT_DIR$/Demo/Model/GoodBarcode.php" />
@@ -198,6 +194,7 @@
         <option value="$PROJECT_DIR$/Demo/Model/User.php" />
         <option value="$PROJECT_DIR$/Demo/Domain/User.php" />
         <option value="$PROJECT_DIR$/Demo/Api/User.php" />
+        <option value="$PROJECT_DIR$/Demo/Api/Good.php" />
       </list>
     </option>
   </component>
@@ -470,12 +467,6 @@
       <created>1466566780244</created>
       <option name="number" value="Default" />
       <updated>1466566780244</updated>
-    </task>
-    <task id="LOCAL-00005" summary="修改会员登录接口">
-      <created>1467449783624</created>
-      <option name="number" value="00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1467449783624</updated>
     </task>
     <task id="LOCAL-00006" summary="修改会员登录接口">
       <created>1467449893771</created>
@@ -765,7 +756,13 @@
       <option name="project" value="LOCAL" />
       <updated>1467552333241</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="增加地址接口">
+      <created>1467554126784</created>
+      <option name="number" value="00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1467554126784</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -790,7 +787,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="1874" height="1096" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3284974" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953367" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -805,7 +802,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953367" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1047409" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1047409" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24972437" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1194,22 +1191,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Demo/Model/Good.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="28.0" vertical-offset="810" max-vertical-offset="1764">
-          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Demo/Api/Good.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.33333334" vertical-offset="4311" max-vertical-offset="4950">
-          <caret line="245" column="0" selection-start-line="245" selection-start-column="0" selection-end-line="245" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Demo/Model/GoodBarcode.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3919598" vertical-offset="0" max-vertical-offset="648">
@@ -1237,14 +1218,6 @@
           <folding>
             <element signature="e#6#84#0#PHP" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Demo/Api/Order.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-20.666666" vertical-offset="1530" max-vertical-offset="2556">
-          <caret line="116" column="27" selection-start-line="116" selection-start-column="27" selection-end-line="116" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1286,8 +1259,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Demo/Api/User.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48730963" vertical-offset="1062" max-vertical-offset="3024">
+        <state vertical-scroll-proportion="-10.666667" vertical-offset="1062" max-vertical-offset="3024">
           <caret line="75" column="0" selection-start-line="74" selection-start-column="21" selection-end-line="75" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Demo/Api/Order.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.333333" vertical-offset="1530" max-vertical-offset="2556">
+          <caret line="102" column="50" selection-start-line="102" selection-start-column="50" selection-end-line="102" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Demo/Model/Good.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="18.0" vertical-offset="540" max-vertical-offset="1764">
+          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Demo/Api/Good.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.79187816" vertical-offset="90" max-vertical-offset="4950">
+          <caret line="36" column="113" selection-start-line="36" selection-start-column="113" selection-end-line="36" selection-end-column="113" />
           <folding />
         </state>
       </provider>
