@@ -167,26 +167,26 @@ function getListParam(pageParams,type){
 	var listParam = '';
 	if(!type){
 	   if(pageParams.productCategoryId){
-		listParam =  'service=Good.GetListByCategory'+'&brandId='+pageParams.brandId +  '&productCategoryId=' + pageParams.productCategoryId;
-		listParam += '&orderType=' + pageParams.orderType + '&pageNumber=' + pageParams.pageNumber + '&pageSize=' + pageParams.pageSize;
+		listParam =  'service=Good.GetListByCategory'+'&brand_id='+pageParams.brandId +  '&category_id=' + pageParams.productCategoryId;
+		listParam += '&orderType=' + pageParams.orderType + '&page=' + pageParams.pageNumber + '&pageSize=' + pageParams.pageSize;
 	   }
 	   else if(pageParams.tagIds){
-		listParam =  'service=Good.GetListByTagIds'+'&tagIds=' + pageParams.tagIds;
-		listParam += '&orderType=' + pageParams.orderType + '&pageNumber=' + pageParams.pageNumber + '&pageSize=' + pageParams.pageSize;      
+		listParam =  'service=Good.GetListByTagId'+'&brand_id='+pageParams.brandId+'&tag_id=' + pageParams.tagIds;
+		listParam += '&orderType=' + pageParams.orderType + '&page=' + pageParams.pageNumber + '&pageSize=' + pageParams.pageSize;      
 	   }
 	   else{
-		listParam =  'service=Good.GetListByBrand'+'&brandId='+pageParams.brandId;
-		listParam += '&orderType=' + pageParams.orderType + '&pageNumber=' + pageParams.pageNumber + '&pageSize=' + pageParams.pageSize;      
+		listParam =  'service=Good.GetListByBrand'+'&brand_id='+pageParams.brandId;
+		listParam += '&orderType=' + pageParams.orderType + '&page=' + pageParams.pageNumber + '&pageSize=' + pageParams.pageSize;      
 	   }
 		
 	}else if(type == 'search'){
 		listParam =  'searchValue='+pageParams.searchValue;
-		listParam += '&orderType=' + pageParams.orderType + '&pageNumber=' + pageParams.pageNumber + '&pageSize=' + pageParams.pageSize;
+		listParam += '&orderType=' + pageParams.orderType + '&page=' + pageParams.pageNumber + '&pageSize=' + pageParams.pageSize;
 	}else if(type == 'filter'){
 		listParam = 'brandId='+pageParams.brandId + '&isNewArrival=' + pageParams.isNewArrival+'&isBestSeller=' + pageParams.isBestSeller + '&isPromotion='+ pageParams.isPromotion;
 		listParam += '&salesValumeOrderBy='+ pageParams.salesValumeOrderBy + '&yearOrderBy=' + pageParams.yearOrderBy + '&productCatagoryIds='+pageParams.productCatagoryIds;
 		listParam += '&colorIds=' +  pageParams.colorIds + '&prices=' + pageParams.prices + '&sizeIds=' + pageParams.sizeIds;
-		listParam += '&orderType=' + pageParams.orderType + '&priceOrderBy='+ pageParams.priceOrderBy  +'&pageNumber='+ pageParams.pageNumber+'&pageSize='+pageParams.pageSize;
+		listParam += '&orderType=' + pageParams.orderType + '&priceOrderBy='+ pageParams.priceOrderBy  +'&page='+ pageParams.pageNumber+'&pageSize='+pageParams.pageSize;
 	}
 	return listParam;
 }
@@ -202,9 +202,9 @@ function getList(listUrl, listParam, asyType) {
         dataType: 'json',
         cache: false,
         async: asyType,
-        error: function(data) {
+        success: function(result) {
             /** 商品列表*/	
-			var data={
+		/*	var data={
     "code": 0,
     "totalPages": 6,
     "good_list": [
@@ -216,7 +216,7 @@ function getList(listUrl, listParam, asyType) {
             "name": "长流苏半身裙",
             "image": "http://images.mo-co.com/upload/image/201604/3345cce6-5c34-48cf-a392-21cad52285a6.jpg@360w_100Q_1x.jpg",
             "price_origin": 111.11,
-            "price_sale": 95.15
+            "price": 95.15
         },
         {
             "brand_id": 18,
@@ -226,7 +226,7 @@ function getList(listUrl, listParam, asyType) {
             "name": "长流苏半身裙",
             "image": "http://images.mo-co.com/upload/image/201604/3345cce6-5c34-48cf-a392-21cad52285a6.jpg@360w_100Q_1x.jpg",
             "price_origin": 111.11,
-            "price_sale": 111.11
+            "price": 111.11
         },
         {
             "brand_id": 18,
@@ -236,7 +236,7 @@ function getList(listUrl, listParam, asyType) {
             "name": "长流苏半身裙",
             "image": "http://images.mo-co.com/upload/image/201604/3345cce6-5c34-48cf-a392-21cad52285a6.jpg@360w_100Q_1x.jpg",
             "price_origin": 111.11,
-            "price_sale": 95.15
+            "price": 95.15
         },
         {
             "brand_id": 18,
@@ -246,7 +246,7 @@ function getList(listUrl, listParam, asyType) {
             "name": "长流苏半身裙",
             "image": "http://images.mo-co.com/upload/image/201604/3345cce6-5c34-48cf-a392-21cad52285a6.jpg@360w_100Q_1x.jpg",
             "price_origin": 111.11,
-            "price_sale": 95.15
+            "price": 95.15
         },
         {
             "brand_id": 18,
@@ -256,7 +256,7 @@ function getList(listUrl, listParam, asyType) {
             "name": "长流苏半身裙",
             "image": "http://images.mo-co.com/upload/image/201604/3345cce6-5c34-48cf-a392-21cad52285a6.jpg@360w_100Q_1x.jpg",
             "price_origin": 111.11,
-            "price_sale": 95.15
+            "price": 95.15
         },
         {
             "brand_id": 18,
@@ -266,12 +266,13 @@ function getList(listUrl, listParam, asyType) {
             "name": "长流苏半身裙",
             "image": "http://images.mo-co.com/upload/image/201604/3345cce6-5c34-48cf-a392-21cad52285a6.jpg@360w_100Q_1x.jpg",
             "price_origin": 111.11,
-            "price_sale": 95.15
+            "price": 95.15
         }
     ],
     "good_number": 15151,
     "msg": "hehhe "
-}
+}*/			
+			var data = result.data;
             var productList = data.good_list;
             assembleListBox(productList);
            
@@ -291,7 +292,7 @@ function assembleListBox(productList){
 
          var productName = product.name;
          
-         var contentUrl = moshop.base + '../mobile/product/content.html?brandId='+brandId+'&productCategoryId='+ product.category_id +'&productId='+product.id;
+         var contentUrl = moshop.base + '../mobile/product/content.html?brandId='+brandId+'&productCategoryId='+ product.category_id +'&productId='+product.good_id;
          var productImage = product.image;
          
          if(productName.length > 11){
@@ -303,17 +304,19 @@ function assembleListBox(productList){
          }
          
          var isSale = '';
-         if(product.price_sale&&product.price_sale<product.price_origin){
+         if(product.price&&product.price<product.price_origin){
         	 isSale += '<span>SALE</span> ';
          }
          
          var showMarktPrice = '';
-         if(product.price_sale&&product.price_sale<product.price_origin){
+         if(product.price&&product.price<product.price_origin){
          	showMarktPrice = '- <del style="color:#9a9a9a">'+currency(product.price_origin,true)+'</del>';
          }
-         var crruentPrice = currency(product.price_sale,true);
-         nextPageHtml = nextPageHtml + '<li><a href="' + contentUrl + '"><img datasrc="' + productImage + '" src="' + productImage + '" width="150"></a><span class="list_price"> ' + isNewArrival + productName + '</span><span class="list_price">' + isSale + crruentPrice + showMarktPrice +'</span></li>';
-     }
+         var crruentPrice = currency(product.price,true);
+       /*  nextPageHtml = nextPageHtml + '<li><a href="' + contentUrl + '"><img datasrc="' + productImage + '" src="' + productImage + '" width="150"></a><span class="list_price"> ' + isNewArrival + productName + '</span><span class="list_price">' + isSale + crruentPrice + showMarktPrice +'</span></li>';*/
+		 nextPageHtml = nextPageHtml + '<li><a href="' + contentUrl + '"><img datasrc="' + productImage + '" src="' + productImage + '" width="150"></a><span class="list_price"> ' + isNewArrival + productName + '</span><span class="list_price">' + isSale + crruentPrice + showMarktPrice +'</span></li>';
+     
+	 }
 }
 
 
@@ -481,7 +484,7 @@ function getOrderList(listUrl, listParam, asyType) {
 			});
 	    }
     },
-    cart = {
+    cart = {   //购物车相关
         goods: null,
         initShow: false,
         linkPosition: {},
@@ -611,7 +614,7 @@ function getOrderList(listUrl, listParam, asyType) {
     		}
     	},
     	submitCart: function(){
-    		if (!$.checkLogin()) {
+    		/*if (!$.checkLogin()) {
     			m$.ui.dialog.dialogShow({
     				'title': '提示',
     				'content': '必须登录后才能提交订单'
@@ -624,8 +627,9 @@ function getOrderList(listUrl, listParam, asyType) {
     			}]);
     			return false;
     		}else{
-    			window.location=moshop.base +  '/mobile/member/order/info.jhtml';
-    		}
+    			
+    		}*/
+			window.location=moshop.base +  '../member/order/info.html';
     	},
     	submitOrderInfo: function(){
 			var $orderForm = $("#orderForm");
@@ -2623,21 +2627,21 @@ function getFavouriteProductList(listUrl,pageNumber) {
 	            
 	            var productName = product.name;
 	            
-	            var contentUrl = moshop.base + '/mobile/product/content.jhtml?productId='+product.id;
+	            var contentUrl = moshop.base + '/mobile/product/content.jhtml?productId='+product.good_id;
                 var productImage = product.listCoverImage + '@180w_100Q_1x.jpg';
                 
 	            if(productName.length > 11){
 		    		 productName = productName.substring(0,10) + '...';
 		    	}
-	            var isNewArrival = '';
+	           /* var isNewArrival = '';
 	            if(product.isNewArrival){
 	            	isNewArrival = '<span>NEW</span>';
-	            }
+	            }*/
 	            var showMarktPrice = '';
 	            if(product.price != product.marketPrice){
 	            	showMarktPrice = '- <del style="color:#9a9a9a">'+currency(product.marketPrice,true)+'</del>';
 	            }
-	            nextPageHtml = nextPageHtml + '<li class="favouriteProductList"><i onClick="deleteFavourite('+ product.id +')"></i><input type="hidden" id="productId" value="'+product.id+'"/><a href="' + contentUrl + '"><img datasrc="' + productImage + '" src="' + productImage + '" width="150"></a><span class="list_price"> ' + isNewArrival + productName + '</span><span class="list_price">'+currency(product.price,true) + showMarktPrice +'</span></li>';
+	            nextPageHtml = nextPageHtml + '<li class="favouriteProductList"><i onClick="deleteFavourite('+ good_id +')"></i><input type="hidden" id="productId" value="'+good_id+'"/><a href="' + contentUrl + '"><img datasrc="' + productImage + '" src="' + productImage + '" width="150"></a><span class="list_price"> ' + isNewArrival + productName + '</span><span class="list_price">'+currency(product.price,true) + showMarktPrice +'</span></li>';
             }
         }
     })

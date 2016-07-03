@@ -8,7 +8,6 @@
 
 </title><link href="Scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" /><link href="Scripts/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" /><link href="Demo/font-awesome/font-awesome.min.css" rel="stylesheet" /><link href="Demo/Resources/Mall.css" rel="stylesheet" /><link href="Demo/js/IosOverlay/css/iosOverlay.css" rel="stylesheet" /><link href="js/mobiscroll.trial/css/mobiscroll.custom-2.16.1.min.css" rel="stylesheet" type="text/css" /></head>
 <body>
-    <form method="post" action="./wx_usercenter.aspx?hash=jnby&amp;code=011NFRnF1A7N1e02n6lF1ZHXnF1NFRnH&amp;state=STATE" id="Form1">
 <script type="text/javascript">
 //<![CDATA[
 in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5vT2TJiFj_bVa0lbE4';jsapi_appid = 'wx78d38a41cc2b7b64';jsapi_timestamp = '1465192132';jsapi_noncestr = 'uDFGcubQxdMPcLJk';jsapi_signature = '0cde22c2b278a5e1055fcd7f11c62c548c8a1769';jsapi_title = 'JNBY';jsapi_imgurl = 'http://wx.jnby.com/wxdata/public/brand/3-jnby.jpg';jsapi_link = 'http://wx.jnby.com/apptest/wx_portal.html?hash=jnby';jsapi_desc = '\u5FAE\u4FE1\u5546\u57CE';jsapi_type = 'default';jsapi_activityid = null;openId = 'oVFOhjjd8F5vT2TJiFj_bVa0lbE4';Hash = 'jnby';//]]>
@@ -28,8 +27,8 @@ in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5
 <script src="js/mobiscroll.trial/js/mobiscroll.custom-2.16.1.min.js" type="text/javascript"></script>
 <script src="js/wx/wxbase.js" type="text/javascript"></script>
 <script src="js/wx/jsapi.js" type="text/javascript"></script>
-<div id="maincontent">
-        
+<script src="Scripts/angular-1.0.0rc10.min.js" type="text/javascript"></script>
+<div id="maincontent" ng-app="userCenter" ng-controll="list">  
     <div id="main" class="full">
         <table>
             <tr>
@@ -38,7 +37,9 @@ in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5
                     <img src="Demo/Resources/images/Mall/banner_bg.png"/>
 					<div style="text-align:center;font-size:1em;top:50%;">
                        
-                                <div class="headArea"><img id="vipHead" src='Demo/Resources/images/Mall/user_head.png' /></div>
+                                <div class="headArea">
+									<img id="vipHead"  ng-show="wx_headimgurl" ng-src='{{wx_headimgurl}}' />
+								</div>
 								<span>MO&Co. 8折卡</span>
 								<br>
 								<span>积分：30000分</span>
@@ -108,6 +109,18 @@ in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5
 		</div>
 
 </div>
-</form>
+<script type="text/javascript">
+	var app=angular.module("userCenter",[]);
+	app.controller("list",function($scope,$http){
+		var url="http://114.55.38.119/mcshop/Public/demo/?service=User.GetBaseInfo&user_id=1033";
+		$http.get(url).success(function(response) { 
+			if(response.data.info.wx_headimgurl){
+				$scope.wx_headimgurl = response.data.info.wx_headimgurl;
+			}
+			$scope.midCategory_list = response.data.midCategory_list;
+			$scope.brandCategory_list = response.data.brandCategory_list;
+		});	
+	});
+</script>
 </body>
 </html>

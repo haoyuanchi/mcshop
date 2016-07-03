@@ -1,35 +1,37 @@
-﻿    var re_hash = request("hash");
+﻿    var re_hash = "moco";
     var re_openid = in_openid;
 	var htmlprovince;
 var htmlcity;
 $(document).ready(function () {
 
-	if(re_hash=="jnby"){  //显示不同品牌兑换规则
+	if(re_hash=="moco"){  //显示不同品牌兑换规则
 		$("#moco_rule").removeClass("hidden");	
 	}
 	else if(re_hash=="E"){
 		$("#edition_rule").removeClass("hidden");
-		
 	}
 	else{
 		
 	}
-	$("#redeem_submit").click(function(){
-		var integral;
+	$("#redeem_submit").click(function(){//{ brand_id:"18", redeem_integral:integral
+		var user_id ="9137";
+		var brand_id;
 		var value;
-		if(re_hash=="jnby"){
+		if(re_hash=="moco"){
+			brand_id=18;
 			value = $("#Moco_SL").val();
-			integral = 10000*value;
+			redeem_integral = 10000*value;
 		}
 		else if(re_hash=="E"){
-			integral = $("#Edition10_integral").val();
+			brand_id=19;
+			redeem_integral = $("#Edition10_integral").val();
 			value = $("#Edition10_value").val();
 		}
 		else{}
-		redeem(re_openid,re_hash,integral,value);
+		redeem(user_id,brand_id,redeem_integral);
 		
 	});
-	getIntegral(re_openid,re_hash);//获取积分
+
 	 getProvince();
 	$("#province").change(function () {
 		getCity();
@@ -39,14 +41,14 @@ $(document).ready(function () {
 	});
 	
 });
-function redeem(re_openid,re_hash,integral,value){ //积分兑换 参数：openid 品牌 积分数 现金券
+function redeem(user_id,brand_id,redeem_integral){ 
 	Msg.show("处理中...", 3);
-	var postdata = { jfhandler: "wxredeem_redeem",openid: re_openid , hash: re_hash, integral:integral,value:value};
+	var postdata = { user_id: "9137",brand_id:"18", redeem_integral:redeem_integral};
 	$.ajax({
 		type:"post",
-		url:"WXHandler.ashx",
+		url:"http://114.55.38.119/mcshop/Public/demo/?service=Redeem.GetValue",
 		data:postdata,
-		error:function(result){
+		success:function(result){
 			var listarr={"ret":1,"errmsg":"积分兑换成功",integral:25000};
 			Msg.hide();
 			if(listarr.ret==1){
@@ -65,19 +67,7 @@ function redeem(re_openid,re_hash,integral,value){ //积分兑换 参数：openi
 function getValue(){
 	
 }
-function getIntegral(re_openid,re_hash){
-	var postdata = { jfhandler: "wxredeem_integral", hash: re_hash, openid: re_openid };
-	$.ajax({
-		type:"post",
-		url:"WXHandler.ashx",
-		data:postdata,
-		error:function(result){
-			var listarr =50000;
-			$("#integral").text(listarr);
-			
-		}
-	});
-}
+
 
 // 省份
 function getProvince() {

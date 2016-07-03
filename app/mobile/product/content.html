@@ -60,13 +60,13 @@ $().ready(function() {
 	
 	$.ajax({
 		type:"post",
-		url:"http://localhost/PhalApi/Public/demo/?service=Good.GetInfo",
+		url:"http://114.55.38.119/mcshop/Public/demo/?service=Good.GetInfo",
 		data:{"good_id":request("productId")},
 		dataType: "json",
 		cache: false,
 		async: false,
-		error: function (data) {
-			var data={
+		success: function (result) {
+			var data1={
 				"code": 0,
 				"good": {
 					"name": "背带连衣裙",
@@ -192,21 +192,28 @@ $().ready(function() {
 				"mes": "xxxx"
 			}
 		//生成productMap 
+			var data=result.data;
 			for(var i=0;i<data.good.spec_list.length;i++){
 				var spec_list =data.good.spec_list[i];
-				productMap[spec_list.product_id]={};
-				var obj =productMap[spec_list.product_id];
+				productMap[spec_list.id]={};
+				var obj =productMap[spec_list.id];
 				obj.colorThumb=spec_list.color_image;
-				obj.id=spec_list.product_id.toString();
+				obj.id=spec_list.id.toString();
 				obj.specificationValues=new Array();
 				obj.specificationValues.push(spec_list.color_id.toString());
 				obj.specificationValues.push(spec_list.size_id.toString());
-				obj.stockNum=spec_list.remain_number;
-				obj.isMarketable=spec_list.isMarketable;
+				obj.stockNum=spec_list.remain_number;  //??
+				if(obj.stockNum!=0){
+					obj.isMarketable=true;
+				}
+				else {
+					obj.isMarketable=true; //****
+				}
+
 				obj.productImages= new Array();
 				for(var j=0;j<data.good.image_list.length;j++){
 					obj.productImages[j]= new Array();
-					obj.productImages[j].push(data.good.image_list[j].image_url);
+					obj.productImages[j].push(data.good.image_list[j].image);
 					obj.productImages[j].push(j+1);
 				}
 			}
@@ -224,7 +231,7 @@ $().ready(function() {
 		//解析图片切换区域	
 			var swiperHtml="";
 			for(var i=0;i<data.good.image_list.length;i++){
-				swiperHtml +="<div class='swiper-slide' ><img src='"+data.good.image_list[i].image_url+"' /></div>";
+				swiperHtml +="<div class='swiper-slide' ><img src='"+data.good.image_list[i].image+"' /></div>";
 			}
 			$(".swiper-wrapper").html(swiperHtml);
 			var productContentSwiper = new Swiper('.swiper-container',{
@@ -248,7 +255,7 @@ $().ready(function() {
 				$.each(data.good.spec_list,function(j,product){
 					if(product.color_id==colorMapUnique[i]){
 						colorImage=product.color_image;
-						colorTitle=product.color_value;
+						colorTitle=product.color_name;
 						return true;
 					}
 					else{
@@ -264,7 +271,7 @@ $().ready(function() {
 				var sizeValue="";
 				$.each(data.good.spec_list,function(j,product){
 					if(product.size_id==sizeMapUnique[i]){
-						sizeValue=product.size_value;
+						sizeValue=product.size_name;
 
 						return true;
 					}
@@ -278,22 +285,23 @@ $().ready(function() {
 			// 成分保养
 			$("#ingredient").html(data.good.ingredient);
 			var maintainHtml="";
-			for(var i=0; i<data.good.maintain.length;i++){
-				maintainHtml+="<dl><dt><img src='"+data.good.maintain[i].image+"'width='15px'/></dt><dd><span>"+
+			if(data.good.maintain){
+				for(var i=0; i<data.good.maintain.length;i++){  //有些有 有些没有
+					maintainHtml+="<dl><dt><img src='"+data.good.maintain[i].image+"'width='15px'/></dt><dd><span>"+
 					data.good.maintain[i].explain+"</span></dd></dl><br />";
+				}
 			}
+
 			$("#maintain").html(maintainHtml);
 			$("#tips").html(data.good.tips);
 			//尺码表
-			var	sizeTableHtml="";
-			for(var i=0;i<data.good.sizeTable_list.length;i++){
-				sizeTableHtml+="<img src='"+data.good.sizeTable_list[i].image+"'/>";
-			}
+			 var sizeTableHtml="<img src='http://images.mo-co.com/upload/image/201603/d011c9cd-f1ea-4f85-b237-a419cbfecc3d.png'/>  <img src='http://images.mo-co.com/upload/image/201606/58eb8aa2-fcf4-47ce-8ab8-b7c653e547bc.jpg'/>";
+		
 			$("#size_table").html(sizeTableHtml);
 			//寄送信息
-			$("#delivery_info").html(data.good.delivery_info);
+			$("#delivery_info").html("<p class='zonasPrenda' style='margin-top:0px;margin-bottom:0px;white-space:normal;padding:0px;font-size:10px;font-family:Arial, clean, sans-serif;line-height:19.200000762939453px;background-color:#FFFFFF;'>请提供您的送货地址（具体的提货时间取决于您所在的城市）＊</p><p class='zonasPrenda' style='margin-top:0px;margin-bottom:0px;white-space:normal;padding:0px;font-size:10px;font-family:Arial, clean, sans-serif;line-height:19.200000762939453px;background-color:#FFFFFF;'>＊ 目标区域：</p><p class='zonasPrenda' style='margin-top:0px;margin-bottom:0px;white-space:normal;padding:0px;font-size:10px;font-family:Arial, clean, sans-serif;line-height:19.200000762939453px;background-color:#FFFFFF;'>- 区域１（预计送货时间２－３个工作日) : 江西，河北，浙江，天津，上海，辽宁，江苏，广东，福建，重庆，北京，安徽</p><p class='zonasPrenda' style='margin-top:0px;margin-bottom:0px;white-space:normal;padding:0px;font-size:10px;font-family:Arial, clean, sans-serif;line-height:19.200000762939453px;background-color:#FFFFFF;'>- 区域２（预计送货时间３－５个工作日）: 青海，甘肃，内蒙古，云南，贵州，山西，宁夏，黑龙江，海南，吉林，陕西，广西，四川，湖北，湖南，山东，河南</p><p class='zonasPrenda'style='margin-top:0px;margin-bottom:0px;white-space:normal;padding:0px;font-size:10px;font-family:Arial, clean,  sans-serif;line-height:19.200000762939453px;background-color:#FFFFFF;'>- 区域３（预计送货时间５－７个工作日）: 西藏，新疆</p>");
 			//退货详情链接
-			$("#rejected").attr("href",data.good.rejected);
+			$("#rejected").attr("href","http://www.mo-co.com/info/buyingguide.jhtml?id=56&m=quitchange");
 		}
 	});
 // 购买数量

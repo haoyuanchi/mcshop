@@ -21,15 +21,19 @@
 		pageNumber : 1,
 		pageCount : '',
 		pageSize : 6,
-		totalPages:0,
-		orderType : 'dateDesc',
-		brand : '',
+		total_pages:0,
+		orderType : 'sort',
+		brand : '',/***待处理**/
 		brandId: '',
 		tagIds: ''
 		//promotionId: ''
 	}
-	 pageParams.brand = request("brandId");
+	 pageParams.brandId = request("brandId");
 	 pageParams.tagIds = request("tagIds");
+	 if(!pageParams.brandId){ /***待处理**/
+		pageParams.brandId =18;
+	 }
+	 
 	 pageParams.productCategoryId = request("productCategoryId");
 </script>
 </head>
@@ -40,7 +44,7 @@
 	  <li class="page_loading" id="pageLoading"><div class="loading"><div class="rotate"></div></div></li>
 </ul>
 <script type="text/javascript">
-		var listUrl = "http://localhost/PhalApi/Public/demo/?";
+		var listUrl = "http://114.55.38.119/mcshop/Public/demo/?";
 		var listParam =  getListParam(pageParams);
         var site = listUrl + listParam;  //三种方式 brandId tagIds  productCategoryId
         $.ajax({
@@ -49,8 +53,8 @@
             dataType: "json",
             cache: false,
             async: false,
-            error: function (data) {
-				var data={
+            success: function (result) {
+				var data1={
     "code": 0,
 	"tag_img":"http://images.mo-co.com/upload/image/201606/7d69dfd0-9c49-4f8f-8622-bdd6b899e44e.png",
     "totalPages": 6,
@@ -118,7 +122,8 @@
     ],
     "good_number": 15151,
     "msg": "hehhe "
-}
+}               
+				var data=result.data;
 				 if ($('#pageLoading').prevAll().length != 0) {
                     $('#pageLoading').prevAll().remove();
                 }
@@ -127,17 +132,17 @@
 					$("#listBox").before(tag_img);
 				}
 				if(data.brand_img){
-					var brand_img="<img src='"+data.brand+"' class='index_category'>";
+					var brand_img="<img src='"+data.brand_img+"' class='index_category'>";
 					$("#listBox").before(brand_img);
 				}
                 if (data.good_list.length > 0) {
                      /** 总页数*/
-		            var totalPage = data.totalPages;
+		            var totalPage = data.total_pages;
 		            /** 商品列表*/
 		            var productList = data.good_list;
                     assembleListBox(productList);
                     $('#pageLoading').before(nextPageHtml);
-					pageParams.pageCount = data.totalPages;
+					pageParams.pageCount = data.total_pages;
                    /* if(data.productCategoryId){
                          pageParams.productCategoryId = data.productCategoryId;
                     }

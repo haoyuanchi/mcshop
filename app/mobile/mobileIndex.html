@@ -14,13 +14,13 @@
 <script type="text/javascript">
 $().ready(function(){
 	$.ajax({
-		url:"http://localhost/PhalApi/Public/demo/?service=MobileIndex.GetCategoryInfo" ,
+		url:"http://114.55.38.119/mcshop/Public/demo/?service=MobileIndex.GetIndex&code=moco" ,
 		type:"get",
 		dataType: "json",
 		cache: false,
 		async: false,
-		error: function (data) {
-			var data={
+		success: function (result) {
+			var data1={
     "topCategory": {
         "tag_id": "5",
         "img": "http://images.mo-co.com/upload/image/201606/7d69dfd0-9c49-4f8f-8622-bdd6b899e44e.png"
@@ -52,15 +52,17 @@ $().ready(function(){
         }
     ]
 };
+			
+			var data =result.data;
 			if(data.topCategory){
 				var topHtml="";
 				topHtml="<div><a href='list.html?tagIds="+data.topCategory.tag_id+"'><img src='"+
-							data.topCategory.img+"' class='index_category'/></a></div>";
+							data.topCategory.image+"' class='index_category'/></a></div>";
 			}
 			$(".trendspotImage").before(topHtml);
 			var midHtml="";
 			for(var i=0;i<data.midCategory_list.length;i++){
-				midHtml+="<a href='list.html?tagIds='"+data.midCategory_list[i].tag_id+"'><img src='"+
+				midHtml+="<a href='list.html?tagIds="+data.midCategory_list[i].tag_id+"'><img src='"+
 					data.midCategory_list[i].img+"' class='trendspot index_category'/></a>";
 			}
 			$(".trendspotImage").html(midHtml);

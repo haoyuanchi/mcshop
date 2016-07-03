@@ -30,19 +30,20 @@ in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5
 <script src="js/wx/wxbase.js" type="text/javascript"></script>
 <script src="js/wx/menu.js" type="text/javascript"></script>
 <script src="js/wx/jsapi.js" type="text/javascript"></script>
+<script src="Scripts/angular-1.0.0rc10.min.js" type="text/javascript"></script>
 
-    <div id="maincontent" style="color:#fff">
+    <div id="maincontent" style="color:#fff" ng-app="redeemC"  ng-controller="list">
         
     <div id="main" class="full" style="background-color: #141414">
 		<div style="margin-top:10px;">
 			<table>
-            <tr>
-				<td >
-					<span>您目前的可用积分为：</span>
-					<span id="integral"></span>
-				</td>
-            </tr>
-		</table>
+				<tr>
+					<td >
+						<span>您目前的可用积分为：</span>
+						<span id="integral">{{integral}}</span>
+					</td>
+				</tr>
+			</table>
 		</div>
        
 		<table style="margin-top:15px;height:55px;">
@@ -53,7 +54,7 @@ in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5
 					<p>活动详情请咨询店员</p>
 					<p>兑换数量</p>
 					<p>
-						<input  id="Moco_SL" type="text"  style="text-align:center;width:116px;height:32px;" value=""></input>
+						<input  id="Moco_SL" type="text"  style="text-align:center;width:116px;height:32px;" value="" ng-model="moco.number"></input>
 					</p>
 				</td>
 			</tr>
@@ -67,11 +68,11 @@ in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5
 					<p>活动详情请咨询店员</p>
 					<p>兑换积分</p>
 					<p > 
-						<input type="text" id="Edition10_integral"  style="text-align:center;width:116px;height:32px;"></input>
+						<input type="text" id="Edition10_integral"  style="text-align:center;width:116px;height:32px;" ng-model="Ed.integral" ng-change="EdValue()"></input>
 					</p>
 					<p>可兑换现金券面值</p>
 					<p>
-						<input type="text" id="Edition10_value" value="" style="text-align:center;width:116px;height:32px;"></input>
+						<input type="text" id="Edition10_value" value="" style="text-align:center;width:116px;height:32px;" ng-model="Ed.value"></input>
 					</p>
 				</td>
 			</tr>
@@ -126,18 +127,45 @@ in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5
         <script src="Scripts/jquery-barcode.js" type="text/javascript"></script>
 		<script src="js/wx/wxredeem.js" type="text/javascript"></script>
     </div>
-    <script type="text/javascript">
-		$("#a").click(function(){
-				if($("#moco_rule").hasClass("hidden")){
-					$("#moco_rule").removeClass("hidden");
-					$("#edition_rule").addClass("hidden");
-				}
-				else{
-					$("#edition_rule").removeClass("hidden");
-					$("#moco_rule").addClass("hidden");
-				}
-		});
-    </script>
+<script type="text/javascript">
+	$("#a").click(function(){
+			if($("#moco_rule").hasClass("hidden")){
+				$("#moco_rule").removeClass("hidden");
+				$("#edition_rule").addClass("hidden");
+			}
+			else{
+				$("#edition_rule").removeClass("hidden");
+				$("#moco_rule").addClass("hidden");
+			}
+	});
+	
+	var app=angular.module("redeemC",[]);
+	app.controller("list",function($scope,$http){
+		var integral_url="http://114.55.38.119/mcshop/Public/demo/?service=User.GetBaseInfo&user_id=9137";
+		$http.get(integral_url).success(function(response) { 
+			$scope.integral = response.data.info.integral;
+		});	
+		$scope.Ed={};
+		$scope.Ed.integral="";
+		$scope.Ed.value="";
+		$scope.EdValue=function(){
+			if($scope.Ed.integral>=10000&&$scope.Ed.integral<=29999){
+				$scope.Ed.value=0.05*$scope.Ed.integral;
+			}
+			else if($scope.Ed.integral>=30000&&$scope.Ed.integral<=49999){
+				$scope.Ed.value=0.55*$scope.Ed.integral;
+			}
+			else if($scope.Ed.integral>=50000){
+				$scope.Ed.value=0.6*$scope.Ed.integral;
+			}
+			else{
+				$scope.Ed.value="";
+			}
+		};
+		
+	});
+
+</script>
     
 </form>
 </body>
