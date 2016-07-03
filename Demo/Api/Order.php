@@ -245,7 +245,7 @@ class Api_Order extends PhalApi_Api {
 
             $orderItemId = $modelOrderItem->insert($orderItem);
 
-            $ret['order']['item'][$key] = $orderItemId;
+            $ret['order']['item'][$key]['order_item_id'] = $orderItemId;
 
             // 3. 清除购物车
             $modelCart->delete($cartId);
