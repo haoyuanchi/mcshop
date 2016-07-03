@@ -101,8 +101,8 @@
       <file leaf-file-name="Redeem.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Demo/Api/Redeem.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35643566" vertical-offset="0" max-vertical-offset="3510">
-              <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
+            <state vertical-scroll-proportion="0.7227723" vertical-offset="2421" max-vertical-offset="3546">
+              <caret line="176" column="14" selection-start-line="176" selection-start-column="14" selection-end-line="176" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -363,12 +363,6 @@
       <created>1466566780244</created>
       <option name="number" value="Default" />
       <updated>1466566780244</updated>
-    </task>
-    <task id="LOCAL-00031" summary="修改会员登录接口">
-      <created>1467467369581</created>
-      <option name="number" value="00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1467467369581</updated>
     </task>
     <task id="LOCAL-00032" summary="修改会员登录接口">
       <created>1467468774413</created>
@@ -658,7 +652,13 @@
       <option name="project" value="LOCAL" />
       <updated>1467568159166</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="增加地址接口">
+      <created>1467568447968</created>
+      <option name="number" value="00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1467568447968</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1172,8 +1172,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Demo/Api/Redeem.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35643566" vertical-offset="0" max-vertical-offset="3510">
-          <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.7227723" vertical-offset="2421" max-vertical-offset="3546">
+          <caret line="176" column="14" selection-start-line="176" selection-start-column="14" selection-end-line="176" selection-end-column="14" />
           <folding />
         </state>
       </provider>
