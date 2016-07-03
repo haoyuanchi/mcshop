@@ -1,0 +1,752 @@
+<!DOCTYPE html><!DOCTYPE html>
+<html>
+<head>
+	<title>背带连衣裙</title>
+		<meta name="keywords" content="背带连衣裙" />
+		<meta name="description" content="背带连衣裙" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no,width=320,target-densitydpi=142">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+<link href="../../resources/mobile/css/common.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../resources/mobile/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../resources/mobile/js/common.js"></script>
+<script type="text/javascript" src="../../resources/mobile/js/mobile.js"></script>
+<script type="text/javascript" src="../../resources/mobile/js/Request.js"></script>
+<style>
+html {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  position: relative;
+  height: 100%;
+}
+
+.fullscreen {
+	position: relative;
+	width: 100%;
+	margin: 0 auto;
+	padding: 0 0 0px;
+	background-color: #ffffff;
+	overflow: hidden;
+}
+</style>
+
+<script type="text/javascript">
+$().ready(function() {
+	var $specification = $("#sys_item_specpara");
+	var $specificationTitle = $("#specification div");
+	var $quantity = $("#quantity");
+	var $increase = $("#increase");
+	var $decrease = $("#decrease");
+	var $addCart = $("#addCart");
+	var $currentProductId = $("#currentProductId");
+	var $parameterContent = $(".parameterContent");
+	var $parameterTitle = $(".parameterTitle");
+	var productMap = {};
+	var sizeMap = new Array();
+	var colorMap = new Array();
+	var sizeMapUnique = new Array();
+	var colorMapUnique = new Array();
+	var $addFavorite = $("#addFavorite");
+	var $buyNow = $("#buyNow");
+	//数量初始值
+	$quantity.val(1);
+	
+	$.ajax({
+		type:"post",
+		url:"http://localhost/PhalApi/Public/demo/?service=Good.GetInfo",
+		data:{"good_id":request("productId")},
+		dataType: "json",
+		cache: false,
+		async: false,
+		error: function (data) {
+			var data={
+				"code": 0,
+				"good": {
+					"name": "背带连衣裙",
+					"code": "MA162JEY06",
+					"price_orign": "500.36",
+					"price_sale": "450",
+					"rejected":"http://www.mo-co.com/info/buyingguide.jhtml?id=56&m=quitchange",  
+					"sizeTable_list":[
+						{
+						"image":"http://images.mo-co.com/upload/image/201603/d011c9cd-f1ea-4f85-b237-a419cbfecc3d.png"
+						},
+						{
+						"image":"http://images.mo-co.com/upload/image/201606/58eb8aa2-fcf4-47ce-8ab8-b7c653e547bc.jpg"
+						}
+					],
+					"delivery_info": "<p class='zonasPrenda' style='margin-top:0px;margin-bottom:0px;white-space:normal;padding:0px;font-size:10px;font-family:Arial, clean, sans-serif;line-height:19.200000762939453px;background-color:#FFFFFF;'>请提供您的送货地址（具体的提货时间取决于您所在的城市）＊</p><p class='zonasPrenda' style='margin-top:0px;margin-bottom:0px;white-space:normal;padding:0px;font-size:10px;font-family:Arial, clean, sans-serif;line-height:19.200000762939453px;background-color:#FFFFFF;'>＊ 目标区域：</p><p class='zonasPrenda' style='margin-top:0px;margin-bottom:0px;white-space:normal;padding:0px;font-size:10px;font-family:Arial, clean, sans-serif;line-height:19.200000762939453px;background-color:#FFFFFF;'>- 区域１（预计送货时间２－３个工作日) : 江西，河北，浙江，天津，上海，辽宁，江苏，广东，福建，重庆，北京，安徽</p><p class='zonasPrenda' style='margin-top:0px;margin-bottom:0px;white-space:normal;padding:0px;font-size:10px;font-family:Arial, clean, sans-serif;line-height:19.200000762939453px;background-color:#FFFFFF;'>- 区域２（预计送货时间３－５个工作日）: 青海，甘肃，内蒙古，云南，贵州，山西，宁夏，黑龙江，海南，吉林，陕西，广西，四川，湖北，湖南，山东，河南</p><p class='zonasPrenda'style='margin-top:0px;margin-bottom:0px;white-space:normal;padding:0px;font-size:10px;font-family:Arial, clean,  sans-serif;line-height:19.200000762939453px;background-color:#FFFFFF;'>- 区域３（预计送货时间５－７个工作日）: 西藏，新疆</p>" ,
+					"ingredient": "<p class='p1'><span class='s1'>棉</span>57.3%<span class='s1'>，聚酯纤维</span>38.8%<span class='s1'>，氨纶</span>3.9%<span class='s1'>，里料：聚酯纤维</span>100%<span class='s2'>。</span></p>",
+					"tips":"<p class='p1'>低温烘干，低温熨烫，单独洗涤，不可浸泡</p>",
+					"maintain": [
+						{
+						"image":"http://images.mo-co.com/upload/image/201410/5fa2b113-cafe-45f7-a84e-96df2ff45807.png",
+						"explain":"不可干洗"
+						},
+						{
+						"image":"http://images.mo-co.com/upload/image/201410/43bf23c4-1445-4f80-b379-c9397dd46433.png",
+						"explain":"不可漂白"
+						},
+						{
+						"image":"http://images.mo-co.com/upload/image/201410/a1226ea1-02cc-4ed3-8e84-90b506571281.png",
+						"explain":"最高洗涤温度30℃ 缓和程序"
+						},
+						{
+						"image":"http://images.mo-co.com/upload/image/201410/3cda8773-1465-4fa7-befa-9c364c840e62.png",
+						"explain":"在阴凉处悬挂晾干"
+						}
+					],
+					"image_list": [
+						{
+							"image_url": "http://images.mo-co.com/upload/image/201605/c55b5d21-328f-4a51-9f30-328d52bf3b03-source.jpg@640w_100Q_1x.jpg"
+						},
+						{
+							"image_url": "http://images.mo-co.com/upload/image/201605/bd6484f1-1e48-4a1b-96a5-c4ae169ae41a-source.jpg@640w_100Q_1x.jpg"
+						},
+						{
+							"image_url": "http://images.mo-co.com/upload/image/201605/b5925066-5aff-480b-a930-50a8a722a539-source.jpg@640w_100Q_1x.jpg"
+						},
+						{
+							"image_url": "http://images.mo-co.com/upload/image/201605/b5925066-5aff-480b-a930-50a8a722a539-source.jpg@640w_100Q_1x.jpg"
+						},
+						{
+							"image_url": "http://images.mo-co.com/upload/image/201605/b5925066-5aff-480b-a930-50a8a722a539-source.jpg@640w_100Q_1x.jpg"
+						},
+						{
+							"image_url": "http://images.mo-co.com/upload/image/201605/e7698226-b48f-46de-a002-f0c9fece36dd-source.jpg@640w_100Q_1x.jpg"
+						},
+						{
+							"image_url": "http://images.mo-co.com/upload/image/201605/86dc827f-7520-4bde-aa5a-29d52102048f-source.jpg@640w_100Q_1x.jpg"
+						}
+					],
+					"spec_list": [
+						{
+							"product_id": 10403,
+							"color_id": 346,
+							"color_value": "本白色",
+							"color_image": "http://images.mo-co.com/upload/image/201605/5dfe9367-8e9e-40f8-86a9-e8af77479f77.jpg",
+							"size_id": "45",
+							"size_value": "M(160/84A)",
+							"remain_number": 8,
+							"isMarketable": "true"
+						},
+						{
+							"product_id": 10404,
+							"color_id": 346,
+							"color_value": "本白色",
+							"color_image": "http://images.mo-co.com/upload/image/201605/5dfe9367-8e9e-40f8-86a9-e8af77479f77.jpg",
+							"size_id": "44",
+							"size_value": "S(155/80A)",
+							"remain_number": 8,
+							"isMarketable": "true"
+						},
+						{
+							"product_id": 10405,
+							"color_id": 346,
+							"color_value": "本白色",
+							"color_image": "http://images.mo-co.com/upload/image/201605/5dfe9367-8e9e-40f8-86a9-e8af77479f77.jpg",
+							"size_id": "43",
+							"size_value": "XS(150/76A)",
+							"remain_number": 0,
+							"isMarketable": "false"
+						},
+						{
+							"product_id": 10406,
+							"color_id": 589,
+							"color_value": "绿眼石色",
+							"color_image": "http://images.mo-co.com/upload/image/201605/83290ca0-8282-4d80-b1d3-6f1bd1029ca6.jpg",
+							"size_id": "45",
+							"size_value": "M(160/84A)",
+							"remain_number": 8,
+							"isMarketable": "true"
+						},
+						{
+							"product_id": 10407,
+							"color_id": 589,
+							"color_value": "绿眼石色",
+							"color_image": "http://images.mo-co.com/upload/image/201605/83290ca0-8282-4d80-b1d3-6f1bd1029ca6.jpg",
+							"size_id": "44",
+							"size_value": "S(155/80A)",
+							"remain_number": 8,
+							"isMarketable": "true"
+						},
+						{
+							"product_id": 10408,
+							"color_id": 589,
+							"color_value": "绿眼石色",
+							"color_image": "http://images.mo-co.com/upload/image/201605/83290ca0-8282-4d80-b1d3-6f1bd1029ca6.jpg",
+							"size_id": "43",
+							"size_value": "XS(150/76A)",
+							"remain_number": 8,
+							"isMarketable": "true"
+						}
+					]
+				},
+				"mes": "xxxx"
+			}
+		//生成productMap 
+			for(var i=0;i<data.good.spec_list.length;i++){
+				var spec_list =data.good.spec_list[i];
+				productMap[spec_list.product_id]={};
+				var obj =productMap[spec_list.product_id];
+				obj.colorThumb=spec_list.color_image;
+				obj.id=spec_list.product_id.toString();
+				obj.specificationValues=new Array();
+				obj.specificationValues.push(spec_list.color_id.toString());
+				obj.specificationValues.push(spec_list.size_id.toString());
+				obj.stockNum=spec_list.remain_number;
+				obj.isMarketable=spec_list.isMarketable;
+				obj.productImages= new Array();
+				for(var j=0;j<data.good.image_list.length;j++){
+					obj.productImages[j]= new Array();
+					obj.productImages[j].push(data.good.image_list[j].image_url);
+					obj.productImages[j].push(j+1);
+				}
+			}
+			$.each(productMap, function(i, product) {
+				var color_id = product.specificationValues[0];
+				var size_id = product.specificationValues[1];
+				if(product.isMarketable){
+					sizeMap.push(size_id);
+					colorMap.push(color_id);
+				}
+			});
+			//尺码颜色值去重
+			 sizeMapUnique = $.unique(sizeMap);
+			 colorMapUnique = $.unique(colorMap);
+		//解析图片切换区域	
+			var swiperHtml="";
+			for(var i=0;i<data.good.image_list.length;i++){
+				swiperHtml +="<div class='swiper-slide' ><img src='"+data.good.image_list[i].image_url+"' /></div>";
+			}
+			$(".swiper-wrapper").html(swiperHtml);
+			var productContentSwiper = new Swiper('.swiper-container',{
+				paginationClickable: true,
+				mode: 'vertical'
+			})
+			//名称编号价格
+			$("#specification h4").eq(0).html(data.good.name);
+			$("#merchantNumber").html(data.good.code);
+			$("#productPrice").html("￥"+data.good.price_sale);
+			if(data.good.price_orign&&data.good.price_orign>data.good.price_sale){
+				$("#productPrice").append("<del style='color:#9a9a9a'>￥"+data.good.price_orign+"</del>")
+				 
+			}
+	
+			//颜色
+			 var productColorHtml="";
+			 for(var i=0;i<colorMapUnique.length;i++){
+				var colorImage="";
+				var colorTitle=""
+				$.each(data.good.spec_list,function(j,product){
+					if(product.color_id==colorMapUnique[i]){
+						colorImage=product.color_image;
+						colorTitle=product.color_value;
+						return true;
+					}
+					else{
+					}
+				});
+				productColorHtml+= "<li class='productColorThumbImage' data-aid='"+colorMapUnique[i]+"'data-code='color'><a href='javascript:;' title='"+
+					colorTitle+"'><img src='"+colorImage+"' alt='"+colorTitle+"'/> </a> <i></i></li>";	
+			 }
+			 $(".sys_spec_img").html(productColorHtml);
+			//尺码
+			var productSizeHtml="";
+			for(var i=0;i<sizeMapUnique.length;i++){
+				var sizeValue="";
+				$.each(data.good.spec_list,function(j,product){
+					if(product.size_id==sizeMapUnique[i]){
+						sizeValue=product.size_value;
+
+						return true;
+					}
+					else{
+					}
+				});
+				productSizeHtml+= "<li class='productColorThumbImage' data-aid='"+sizeMapUnique[i]+"'data-code='size'><a href='javascript:;' title='"+
+					sizeValue+"'> "+sizeValue+"</a> <i></i></li>";
+			}
+			$(".sys_spec_text").html(productSizeHtml);
+			// 成分保养
+			$("#ingredient").html(data.good.ingredient);
+			var maintainHtml="";
+			for(var i=0; i<data.good.maintain.length;i++){
+				maintainHtml+="<dl><dt><img src='"+data.good.maintain[i].image+"'width='15px'/></dt><dd><span>"+
+					data.good.maintain[i].explain+"</span></dd></dl><br />";
+			}
+			$("#maintain").html(maintainHtml);
+			$("#tips").html(data.good.tips);
+			//尺码表
+			var	sizeTableHtml="";
+			for(var i=0;i<data.good.sizeTable_list.length;i++){
+				sizeTableHtml+="<img src='"+data.good.sizeTable_list[i].image+"'/>";
+			}
+			$("#size_table").html(sizeTableHtml);
+			//寄送信息
+			$("#delivery_info").html(data.good.delivery_info);
+			//退货详情链接
+			$("#rejected").attr("href",data.good.rejected);
+		}
+	});
+// 购买数量
+	$quantity.keypress(function(event) {
+		var key = event.keyCode ? event.keyCode : event.which;
+		if ((key >= 48 && key <= 57) || key==8) {
+			return true;
+		} else {
+			return false;
+		}
+	});
+	
+	// 增加购买数量
+	$increase.click(function() {
+		 m$.business.cart.increase();
+	});
+	
+	// 减少购买数量
+	$decrease.click(function() {
+	    
+	     m$.business.cart.decrease();
+	});
+	
+	// 加入购物车
+	$addCart.click(function() {
+         // 限购商品
+		
+	    m$.business.cart.addCart(2,$currentProductId);
+	});
+	
+	// 点击数
+	/*m$.business.cart.hits(request("productId"));*/
+	
+	var $specificationValue = $("#sys_item_specpara dl a");
+	
+
+	//点击商品 
+	$(".sys_item_specpara").each(function(){
+		var $this=$(this);
+		var $specificationLi=$this.find("ul>li");
+		var id=$(this).attr("id");
+		var p=$(".sys_item_specpara").filter("[id!='"+ id +"']");
+		var i=p.find("ul>li");
+		$specificationLi.click(function(){
+				if(!!$(this).hasClass("locked")){
+					return;
+				}else{
+				if(!!$(this).hasClass("selected")){
+					$(this).removeClass("selected");
+					i.each(function(){
+						$(this).removeClass("locked");
+					});
+				}else{
+					$(this).addClass("selected").siblings("li").removeClass("selected");
+					i.each(function(){
+						$(this).removeClass("locked");
+					});
+					var tempSpecifications = new Array();
+					if($(this).attr("data-code")=="color"){
+						tempSpecifications[parseInt($this.attr("data-sid"))-1] = $(this).attr("data-aid");
+						$.each(productMap, function(i, product) {
+							sizeMapUnique.forEach(function(e){
+							tempSpecifications[1] = e;
+							if((product.specificationValues.toString() == tempSpecifications.toString()) && product.stockNum <= 0){
+							     $("li[data-aid='"+ e +"']").addClass("locked"); 
+							     return false;
+							}
+							});
+						});
+					}else{
+						tempSpecifications[parseInt($this.attr("data-sid"))-1] = $(this).attr("data-aid");
+						$.each(productMap, function(i, product) {
+							colorMapUnique.forEach(function(e){
+							tempSpecifications[0] = e;
+							if((product.specificationValues.toString() == tempSpecifications.toString()) && product.stockNum <= 0){
+							     $("li[data-aid='"+ e +"']").addClass("locked");
+							     return false;
+							}
+							});
+						});
+					}
+					$this.attr("data-attrval",$(this).attr("data-aid"))
+				}
+			}
+			
+			var $specificationValue = $(".sys_item_specpara li");
+				var specificationValueIds = new Array();
+				$specificationValue.filter(".selected").each(function(i) {
+					specificationValueIds[i] = $(this).attr("data-aid");
+				});
+				
+				$.each(productMap, function(i, product) {
+					if(product.specificationValues.toString() == specificationValueIds.toString()){
+					     $currentProductId.val(product.id); 
+					     return false;
+					}
+				});
+				
+				$.each(productMap, function(i, product) {
+					if(product.specificationValues.toString() == specificationValueIds.toString()){
+					     $currentProductId.val(product.id); 
+					     return false;
+					}
+				});
+		});
+	});
+	
+	//设置颜色缩略图
+	$.each(productMap, function(i, product) {
+	    var color_id = product.specificationValues[0];
+		var size_id = product.specificationValues[1];
+		var stock_number = product.stockNum;
+		var isMarketable = product.product;
+	    if(product.isMarketable){
+		    $(".productColorThumbImage").each(function(){
+	            if($(this).attr('data-aid') == color_id.replace("\"","")){
+	                $(this).find('img').attr('src',product.colorThumb);
+	            }
+		     });
+	    }else{
+	        notMarketableSizeMap.push(color_id + "_" + size_id);
+	    }
+	});
+	
+	//初始化面料成分，对于没有属性值得面料成分不展示标题 ????
+	/*$parameterContent.each(function(){
+	    if($(this).has("span").length == 0){
+	         $(this).siblings(".parameterTitle").each(function(){
+	             $(this).text("");
+	             $(this).parent('.parameter_title_content').css({'margin-bottom':'0'});
+	         });
+	    }
+	});*/
+	
+	// 添加商品收藏
+    $addFavorite.click(function() {
+        m$.business.cart.favorites(request("productId"))
+    });
+	
+	// 立即购买
+	$buyNow.click(function() {
+	     // 限购商品
+	    buyNow(2,$currentProductId);
+	});
+	
+});
+
+function buyNow(specificationValuesSize,$currentProductId) {
+        	var $specificationValue = $(".sys_item_specpara li");
+    	    var $specificationsTitle = $(".specificationsTitle");
+    		var specificationValueIds = new Array();
+    		$specificationValue.filter(".selected").each(function(i) {
+    			specificationValueIds[i] = $(this).attr("data-aid");
+    		});
+    		if (specificationValueIds.length != specificationValuesSize) {
+    			$specificationsTitle.show();
+    			return false;
+    		}else{
+    		    $specificationsTitle.hide();
+    		}
+    		var $quantity = $("#quantity");
+    		var quantity = $quantity.val();
+			if (/^\d*[1-9]\d*$/.test(quantity) && parseInt(quantity) > 0) {
+				$.ajax({
+					url: "http://localhost/mcshop/Public/demo/?service=Order.GenOrderByGood",
+					type: "POST",
+					data: {good_id: $currentProductId.val() , quantity: quantity},
+					dataType: "json",
+					cache: false,
+					error: function(message) {
+						var message={"type": "success","content": "生成订单成功"}
+					    if(message['type'] == 'success'){
+			                        document.location.href = '../member/order/info.html';
+					    }else{
+						    m$.ui.dialog.dialogShow({
+				                'title': '提示',
+				                'content': message['content']
+				            },
+				            [{
+				                'text': '确定'
+				            }])
+					    }
+					}
+				});
+			} else {
+				 m$.ui.dialog.dialogShow({
+	                'title': '错误',
+	                'content': '购买数量必须为正整数'
+	            },
+	            [{
+	                'text': '确定'
+	            }])
+			}
+        }
+</script>
+
+</head>
+<body>
+<div class="fullscreen swiper-container" >
+<!-- start 图片切换区域 -->
+	<div class="swiper-wrapper">
+	</div>
+	<div class="choiceAndBuyProduct">
+        <ul>
+            <li>
+                <button class="md-trigger plusInfoButton" data-modal="plusInfoModal" />
+            </li>
+        </ul>
+	</div>
+<!-- end 图片切换区域 -->
+<!-- start 尺码选择区 和 商品详情区 -->
+<div class="md-modal md-plusInfoModal" id="plusInfoModal">
+	<div class="md-content"> 
+		<div>
+			<ul style="padding: 0px 0px 0px 0px;" id="specification">
+			    <li>
+			        <h4></h4>
+			        <label for="merchantNumber">编号：</label>
+                    <span id="merchantNumber"></span>
+                    <br />
+                    <span id="productPrice">	        
+                    </span>
+			    </li>
+				<li>
+				    <div class="plusLinkInfo">
+				         <ul>
+				             <li>
+				                 <button class="md-trigger plusInfoOtherButton" data-modal="compositionAndMaintenanceModal">成分和保养</button>
+				             </li>
+				              <li>
+				                 |
+				             </li>
+				              <li>
+				                 <button class="md-trigger plusInfoOtherButton" data-modal="sizeGuideModal">尺码</button>
+				             </li>
+				             <li>
+				                 |
+				             </li>
+				             <li>
+				                <button class="md-trigger plusInfoOtherButton" data-modal="sendModal">寄送</button>
+				             </li>
+				             <li>
+				                 |
+				             </li>
+				             <li>
+				                 <button class="md-trigger plusInfoOtherButton" data-modal="returnGoodsModal">退货</button>
+				             </li>
+					             <li>
+					                 |
+					             </li>
+					              <li>
+					                  <button class="md-trigger plusInfoOtherButton" data-modal="promotionModal">促?</button>
+					             </li>
+				         </ul>
+				    </div>
+				</li>
+				<li>
+				   <div class="specificationsTitle">请选择您要的商品信息</div>
+				   <input type="hidden" id="currentProductId" value="" />
+                  <!--颜色-->
+					<dl id="productColor" class="clearfix iteminfo_parameter sys_item_specpara" data-sid="1">
+						<dt>颜色</dt>
+						<dd>
+								                
+											        <ul class="sys_spec_img" style="padding: 0 0 0px 0px;">
+													</ul>
+								                
+						</dd>
+					</dl>
+				</li>
+				
+				<li>
+                     <!--尺码-->
+					<dl id="productSize" class="clearfix iteminfo_parameter sys_item_specpara" data-sid="2">
+						<dt>尺码</dt>
+						<dd>
+										<ul class="sys_spec_text" style="padding: 0 0 0px 0px;">
+								
+										</ul>
+						</dd>
+					</dl>
+                </li>
+                <li>
+	                <dl id="buyQuantity" class="clearfix buyQuantity" data-sid="3">
+						<dt>数量</dt>
+						<dd>
+						     <input type="button" id="decrease" class="decrease" value="-" />
+						    <label  id="quantity" name="quantity" class="quantity"  value="1"  maxlength="4" onpaste="return false;" readonly="readonly">1</label>
+						    <input type="button" id="increase" class="increase" value="+" />
+	                	</dd>
+					</dl>
+                </li>
+			</ul>
+			<div id="cart_favoriteBtn">
+					<button id="addCart" style="width: 45%;float: left;margin-left: 10px;background-color: white;border: 1px black solid;">
+						<font style="color:black;padding-left:8px;">放进购物篮</font></button>
+				<button id="addFavorite" style="width:45%; margin-right: 10px;background-color: white;border: 1px black solid;">
+					<font style="color:black;padding-left:8px;">收藏商品</font></button>
+			</div>
+			<button id="buyNow" style="width: 92.5%;margin-top: 10px;">立即购买</button>
+		</div>
+	</div> 
+</div>
+<!-- the overlay element -->
+<div class="md-overlay"></div>
+
+<!-- end 尺码选择区 和 商品详情区 -->
+
+
+<!-- start 成分和保养-->
+<div class="md-modal md-compositionAndMaintenanceModal" id="compositionAndMaintenanceModal">
+	<div class="md-content"> 
+		<div>
+			<ul>
+			    <li id="ingredient">
+					
+			    </li>
+				<li id="maintain">
+					   
+				</li>
+				<li>
+				    <label for="merchantNumber">注意事项:</label>
+                    <span id="tips"></span> 
+				</li>
+			</ul>
+			<button class="md-close">关闭</button>
+		</div>
+	</div>
+</div>
+<!-- end 成分和保养-->
+
+
+<!-- start 尺码指南-->
+<div class="md-modal md-sizeGuideModal" id="sizeGuideModal">
+	<div class="md-content"> 
+		<div>
+			<div id="size_table">
+			</div>
+			</br>
+			<button class="md-close">关闭</button>
+		</div>
+	</div>
+</div>
+<!-- end 尺码指南-->
+
+<!-- start 寄送-->
+<div class="md-modal md-sendModal" id="sendModal">
+	<div class="md-content">
+		<div>
+			<ul>
+			    <li id="delivery_info">
+									
+			    </li>
+			</ul>
+			<button class="md-close">关闭</button>
+		</div>
+	</div>
+</div>
+<!-- end 寄送-->
+
+
+<!-- start 退货-->
+<div class="md-modal md-returnGoodsModal" id="returnGoodsModal">
+	<div class="md-content">
+		<div>
+			<ul>
+			    <li>
+					<p class="zonasPrenda" style="margin-top:0px;margin-bottom:0px;white-space:normal;padding:0px;font-size:10px;font-family:Arial, clean, 'Bell MT', sans-serif;line-height:19.200000762939453px;background-color:#FFFFFF;">
+						您可以在退货申请中提交需退货的商品。
+					</p>
+					<p class="zonasPrenda" style="margin-top:0px;margin-bottom:0px;white-space:normal;padding:0px;font-size:10px;font-family:Arial, clean, 'Bell MT', sans-serif;line-height:19.200000762939453px;background-color:#FFFFFF;">
+						更多关于
+						<u>
+							<a id="rejected" href="" target="_blank">退货条款</a>
+						</u>
+						的信息。
+					</p>
+			    </li>
+			</ul>
+			<button class="md-close">关闭</button>
+		</div>
+	</div>
+</div>
+<!-- end 退货-->
+
+
+<!-- start 促销-->
+<div class="md-modal md-promotionModal" id="promotionModal">
+	<div class="md-content">
+		<div>
+			<ul>
+				<li>
+							 <br />
+				</li>
+			</ul>
+			<button class="md-close">关闭</button>
+		</div>
+	</div>
+</div>
+<!-- end 促销-->
+ 
+ <!-- footer -->
+<nav class="footer" id="footer">
+<a href="../mobileIndex.html" tppabs="http://www.mo-co.com/mobile/product/productCategory.jhtml?brandId=&tagIds=" id="navCategory" class="navCategory">
+<em></em>
+</a>
+<a href="../cart/index.html" tppabs="http://www.mo-co.com/mobile/cart/index.jhtml" id="navCart" class="navCart">
+<em>
+<li id="navCartQuantity">
+</li>
+</em>
+</a>
+<a href="../login/index.html" tppabs="http://www.mo-co.com/mobile/login/index.jhtml" id="navAccount" class="navAccount">
+<em></em>
+</a>
+<a href="../storeInfo/index.html" tppabs="http://www.mo-co.com/mobile/storeInfo/index.jhtml" id="navStoreInfo" class="navStoreInfo">
+<em></em>
+</a>
+<a href="../search/search.html" tppabs="http://www.mo-co.com/mobile/search/search.jhtml" id="navSearch" class="navSearch">
+<em></em>
+</a>
+</nav>
+
+ <!-- footer -->
+</div>
+<script type="text/javascript" src="../../resources/mobile/js/modernizr.js"></script>
+<script type="text/javascript" src="../../resources/mobile/js/idangerous.swiper.min.js"></script>
+<div id="a1" style="position:fixed;top:0;left:0;background:#fff; display:none;z-index: 2000;width:100%;height:100%" >
+	<img src="" id="a2" /><a id="left_btn" class="prev"></a><a id="right_btn" class="next"></a>
+</div>
+<script>
+	function getImgUrl(dq_img){
+		$("#a2").attr({src:''});
+		body_w = $(window).width();	
+		$("#a2").attr({src:dq_img,width:'100%'});
+		$("body").css('overflow','hidden');
+		$(".main").hide();
+		$("#a1").fadeIn();
+	}
+	$("#a2").mousemove(function(e){
+		body_h = $(window).height();
+		img_h  = $("#a2").height();
+		mouse_y = e.clientY;
+		bfb     = mouse_y/body_h;
+		y       = (img_h*bfb);
+		if (y-body_h<0)return;
+		$("#a1").css("top",-(y-body_h));
+	})
+	$("#a2").click(function(){
+		$("#a1").hide();
+		$("body").css('overflow','auto');
+		$(".main").show();
+	})
+</script>
+</body>
+</html>

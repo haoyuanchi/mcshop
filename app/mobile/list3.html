@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>商品</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no,width=320,target-densitydpi=142">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+<link href="../resources/mobile/css/common.css" tppabs="http://www.mo-co.com/resources/mobile/css/common.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../resources/mobile/js/jquery.min.js" ></script>
+<script type="text/javascript" src="../resources/mobile/js/common.js"></script>
+<script type="text/javascript" src="../resources/mobile/js/mobile.js"></script>
+<script type="text/javascript" src="../resources/mobile/js/Request.js"></script>
+<script type="text/javascript" src="../resources/mobile/js/angular-1.0.0rc10.min.js"></script>
+<script>
+	var nextPageHtml = '';
+    var listData = '';
+    var scrollbarLocation = 0;
+    var pageParams = {
+		productCategoryId : '',
+		pageNumber : 1,
+		pageCount : '',
+		pageSize : 6,
+		totalPages:0,
+		orderType : 'dateDesc',
+		brand : '',/***待处理**/
+		brandId: '',
+		tagIds: ''
+		//promotionId: ''
+	}
+	 pageParams.brandId = request("brandId");
+	 pageParams.tagIds = request("tagIds");
+	 if(!pageParams.brandId){ /***待处理**/
+		pageParams.brandId =18;
+	 }
+	 
+	 pageParams.productCategoryId = request("productCategoryId");
+</script>
+</head>
+<body>
+<div class="fullscreen" ng-app="goodList" ng-controller="list">
+<img ng-src="{{themeTop}}" ng-show="themeTop" class="index_category"/>
+<ul class="list_box" id="listBox">
+	  <li>
+		<a ng_src="">
+			<img ng_src="" >
+		</a>
+	  </li>
+	  <li class="page_loading" id="pageLoading">
+		<div class="loading">
+		<div class="rotate"></div>
+		</div>
+	  </li>
+	 
+</ul>
+<div style="text-align:center">
+	 <span style="margin:0 atuo">暂无商品数据</span>
+</div>
+
+<script type="text/javascript">
+		var listUrl = "http://114.55.38.119/mcshop/Public/demo/?";
+		var listParam =  getListParam(pageParams);
+        var url = listUrl + listParam;  //三种方式 brandId tagIds  productCategoryId
+		var app=angular.module('goodList',[]);
+		app.controller("list",function($scope,$http){
+			$http.get(url).success(function(response) {
+				if(response.data.tag_img){
+					$scope.themeTop=response.data.tag_img;
+				}
+				else if(response.data.brand_img){
+					$scope.themeTop=response.data.brand_img;
+				}
+				else{}
+				 if ($('#pageLoading').prevAll().length != 0) {
+                    $('#pageLoading').prevAll().remove();
+                }
+				if(data.tag_img){
+					var tag_img="<img src='"+data.tag_img+"' class='index_category'>";
+					$("#listBox").before(tag_img);
+				}
+				if(data.brand_img){
+					var brand_img="<img src='"+data.brand+"' class='index_category'>";
+					$("#listBox").before(brand_img);
+				}
+                if (data.good_list.length > 0) {
+                     /** 总页数*/
+		            var totalPage = data.totalPages;
+		            /** 商品列表*/
+		            var productList = data.good_list;
+                    assembleListBox(productList);
+                    $('#pageLoading').before(nextPageHtml);
+					pageParams.pageCount = data.totalPages;
+                   /* if(data.productCategoryId){
+                         pageParams.productCategoryId = data.productCategoryId;
+                    }
+                    
+         
+                    pageParams.orderType = data.orderType;
+                    pageParams.brandId = data.brandId;
+					*/
+					pageParams.pageNumber = 2;
+                    listParam = getListParam(pageParams);
+                    nextPageHtml = '';
+                   if (pageParams.pageCount == 2) {
+                        getList(listUrl, listParam, false);
+                    } else {
+                        nextPageIndex = pageParams.pageNumber + 1;
+                        if (nextPageIndex <= pageParams.pageCount) {
+                            getList(listUrl, listParam, false);
+                        } else {
+                            $('#pageLoading .loading').css('display', 'none');
+                        }
+                    }
+                    m$.ui.lazy.init('listBox');
+                } else {
+                	 $('#pageLoading').after('暂无商品数据');
+                }
+				
+
+			});	
+		});
+  
+</script>
+<nav class="footer" id="footer">
+<a href="product/productCategory.jhtml-brandId=&tagIds=5.htm"  id="navCategory" class="navCategory">
+<em></em>
+</a>
+<a href="cart/index.html"  id="navCart" class="navCart">
+<em>
+<li id="navCartQuantity">
+5
+</li>
+</em>
+</a>
+<a href="login/index.html"  id="navAccount" class="navAccount">
+<em></em>
+</a>
+<a href="storeInfo/index.html"  id="navStoreInfo" class="navStoreInfo">
+<em></em>
+</a>
+<a href="search/search.html"  id="navSearch" class="navSearch">
+<em></em>
+</a>
+</nav>
+</div>
+</body>
+</html>

@@ -1,0 +1,354 @@
+<html>
+    <head>
+      <meta name="description" content="1997年诞生于巴黎的主流时尚品牌MO&amp;CO.，一直坚持以天然的材质，内敛的剪裁和独特的细节演绎型格摩登又略带女人味的中性美风格，贯穿了怀旧和当代，以充满激情的创造力将艺术和时装联系在一起，于视觉艺术、POP Art、Couture、立裁解构主义中寻找一切创作灵感，为追求完美又童心未泯的时尚女性提供混搭的实验乐趣与个性化的表达方式国供货商。">
+    <meta name="keywords" content="MO&amp;Co 官方订阅号,MO&amp;Co 微信,MO&amp;Co,摩安珂女装"> 
+        <meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+        <title></title>
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.3.min.css">
+        <link rel="stylesheet" href="css/main.css">
+		<script src="js/hm.js"></script>
+		<script src="Scripts/jquery.1.11.min.js" type="text/javascript"></script>
+        <script src="js/index.js"></script>
+		<!-- <script src="js/jquery.mobile-1.4.3.min.js"></script>-->
+        <script src="js/mobile.js"></script>
+		<script src="js/WeixinApi.js"></script>
+
+    </head>
+<body >
+<style>
+#menber_btn{
+	background-color:#000;
+	color:#fff;
+	text-shadow:none;
+	display:block;
+        width:180px;
+	text-align:center;
+	margin:40px auto 0px auto;
+	padding:10px;
+	font-size:15px;
+}
+#mo_btn,#ed_btn{
+	background-color:#000;
+	color:#fff;
+	text-shadow:none;
+	display:inline-block;
+        width:40%;
+	text-align:center;
+	margin:40px 2% 0px 2%;
+	padding:10px 5px;
+	font-size:15px;
+}
+#alert #alert_content{
+        color:#000;
+}
+#alert{
+	background:#fff;
+}
+#alert .ui-content{
+	color:#000;
+}
+#alert .ui-btn{
+	border:1px solid #000;
+}
+#alert .ui-content, .ui-popup .ui-content{
+    background-color: #fff;
+}
+#info_div{
+    line-height: 20px;
+    margin-bottom:20px;
+}
+#info_div span{
+}
+#info_div i{
+    font-style: normal;
+    font-size:0.9em;
+}
+
+#qr_code{
+    position:absolute;
+    bottom:0px;
+    z-index:100;
+    background:rgba(0,0,0,0.6);
+    width:100%;
+    display:none;
+}
+#qr_code div{
+    margin:100px auto 20px auto;
+    width:224px;
+    color:#fff;
+    text-shadow:none;
+    font-size:14px;
+    text-align:center;
+}
+#qr_code img{
+    width:100%;
+    margin-bottom:10px;
+}
+#qr_code .button{
+    background-color:#000;
+}
+</style>
+
+    <div data-role="page" data-dom-cache="true" id="member_page">
+		 		<div data-theme="a" data-role="header" id="header" style="display:none">
+        <h3>
+           VIP绑定
+        </h3>
+    </div>
+					 <div id="banner">
+            <img width="100%" src="oImage/vip_bg.gif"/>
+			</div>
+			<div data-role="content" data-theme="d" class="ui-content ui-body-d" role="main" id="member_form">
+				<div id="bind_form">
+				<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" maxlength="12" placeholder="姓名" name="name" id="name_txt" value=""></div>
+				<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" maxlength="15" name="mobile" placeholder="手机/会员卡号" id="mobile_txt" value=""></div>
+				<p class="tips">
+				* 请填写开卡时所登记的手机或会员卡号。
+			   </p>
+			   <p class="tips">
+				* 一次绑定永久有效，登陆微信可直接查看会员权益。
+			   </p>
+			   <p class="tips">
+				* 如您忘记开卡时的手机号码/会员卡号，请直接拨打客服电话查询：800-830-5798。
+			   </p>
+				<a data-role="button" id="bind_btn" data-theme="b" class="ui-link ui-btn ui-btn-b ui-shadow ui-corner-all" role="button">绑 定</a>
+				</div>
+				<div id="sms_form">
+				<p class="tips" id="mobile_tips">
+				请点击[接收验证码]，系统将发送验证码以下手机号码。如您已更换手机号码，请与客服联系 电话800-830-5798
+			   </p>
+			   <table width="100%" cellpadding="0" border="0" cellspacing="0">
+			   <tbody><tr>
+					<td width="60%"><div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="tel" maxlength="11" name="mobile" placeholder="手机号码" id="sms_txt" value=""></div></td>
+					<td><a data-role="button" id="send_btn" data-theme="b" class="ui-link ui-btn ui-btn-b ui-shadow ui-corner-all" role="button">接收验证码</a>
+					
+					</td>
+			   </tr>
+			   </tbody></table>
+			   <div id="tips_txt"></div>
+				<div id="verify_div">
+				<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="tel" maxlength="6" name="code" placeholder="请输入短信验证码" id="code_txt" value=""></div>
+				<a data-role="button" id="verify_btn" data-theme="b" class="ui-link ui-btn ui-btn-b ui-shadow ui-corner-all" role="button">提 交</a>
+				</div>
+				</div>
+			</div>
+		       	 
+	<div class="ui-popup-container ui-popup-hidden" id="alert_popup"><div data-role="popup" id="alert" data-overlay-theme="a" data-theme="c" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true" data-corners="true" data-transition="none" data-position-to="origin">
+			<div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main">
+					<div id="alert_content"></div>
+                    <a href="javascript:removeMsg()" data-role="button" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all" ><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">确定</span></span></a>  
+			</div>
+		</div>
+</div>
+        <br>
+    </div>
+    <script>
+
+        var _success=false;
+		var _time=60;
+		function showTips(){
+					}
+		$(document).on('pageinit', function() {
+			if (window.history && window.history.pushState) {
+			$(window).on('popstate', function() {
+			  var hashLocation = location.hash;
+			  var hashSplit = hashLocation.split("#!/");
+			  var hashName = hashSplit[1];
+			  if (hashName !== '') {
+				var hash = window.location.hash;
+				if (hash === '') {
+				   window.location.href="vip_center.php";
+				}
+			  }
+			});
+			window.history.pushState('forward', null, '/member.php#forward');
+		  }
+
+		});
+        $(document).ready(function(event) {
+
+            if($("#name_txt").val()!="" && $("#mobile_txt").val()!="" && $("#sms_txt").val()!="" ){
+                showSMS($("#sms_txt").val());
+            }
+            $("#bind_btn").bind("click", function(e) {
+                var error="";
+                if ($.trim($("#name_txt").val()) == '') {
+                    error+=("请输入姓名\n");
+                }
+                 if ($.trim($("#mobile_txt").val()) == '') {
+                    error+=("请输入手机号码或会员卡号");
+                }
+                if(error!=''){
+                    alert(error);
+                    return false;
+        }
+                _success=false;
+                var post_data = {
+                    'name': $.trim($("#name_txt").val()),
+                    'openid': 'oSJcuuJFtFs93mUIeSkRgcyhXKz0',
+                    'mobile': $.trim($("#mobile_txt").val())
+                };
+                $("#bind_btn").text("提交中...")
+                $("#bind_btn").attr("disabled",true);
+                $.ajax({
+                    type: "POST",
+                    url: "member.php",
+                    data: post_data, // serializes the form's elements.
+                    error: function(data)
+                    {
+                       /*  if (data.indexOf( 'transfer')!==-1) {
+                              window.location.href="transfer.php";
+                        }else if (data.indexOf( 'success')!==-1) {
+                            _success=true;
+							var mobile=data.replace("success|","");
+							showSMS(mobile);  //返回的手机号码
+
+                        } else {
+                           /* $.mobile.loading("hide")*/
+                           /* $("#member_form").html(data+'<br><input type="button" value="返 回" onclick="closeWindow()" id="back_btn" class="ui-link ui-btn ui-btn-b ui-shadow"/>');
+                            //alert(data);
+                        }*/
+						var  mobile=15180119848;
+						showSMS(mobile);  //返回的手机号码
+                    }
+                });
+                return false;
+            })
+					
+			$("#send_btn").bind("click",function(){
+					if($(this).hasClass("disabled")){
+						return false;
+					}
+					var sMobile=$.trim($("#sms_txt").val());
+					if(sMobile==''){
+						alert("请填写手机号码");
+						$("#sms_txt").focus();
+						return false;
+					}else{
+							var filter=/^1[3|4|5|7|8][0-9]\d{4,8}$/; 
+							if(!(filter.test(sMobile))){ 
+								alert("请输入有效的11位手机号码");
+								 $("#sms_txt").focus();
+								return false;
+							}	
+					}
+					_time=60;
+					$("#send_btn").addClass("disabled").text(_time+"秒后可重发");
+					setTimeout(resetSendBtn,1000);
+					$("#verify_div").show();
+					$.ajax({
+						type: "POST",
+						url: "member.php",
+						data: "action=getcode&mobile="+sMobile,
+						error: function(data)
+						{
+							/*if (data.indexOf( 'success')!==-1) {
+								$("#tips_txt").text("验证码已经发送至您手机，请注意查收。")
+							} else {
+								$("#tips_txt").text();
+								alert(data);
+							}*/
+							$("#tips_txt").text("验证码已经发送至您手机，请注意查收。")
+						}
+					});
+			})
+					
+			$("#verify_btn").bind("click",function(){
+					var code=$.trim($("#code_txt").val());
+					var sMobile=$.trim($("#sms_txt").val());
+					if(code==''){
+						alert("请填写短信验证码");
+						$("#code_txt").focus();
+						return false;
+					}
+					if($(this).hasClass("disabled")){
+						return false;
+					}
+					$(this).addClass("disabled").text("验证中...")
+					 /*$.mobile.loading("show")*/
+					$.ajax({
+						type: "POST",
+						url: "member.php",
+						data: "action=verify&mobile="+sMobile+"&code="+code,
+						error: function(data)
+						{
+							/*if (data== 'success') {
+								window.location.href='vip_center.php';
+							}else if(data.indexOf( 'redirect')!==-1){
+								var url=data.replace("redirect|","")
+								window.location.href=url;
+							
+							} else {
+								/* $.mobile.loading("hide")*/
+								/*$("#verify_btn").removeClass("disabled").text("提 交");
+								$("#code_txt").val("").focus();
+								alert(data);
+							}*/
+							window.location.href='wx_usercenter.html';
+						}
+					});
+			})
+        })
+		function resetSendBtn(){
+			  _time--;
+			  if(_time==0){
+					$("#send_btn").removeClass("disabled").text("重发验证码");
+					/* $.mobile.loading("hide")*/
+			  }else{
+					  $("#send_btn").text(_time+"秒后可重发");
+					  setTimeout(resetSendBtn,1000);
+			  }
+		}
+		function showSMS(mobile){
+				 /*$.mobile.loading("hide")*/
+				$("#sms_form").show();
+				$("#bind_form").hide();
+				if(mobile!=''){
+					$("#sms_txt").val(mobile).attr("readonly",true);
+				}else{
+					$("#mobile_tips").html("请填写您的手机号码并点击[接收验证码]")
+				}
+		}
+		function closeWindow(){
+			window.location.href="wx_member.html";
+		}
+                function showQrCode(type){
+                var h=$(window).height();
+                if(type=='little'){
+                         var code=$("<div id='qr_code'><div><img src='/images/little_qrcode.jpg'/><br>长按二维码关注Little MO&Co.服务号，完成绑定，即可激活8.8折VIP<br><input class='button' type='button' value='返回' onclick='removeQrCode()'/></div></div>");
+                        $("body").append(code);
+                        $("#qr_code").height(h).fadeIn();
+                        $.ajax({
+                            type: "POST",
+                            url: "http://littlemoco.gzmediaclick.com/member/bind",
+                            data: "token=",
+                            dataType: "jsonp",
+                            success: function(msg){
+                                if(msg.status=='success'){
+
+                                }
+                            }
+                         });
+                }else{
+                        var code=$("<div id='qr_code'><div><img src='/images/ed_qrcode.jpg'/><br>长按二维码关注Edition10服务号<br>查看VIP会员信息<br><input class='button' type='button' value='返回' onclick='removeQrCode()'/></div></div>");
+                        $("body").append(code);
+                        $("#qr_code").height(h).fadeIn();
+                        $.ajax({
+                            type: "POST",
+                            url: "http://edition10.gzmediaclick.com/bind.php",
+                            data: "token=",
+                            dataType: "jsonp",
+                            success: function(msg){
+                                if(msg.status=='success'){
+
+                                }
+                            }
+                         });
+                 }
+            }
+            function removeQrCode(){
+                 $("#qr_code").remove();
+            }
+    </script>
