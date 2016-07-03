@@ -25,7 +25,9 @@ class Api_Order extends PhalApi_Api {
             'commitOrder' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
                 'cartIds' => array('name' => 'cart_ids', 'type' => 'array', 'format' => 'explode', 'require' => true, 'desc' => '购物篮ID，多个以逗号分割'),
-                'amountPaid' => array('name' => 'amount_paid', 'type' => 'flout', 'require' => true, 'desc' => '支付金额'),
+                'totalPrice' => array('name' => 'total_price', 'type' => 'flout', 'require' => true, 'desc' => '总价格'),
+                'totalQuantity' => array('name' => 'total_quantity', 'type' => 'int', 'require' => true, 'desc' => '总数量'),
+                'totalPoint' => array('name' => 'total_point', 'type' => 'flout', 'require' => true, 'desc' => '总积分'),
 				'addressId' => array('name' => 'addr_id', 'type' => 'int', 'require' => true, 'desc' => '收货地址id'),
                 'invoiceType' => array('name' => 'invoice_type', 'type' => 'string', 'require' => false, 'desc' => '发票类型'),
                 'invoiceHeader' => array('name' => 'invoice_header', 'type' => 'string', 'require' => false, 'desc' => '发票抬头'),
@@ -215,7 +217,9 @@ class Api_Order extends PhalApi_Api {
 
         // 如果是购物车，清空用户的购物车
         // 1. 生成订单
-        $order['amount_paid'] = $this->amountPaid;
+        $order['total_price'] = $this->totalPrice;
+        $order['total_quantity'] = $this->totalQuantity;
+        $order['total_point'] = $this->totalPoint;
         // TODO 订单编号的设置
         $order['sn'] = '2016062216935';
         $order['create_date'] = date('Y-m-d H:i:s');
@@ -250,6 +254,12 @@ class Api_Order extends PhalApi_Api {
             // 3. 清除购物车
             $modelCart->delete($cartId);
         }
+
+        // 修改用户积分
+        $modelUser = new Model_User();
+        $info = $modelUser->getByUserId($this->userId);
+        $userInfoNew['integral'] = $info['integral'] + $this->totalPoint;
+        $modelUser->update($this->userId, $userInfoNew);
 
         $ret['msg'] = 0;
 
