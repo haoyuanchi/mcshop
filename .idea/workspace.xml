@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="86c275e7-6211-4bdc-8399-0c142e0e215c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Demo/Model/GoodBarcode.php" afterPath="$PROJECT_DIR$/Demo/Model/GoodBarcode.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Demo/Api/Cart.php" afterPath="$PROJECT_DIR$/Demo/Api/Cart.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Demo/Api/Order.php" afterPath="$PROJECT_DIR$/Demo/Api/Order.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="PhalApi.iws" />
@@ -48,11 +49,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Cart.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Cart.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Demo/Api/Cart.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.666667" vertical-offset="900" max-vertical-offset="3060">
-              <caret line="74" column="51" selection-start-line="74" selection-start-column="51" selection-end-line="74" selection-end-column="51" />
+            <state vertical-scroll-proportion="0.7128713" vertical-offset="630" max-vertical-offset="3078">
+              <caret line="76" column="39" selection-start-line="76" selection-start-column="39" selection-end-line="76" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -83,8 +84,8 @@
       <file leaf-file-name="Order.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Demo/Api/Order.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-19.333334" vertical-offset="990" max-vertical-offset="2538">
-              <caret line="84" column="31" selection-start-line="84" selection-start-column="31" selection-end-line="84" selection-end-column="31" />
+            <state vertical-scroll-proportion="-20.666666" vertical-offset="1530" max-vertical-offset="2556">
+              <caret line="116" column="27" selection-start-line="116" selection-start-column="27" selection-end-line="116" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -120,11 +121,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GoodBarcode.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GoodBarcode.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Demo/Model/GoodBarcode.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.43564355" vertical-offset="0" max-vertical-offset="909">
-              <caret line="22" column="63" selection-start-line="22" selection-start-column="63" selection-end-line="22" selection-end-column="63" />
+            <state vertical-scroll-proportion="-13.333333" vertical-offset="0" max-vertical-offset="666">
+              <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
               <folding>
                 <element signature="e#6#85#0#PHP" expanded="true" />
               </folding>
@@ -182,15 +183,15 @@
         <option value="$PROJECT_DIR$/Demo/Model/Collection.php" />
         <option value="$PROJECT_DIR$/Demo/Api/Collection.php" />
         <option value="$PROJECT_DIR$/Demo/Model/ViewCart.php" />
-        <option value="$PROJECT_DIR$/Demo/Api/Cart.php" />
         <option value="$PROJECT_DIR$/Demo/Model/Coupon.php" />
         <option value="$PROJECT_DIR$/Demo/Model/ViewCoupon.php" />
         <option value="$PROJECT_DIR$/Demo/Api/Coupon.php" />
         <option value="$PROJECT_DIR$/Demo/Api/Redeem.php" />
-        <option value="$PROJECT_DIR$/Demo/Api/Order.php" />
         <option value="$PROJECT_DIR$/Demo/Api/Good.php" />
         <option value="$PROJECT_DIR$/Demo/Model/Cart.php" />
         <option value="$PROJECT_DIR$/Demo/Model/GoodBarcode.php" />
+        <option value="$PROJECT_DIR$/Demo/Api/Order.php" />
+        <option value="$PROJECT_DIR$/Demo/Api/Cart.php" />
       </list>
     </option>
   </component>
@@ -734,7 +735,13 @@
       <option name="project" value="LOCAL" />
       <updated>1467549252664</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="增加地址接口">
+      <created>1467549307617</created>
+      <option name="number" value="00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1467549307617</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1189,14 +1196,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Demo/Api/Order.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.333334" vertical-offset="990" max-vertical-offset="2538">
-          <caret line="84" column="31" selection-start-line="84" selection-start-column="31" selection-end-line="84" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Demo/Api/Good.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.0" vertical-offset="3861" max-vertical-offset="4950">
@@ -1239,21 +1238,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Demo/Api/Cart.php">
+    <entry file="file://$PROJECT_DIR$/Demo/Api/Order.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.666667" vertical-offset="900" max-vertical-offset="3060">
-          <caret line="74" column="51" selection-start-line="74" selection-start-column="51" selection-end-line="74" selection-end-column="51" />
+        <state vertical-scroll-proportion="-20.666666" vertical-offset="1530" max-vertical-offset="2556">
+          <caret line="116" column="27" selection-start-line="116" selection-start-column="27" selection-end-line="116" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Demo/Model/GoodBarcode.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43564355" vertical-offset="0" max-vertical-offset="909">
-          <caret line="22" column="63" selection-start-line="22" selection-start-column="63" selection-end-line="22" selection-end-column="63" />
+        <state vertical-scroll-proportion="-13.333333" vertical-offset="0" max-vertical-offset="666">
+          <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
           <folding>
             <element signature="e#6#85#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Demo/Api/Cart.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7128713" vertical-offset="630" max-vertical-offset="3078">
+          <caret line="76" column="39" selection-start-line="76" selection-start-column="39" selection-end-line="76" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>

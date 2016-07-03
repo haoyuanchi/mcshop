@@ -114,6 +114,7 @@ class Api_Order extends PhalApi_Api {
      * @return string msg 提示信息
      */
     public function genOrderByCart() {
+        // 购物篮生成订单， 订单temp表
 
 
     }
