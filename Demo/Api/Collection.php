@@ -49,6 +49,7 @@ class Api_Collection extends PhalApi_Api {
             $ret['good_list'] = array_merge(array('id' => $collection['id']), $good);
         }
 
+        $ret['msg'] = '';
         return $ret;
     }
 
@@ -70,6 +71,7 @@ class Api_Collection extends PhalApi_Api {
         $collectId = $model->insert($collection);
         $ret['collect_id'] = $collectId;
 
+        $ret['msg'] = '';
         return $ret;
     }
 
@@ -84,6 +86,7 @@ class Api_Collection extends PhalApi_Api {
         $collectId = $model->delete($this->collectId);
         $ret['collect_id'] = $collectId;
 
+        $ret['msg'] = '';
         return $ret;
     }
 
