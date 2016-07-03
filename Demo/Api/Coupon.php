@@ -27,7 +27,7 @@ class Api_Coupon extends PhalApi_Api {
         $ret['code'] = 0;
 
         $model = new Model_ViewCoupon();
-        $couponList = $model->getListByUserId($this->userI, $this->isUsed, $this->isDated);
+        $couponList = $model->getListByUserId($this->userId, $this->isUsed, $this->isDated);
         $ret['coupon_list'] = $couponList;
 
         $ret['code'] = 0;
