@@ -62,10 +62,10 @@ class Api_Redeem extends PhalApi_Api {
         $ret['code'] = 0;
 
         // TODO 增加原子操作
-        $model = new Model_User();
-        $userInfo = $model->getByUserId($this->userId);
+        $modelUser = new Model_User();
+        $userInfo = $modelUser->getByUserId($this->userId);
 
-        if($userInfo['point'] < $this->redeemNumber * 10000){
+        if($userInfo['integral'] < $this->redeemNumber * 10000){
             $ret['code'] = 1;
             $ret['msg'] = '积分不足，请重新输入兑换数量';
             return $ret;
@@ -83,8 +83,8 @@ class Api_Redeem extends PhalApi_Api {
 
         $couponId = $modelCoupon->insert($coupon);
 
-        $userInfoNew['point'] = $userInfo['point'] - $this->redeemNumber * 10000;
-        $userId = $model->update($this->userId, $userInfoNew);
+        $userInfoNew['integral'] = $userInfo['integral'] - $this->redeemNumber * 10000;
+        $userId = $modelUser->update($this->userId, $userInfoNew);
 
         $ret['$couponId'] = $couponId;
 
@@ -131,10 +131,10 @@ class Api_Redeem extends PhalApi_Api {
         $ret['code'] = 0;
 
         // TODO 增加原子操作
-        $model = new Model_User();
-        $userInfo = $model->getByUserId($this->userId);
+        $modelUser = new Model_User();
+        $userInfo = $modelUser->getByUserId($this->userId);
 
-        if($userInfo['point'] < $this->redeemIntegral){
+        if($userInfo['integral'] < $this->redeemIntegral){
             $ret['code'] = 1;
             $ret['msg'] = '积分不足，请重新输入兑换数量';
             return $ret;
@@ -171,8 +171,8 @@ class Api_Redeem extends PhalApi_Api {
 
         $couponId = $modelCoupon->insert($coupon);
 
-        $userInfoNew['point'] = $userInfo['point'] - $usedIntegral;
-        $userId = $model->update($this->userId, $userInfoNew);
+        $userInfoNew['integral'] = $userInfo['integral'] - $usedIntegral;
+        $userId = $modelUser->update($this->userId, $userInfoNew);
 
         $ret['msg'] = '';
 
