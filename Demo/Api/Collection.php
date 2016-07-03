@@ -84,7 +84,7 @@ class Api_Collection extends PhalApi_Api {
 
         $model = new Model_Collection();
         $collectId = $model->delete($this->collectId);
-        $ret['collect_id'] = $collectId;
+        $ret['is_success'] = $collectId;
 
         $ret['msg'] = 'success';
         return $ret;
