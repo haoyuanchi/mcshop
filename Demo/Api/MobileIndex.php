@@ -67,11 +67,11 @@ class Api_MobileIndex extends PhalApi_Api {
         $brands = $model->getList();
 
         if($this->code=='moco') {
-            $ret['topCategory']['tag_id'] = $top['id'];
+            $ret['topCategory']['tag_id'] = $top['tag_id'];
             $ret['topCategory']['image'] = $top['mo_mobile_cover'];
         }
         else{
-            $ret['topCategory']['tag_id'] = $top['id'];
+            $ret['topCategory']['tag_id'] = $top['tag_id'];
             $ret['topCategory']['image'] = $top['ed_mobile_cover'];
         }
 

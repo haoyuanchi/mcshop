@@ -32,7 +32,6 @@ class Api_Order extends PhalApi_Api {
                 'comment' => array('name' => 'comment', 'type' => 'string', 'require' => false, 'desc' => '备注'),
                 'couponId' => array('name' => 'coupon_id', 'type' => 'int', 'require' => false, 'desc' => '优惠券id'),
             ),
-			
         );
     }
 
