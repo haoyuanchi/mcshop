@@ -124,7 +124,7 @@
         <entry file="file://$PROJECT_DIR$/Demo/Model/GoodBarcode.php">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.43564355" vertical-offset="0" max-vertical-offset="909">
-              <caret line="22" column="109" selection-start-line="22" selection-start-column="109" selection-end-line="22" selection-end-column="109" />
+              <caret line="22" column="63" selection-start-line="22" selection-start-column="63" selection-end-line="22" selection-end-column="63" />
               <folding>
                 <element signature="e#6#85#0#PHP" expanded="true" />
               </folding>
@@ -728,7 +728,13 @@
       <option name="project" value="LOCAL" />
       <updated>1467549168296</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="增加地址接口">
+      <created>1467549252664</created>
+      <option name="number" value="00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1467549252664</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1244,7 +1250,7 @@
     <entry file="file://$PROJECT_DIR$/Demo/Model/GoodBarcode.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.43564355" vertical-offset="0" max-vertical-offset="909">
-          <caret line="22" column="109" selection-start-line="22" selection-start-column="109" selection-end-line="22" selection-end-column="109" />
+          <caret line="22" column="63" selection-start-line="22" selection-start-column="63" selection-end-line="22" selection-end-column="63" />
           <folding>
             <element signature="e#6#85#0#PHP" expanded="true" />
           </folding>
