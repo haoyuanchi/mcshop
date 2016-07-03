@@ -66,7 +66,7 @@ class Api_Cart extends PhalApi_Api {
         $ret['code'] = 0;
 
         // 获取购物车的商品总数和价格总数
-        $modelTotal = new Model_ViewCart();
+        $modelTotal = new Model_ViewCartTotal();
         $total = $modelTotal->getByUserId($this->userId);
 
         $ret['total_quantity'] = $total['total_quantity'];
@@ -79,7 +79,7 @@ class Api_Cart extends PhalApi_Api {
 
         if(empty($cartList)){
             $ret['cart_list'] = null;
-            return;
+            return $ret;
         }
 
         $modelGoodBarcode = new Model_GoodBarcode();
@@ -139,7 +139,7 @@ class Api_Cart extends PhalApi_Api {
         }
 
         // 获取购物车的商品总数和价格总数
-        $modelTotal = new Model_ViewCart();
+        $modelTotal = new Model_ViewCartTotal();
         $total = $modelTotal->getByUserId($this->userId);
 
         $ret['total_quantity'] = $total['total_quantity'];
@@ -185,6 +185,8 @@ class Api_Cart extends PhalApi_Api {
 
         $model = new Model_Cart();
         $cartId = $model->update($this->cartId, $cart);
+
+        $ret['cart_id'] = $cartId;
 
         $ret['msg'] ='';
 

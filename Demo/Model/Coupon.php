@@ -14,9 +14,18 @@ class Model_Coupon extends PhalApi_Model_NotORM {
     public function getListByUserId($userId){
         $rows = $this->getORM()
             ->select('*')
-            ->where('memeber_id', $userId)
+            ->where('member_id', $userId)
             ->order('create_date')
             ->fetchAll();
         return $rows;
+    }
+
+    public function updateSetUsed($couponId){
+        $data['is_used'] = 1;
+        $data['used_date'] = date('Y-m-d H:i:s');
+
+        return $this->getORM()
+            ->where('id', $couponId)
+            ->update($data);
     }
 }

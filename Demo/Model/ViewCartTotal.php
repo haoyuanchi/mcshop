@@ -6,7 +6,7 @@
  * Time: 0:56
  */
 
-class Model_ViewCart extends PhalApi_Model_NotORM {
+class Model_ViewCartTotal extends PhalApi_Model_NotORM {
     protected function getTableName($id) {
         return 'v_cart_total';
     }
