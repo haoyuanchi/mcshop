@@ -46,7 +46,7 @@ class Api_Oauth2 extends PhalApi_Api {
         // 跳转到绑定页面
         if($isFirstBind){
             setcookie('openId',$this->openId, '86400*360', '/'); //设置cookie长期有效
-            $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/list.html";
+            $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/mobileIndex.html";
             header("Location:{$url}");
             exit;
         }
@@ -56,7 +56,7 @@ class Api_Oauth2 extends PhalApi_Api {
         setcookie('user_info', $userInfo, '360', '/');
         // 跳转到首页
         setcookie('brand_id',$this->brandId, '360', '/'); //设置cookie 6分钟有效
-        $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/list.html";
+        $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/mobileIndex.html";
         header("Location:{$url}");
         exit;
     }

@@ -2,40 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="86c275e7-6211-4bdc-8399-0c142e0e215c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/images/2.春季必备单品.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/images/4.T恤合辑.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/images/5G261078-1.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/images/7GB10041001-1.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/images/ajax-loader.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/oImage/ajax-loader.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/images/c-1.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/images/f-3.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/images/j-10.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/images/j-11.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/images/j-13.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/images/j-14入夏新品精选.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/images/j-16裤子专区.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/images/j-17腰裙专区.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/images/j-9.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/images/vip_bg.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/oImage/vip_bg.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/images/vip_input_icon.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/oImage/vip_input_icon.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/js/WeixinApi.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/Scripts/angular-1.0.0rc10.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/resources/mobile/js/angular-1.0.0rc10.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/mobile/product/content1.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/js/hm.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/js/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/mobile/cart/index1.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/css/jquery.mobile-1.4.3.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/js/jquery.mobile-1.4.3.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/mobile/list2.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/mobile/list3.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/css/main.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/js/mobile.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/mobile/mobileIndex1.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/apptest/wx_member.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Demo/Api/Oauth2.php" afterPath="$PROJECT_DIR$/Demo/Api/Oauth2.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="PhalApi.iws" />
@@ -96,8 +63,8 @@
       <file leaf-file-name="Oauth2.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Demo/Api/Oauth2.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6039604" vertical-offset="225" max-vertical-offset="1134">
-              <caret line="48" column="66" selection-start-line="48" selection-start-column="62" selection-end-line="48" selection-end-column="66" />
+            <state vertical-scroll-proportion="0.8019802" vertical-offset="225" max-vertical-offset="1134">
+              <caret line="58" column="76" selection-start-line="58" selection-start-column="76" selection-end-line="58" selection-end-column="76" />
               <folding />
             </state>
           </provider>
@@ -195,7 +162,6 @@
         <option value="$PROJECT_DIR$/../testurl.php" />
         <option value="$PROJECT_DIR$/Config/app.php" />
         <option value="$PROJECT_DIR$/Public/init.php" />
-        <option value="$PROJECT_DIR$/Demo/Api/Oauth2.php" />
         <option value="$PROJECT_DIR$/PhalApi/PhalApi.php" />
         <option value="$PROJECT_DIR$/Demo/Api/Activity.php" />
         <option value="$PROJECT_DIR$/Demo/Model/AddrProvince.php" />
@@ -228,6 +194,7 @@
         <option value="$PROJECT_DIR$/Demo/Api/Order.php" />
         <option value="$PROJECT_DIR$/Demo/Api/Coupon.php" />
         <option value="$PROJECT_DIR$/Demo/Model/ViewCoupon.php" />
+        <option value="$PROJECT_DIR$/Demo/Api/Oauth2.php" />
       </list>
     </option>
   </component>
@@ -418,12 +385,6 @@
       <created>1466566780244</created>
       <option name="number" value="Default" />
       <updated>1466566780244</updated>
-    </task>
-    <task id="LOCAL-00024" summary="修改会员登录接口">
-      <created>1467455384318</created>
-      <option name="number" value="00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1467455384318</updated>
     </task>
     <task id="LOCAL-00025" summary="修改会员登录接口">
       <created>1467455416460</created>
@@ -713,7 +674,13 @@
       <option name="project" value="LOCAL" />
       <updated>1467567095504</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="增加地址接口">
+      <created>1467567134277</created>
+      <option name="number" value="00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1467567134277</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -738,7 +705,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3284974" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953367" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -753,7 +720,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953367" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18017058" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18017058" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24972437" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1227,8 +1194,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Demo/Api/Oauth2.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6039604" vertical-offset="225" max-vertical-offset="1134">
-          <caret line="48" column="66" selection-start-line="48" selection-start-column="62" selection-end-line="48" selection-end-column="66" />
+        <state vertical-scroll-proportion="0.8019802" vertical-offset="225" max-vertical-offset="1134">
+          <caret line="58" column="76" selection-start-line="58" selection-start-column="76" selection-end-line="58" selection-end-column="76" />
           <folding />
         </state>
       </provider>
