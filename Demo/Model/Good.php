@@ -23,7 +23,10 @@ class Model_Good extends PhalApi_Model_NotORM {
 
     public function getListByBrand($brandId, $start, $num, $sort){
         $sql = 'select t1.id as good_id, t2.id as brand_id, t1.category_id, t1.code, t1.price_origin, t1.price_point, t1.image, t1.name, t1.price, t2.cover'
-            .' from mc_good as t1 left join mc_brand t2 on t1.brand_id=t2.id where t1.brand_id=:brand_id order by sort limit :start, :num';
+            .' from mc_good as t1 left join mc_brand t2 on t1.brand_id=t2.id'
+            .' where t1.brand_id=:brand_id'
+            .' order by sort desc'
+            .' limit :start, :num';
 
         $params = array(':brand_id' => $brandId, ':start' => $start, ':num' => $num);
 
@@ -33,7 +36,8 @@ class Model_Good extends PhalApi_Model_NotORM {
 
     public function getCountByBrand($brandId){
         $sql = 'select count(t1.id) as total'
-            .' from mc_good as t1 left join mc_brand t2 on t1.brand_id=t2.id where t1.brand_id=:brand_id';
+            .' from mc_good as t1 left join mc_brand t2 on t1.brand_id=t2.id'
+            .' where t1.brand_id=:brand_id';
         $params = array(':brand_id' => $brandId);
         $rows = $this->getORM()->queryAll($sql, $params);
         $ret = $rows[0]['total'];
@@ -44,7 +48,7 @@ class Model_Good extends PhalApi_Model_NotORM {
         $sql = 'select t1.id as good_id, t2.id as brand_id, t1.category_id, t1.code, t1.price_origin, t1.price_point, t1.image, t1.name, t1.price, t2.cover'
             .' from mc_good as t1 left join mc_brand t2 on t1.brand_id=t2.id'
             .' where t1.brand_id=:brand_id and t1.category_id=:categoryId'
-            .' order by :sort'
+            .' order by :sort desc'
             .' limit :start, :num';
 
         $params = array(':brand_id' => $brandId, ':categoryId' => $categoryId, ':sort'=>$sort, ':start' => $start, ':num' => $num);
@@ -55,7 +59,8 @@ class Model_Good extends PhalApi_Model_NotORM {
 
     public function getCountByCategory($brandId, $categoryId){
         $sql = 'select count(t1.id) as total'
-            .' from mc_good as t1 left join mc_brand t2 on t1.brand_id=t2.id where t1.brand_id=:brandId and t1.category_id=:categoryId';
+            .' from mc_good as t1 left join mc_brand t2 on t1.brand_id=t2.id'
+            .' where t1.brand_id=:brandId and t1.category_id=:categoryId';
         $params = array(':brandId' => $brandId, ':categoryId' => $categoryId);
         $rows = $this->getORM()->queryAll($sql, $params);
         $ret = $rows[0]['total'];
@@ -69,7 +74,7 @@ class Model_Good extends PhalApi_Model_NotORM {
             .' left join mc_good_tag t2 on t1.id=t2.good_id'
             .' left join mc_tag t3 on t2.tag_id=t3.id'
             .' where t1.brand_id=:brand_id and t2.tag_id=:tagId'
-            .' order by :sort'
+            .' order by :sort desc'
             .' limit :start, :num';
 
         $params = array(':brand_id' => $brandId, ':tagId' => $tagId, ':sort'=>'t1.'.$sort, ':start' => $start, ':num' => $num);
