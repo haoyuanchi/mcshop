@@ -51,8 +51,18 @@
       <file leaf-file-name="Good.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Demo/Api/Good.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.79187816" vertical-offset="4230" max-vertical-offset="4950">
-              <caret line="266" column="52" selection-start-line="266" selection-start-column="52" selection-end-line="266" selection-end-column="52" />
+            <state vertical-scroll-proportion="0.57360405" vertical-offset="4359" max-vertical-offset="4950">
+              <caret line="266" column="60" selection-start-line="266" selection-start-column="60" selection-end-line="266" selection-end-column="60" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Oauth2.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Demo/Api/Oauth2.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.6666667" vertical-offset="270" max-vertical-offset="1134">
+              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -64,18 +74,6 @@
             <state vertical-scroll-proportion="-5.3333335" vertical-offset="0" max-vertical-offset="378">
               <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ViewCart.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Demo/Model/ViewCart.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.666667" vertical-offset="0" max-vertical-offset="468">
-              <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
-              <folding>
-                <element signature="e#6#84#0#PHP" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -95,7 +93,7 @@
       <file leaf-file-name="Order.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Demo/Api/Order.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.333333" vertical-offset="1530" max-vertical-offset="2556">
+            <state vertical-scroll-proportion="-1.3333334" vertical-offset="1800" max-vertical-offset="2556">
               <caret line="102" column="50" selection-start-line="102" selection-start-column="50" selection-end-line="102" selection-end-column="50" />
               <folding />
             </state>
@@ -466,12 +464,6 @@
       <option name="number" value="Default" />
       <updated>1466566780244</updated>
     </task>
-    <task id="LOCAL-00011" summary="修改会员登录接口">
-      <created>1467451133088</created>
-      <option name="number" value="00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1467451133088</updated>
-    </task>
     <task id="LOCAL-00012" summary="修改会员登录接口">
       <created>1467451313426</created>
       <option name="number" value="00012" />
@@ -760,7 +752,13 @@
       <option name="project" value="LOCAL" />
       <updated>1467554941958</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="增加地址接口">
+      <created>1467555032814</created>
+      <option name="number" value="00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1467555032814</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1147,16 +1145,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Demo/Api/Oauth2.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.3333333" vertical-offset="288" max-vertical-offset="1224">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding>
-            <element signature="e#6#86#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Demo/Api/Coupon.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.777778" vertical-offset="159" max-vertical-offset="756">
@@ -1247,14 +1235,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Demo/Api/Order.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.333333" vertical-offset="1530" max-vertical-offset="2556">
-          <caret line="102" column="50" selection-start-line="102" selection-start-column="50" selection-end-line="102" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Demo/Model/GoodBarcodeImage.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.3333335" vertical-offset="0" max-vertical-offset="378">
@@ -1271,6 +1251,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Demo/Api/Oauth2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.6666667" vertical-offset="270" max-vertical-offset="1134">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Demo/Api/Order.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3333334" vertical-offset="1800" max-vertical-offset="2556">
+          <caret line="102" column="50" selection-start-line="102" selection-start-column="50" selection-end-line="102" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Demo/Model/Good.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-14.0" vertical-offset="900" max-vertical-offset="1854">
@@ -1281,8 +1277,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Demo/Api/Good.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.79187816" vertical-offset="4230" max-vertical-offset="4950">
-          <caret line="266" column="52" selection-start-line="266" selection-start-column="52" selection-end-line="266" selection-end-column="52" />
+        <state vertical-scroll-proportion="0.57360405" vertical-offset="4359" max-vertical-offset="4950">
+          <caret line="266" column="60" selection-start-line="266" selection-start-column="60" selection-end-line="266" selection-end-column="60" />
           <folding />
         </state>
       </provider>

@@ -264,7 +264,7 @@ class Api_Good extends PhalApi_Api {
 
             foreach($specImageList as $key2=>$specImage){
                 if($key == 0){
-                    $ret['good']['image_list'][$key2] = $specImage['source'];
+                    $ret['good']['image_list'][$key2]['image'] = $specImage['source'];
                 }
                 $ret['good']['spec_list'][$key]['image_list'][$key2] = $specImage['source'];
             }
