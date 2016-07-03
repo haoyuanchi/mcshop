@@ -52,7 +52,8 @@ class Api_Cart extends PhalApi_Api {
      * @return string list[].good.price 商品总价
      * @return boolean list[].good.isEnough 库存是否充足
 	 * @return array list[].good.spec_list 商品规格列表颜色，尺码，数量，修改所需
-     * @return int list[].good.spec_list[].product_id	确定规格商品的id
+     * @return int list[].good.spec_list[].barcode_id	确定规格商品的id
+     * @return int list[].good.spec_list[].barcode	商品规格
      * @return int list[].good.spec_list[].color_id    商品颜色id 
      * @return string list[].good.spec_list[].color_value 商品颜色文字说明
      * @return string list[].good.spec_list[].color_image 商品颜色图地址
@@ -64,26 +65,49 @@ class Api_Cart extends PhalApi_Api {
     public function getList() {
         $ret['code'] = 0;
 
-        $model = new Model_Cart();
-        $cartList = $model->getListByUserId($this->userId);
+        // 获取购物车的商品总数和价格总数
+        $modelTotal = new Model_ViewCart();
+        $total = $modelTotal->getByUserId($this->userId);
 
-        $barcodeGood = new Model_GoodBarcode();
-        $tol_quantity = 0;
-        $tol_price_origin = 0.0;
-        $tol_price = 0.0;
-        foreach($cartList as $key => $cart){
-            $barcode = $barcodeGood->getDetailByBarcodeId($cart['barcode_id']);
-            //$ret['list'][$key] = array_merge($cart, $barcode);
-            $ret['list'][$key] = $cart + $barcode;
-            $tol_quantity = $tol_quantity + $cart['quantity'];
-            $tol_price_origin = $tol_price_origin + $barcode['price_origin'];
-            $tol_price = $tol_price + $barcode['price_origin'];
+        $ret['total_quantity'] = $total['total_quantity'];
+        $ret['total_price_origin'] = $total['total_price_origin'];
+        $ret['total_price'] = $total['total_price'];
+        $ret['tol_save'] = $ret['total_price_origin'] - $ret['total_price'];
+
+        $modelCart = new Model_ViewCartDetail();
+        $cartList = $modelCart->getListByUserId($this->userId);
+
+        if(empty($cartList)){
+            $ret['cart_list'] = null;
+            return;
         }
 
-        $ret['tol_number'] = $tol_quantity;
-        $ret['tol_price'] = $tol_price_origin;
-        $ret['tol_actualPrice'] = $tol_price;
-        $ret['tol_save'] = $ret['tol_price'] - $ret['tol_actualPrice'];
+        $ret['cart_list'] = $cartList;
+
+        $modelGoodBarcode = new Model_GoodBarcode();
+        foreach($cartList as $key => $cart){
+            $ret['cart_list'][$key] = $cart;
+
+            $goodBarcodeList = $modelGoodBarcode->getBarcodeList($cart['good_id']);
+
+            $ret['cart_list'][$key]['spec_list'] = $goodBarcodeList;
+
+            /*foreach($goodBarcodeList as $key2=>$barcode) {
+                $ret['cart_list'][$key]['spec_list'][$key2]['id'] = $barcode['id'];
+                $ret['cart_list'][$key]['spec_list'][$key]['barcode'] = $barcode['barcode'];
+                $ret['cart_list'][$key]['spec_list'][$key]['name'] = $barcode['full_name'];
+                $ret['cart_list'][$key]['spec_list'][$key]['barcode'] = $barcode['barcode'];
+                $ret['cart_list'][$key]['spec_list'][$key]['color_id'] = $barcode['color_id'];
+                $ret['cart_list'][$key]['spec_list'][$key]['color_code'] = $barcode['color_code'];
+                $ret['cart_list'][$key]['spec_list'][$key]['color_name'] = $barcode['color_name'];
+                $ret['cart_list'][$key]['spec_list'][$key]['color_image'] = $barcode['color_image_thumbnail'];
+                $ret['cart_list'][$key]['spec_list'][$key]['size_id'] = $barcode['size_id'];
+                $ret['cart_list'][$key]['spec_list'][$key]['size_code'] = $barcode['size_code'];
+                $ret['cart_list'][$key]['spec_list'][$key]['size_name'] = $barcode['size_name'];
+                $ret['cart_list'][$key]['spec_list'][$key]['remain_number'] = $barcode['stock'];
+                $ret['cart_list'][$key]['spec_list'][$key]['allocated_stock'] = $barcode['allocated_stock'];
+            }*/
+        }
 
         $ret['code'] = 0;
 

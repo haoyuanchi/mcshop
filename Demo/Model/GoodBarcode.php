@@ -24,7 +24,6 @@ class Model_GoodBarcode extends PhalApi_Model_NotORM {
             .' t2.code, t2.name, t2.price_origin, t2.price_point, t2.price, t2.point, t2.image'
             .' from mc_good_barcode as t1 left join mc_good t2 on t1.good_id=t2.id'
             .' where t1.id=:barcodeId';
-
         $params = array(':barcodeId' => $barcodeId);
         $rows = $this->getORM()->queryAll($sql, $params);
         return $rows[0];
