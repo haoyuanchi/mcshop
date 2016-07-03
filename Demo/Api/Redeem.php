@@ -16,7 +16,7 @@ class Api_Redeem extends PhalApi_Api {
             'redeemMO' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
 				'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
-				'redeemNumber' => array('name' => 'redeem_umber', 'type' => 'int', 'require' => true, 'desc' => '兑换数量(MO)'),
+				'redeemNumber' => array('name' => 'redeem_number', 'type' => 'int', 'require' => true, 'desc' => '兑换数量(MO)'),
             ),
             'getValue' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
