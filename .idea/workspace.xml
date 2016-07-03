@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="86c275e7-6211-4bdc-8399-0c142e0e215c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Demo/Model/Collection.php" afterPath="$PROJECT_DIR$/Demo/Model/Collection.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Demo/Api/User.php" afterPath="$PROJECT_DIR$/Demo/Api/User.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Demo/Api/Collection.php" afterPath="$PROJECT_DIR$/Demo/Api/Collection.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="PhalApi.iws" />
@@ -79,20 +78,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Collection.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Collection.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Demo/Api/Collection.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.0" vertical-offset="360" max-vertical-offset="1674">
-              <caret line="43" column="42" selection-start-line="43" selection-start-column="42" selection-end-line="43" selection-end-column="42" />
+            <state vertical-scroll-proportion="1.7537688" vertical-offset="393" max-vertical-offset="1620">
+              <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Collection.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Collection.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Demo/Model/Collection.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3316583" vertical-offset="0" max-vertical-offset="597">
+            <state vertical-scroll-proportion="-7.3333335" vertical-offset="0" max-vertical-offset="396">
               <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
               <folding />
             </state>
@@ -163,7 +162,6 @@
         <option value="$PROJECT_DIR$/Demo/Model/Brand.php" />
         <option value="$PROJECT_DIR$/Demo/Api/Brand.php" />
         <option value="$PROJECT_DIR$/Demo/Model/CartTotal.php" />
-        <option value="$PROJECT_DIR$/Demo/Api/Collection.php" />
         <option value="$PROJECT_DIR$/Demo/Model/Cart.php" />
         <option value="$PROJECT_DIR$/Demo/Model/GoodBarcode.php" />
         <option value="$PROJECT_DIR$/Demo/Model/MemberRank.php" />
@@ -188,6 +186,7 @@
         <option value="$PROJECT_DIR$/Demo/Model/User.php" />
         <option value="$PROJECT_DIR$/Demo/Api/User.php" />
         <option value="$PROJECT_DIR$/Demo/Model/Collection.php" />
+        <option value="$PROJECT_DIR$/Demo/Api/Collection.php" />
       </list>
     </option>
   </component>
@@ -382,12 +381,6 @@
       <created>1466566780244</created>
       <option name="number" value="Default" />
       <updated>1466566780244</updated>
-    </task>
-    <task id="LOCAL-00039" summary="增加地址接口">
-      <created>1467482241131</created>
-      <option name="number" value="00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1467482241131</updated>
     </task>
     <task id="LOCAL-00040" summary="增加地址接口">
       <created>1467484918746</created>
@@ -677,7 +670,13 @@
       <option name="project" value="LOCAL" />
       <updated>1467572062551</updated>
     </task>
-    <option name="localTasksCounter" value="88" />
+    <task id="LOCAL-00088" summary="增加地址接口">
+      <created>1467572449902</created>
+      <option name="number" value="00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1467572449902</updated>
+    </task>
+    <option name="localTasksCounter" value="89" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1190,18 +1189,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Demo/Api/Collection.php">
+    <entry file="file://$PROJECT_DIR$/Demo/Model/Collection.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.0" vertical-offset="360" max-vertical-offset="1674">
-          <caret line="43" column="42" selection-start-line="43" selection-start-column="42" selection-end-line="43" selection-end-column="42" />
+        <state vertical-scroll-proportion="-7.3333335" vertical-offset="0" max-vertical-offset="396">
+          <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Demo/Model/Collection.php">
+    <entry file="file://$PROJECT_DIR$/Demo/Api/Collection.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3316583" vertical-offset="0" max-vertical-offset="597">
-          <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
+        <state vertical-scroll-proportion="1.7537688" vertical-offset="393" max-vertical-offset="1620">
+          <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
           <folding />
         </state>
       </provider>
