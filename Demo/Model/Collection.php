@@ -8,13 +8,13 @@
 
 class Model_Collection extends PhalApi_Model_NotORM {
     protected function getTableName($id) {
-        return 'collection';
+        return 'member_collection';
     }
 
     public function getListByUserId($userId){
         $rows = $this->getORM()
             ->select('*')
-            ->where('memeber_id', $userId)
+            ->where('member_id', $userId)
             ->order('create_date')
             ->fetchAll();
         return $rows;

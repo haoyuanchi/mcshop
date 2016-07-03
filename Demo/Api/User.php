@@ -30,7 +30,7 @@ class Api_User extends PhalApi_Api {
             ),
 			'getGift' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
-				'address' => array('name' => 'address', 'type' => 'string', 'require' => true, 'desc' => '全部地址'),
+				'address' => array('name' => 'address', 'type' => 'string', 'require' => false, 'desc' => '全部地址'),
             ),
         );
     }
@@ -155,7 +155,9 @@ class Api_User extends PhalApi_Api {
         // 输出用户级别
         $userModel = new Model_User();
         $userInfo['is_get_gift'] = 1;
-        $userInfo['address'] = $this->address;
+        if(!empty($this->address)){
+            $userInfo['address'] = $this->address;
+        }
         $userModel->update($this->userId, $userInfo);
 
         $ret['code'] = 0;
