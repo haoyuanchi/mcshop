@@ -134,15 +134,12 @@ class Api_User extends PhalApi_Api {
         /*$modelCurrentBirth = new Model_ViewMemberCurrentBirth();
         $ret['is_authority'] = $modelCurrentBirth->isGiftAuthority($this->userId);*/
 
+
         $modelUser = new Model_User();
-        $ret['is_authority'] = $modelUser->isGiftAuthority($this->userId, $currentMonth);
         $userInfo = $modelUser->getByUserId($this->userId);
-        $ret['rank_id'] = $userInfo['member_rank_id'];
-        $ret['rank_name'] = $userInfo['member_rank_name'];
-        $ret['addr'] = $userInfo['address'];
-        $ret['vip_code'] = $userInfo['vip_code'];
-        $ret['vip_number'] = $userInfo['vip_number'];
-        $ret['tel'] = $userInfo['mobile'];
+
+
+        $ret['gift']['is_authority'] = $modelUser->isGiftAuthority($this->userId, $currentMonth);
 
         if($userInfo['amount'] > 20000){
             $ret['gift']['status'] = 2;
@@ -156,6 +153,13 @@ class Api_User extends PhalApi_Api {
             $ret['gift']['status'] = 0;
             $ret['gift']['msg'] = '祝福语';
         }
+
+        $ret['user']['rank_id'] = $userInfo['member_rank_id'];
+        $ret['user']['rank_name'] = $userInfo['member_rank_name'];
+        $ret['user']['addr'] = $userInfo['address'];
+        $ret['user']['vip_code'] = $userInfo['vip_code'];
+        $ret['user']['vip_number'] = $userInfo['vip_number'];
+        $ret['user']['tel'] = $userInfo['mobile'];
 
 
         return $ret;
