@@ -138,20 +138,21 @@ class Api_User extends PhalApi_Api {
         $modelUser = new Model_User();
         $userInfo = $modelUser->getByUserId($this->userId);
 
-
         $ret['gift']['is_authority'] = $modelUser->isGiftAuthority($this->userId, $currentMonth);
 
-        if($userInfo['amount'] > 20000){
-            $ret['gift']['status'] = 2;
-            $ret['gift']['msg'] = '礼品';
-        }
-        else if($userInfo['amount'] > 0){
-            $ret['gift']['status'] = 1;
-            $ret['gift']['msg'] = '贺卡';
-        }
-        else{
-            $ret['gift']['status'] = 0;
-            $ret['gift']['msg'] = '祝福语';
+        if($ret['gift']['is_authority']){
+            if($userInfo['amount'] > 20000){
+                $ret['gift']['status'] = 2;
+                $ret['gift']['msg'] = '礼品';
+            }
+            else if($userInfo['amount'] > 0){
+                $ret['gift']['status'] = 1;
+                $ret['gift']['msg'] = '贺卡';
+            }
+            else{
+                $ret['gift']['status'] = 0;
+                $ret['gift']['msg'] = '祝福语';
+            }
         }
 
         $ret['user']['rank_id'] = $userInfo['member_rank_id'];
