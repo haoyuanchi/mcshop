@@ -98,7 +98,7 @@ class Api_User extends PhalApi_Api {
         $userInfo['city'] = $this->city;
         $userInfo['area'] = $this->area;
         $userInfo['address'] = $this->province.$this->city.$this->area.$this->detail;
-        $userInfo['birth'] =date("Y-m-d", strtotime($this->birY.'-'.$this->birM.'-'.$this.birD));
+        $userInfo['birth'] =date("Y-m-d", strtotime($this->birY.'-'.$this->birM.'-'.$this->birD));
 
         $userInfo['mobile'] = $this->tel;
         //$userInfo['pro'] = $this->pro;    // 行业
