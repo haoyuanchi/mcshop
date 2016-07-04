@@ -94,6 +94,8 @@ class Api_User extends PhalApi_Api {
      * @return string msg 提示信息
      */
     public function modifyInfo() {
+        $ret['code'] = 0;
+
         $userInfo['province'] = $this->province;
         $userInfo['city'] = $this->city;
         $userInfo['area'] = $this->area;
@@ -107,7 +109,7 @@ class Api_User extends PhalApi_Api {
 
         $userModel = new Model_User();
 
-        $ret['code'] = $userModel->update($this->userId, $userInfo);
+        $ret['is_success'] = $userModel->update($this->userId, $userInfo);
 
         // 强制更新
         $ret['user'] = $userModel->getByUserId($this->userId);
