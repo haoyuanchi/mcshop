@@ -144,6 +144,20 @@ class Api_User extends PhalApi_Api {
         $ret['vip_number'] = $userInfo['vip_number'];
         $ret['tel'] = $userInfo['mobile'];
 
+        if($userInfo['amount'] > 20000){
+            $ret['gift']['status'] = 2;
+            $ret['gift']['msg'] = '礼品';
+        }
+        else if($userInfo['amount'] > 0){
+            $ret['gift']['status'] = 1;
+            $ret['gift']['msg'] = '贺卡';
+        }
+        else{
+            $ret['gift']['status'] = 0;
+            $ret['gift']['msg'] = '祝福语';
+        }
+
+
         return $ret;
     }
 	
