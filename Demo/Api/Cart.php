@@ -124,6 +124,9 @@ class Api_Cart extends PhalApi_Api {
                 $ret['cart_list'][$key]['color_list'] = array_merge($ret['cart_list'][$key]['color_list'], $colorList);
                 $ret['cart_list'][$key]['size_list'] = array_merge($ret['cart_list'][$key]['size_list'], $sizeList);
             }
+
+            $ret['cart_list'][$key]['color_list'] = array_unique($ret['cart_list'][$key]['color_list']);
+            $ret['cart_list'][$key]['size_list'] = array_unique($ret['cart_list'][$key]['size_list']);
         }
 
         $ret['code'] = 0;
