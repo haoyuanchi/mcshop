@@ -105,6 +105,25 @@ class Api_Cart extends PhalApi_Api {
                 $ret['cart_list'][$key]['spec_list'][$key]['remain_number'] = $barcode['stock'];
                 $ret['cart_list'][$key]['spec_list'][$key]['allocated_stock'] = $barcode['allocated_stock'];
             }*/
+
+            $ret['cart_list'][$key]['color_list'] = array();
+            $ret['cart_list'][$key]['size_list'] = array();
+
+            foreach($goodBarcodeList as $key2=>$barcode) {
+
+                $colorList['color_id'] = $barcode['color_id'];
+                $colorList['color_code'] = $barcode['color_code'];
+                $colorList['color_name'] = $barcode['color_name'];
+                $colorList['color_image'] = $barcode['color_image_thumbnail'];
+
+
+                $sizeList['size_id'] = $barcode['size_id'];
+                $sizeList['size_code'] = $barcode['size_code'];
+                $sizeList['size_name'] = $barcode['size_name'];
+
+                $ret['cart_list'][$key]['color_list'] = array_merge($ret['cart_list'][$key]['color_list'], $colorList);
+                $ret['cart_list'][$key]['size_list'] = array_merge($ret['cart_list'][$key]['size_list'], $sizeList);
+            }
         }
 
         $ret['code'] = 0;
