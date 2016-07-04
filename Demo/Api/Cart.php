@@ -111,6 +111,9 @@ class Api_Cart extends PhalApi_Api {
 
             foreach($goodBarcodeList as $key2=>$barcode) {
 
+                /*$colorList = array($barcode['color_id'], $barcode['color_code'], $barcode['color_name'], $barcode['color_image_thumbnail']);
+                $sizeList = array($barcode['size_id'], $barcode['size_code'], $barcode['size_name']);*/
+
                 $colorList['color_id'] = $barcode['color_id'];
                 $colorList['color_code'] = $barcode['color_code'];
                 $colorList['color_name'] = $barcode['color_name'];
@@ -121,17 +124,42 @@ class Api_Cart extends PhalApi_Api {
                 $sizeList['size_code'] = $barcode['size_code'];
                 $sizeList['size_name'] = $barcode['size_name'];
 
-                $ret['cart_list'][$key]['color_list'] = array_merge($ret['cart_list'][$key]['color_list'], $colorList);
-                $ret['cart_list'][$key]['size_list'] = array_merge($ret['cart_list'][$key]['size_list'], $sizeList);
+                /*if(isset($ret['cart_list'][$key]['color_list'][$key2][$colorList['color_id']])){
+
+                } else {
+                    $ret['cart_list'][$key]['color_list'][$key2] = $colorList;
+                }
+
+                if(isset($ret['cart_list'][$key]['size_list'][$key2][$sizeList['size_id']])){
+
+                } else {
+                    $ret['cart_list'][$key]['size_list'][$key2] = $sizeList;
+                }*/
+
+                $ret['cart_list'][$key]['color_list'][$key2] = $colorList;
+                $ret['cart_list'][$key]['size_list'][$key2] = $sizeList;
             }
 
-            $ret['cart_list'][$key]['color_list'] = array_unique($ret['cart_list'][$key]['color_list']);
-            $ret['cart_list'][$key]['size_list'] = array_unique($ret['cart_list'][$key]['size_list']);
+            $ret['cart_list'][$key]['color_list'] = array_values($this->array_unique_fb($ret['cart_list'][$key]['color_list']));
+            $ret['cart_list'][$key]['size_list'] = array_values($this->array_unique_fb($ret['cart_list'][$key]['size_list']));
         }
 
         $ret['code'] = 0;
 
         return $ret;
+    }
+
+
+    function array_unique_fb($array2D){
+        foreach ($array2D as $v){
+            $v=join(',',$v);  //降维,也可以用implode,将一维数组转换为用逗号连接的字符串
+            $temp[]=$v;
+        }
+        $temp=array_unique($temp);    //去掉重复的字符串,也就是重复的一维数组
+        foreach ($temp as $k => $v){
+            $temp[$k]=explode(',',$v);   //再将拆开的数组重新组装
+        }
+        return $temp;
     }
 
 
