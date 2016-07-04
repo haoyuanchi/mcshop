@@ -13,7 +13,7 @@ class Api_User extends PhalApi_Api {
             ),
 			'modifyInfo' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
-				'province' => array('name' => 'provice', 'type' => 'int', 'require' => true, 'desc' => '省'),
+				'province' => array('name' => 'province', 'type' => 'string', 'require' => true, 'desc' => '省'),
 				'city' => array('name' => 'city', 'type' => 'string', 'require' => true, 'desc' => '市'),
 				'area' => array('name' => 'area', 'type' => 'string', 'require' => true, 'desc' => '县区'),
 				'detail' => array('name' => 'detail', 'type' => 'string', 'require' => true, 'desc' => '具体地址'),
