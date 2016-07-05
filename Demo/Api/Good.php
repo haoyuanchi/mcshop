@@ -135,6 +135,7 @@ class Api_Good extends PhalApi_Api {
 
         $ret['total_pages'] = $tol_page;
         $ret['brand_id'] = $this->brandId;
+
         if($this->brandId == 18){
             $ret['tag_img'] = $list[0]['mo_mobile_cover'];
         }
