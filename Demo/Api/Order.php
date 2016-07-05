@@ -152,7 +152,7 @@ class Api_Order extends PhalApi_Api {
 
         // 获取购物篮信息
         foreach ($this->cartIds as $key => $cartId) {
-            $cartDetail = $modelCart->getByCartId($this->$cartId);
+            $cartDetail = $modelCart->getByCartId(intval($cartId));
             $ret['good_list'][$key] = $cartDetail;
         }
 
