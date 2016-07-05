@@ -187,10 +187,17 @@ class Api_Cart extends PhalApi_Api {
         if($cartId > 0){
             $ret['type'] = 'success';
         }
+        else {
+            $ret['code'] = '1';
+            $ret['msg'] = '加入购物车失败';
+            return;
+        }
 
         // 获取购物车的商品总数和价格总数
         $modelTotal = new Model_ViewCartTotal();
         $total = $modelTotal->getByUserId($this->userId);
+
+        $ret['cart_id'] = $cartId;
 
         $ret['total_quantity'] = $total['total_quantity'];
         $ret['total_price_origin'] = $total['total_price_origin'];
