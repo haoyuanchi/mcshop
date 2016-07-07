@@ -272,6 +272,12 @@ class Api_Good extends PhalApi_Api {
             }
         }
 
+        // 是否已经收藏
+        $modelCollect = new Model_Collection();
+        $ret['good']['is_collected'] = $modelCollect->isCollected($this->userId, $this->goodId);
+
+        $ret['msg'] = '';
+
         return $ret;
     }
 }
