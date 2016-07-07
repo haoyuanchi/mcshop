@@ -75,6 +75,7 @@ class Api_Collection extends PhalApi_Api {
 
         $collection['good_id'] = $this->goodId;
         $collection['member_id'] = $this->userId;
+        $collection['create_date'] = date('Y-m-d H:i:s');
 
         $model = new Model_Collection();
 
