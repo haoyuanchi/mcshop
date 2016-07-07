@@ -46,7 +46,16 @@ class Api_Collection extends PhalApi_Api {
         $modelGood = new Model_Good();
         foreach($collectionList as $key=>$collection){
             $good = $modelGood->getGood($collection['good_id']);
-            $ret['good_list'][$key] = array_merge(array('id' => $collection['id']), $good);
+            //$ret['good_list'][$key] = array_merge(array('id' => $collection['id']), $good);
+
+            $ret['good_list'][$key]['good_id'] = $collection['good_id'];
+            $ret['good_list'][$key]['brand_id'] = $good['brand_id'];
+            $ret['good_list'][$key]['code'] = $good['code'];
+            $ret['good_list'][$key]['name'] = $good['name'];
+            $ret['good_list'][$key]['price_origin'] = $good['price_origin'];
+            $ret['good_list'][$key]['price_point'] = $good['price_point'];
+            $ret['good_list'][$key]['price'] = $good['price'];
+            $ret['good_list'][$key]['image'] = $good['image'];
         }
 
         $ret['msg'] = 'success';
