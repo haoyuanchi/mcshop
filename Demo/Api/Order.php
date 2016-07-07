@@ -25,9 +25,9 @@ class Api_Order extends PhalApi_Api {
             'commitOrder' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
                 'cartIds' => array('name' => 'cart_ids', 'type' => 'array', 'format' => 'explode', 'require' => true, 'desc' => '购物篮ID，多个以逗号分割'),
-                'totalPrice' => array('name' => 'total_price', 'type' => 'flout', 'require' => true, 'desc' => '总价格'),
+                'totalPrice' => array('name' => 'total_price', 'type' => 'string', 'require' => true, 'desc' => '总价格'),
                 'totalQuantity' => array('name' => 'total_quantity', 'type' => 'int', 'require' => true, 'desc' => '总数量'),
-                'totalPoint' => array('name' => 'total_point', 'type' => 'flout', 'require' => true, 'desc' => '总积分'),
+                'totalPoint' => array('name' => 'total_point', 'type' => 'string', 'require' => true, 'desc' => '总积分'),
 				'addressId' => array('name' => 'addr_id', 'type' => 'int', 'require' => true, 'desc' => '收货地址id'),
                 'invoiceType' => array('name' => 'invoice_type', 'type' => 'string', 'require' => false, 'desc' => '发票类型'),
                 'invoiceHeader' => array('name' => 'invoice_header', 'type' => 'string', 'require' => false, 'desc' => '发票抬头'),
@@ -217,9 +217,9 @@ class Api_Order extends PhalApi_Api {
 
         // 如果是购物车，清空用户的购物车
         // 1. 生成订单
-        $order['total_price'] = $this->totalPrice;
+        $order['total_price'] = floatval($this->totalPrice);
         $order['total_quantity'] = $this->totalQuantity;
-        $order['total_point'] = $this->totalPoint;
+        $order['total_point'] = floatval($this->totalPoint);
         // TODO 订单编号的设置
         $order['sn'] = '2016062216935';
         $order['create_date'] = date('Y-m-d H:i:s');
@@ -232,7 +232,7 @@ class Api_Order extends PhalApi_Api {
         // 2. 加入订单项
         $orderItem['order_id'] = $orderId;
 
-        $ret['order']['id'] = $orderId;
+        $ret['order']['order_id'] = $orderId;
 
         $modelCartDetail = new Model_ViewCartDetail();
         $modelOrderItem = new Model_OrderItem();

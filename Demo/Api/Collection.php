@@ -19,7 +19,7 @@ class Api_Collection extends PhalApi_Api {
             ),
             'del' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'require' => true, 'desc' => '用户id'),
-                'collectId' => array('name' => 'collect_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '收藏夹id'),
+                'goodId' => array('name' => 'good_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '商品id'),
             ),
         );
     }
@@ -46,7 +46,7 @@ class Api_Collection extends PhalApi_Api {
         $modelGood = new Model_Good();
         foreach($collectionList as $key=>$collection){
             $good = $modelGood->getGood($collection['good_id']);
-            $ret['good_list'] = array_merge(array('id' => $collection['id']), $good);
+            $ret['good_list'][$key] = array_merge(array('id' => $collection['id']), $good);
         }
 
         $ret['msg'] = 'success';
@@ -68,10 +68,17 @@ class Api_Collection extends PhalApi_Api {
         $collection['member_id'] = $this->userId;
 
         $model = new Model_Collection();
+
+        if($model->isCollected($this->userId, $this->goodId)){
+            $ret['code'] = 1;
+            $ret['msg'] = '该商品已收藏';
+            return $ret;
+        }
+
         $collectId = $model->insert($collection);
         $ret['collect_id'] = $collectId;
 
-        $ret['msg'] = 'success';
+        $ret['msg'] = '收藏成功';
         return $ret;
     }
 
@@ -81,11 +88,8 @@ class Api_Collection extends PhalApi_Api {
      */
     public function del() {
         $ret['code'] = 0;
-
         $model = new Model_Collection();
-        $collectId = $model->delete($this->collectId);
-        $ret['is_success'] = $collectId;
-
+        $ret['is_success'] =  $model->deleteByGoodId($this->userId, $this->goodId);
         $ret['msg'] = 'success';
         return $ret;
     }

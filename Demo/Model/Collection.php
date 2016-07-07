@@ -19,4 +19,19 @@ class Model_Collection extends PhalApi_Model_NotORM {
             ->fetchAll();
         return $rows;
     }
+
+    public function isCollected($userId, $goodId){
+        $num = $this->getORM()
+            ->where('member_id', $userId)
+            ->where('good_id', $goodId)
+            ->count('id');
+        return $num == 0 ? false : true;
+    }
+
+    public function deleteByGoodId($userId, $goodId){
+        return $this->getORM()
+            ->where('member_id', $userId)
+            ->where('good_id', $goodId)
+            ->delete();
+    }
 }
