@@ -37,6 +37,7 @@ class Api_Good extends PhalApi_Api {
                 'sort' => array('name' => 'order_type', 'type' => 'string', 'require' => false, 'default'=>'create_date', 'desc' => '排序方式'),
             ),
             'getInfo' => array(
+                'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
                 'goodId' => array('name' => 'good_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '商品id'),
             ),
         );
