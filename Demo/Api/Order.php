@@ -48,19 +48,29 @@ class Api_Order extends PhalApi_Api {
     public function getList() {
         $ret['code'] = 0;
 
-        $model = new Model_Order();
+        $modelOrder = new Model_Order();
 
         if(empty($this->payStatus) && empty($this->deliverStatus) && empty($this->refundStatus)) {
-            $ret['order_list'] = $model->getAllListByUserId($this->userId);
+            $orderList = $modelOrder->getAllListByUserId($this->userId);
         }
         else if(!empty($this->payStatus)){
-            $ret['order_list'] = $model->getPayListByUserId($this->userId, $this->payStatus);
+            $orderList = $modelOrder->getPayListByUserId($this->userId, $this->payStatus);
         }
         else if(!empty($this->deliverStatus)){
-            $ret['order_list'] = $model->getDeliverListByUserId($this->userId, $this->deliverStatus);
+            $orderList = $modelOrder->getDeliverListByUserId($this->userId, $this->deliverStatus);
         }
         else if(!empty($this->refundStatus)){
-            $ret['order_list'] = $model->getRefundListByUserId($this->userId, $this->refundStatus);
+            $orderList = $modelOrder->getRefundListByUserId($this->userId, $this->refundStatus);
+        }
+
+        $modelOrderItem = new Model_OrderItem();
+
+        foreach($orderList as $key => $orderId){
+            $orderInfo = $modelOrder->get($orderId);
+            $orderItemList = $modelOrderItem->getAllListByOrderId($orderId);
+
+            $ret['order_list'][$key]['order_info'] = $orderInfo;
+            $ret['order_list'][$key]['order_info']['item_list'] = $orderItemList;
         }
 
         $ret['msg'] = '';

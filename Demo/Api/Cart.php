@@ -182,7 +182,8 @@ class Api_Cart extends PhalApi_Api {
         $cart['modify_date'] = date('Y-m-d H:i:s');
 
         $model = new Model_Cart();
-        $cartId = $model->insert($cart);
+
+        $cartId = $model->insert_update($this->userId, $this->barcodeId, $cart);
 
         if($cartId > 0){
             $ret['type'] = 'success';
