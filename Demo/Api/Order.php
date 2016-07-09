@@ -65,9 +65,9 @@ class Api_Order extends PhalApi_Api {
 
         $modelOrderItem = new Model_OrderItem();
 
-        foreach($orderList as $key => $orderId){
-            $orderInfo = $modelOrder->get($orderId);
-            $orderItemList = $modelOrderItem->getAllListByOrderId($orderId);
+        foreach($orderList as $key => $order){
+            $orderInfo = $modelOrder->get($order['id']);
+            $orderItemList = $modelOrderItem->getAllListByOrderId($order['id']);
 
             $ret['order_list'][$key]['order_info'] = $orderInfo;
             $ret['order_list'][$key]['order_info']['item_list'] = $orderItemList;
