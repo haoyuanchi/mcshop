@@ -50,10 +50,7 @@ class Api_Order extends PhalApi_Api {
 
         $modelOrder = new Model_Order();
 
-        if(empty($this->payStatus) && empty($this->deliverStatus) && empty($this->refundStatus)) {
-            $orderList = $modelOrder->getAllListByUserId($this->userId);
-        }
-        else if(!empty($this->payStatus)){
+        if(!empty($this->payStatus)){
             $orderList = $modelOrder->getPayListByUserId($this->userId, $this->payStatus);
         }
         else if(!empty($this->deliverStatus)){
@@ -61,6 +58,9 @@ class Api_Order extends PhalApi_Api {
         }
         else if(!empty($this->refundStatus)){
             $orderList = $modelOrder->getRefundListByUserId($this->userId, $this->refundStatus);
+        }
+        else {
+            $orderList = $modelOrder->getAllListByUserId($this->userId);
         }
 
         $modelOrderItem = new Model_OrderItem();
@@ -227,6 +227,7 @@ class Api_Order extends PhalApi_Api {
 
         // 如果是购物车，清空用户的购物车
         // 1. 生成订单
+        $order['member_id'] = $this->userId;
         $order['total_price'] = floatval($this->totalPrice);
         $order['total_quantity'] = $this->totalQuantity;
         $order['total_point'] = floatval($this->totalPoint);
