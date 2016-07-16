@@ -20,39 +20,6 @@ $().ready(function(){
 		cache: false,
 		async: false,
 		success: function (result) {
-			var data1={
-    "topCategory": {
-        "tag_id": "5",
-        "img": "http://images.mo-co.com/upload/image/201606/7d69dfd0-9c49-4f8f-8622-bdd6b899e44e.png"
-    },
-    "midCategory_list": [
-        {
-            "tag_id": 6,
-            "img": "http://images.mo-co.com/upload/image/201604/3a1b5143-289c-4c6f-8c13-de766269722e.jpg"
-        },
-        {
-            "tag_id": 6,
-            "img": "http://images.mo-co.com/upload/image/201604/885f71dc-ab03-40e8-a877-660b2cbd6a59.jpg"
-        },
-        {
-            "tag_id": 6,
-            "img": "http://images.mo-co.com/upload/image/201604/9904616c-008f-40d4-b75b-b910cbf7b36f.jpg"
-        }
-    ],
-    "brandCategory_list": [
-        {
-            "brand_id": 18,
-            "brand_name": "MO&Co",
-            "img": "http://images.mo-co.com/upload/image/201601/1f848522-2e43-4802-a497-9b907013da5d.jpg"
-        },
-        {
-            "brand_id": 19,
-            "brand_name": "Editon10",
-            "img": "http://images.mo-co.com/upload/image/201601/30e055d6-aa65-4f97-8d28-5df48c0dfa8f.jpg"
-        }
-    ]
-};
-			
 			var data =result.data;
 			if(data.topCategory){
 				var topHtml="";

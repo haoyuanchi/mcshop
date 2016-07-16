@@ -1,4 +1,4 @@
-﻿    var re_hash = "moco";
+﻿    var re_hash = "E";
     var re_openid = in_openid;
 	var htmlprovince;
 var htmlcity;
@@ -16,19 +16,20 @@ $(document).ready(function () {
 	$("#redeem_submit").click(function(){//{ brand_id:"18", redeem_integral:integral
 		var user_id ="9137";
 		var brand_id;
-		var value;
+		var redeem_number;
+		var coupon;
+		var redeem_integral;
 		if(re_hash=="moco"){
 			brand_id=18;
-			value = $("#Moco_SL").val();
-			redeem_integral = 10000*value;
+			redeem_number = $("#Moco_SL").val();
 		}
 		else if(re_hash=="E"){
 			brand_id=19;
 			redeem_integral = $("#Edition10_integral").val();
-			value = $("#Edition10_value").val();
+			coupon = $("#Edition10_value").val();
 		}
 		else{}
-		redeem(user_id,brand_id,redeem_integral);
+		redeem(user_id,brand_id,redeem_number,redeem_integral,coupon);
 		
 	});
 
@@ -41,19 +42,30 @@ $(document).ready(function () {
 	});
 	
 });
-function redeem(user_id,brand_id,redeem_integral){ 
+function redeem(user_id,brand_id,redeem_number,redeem_integral,coupon){ 
 	Msg.show("处理中...", 3);
-	var postdata = { user_id: "9137",brand_id:"18", redeem_integral:redeem_integral};
+	if(brand_id==18){
+		var postdata = { user_id: "9137",brand_id:"18", redeem_number:redeem_number};
+		var url="http://114.55.38.119/mcshop/Public/demo/?service=Redeem.RedeemMO"	
+	}
+	else if(brand_id==19){ 
+		var postdata = { user_id: "9137",brand_id:"18", redeem_integral:redeem_integral,coupon:coupon};
+		var url="http://114.55.38.119/mcshop/Public/demo/?service=Redeem.RedeemEd"	
+		
+	}
+	else{
+		
+	}
 	$.ajax({
 		type:"post",
-		url:"http://114.55.38.119/mcshop/Public/demo/?service=Redeem.GetValue",
+		url:url,
 		data:postdata,
 		success:function(result){
-			var listarr={"ret":1,"errmsg":"积分兑换成功",integral:25000};
+			var listarr=result.data;
 			Msg.hide();
-			if(listarr.ret==1){
-				$("#integral").text(listarr.integral);
+			if(listarr.code==0){
 				Msg.show("积分兑换成功", 0);
+				
 			}
 			else{
 				Msg.show("积分兑换失败原因", 1);

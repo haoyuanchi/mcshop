@@ -11,30 +11,7 @@
 <script type="text/javascript" src="../../resources/mobile/js/jquery.min.js" tppabs="http://www.mo-co.com/resources/mobile/js/jquery.min.js"></script>
 <script type="text/javascript" src="../../resources/mobile/js/common.js" tppabs="http://www.mo-co.com/resources/mobile/js/common.js"></script>
 <script type="text/javascript" src="../../resources/mobile/js/mobile.js" tppabs="http://www.mo-co.com/resources/mobile/js/mobile.js"></script>
-<script type="text/javascript" src="../resources/mobile/js/angular-1.0.0rc10.min.js" ></script>
-<script type="text/javascript">
-$().ready(function() {
-	$.ajax({  //获取购物车id列表
-		url:"http://localhost/mcshop/Public/demo/?service=Cart.GetList"，
-		type："post",
-		dataType: "json",
-		cache: false,
-		async: false,
-		error: function (data) {
-			var data={"list":[{"cart_id":42871},{"cart_id":42872}]}
-			if(data.list.length!=0){ //购物篮不为空
-				$(".cartList")[1].removeClass("hidden");
-			}
-			else{
-				$(".cartList")[0].removeClass("hidden");
-			}
-		
-		}
-	});
-	
-	m$.header.titleContent.setTitle("购物篮");
-});
-</script>
+<script type="text/javascript" src="../../resources/mobile/js/angular-1.0.0rc10.min.js" ></script>
 </head>
 <body class="body_margin" ng-app="cartIndex" ng-controller="cartList" >
 <div class="fullscreen">
@@ -45,11 +22,11 @@ $().ready(function() {
 	</a>
 </div>
 </header> 
-<div class="cartList cartListInfo" ng-show="!cartListL">
+<div class="cartList cartListInfo" ng-show="cartListL_">
 	<div class="md-content">
 		<div>
 			<div class="cartEmpty">
-			您的购物篮是空的，<a href="../mobileIndex.html" tppabs="http://www.mo-co.com/mobile/list.jhtml?brandId=19">立即去商城逛逛？</a>
+			您的购物篮是空的，<a href="../mobileIndex.html">立即去商城逛逛？</a>
 			</div>
 		</div>
 	</div>
@@ -58,22 +35,22 @@ $().ready(function() {
 	<div class="md-content">
 		<div>
 			<ul>
-				<li ng-repeat="item in items">
+				<li ng-repeat="item in cart_list">
 					 <table cellpadding="5" cellspacing="0">
 						 <tbody>
 							 <tr>
 								 <td rowspan="3">
-									 <a  ng-href="/mobile/product/content.jhtml?productId={{item.good_id}}">
-										 <img ng-src="{{item.img}}" style="width:70px">
+									 <a  ng-href="../../mobile/product/content.html?productId={{item.good_id}}">
+										 <img ng-src="{{item.color_image_thumbnail}}" style="width:70px">
 									  </a>
 								 </td>
 								  <td colspan="2" style="width: 100%;">
 									 <a ng-href="/mobile/product/content.jhtml?productId={{item.good_id}}">
-										 <strong>{{item.good_name}}</strong>
+										 <strong>{{item.name}}</strong>
 									 </a>
 									 <br>
 									 <lable for="merchantNumber">编号:</lable> 
-									 <span id="merchantNumber">{{item.code_id}}</span>
+									 <span id="merchantNumber">{{item.code}}</span>
 								 </td>
 								  <td colspan="2" style="vertical-align: top;">
 									<a href="javascript:void(0);" onclick="m$.business.cart.deleteCartItem({{item.cart_id}})">
@@ -84,18 +61,17 @@ $().ready(function() {
 							 <tr>
 							   <td colspan="2">
 								   <input type="hidden" name="cartItemId" id="cartItemId" value="{{item.cart_id}}">
-									<input type="hidden" name="stockAvai" id="stockAvai_{{item.cart_id}}" value="{{item.remain_number}}">
+									<input type="hidden" name="stockAvai" id="stockAvai_{{item.cart_id}}">
 								   <label for="productSize">
 										尺码
 									</label>
 									<span id="productSize">
-									   <span>{{item.size_value}}</span>
+									   <span>{{item.size_name}}</span>
 									</span>
 							   </td>
 							   <td>
-								   <span ng-show="!库存">库存不足</span>
-								   {{item.price}}
-								   ￥2998.00
+								 <!--  <span>库存不足</span>-->
+								   ￥{{item.price_origin*item.quantity}}
 							   </td>
 							 </tr>
 							 <tr>
@@ -110,13 +86,13 @@ $().ready(function() {
 														 ${cartItem.product.colorVal[0..4]}
 													[/#if]
 										-->
-										{{item.color_value}}
+										{{item.color_name}}
 									</span>
 								</td>
 								<td>
 									<div class="little-border" style="float: right;">
 										<div class="little-boder-item">
-											<a class="md-trigger" href="#" data-modal="plusInfoModal_{{item.car_id}}">
+											<a class="md-trigger" href="#" data-modal="plusInfoModal_{{item.cart_id}}">
 												<span>修改</span>
 											</a>
 										</div>
@@ -125,7 +101,7 @@ $().ready(function() {
 								<td>
 									<div class="little-border" id="quantityVal">
 										<div class="little-boder-item">
-											<span>{{item.number}}</span>
+											<span>{{item.quantity}}</span>
 										</div>
 									</div>
 								</td>
@@ -137,24 +113,24 @@ $().ready(function() {
 			<table style="padding-top: 10px;font-size: 13px;padding-bottom: 30px;">
 				<tbody><tr>
 					<td>
-						<label for="cartQuantity">{{tol_number}}</label>
+						<label for="cartQuantity">{{total_quantity}}</label>
 						<span id="cartQuantity">件商品&nbsp;&nbsp;</span>
 					</td>
 					<td style="text-align: right;">
 						<label for="sellingPrice">商品总额:</label>
-						<span id="sellingPrice">{{tol_price}}</span>
+						<span id="sellingPrice">￥{{total_price_origin}}</span>
 					</td>
 				</tr>
 				<tr>
 					<td style="text-align: right;" colspan="2">
 						<label for="effectivePrice">实付款:</label>
-						<span id="effectivePrice">{{tol_actualPrice}}</span>
+						<span id="effectivePrice">￥{{total_price}}</span>
 					</td>
 				</tr>
 				<tr>
 					<td style="text-align: right;" colspan="2">
 						<label for="beEconomical">节省:</label>
-						<span id="beEconomical">{{tol_save}}</span>
+						<span id="beEconomical">￥{{tol_save}}</span>
 					</td>
 				</tr>
 			</tbody></table>
@@ -164,7 +140,7 @@ $().ready(function() {
 		</div>
 	</div>
 </div>
-<div class="md-modal md-plusInfoModal md-plusInfoModal_{{item.cart_id}}" id="plusInfoModal_{{item.cart_id}}" style="height:100%" ng-repeat="item in items">
+<div class="md-modal md-plusInfoModal md-plusInfoModal_{{item.cart_id}}" id="plusInfoModal_{{item.cart_id}}" style="height:100%" ng-repeat="item in cart_list">
 	<div class="md-content">
 		<div>
 			<ul style="padding: 0 0 0px 0px;">
@@ -176,9 +152,9 @@ $().ready(function() {
 						<dt>颜色</dt>
 						<dd>
 							<ul class="sys_spec_img" style="padding: 0 0 0px 0px;">
-									 <li class="productColorThumbImage_{{item.cart_id}} {{selected}}" data-aid="{{item.color_id}}" data-code="color">
-										 <a href="javascript:;" title="{{item.color_value}}">
-											 <img ng-src="{{item.color_img}}" alt="{{item.color_value}}">
+									<li class="productColorThumbImage_{{item.cart_id}} {{selected}}" data-aid="{{item_color[0]}}" data-code="color" ng-repeat="item_color in  item.color_list">
+										 <a href="javascript:;" title="{{item_color[2]}}">
+											 <img ng-src="{{item_color[3]}}" alt="{{item_color[2]}}">
 										 </a>
 										 <i></i>
 									</li>
@@ -187,14 +163,13 @@ $().ready(function() {
 					</dl>
 				</li>
 				<li>
-					 <!--尺码-->
 					<dl id="productSize" class="clearfix iteminfo_parameter sys_item_specpara_{{item.cart_id}} sys_item_specpara" data-sid="2">
 						<dt>尺码</dt>
 						<dd>
 							<ul class="sys_spec_text" style="padding: 0 0 0px 0px;">
-								 <li class="productSizeThumb_{{item.cart_id}} " data-aid="{{item.size_id}}" data-code="size" ng="item in items">
-									 <a href="javascript:;" title="{{item.size_value}}">
-										 {{item.size_value}}
+								 <li class="productSizeThumb_{{item.cart_id}} " data-aid="{{item_size[0]}}" data-code="size" ng-repeat="item_size in  item.size_list">
+									 <a href="javascript:;" title="{{item_size[2]}}">
+										 {{item_size[2]}}
 									 </a>
 									 <i></i>
 								</li>
@@ -207,13 +182,13 @@ $().ready(function() {
 						<dt>数量</dt>
 						<dd>
 							 <input type="button" id="decrease_{{item.cart_id}}" class="decrease" value="-">
-							<input type="text" id="quantity_{{item.cart_id}}" name="quantity" class="quantity" value="2" maxlength="4" onpaste="return false;" readonly="">
+							<input type="text" id="quantity_{{item.cart_id}}" name="quantity" class="quantity" value="1" maxlength="4" onpaste="return false;" readonly="">
 							<input type="button" id="increase_{{item.cart_id}}" class="increase" value="+">
 						</dd>
 					</dl>
 				</li>
 			</ul>
-			<button id="modifyConfirm_42555">确定</button>
+			<button id="modifyConfirm_{{item.cart_id}}">确定</button>
 		</div>
 	</div>
 </div>
@@ -239,25 +214,44 @@ $().ready(function() {
 	<em></em>
 	</a>
 </nav>
-<span style="display: none;">
-<script type="text/javascript" src="../../../pw.cnzz.com/c.php-id=1251613148&l=2" charset="gb2312"></script>
-</span>
 </div>
-<script type="text/javascript" src="../../resources/mobile/js/modernizr.js"></script>
+
 <script>
+   var globalData;
   var app=angular.module('cartIndex',[]);
   app.controller("cartList",function($scope,$http){
-	 var url="http://114.55.38.119/mcshop/Public/demo/?service=Good.GetInfo&good_id=2424";
+	 var url="http://114.55.38.119/mcshop/Public/demo/?service=Cart.GetList&user_id=9137";
+	 $scope.cartListL=false;
+	 $scope.cartListL_=false;
 	 $http.get(url).success(function(response) { 
-		if(response.data.list!=0){  //购物车不为空
+		var data=response.data;
+		if(data.cart_list!=null){  //购物车不为空
 			$scope.cartListL=true;
+			
 		}
 		else{
-			$scope.cartListL=true;
+			$scope.cartListL_=true;
 		}
-	 
-	 }
-  }
+		 $scope.cart_list = data.cart_list;
+		 $scope.total_quantity=data.total_quantity;
+		 $scope.total_price_origin=data.total_price_origin;
+		 $scope.total_price=data.total_price;
+		 $scope.tol_save=data.tol_save;	
+		 globalData =data;
+		var sobj = document.createElement('script');
+		sobj.type = "text/javascript";
+		sobj.src = "ajs.js";
+		var headobj = document.getElementsByTagName('head')[0];
+		headobj.appendChild(sobj);
+		var sobj = document.createElement('script');
+		sobj.type = "text/javascript";
+		sobj.src = "../../resources/mobile/js/modernizr.js";
+		var headobj = document.getElementsByTagName('head')[0];
+		headobj.appendChild(sobj);
+	 });
+  });
+ 
 </script>
+
 </body>
 </html>

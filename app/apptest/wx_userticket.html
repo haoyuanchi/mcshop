@@ -51,10 +51,9 @@ in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5
 				<div class="mybojunOrderList" ></div>
 			</div>
 		</div> 
-		
         <div role="tabpanel">
 			<ul class="nav nav-tabs" role="tablist" style="display:none">
-				 <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab"
+				<li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab"
 					data-toggle="tab">main</a></li>
 				<li role="presentation"><a href="#addressList" aria-controls="addressList" role="tab"
 					data-toggle="tab">addressList</a></li>
@@ -64,7 +63,7 @@ in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane fade in active" id="main" style="background-color: #141414">
 					 <div id="ticket_list">
-
+		
 					 </div>
 					 <div style="text-align:center">
 						<div style="padding-top:35px;padding-bottom:35px">
@@ -144,22 +143,74 @@ in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5
     </div>
    
         <script src="Scripts/jquery-barcode.js" type="text/javascript"></script>
-		<script src="js/wx/wxuserticket.js" type="text/javascript"></script>
-    </div>
-    <script type="text/javascript">
-        $("#menus").click(function () {
-            $("#menu").modal("show");
-           // $("#maincontent").hide();
-        })
-
-        $(".icon-angle-down").click(function () {
-            //$("#maincontent").show();
-            $("#menu").modal("hide");
-        })
-    </script>
-    
+    </div>    
 
 <script type="text/javascript">
+$(document).ready(function () {
+
+	$(".modal-content").css("min-height", winHeight);
+	getTicket();
+	$("#suit_store").click(function () {
+		$(".nav-tabs a").eq(1).click();
+		$(".modal-content").css("min-height", winHeight);
+	})
+	$("#use_rules").click(function () {
+		$(".nav-tabs a").eq(2).click();
+		$(".modal-content").css("min-height", winHeight);
+	})
+	$("#butclose1").click(function () {
+		$(".nav-tabs a").eq(0).click();
+		$(".modal-content").css("min-height", winHeight);
+	})
+	$("#butclose2").click(function () {
+		$(".nav-tabs a").eq(0).click();
+		$(".modal-content").css("min-height", winHeight);
+	})
+});
+
+function getTicket(){
+	var postdate={user_id:9137,brand_id:18};
+	http://114.55.38.119/mcshop/Public/demo/?service=Coupon.GetCouponList&user_id=2261&brand_id=18
+	var url="http://114.55.38.119/mcshop/Public/demo/?service=Coupon.GetCouponList"
+	$.ajax({
+		type:"post",
+		data:postdate,
+		url:url,
+		datatype:"text",
+		success:function(result){
+			/*$("#sl").text(listarr.ticketInfo.sl);
+			$("#je").text(listarr.ticketInfo.je);*/
+			//$("#ticket1_image").barcode("VXM16#200#011420_99", "code128", { barWidth: 1, barHeight: 50, bgColor: 'none' });
+
+			var data = result.data;
+			$.each(data.coupon_list,function(index,item){
+				var status;
+				if(item.is_used==0){
+					status="未使用";
+				}
+				else if(item.is_used!=0){
+					status="已使用"	
+				}
+				else if(item.is_expired!=0){
+					status="已过期"	
+				}
+				var id1 ="ticket"+item.id;
+				var id2 =id1+"_image";
+				var html="<div id='"+id1+"'class='ticket_list'>"+
+						"<span style='float:left'>使用状态:"+status+"</span>"+
+						"<span style='float:right'>有效期:"+item.end_date+"</span>"+
+						"<hr style='border:none;border-top:1px solid #626262;height:1px;margin-bottom: 5px;margin-top:25px;'></hr>"+
+						"<div id='"+id2+"'class='ticket_image'></div>"+
+						"<div style='text-align:center;padding-top:10px;'>条码数据:"+item.code+"</div></div>";
+		
+				$("#ticket_list").append(html);
+				$("#"+id2).barcode(item.code, "code128", { barWidth: 1, barHeight: 50 });
+			});
+			
+		}
+		
+	});
+}
 //<![CDATA[
 in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5vT2TJiFj_bVa0lbE4';jsapi_appid = 'wx78d38a41cc2b7b64';jsapi_timestamp = '1465192132';jsapi_noncestr = 'uDFGcubQxdMPcLJk';jsapi_signature = '0cde22c2b278a5e1055fcd7f11c62c548c8a1769';jsapi_title = 'JNBY';jsapi_imgurl = 'http://wx.jnby.com/wxdata/public/brand/3-jnby.jpg';jsapi_link = 'http://wx.jnby.com/apptest/wx_portal.aspx?hash=jnby';jsapi_desc = '\u5FAE\u4FE1\u5546\u57CE';jsapi_type = 'default';jsapi_activityid = null;openId = 'oVFOhjjd8F5vT2TJiFj_bVa0lbE4';Hash = 'jnby';//]]>
 </script>

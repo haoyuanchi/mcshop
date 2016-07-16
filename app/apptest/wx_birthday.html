@@ -32,10 +32,32 @@ in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5
 <script src="js/wx/menu.js" type="text/javascript"></script>
 <script src="js/wx/jsapi.js" type="text/javascript"></script>
     <div id="maincontent">
-        <div role="tabpanel">
+			<div class="modal-content hidden" id="auth_0">
+					<div>
+						<img src="Demo/Resources/images/Mall/birthday_top.png">
+					</div>
+					<div class="modal-body" style="background: none;text-align:center;margin-top:10px;" >
+						<p>亲爱的VIP：</p>
+						<p>要到您的生日当月才能领取礼物喔。</p>
+						<input id="btn0" class="btn btn-default btn-submit" style=" margin-top: 40px; line-height: 32px;" value="确   认">
+					</div>
+			</div>
+			<div class="modal-content hidden" id="auth_1">
+					<div>
+						<img src="Demo/Resources/images/Mall/birthday_top.png">
+					</div>
+					<div class="modal-body" style="background: none;text-align:center;margin-top:10px;" >
+						<p>在这个特殊的日子，</p>
+						<p>我们衷心祝你生日快乐！</p>
+						<p>愿您每一天都如同今天，</p>
+						<p>充满阳光和笑容</p>
+						<p>您生日当日起1年内可享受1次7折优惠，</p>
+						<p>最高一次购买3件正品商品</p>
+						<input id="btn1" class="btn btn-default btn-submit" style=" margin-top: 40px; line-height: 32px;" value="确   认">
+					</div>
+			</div>
+        <div role="tabpanel" class="hidden" id="auth_2">
 			<ul class="nav nav-tabs" role="tablist" style="display:none">
-				<li role="presentation" class="active"><a href="#power1" aria-controls="power1" role="tab"
-					data-toggle="tab">power1</a></li>
 				<li role="presentation"><a href="#power2" aria-controls="power2" role="tab"
 					data-toggle="tab">power2</a></li>
 				<li role="presentation"><a href="#power3" aria-controls="power3" role="tab"
@@ -44,25 +66,7 @@ in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5
 					data-toggle="tab">power4</a></li>
 			</ul>
 			<div class="tab-content">
-				<div role="tabpanel" class="tab-pane fade in active " id="power1" tabindex="-1">
-					<div class="modal-dialog">
-						<div class="modal-content" >
-							<div>
-								<img src="Demo/Resources/images/Mall/birthday_top.png">
-							</div>
-							<div class="modal-body" style="background: none;text-align:center;margin-top:10px;" >
-								<p>在这个特殊的日子，</p>
-								<p>我们衷心祝你生日快乐！</p>
-								<p>愿您每一天都如同今天，</p>
-								<p>充满阳光和笑容</p>
-								<p>您生日当日起1年内可享受1次7折优惠，</p>
-								<p>最高一次购买3件正品商品</p>
-								<input id="btn1" class="btn btn-default btn-submit" style=" margin-top: 40px; line-height: 32px;" value="确   认">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div role="tabpanel" class="tab-pane fade" id="power2" tabindex="-1">
+				<div role="tabpanel" class="tab-pane fade in active" id="power2" tabindex="-1">
 					<div class="modal-dialog">
 						<div class="modal-content" >
 							<div>
@@ -118,12 +122,10 @@ in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5
 			</div>
 		</div>
     </div>
-   
-        <script src="Scripts/jquery-barcode.js" type="text/javascript"></script>
-		<script src="js/wx/wxbirthday.js" type="text/javascript"></script>
     </div>
-    <script type="text/javascript">
-        $("#menus").click(function () {
+ <script type="text/javascript"> 	
+	$(document).ready(function () {
+		$("#menus").click(function () {
             $("#menu").modal("show");
            // $("#maincontent").hide();
         })
@@ -132,7 +134,80 @@ in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5
             //$("#maincontent").show();
             $("#menu").modal("hide");
         })
-    </script>
+		//$(".modal-content").css("min-height", winHeight);
+
+		//$(".modal-dialog").css("width", "auto");
+		$(".modal-content").css("min-height", winHeight);
+		$("#btn0").click(function(){
+			window.location="wx_usercenter.html";
+		})	
+		$("#btn1").click(function(){
+			window.location="wx_usercenter.html";
+		})	
+		
+		$("#btn2").click(function(){
+			$(".nav-tabs a").eq(1).click();
+			$(".modal-content").css("min-height", winHeight);
+
+		})
+		$("#btn3").click(function(){
+			
+			getGift();
+
+		})
+		$("#btn4").click(function(){
+			window.location="wx_usercenter.html";
+		})	
+		var postdate={user_id:9137};
+		var url="http://114.55.38.119/mcshop/Public/demo/?service=User.GetGiftAuthority";
+		//Msg.show("chui",3);
+		  $.ajax({   //权限判定
+				type:"post",
+				dataType:"json",
+				url:url,
+				data:postdate,
+				success:function(result){
+				   var data=result.data;
+				   data.is_authority=true;
+				   data.rank_id="2"
+				   if(data.is_authority==false){
+					  $("#auth_0").removeClass("hidden");
+				   }
+				   else if(data.is_authority==true&&data.rank_id=="1"){
+					  $("#auth_1").removeClass("hidden");
+				   }
+				   else if(data.is_authority==true&&data.rank_id!="1"){
+					  $("#auth_2").removeClass("hidden");
+				   }
+				}
+		  });
+		  
+
+	});
+
+	function getGift(){
+		Msg.show("处理中",3);
+		var address=$("#address").val();
+		var tel=$("#tel").val();
+		var postdate={user_id:9137,address:address,tel:tel};
+		var url="http://114.55.38.119/mcshop/Public/demo/?service=User.GetGift";
+		  $.ajax({   //权限判定
+				type:"post",
+				dataType:"json",
+				url:url,
+				data:postdate,
+				success:function(result){
+				   var data=result.data;
+                   if(data.code==0){
+						Msg.hide();
+						$(".nav-tabs a").eq(2).click();
+						$(".modal-content").css("min-height", winHeight);
+				   }
+				}
+		  });
+		
+	}	
+  </script>
     
 
 <script type="text/javascript">

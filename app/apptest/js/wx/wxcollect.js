@@ -10,16 +10,16 @@ var backfill = "";
 
 Msg.show("加载中...", 3);
 $(document).ready(function () {
-    var postdata = { jfhandler: "wxcollectinfo", hash: re_hash, openid: re_openid };
+    var postdata = { user_id:9137};
     $.ajax({
         type: "post",
-        url: "WXHandler.ashx",
+        url: "http://114.55.38.119/mcshop/Public/demo/?service=Collection.GetList",
         data: postdata,
-        dataType: "text",
-        error: function (result) {
+        dataType: "json",
+        success: function (result) {
             //alert(result);
            /** var listarr = eval("(" + result + ")");**/
-		    var listarr ={
+		    var listarr1 ={
 				"info_collect": [
 					{
 						"ROWNO": 2,
@@ -47,12 +47,13 @@ $(document).ready(function () {
 				]
 			} 
             //收藏夹列表
-            var html = "";
-            if (listarr.info_collect.length == 0) {
+            var listarr= result.data;
+			var html = "";
+            if (listarr.good_list.length == 0) {
                 //location.href = GetLocation("WX_Portal.aspx?hash=" + re_hash, re_hash);
             }
 
-            $.each(listarr.info_collect, function (index, item) {
+            $.each(listarr.good_list, function (index, item) {
 
                 if (item.FLAG != "N") {
                     flag = "Y";
@@ -62,12 +63,12 @@ $(document).ready(function () {
                 }
                     //html += "<td class='item'><div style='border-radius: 5px;background-color: #fff;overflow: hidden;border: 1px solid #ccc;'>" +
                     html += "<td class='itemes'><div style='border-radius: 5px;background-color: #fff;overflow: hidden;border: 1px solid #ccc;'>" +
-                        "<div class='goodimg'><img class='bg lazy' data-original='" + item.IMGURL + "' onerror='this.src='Demo/Resources/images/Goods/error.gif';'/></div>" +
-                        "<table><tr><td style='text-align: left;'><div class='name' style='margin: 0;'>" + item.NAME + "</div> <div style='margin-top: 5px;'>￥" + item.PRICE + "</div></td></tr></table> " + //20150829 已预约的按钮图片换成fitted.png
+                        "<div class='goodimg'><img class='bg lazy' data-original='" + item.image + "' onerror='this.src='Demo/Resources/images/Goods/error.gif';'/></div>" +
+                        "<table><tr><td style='text-align: left;'><div class='name' style='margin: 0;'>" + item.name + "</div> <div style='margin-top: 5px;'>￥" + item.price + "</div></td></tr></table> " + //20150829 已预约的按钮图片换成fitted.png
                         "<div style='margin: 0 5px;padding: 5px 0;' class = 'Backfill'></div>" + //20150829 已预约的添加此行显示预约信息
-                        "</div><span class='item_hash' style='display:none;'>" + item.HASH + "</span><span class='item_goodsid' style='display:none;'>" + item.GOODSID + "</span></td>";
+                        "</div><span class='item_hash' style='display:none;'>" + item.brand_id + "</span><span class='item_goodsid' style='display:none;'>" + item.good_id + "</span></td>";
                     //alert(html);
-                if (((index % 2) == 0) && (index == listarr.info_collect.length - 1)) {
+                if (((index % 2) == 0) && (index == listarr.good_list.length - 1)) {
                     html += "<td ></td></tr>";
 
                 } else if ((index % 2) == 1) {
@@ -84,7 +85,7 @@ $(document).ready(function () {
                 var goodsid = $(this).parent().parent().find(".item_goodsid").text();
                 var hash = $(this).parent().parent().find(".item_hash").text();
 
-                location.href = GetLocation("wx_detail.html?hash=" + hash + "&goodsid=" + goodsid, hash);
+                location.href = "../mobile/product/content.html?brandId="+hash+"&productId=" + goodsid;
             })
             //隐藏加载动画效果
             Msg.hide();
@@ -94,8 +95,3 @@ $(document).ready(function () {
     })
 
 });
-
-
-
-
-
