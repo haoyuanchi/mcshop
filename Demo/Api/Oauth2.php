@@ -53,9 +53,11 @@ class Api_Oauth2 extends PhalApi_Api {
 
         // 已经绑定则返回用户信息并跳转到首页
         $userInfo = $useModel->getByOpenId($this->openId);
-        setcookie('user_info', $userInfo, '360', '/');
+        //setcookie('user_info', $userInfo, '360', '/');
+        setcookie('user_id', $userInfo['id'], '86400 * 360');
         // 跳转到首页
-        setcookie('brand_id',$this->brandId, '360', '/'); //设置cookie 6分钟有效
+        //setcookie('brand_id',$this->brandId, '360', '/'); //设置cookie 6分钟有效
+        setcookie('brand_id',$this->brandId, '360'); //设置cookie 6分钟有效
         $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/mobileIndex.html";
         header("Location:{$url}");
         exit;

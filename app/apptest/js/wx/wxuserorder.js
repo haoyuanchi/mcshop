@@ -58,9 +58,9 @@ function user_flag() { /***标题颜色变化**/
     }
     else if (in_FLAG == 'ALL') {
         $(".AllOrder").css("border-bottom", '2px solid #000');
-        var flagAll = "'N','P','S','T','ESC'";
+        var flagAll = "ALL";
         User_OrderItem(flagAll);
-        user_bojunItem();
+     //   user_bojunItem();
     }
     else {
         $(".DFK").css("color", '#a5e8f4');
@@ -75,7 +75,7 @@ $(".AllOrder").click(function () {  //text-decoration:underline
     $(".DFH").css("border-bottom", '0px solid #000');
     $(".YFH").css("border-bottom", '0px solid #000');
     $(".TK").css("border-bottom", '0px solid #000');
-    var flag = "'N','P','S','T','ESC'";
+    var flag = "ALL";
     $(".mybojunOrderList").html("");
     User_OrderItem(flag);
     user_bojunItem();
@@ -264,201 +264,53 @@ function user_bojunItem() {
 function User_OrderItem(flag) {
     //alert(flag);
     var re_flag = flag;
+	var postdate;
+	
+	if(flag=="ALL"){
+		postdate = { user_id:9137};
+	}
+	else if(flag=="N"){
+		pay_status=0;
+		postdate = { user_id:9137,pay_status:0};
+	}
+	else if(flag=="P"){
+		deliver_status=0;
+		postdate = { user_id:9137,deliver_status:0};
+	}
+	else if(flag=="S"){
+		deliver_status=1;
+		postdate = { user_id:9137,deliver_status:1};
+	}
+	else if(flag=="T"){
+		refund_status=0;
+		postdate = { user_id:9137,refund_status:1};
+	}
+	else{
+		
+	}
    
     var order_no = "";
     var dtllist = new Array();
     var vipzk = 0;
     var ems = 0;
-    var postdate = { jfhandler: "Select_User_OrderItem", hash: re_hash, openid: re_openid, flag: re_flag };
+
     Msg.show("处理中", 3);
     $.ajax({
         type: "post",
-        url: "WXHandler.ashx",
+        url: "http://114.55.38.119/mcshop/Public/demo/?service=Order.GetList",
         data: postdate,
         datatype: "text",
-        error: function (result) {
+        success: function (result) {
             //alert("bbb");
             Msg.hide();
-            var listarr={
-    "list": [
-        {
-            "ID": 195662,
-            "LX": "MART",  /***查询物流相关***/
-            "STORENAME": "安阳JNBY万达店",
-            "TEL": "13323728016",
-            "ORDERAPPLY": "N",  /***flag为S 已发货情况**Y：处理中 END：完成 N：退货  ****/
-            "REFUNDGOODS": "N", /***flag为S 已发货情况**Y：退货申请中 END：退款完成 N：整单退货  ****/
-            "NO": "WX1606161244195662",
-            "NAME": "T恤(短袖)",
-            "IMG": "http://wx.jnby.com/WXDATA/JNBY/image/4/5G461136623-9_1.jpg",
-            "GOODSID": 577948,
-            "SKUID": 1154341,
-            "CODE": "5G461136",
-            "PRICE": 890,
-            "SL": 4,
-            "ZZJE": 5720,  /****当个品牌单项状态总价*******/
-            "COLORNAME": "艳红色",
-            "SIZENAME": "XS",
-            "PAYUNIT": null, /*****零售单号*****/
-            "EXPRESSPRICE": 0.5,
-            "FLAG": "N",
-            "ADNAME": "梅显明",
-            "ADDRESS": "啧啧\n",
-            "ADPHONE": "15180119848",
-            "HASH": "jnby",
-            "OPENID": "oVFOhjjd8F5vT2TJiFj_bVa0lbE4",
-            "PP": "JNBY"
-        },
-        {
-            "ID": 195662,
-            "LX": "MART",
-            "STORENAME": "安阳JNBY万达店",
-            "TEL": "13323728016",
-            "ORDERAPPLY": "N",
-            "REFUNDGOODS": "N",
-            "NO": "WX1606161244195662",
-            "NAME": "连衣裙(长连衣裙)",
-            "IMG": "http://wx.jnby.com/WXDATA/JNBY/image/4/5G250123251-14_1.jpg",
-            "GOODSID": 577680,
-            "SKUID": 1151795,
-            "CODE": "5G250123",
-            "PRICE": 990,
-            "SL": 1,
-            "ZZJE": 5720,
-            "COLORNAME": "中卡其",
-            "SIZENAME": "XS",
-            "PAYUNIT": null,
-            "EXPRESSPRICE": 0,
-            "FLAG": "N",
-            "ADNAME": "梅显明",
-            "ADDRESS": "啧啧\n",
-            "ADPHONE": "15180119848",
-            "HASH": "jnby",
-            "OPENID": "oVFOhjjd8F5vT2TJiFj_bVa0lbE4",
-            "PP": "JNBY"
-        },
-        {
-            "ID": 195662,
-            "LX": "MART",
-            "STORENAME": "安阳JNBY万达店",
-            "TEL": "13323728016",
-            "ORDERAPPLY": "N",
-            "REFUNDGOODS": "N",
-            "NO": "WX1606161244195662",
-            "NAME": "T恤(短袖)",
-            "IMG": "http://wx.jnby.com/WXDATA/JNBY/image/4/5G461001001-6_1.jpg",
-            "GOODSID": 577953,
-            "SKUID": 1148449,
-            "CODE": "5G461001",
-            "PRICE": 490,
-            "SL": 1,
-            "ZZJE": 5720,
-            "COLORNAME": "本黑",
-            "SIZENAME": "XS",
-            "PAYUNIT": null,
-            "EXPRESSPRICE": 0,
-            "FLAG": "N",
-            "ADNAME": "梅显明",
-            "ADDRESS": "啧啧\n",
-            "ADPHONE": "15180119848",
-            "HASH": "jnby",
-            "OPENID": "oVFOhjjd8F5vT2TJiFj_bVa0lbE4",
-            "PP": "JNBY"
-        },
-        {
-            "ID": 195662,
-            "LX": "MART",
-            "STORENAME": "安阳JNBY万达店",
-            "TEL": "13323728016",
-            "ORDERAPPLY": "N",
-            "REFUNDGOODS": "N",
-            "NO": "WX1606161244195662",
-            "NAME": "T恤(短袖)",
-            "IMG": "http://wx.jnby.com/WXDATA/JNBY/image/4/5G261078001-6_1.jpg",
-            "GOODSID": 577957,
-            "SKUID": 1148328,
-            "CODE": "5G261078",
-            "PRICE": 390,
-            "SL": 1,
-            "ZZJE": 5720,
-            "COLORNAME": "本黑",
-            "SIZENAME": "S",
-            "PAYUNIT": null,
-            "EXPRESSPRICE": 0,
-            "FLAG": "N",
-            "ADNAME": "梅显明",
-            "ADDRESS": "啧啧\n",
-            "ADPHONE": "15180119848",
-            "HASH": "jnby",
-            "OPENID": "oVFOhjjd8F5vT2TJiFj_bVa0lbE4",
-            "PP": "JNBY"
-        },
-        {
-            "ID": 195662,
-            "LX": "MART",
-            "STORENAME": "安阳JNBY万达店",
-            "TEL": "13323728016",
-            "ORDERAPPLY": "N",
-            "REFUNDGOODS": "N",
-            "NO": "WX1606161244195662",
-            "NAME": "皮带",
-            "IMG": "http://wx.jnby.com/WXDATA/JNBY/image/4/7G110033001-1_1.jpg",
-            "GOODSID": 577622,
-            "SKUID": 1149276,
-            "CODE": "7G110033",
-            "PRICE": 290,
-            "SL": 1,
-            "ZZJE": 5720,
-            "COLORNAME": "本黑",
-            "SIZENAME": "M",
-            "PAYUNIT": null,
-            "EXPRESSPRICE": 0,
-            "FLAG": "N",
-            "ADNAME": "梅显明",
-            "ADDRESS": "啧啧\n",
-            "ADPHONE": "15180119848",
-            "HASH": "jnby",
-            "OPENID": "oVFOhjjd8F5vT2TJiFj_bVa0lbE4",
-            "PP": "JNBY"
-        },
-        {
-            "ID": 195877,
-            "LX": "MART",
-            "STORENAME": "速写合肥百盛店",
-            "TEL": "0551-65733889",
-            "ORDERAPPLY": "N",
-            "REFUNDGOODS": "N",
-            "NO": "WX1606161700195877",
-            "NAME": "衬衣(长袖)",
-            "IMG": "http://wx.jnby.com/WXDATA/croquis/image/4/9G110230410-1_1.jpg",
-            "GOODSID": 576230,
-            "SKUID": 1140448,
-            "CODE": "9G110230",
-            "PRICE": 1190,
-            "SL": 1,
-            "ZZJE": 1190,
-            "COLORNAME": "深藏青",
-            "SIZENAME": "XS",
-            "PAYUNIT": null,
-            "EXPRESSPRICE": 0,
-            "FLAG": "N",
-            "ADNAME": "梅显明",
-            "ADDRESS": "啧啧\n",
-            "ADPHONE": "15180119848",
-            "HASH": "croquis",
-            "OPENID": "oWJQDj1BfLE0Oo9XcB67icDpp0XI",
-            "PP": "速写"
-        }
-    ]
-} ;
             var sumsl = 0;
             var sumprice = 0;
 
             var mxsl = 0;
             var mxje = 0;
             var cunhj;
-          
-            if (listarr.list.length == 0) {
+           var listarr = result.data;
+            if (listarr.order_list.length == 0) {
                 //alert("ccc");
                 $(".myOrderList").html("");
             }
@@ -466,9 +318,9 @@ function User_OrderItem(flag) {
                 var Orderlist = "";
                 $(".myOrderList").html("");
                 //alert("bb");
-                $.each(listarr.list, function (index, item) {
-
-                    if (item.NO != order_no) {
+                $.each(listarr.order_list, function (index, item) {
+					item=item.order_info;
+                    if (item.sn != order_no) {
                         sumprice += item.ZZJE; ;  /*******5720 当个品牌总价****/  
                         mxsl = 0;
                         mxje = 0;
@@ -478,31 +330,30 @@ function User_OrderItem(flag) {
                             Orderlist += "</table>";
                         }
                         //订单起始，添加table头
-                        Orderlist += "<table style='text-align:left;' class='orderitem' id='" + item.ID + "'>" +
+                        Orderlist += "<table style='text-align:left;' class='orderitem' id='" + item.id + "'>" +
                             "<tr>" +
-                                "<td colspan='3' style='border-width: 1px 0 1px 0;border-color:#e1e1e1;border-style:solid;'>" + item.PP + "<span class='wayBill'>订单编号:" + item.NO + "</span><span class='NO' style='display:none;'>" + item.NO + "</span><span class='LX' style='display:none;'>" + item.LX + "</span></td>" +
+                                "<td colspan='3' style='border-width: 1px 0 1px 0;border-color:#e1e1e1;border-style:solid;'><span class='wayBill'>订单编号:" + item.sn + 
                             "</tr>";
                     }
-
+					
+				 $.each(item.item_list, function (index, item_) {
                     //添加订单项内容
                     Orderlist += "<tr class='subItem'>" +
                             "<td style='width: 35%;border-width: 0 1px 0 0;border-color:#e1e1e1;border-style:solid;' class='goodlist'>" +
-                            "<img class='goods lazy'  data-original='" + item.IMG.replace('~', 'http://wx.jnby.com') + "' /></td>" +
+                            "<img class='goods lazy'  data-original='" + item_.thumbnail + "' /></td>" +
                                 "<td style='width: 45%;border-width: 0 1px 0 0;border-color:#e1e1e1;border-style:solid;'>" +
-                                "<span style='display:none;' class='P_GoodSID'>" + item.GOODSID + "</span><br />" +
-                                 "<span style='display:none;' class='P_skuid'>" + item.SKUID + "</span><br />" +
-                                  "<span style='display:none;' class='P_Hash'>" + item.HASH + "</span><br />" +
-                                    "<span style='font-weight:bold;'>" + item.NAME + "</span><br />" +
-                                    "<span>货号:&nbsp;&nbsp;</span><span>" + item.CODE + "</span><br />" +
-                                    "<span>价格:&nbsp;&nbsp;</span><span>" + item.PRICE + "元</span><br />" +
-                                    "<span>颜色:&nbsp;&nbsp;</span><span>" + item.COLORNAME + "</span><br />" +
-                                    "<span>尺码:&nbsp;&nbsp;</span><span>" + item.SIZENAME + "</span><br />" +
+                                "<span style='display:none;' class='P_GoodSID'>" + item_.id + "</span><br />" +
+                                 "<span style='display:none;' class='P_skuid'>" + item_.barcode_id + "</span><br />" +
+                                    "<span style='font-weight:bold;'>" + item_.full_name + "</span><br />" +
+                                    "<span>价格:&nbsp;&nbsp;</span><span>" + item_.price + "元</span><br />" +
                                     "<div style='display:none;'>" +
-                                    "<div class = 'hash'>" + item.HASH + "</div>" +
                                     "</div>" +
                                 "</td>" +
-                                "<td style='width: 20%;text-align: center;'><span class='P_SL'>" + item.SL + "</span>";
-                    if (item.FLAG == "S") {   /****已发货***/
+                                "<td style='width: 20%;text-align: center;'><span class='P_SL'>" + item_.quantity+ "</span>";
+					mxje = parseFloat(item_.price)*parseInt(item_.quantity);
+				 });
+                    
+					if (item.FLAG == "S") {   /****已发货***/
                         // Orderlist += "</br ><span class='orderBtn single'>退款</span>";
                         if (item.REFUNDGOODS == "Y") {
                             Orderlist += "</br ><span class='orderBtn retun'>处理中</span>";
@@ -519,8 +370,7 @@ function User_OrderItem(flag) {
                             "</tr>";
 
                     //累计订单数量与金额
-                    mxsl += item.SL;
-                    mxje = item.ZZJE;
+                    mxsl += parseInt(item.total_quantity);
                     //合计信息
                     cunhj = "<tr><td colspan='3' style='border-width: 1px 0 1px 0;border-color:#e1e1e1;border-style:solid;'><span>共" + mxsl + "件商品&nbsp;实付:" + mxje + "元</span>";
 
@@ -535,8 +385,8 @@ function User_OrderItem(flag) {
                     if (item.PAYUNIT==null) {
                         item.PAYUNIT = "";
                     }
-                    cunhj += "<tr><td colspan='3' style='border-width: 1px 0 1px 0;border-color:#e1e1e1;border-style:solid;'>" +
-                     "<div style='float:left; display:inline'><span>零售单号：&nbsp;&nbsp;"+ item.PAYUNIT +"</span><br/><span>店铺:&nbsp;&nbsp;" + item.STORENAME + "</span><br/><span>电话:&nbsp;&nbsp;" + item.TEL + "</span></div></td></tr>";
+                  //  cunhj += "<tr><td colspan='3' style='border-width: 1px 0 1px 0;border-color:#e1e1e1;border-style:solid;'>" +
+                   //  "<div style='float:left; display:inline'><span>零售单号：&nbsp;&nbsp;"+ item.PAYUNIT +"</span><br/><span>店铺:&nbsp;&nbsp;" + item.STORENAME + "</span><br/><span>电话:&nbsp;&nbsp;" + item.TEL + "</span></div></td></tr>";
 
                     if (item.FLAG == "N") { /*****未付款****/
                         cunhj += "<tr><td colspan='3' style='border-width: 0 0 1px 0;border-color:#e1e1e1;border-style:solid;'><span class='orderBtn pay'>立即支付</span><span class='orderBtn cancel'>取消订单</span>" +
@@ -601,13 +451,13 @@ function User_OrderItem(flag) {
                     }
 
 
-                    order_no = item.NO;
+                   order_no = item.sn;
                     //累计总数量与金额
-                    sumsl += item.SL;
+                   // sumsl += item.SL;
                     //sumprice += item.JE;
 
                     //最后一个订单项，添加合计与table尾
-                    if (index == listarr.list.length - 1) {
+                    if (index == listarr.order_list.length - 1) {
                         Orderlist += cunhj;
                         Orderlist += "</table>";
                     }
@@ -615,21 +465,21 @@ function User_OrderItem(flag) {
                 })
                 // alert(Orderlist);
                 $(".myOrderList").append(Orderlist);
-                var orderHZ = "<table class='orderitem'><tr>" +
+                /*var orderHZ = "<table class='orderitem'><tr>" +
                                     "<td colspan='3' style='border-width: 1px 0 1px 0;border-color:#e1e1e1;border-style:solid;'>" +
                                         "<span>共" + sumsl + "件商品&nbsp;实付:" + sumprice + "元</span>" +
                                     "</td>" +
                                 "</table></tr>";
                 //alert(Orderlist);
                 $(".myOrderList").append(orderHZ);
-
+               */
                 $("img.lazy").lazyload({ effect: "fadeIn" });
 
                 $(".goodlist").click(function () {
-                    var goodsid = $(this).parent().find(".P_GoodSID").text();
-                    var P_Hash = $(this).parent().find(".P_Hash").text();
-                    var url = "wx_detail.html?hash=" + P_Hash + "&goodsid=" + goodsid;
-                    location.href = GetLocation(url, P_Hash);
+                    var productId = $(this).parent().find(".P_skuid").text();
+                  //  var P_Hash = $(this).parent().find(".P_Hash").text();
+                    var url = "../mobile/product/content.html?&productId=" + productId;
+                    location.href = url;
                     
                 })
 

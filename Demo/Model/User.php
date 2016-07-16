@@ -26,10 +26,14 @@ class Model_User extends PhalApi_Model_NotORM {
     }
 
     public function getByOpenId($openId){
-        return $this->getORM()
+        $userInfo =  $this->getORM()
             ->select('*')
             ->where('wx_open_id = ?', $openId)
             ->fetch();
+
+        $ret = $this->formatBaseInfo($userInfo);
+
+        return $ret;
     }
 
     public function getByUserIdWithCache($userId) {
@@ -94,6 +98,11 @@ class Model_User extends PhalApi_Model_NotORM {
         $ret['member_rank_name'] = $rank['name'];
         $ret['member_rank_scale'] = $rank['scale'];
         $ret['member_rank_fold_scale'] = $rank['fold_scale'];
+
+        // 获取用户的购物车数量
+        $modelCartTotal = new Model_ViewCartTotal();
+        $cart_info = $modelCartTotal->getByUserId($userInfo['id']);
+        $ret['cart_info'] = $cart_info;
 
         return $ret;
     }

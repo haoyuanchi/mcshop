@@ -42,28 +42,6 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$jsDoc', 'Form1', [], [], [], 
 //]]>
 </script>
  <div id="maincontent">  
-    <div id="confirm_dialog" class="mod_dialog" style="display: none;">
-        <div class="dialog_mask">
-        </div>
-        <div class="mod-confirm" style="position: fixed;">
-            <div class="mod-confirm__text" id="confirm_content">
-            </div>
-            <div class="mod-confirm__btns">
-                <a href="javascript:void(0);" class="mod-confirm__btn mod-confirm__btn_border-right mod-confirm__btn_highlight"
-                    id="confirm_dialog_submit">确定</a> <a href="javascript:void(0);" class="mod-confirm__btn"
-                        id="confirm_dialog_cancel">取消</a>
-            </div>
-        </div>
-    </div>
-    <div role="tabpanel">
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist" style="display: none;">
-            <li role="presentation" class="active"><a href="#VIP8.8" aria-controls="VIP8.8" role="tab"
-                data-toggle="tab">VIP8.8</a></li>
-            <li role="presentation"><a href="#VIP5.0" aria-controls="VIP5.0" role="tab"
-                data-toggle="tab">VIP5.0</a></li>
-        </ul>
-        <!-- Tab panes -->
         <div class="tab-content" style="background-color: #141414;color:#fff">
             <div role="tabpanel" class="tab-pane fade in active" id="VIP8.8">
 				<div class="modal-dialog">
@@ -76,19 +54,19 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$jsDoc', 'Form1', [], [], [], 
 							<div id="user_info" style="padding-top:55px;background-color: #262626;">
 								<p>您好，以下是您的持卡人信息：</p>
 								<hr style="border:none;border-top:1px solid #626262;height:1px;margin:5px 10px;"/>
-								<p>姓名：徐灵</p>
-								<p>手机：18664537776</p>
-								<p>生日：1988-03-01</p>
-								<p>地区：中国地区</p>
+								<p >姓名：<span id="name"></span></p>
+								<p>手机：<span id="mobile"></span></p>
+								<p>生日：<span id="birth"></span></p>
+								<p>地区：<span id="province"></span></p>
 								<hr style="border:none;border-top:1px solid #626262;height:1px;margin:5px 10px 0px;"/>
 							</div>
 							<div id="cart_info" style="background-color: #262626;padding-top: 5px;padding-bottom: 5px;"  >
-								<p>MO&Co.卡：MA1280361-01S</p>
-								<p>开卡店铺：爱皂公司营销CRM部</p>
-								<p>当前VIP卡级别：8.8折</p>
-								<p>有效积分：30000</p>
-								<p>即将到期积分：0</p>
-								<p>近1年累计消费额：￥0</p>
+								<p>MO&Co.卡：<span id="member_rank_scale"></span></p>
+								<p>开卡店铺：<span id="store"></span></p>
+								<p>当前VIP卡级别：<span id="member_rank_id"></span></p>
+								<p>有效积分：<span id="integral"></span></p>
+								<p>即将到期积分：<span id="integral_c"></span></p>
+								<p>近1年累计消费额: <span id="amount"></span></p>
 							</div>
 							<br>
 							<div id="cart_explain" >
@@ -104,67 +82,41 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$jsDoc', 'Form1', [], [], [], 
                     </div>
                 </div>
             </div>
-            <div role="tabpanel" class="tab-pane fade" id="VIP5.0" tabindex="-1">
-				<div class="modal-dialog">
-                    <div class="modal-content" style="background-color: #e1e1e1;">
-                        <div class="modal-body" style="background: none;">
-							<div class="title">VIP用户信息</div>
-							<div class="topBtn">
-								
-								<img id="menus1" src="Demo/Resources/images/Mall/menu.jpg" />
-								<img id="lock1" src="Demo/Resources/images/Mall/lock.jpg" />
-							</div>
-							<div id="user_info1" style="text-indent:2em;padding-top:55px;";>
-								<p>您好，以下是您的持卡人信息：</p>
-								<p>姓名：徐灵111111</p>
-								<p>手机：18664537776</p>
-								<p>生日：1988-03-01</p>
-								<p>地区：中国地区</p>
-							</div>
-							<br>
-							<div id="cart_info1">
-								<p>MO&Co.卡：MA1280361-01S</p>
-								<p>k：徐灵</p>
-								<p>手机：18664537776</p>
-								<p>生日：1988-03-01</p>
-								<p>地区：中国地区</p>
-							</div>
-							<br>
-							<div id="cart_explain1">
-									15145151
-							</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="addAddress" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content" style="background-color: #e1e1e1;">
-                        <div class="modal-body" style="background: none;">
-                        </div>
-
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
-    <script src="js/wx/wxuserinfo.js" type="text/javascript"></script>
-    <link href="css/wxcart.css" rel="stylesheet" type="text/css" />
-    <script src="js/Card.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$(".modal-content").css("min-height", winHeight);
+		var postdata={user_id:9137};
+		var url="http://114.55.38.119/mcshop/Public/demo/?service=User.GetBaseInfo&";
+		$.ajax({
+			type:"post",
+			url:url,
+			data:postdata,
+			dataType:"json",
+			success:function(result){
+				var data=result.data.info;
+				$("#name").text(data.name);
+				$("#mobile").text(data.mobile);
+				$("#province").text(data.province);
+				$("#birth").text(data.birth);
+				$("#member_rank_scale").text(10*data.member_rank_scale+"折");
+				$("#store").text("缺少");
+				$("#integral").text(data.integral);
+				$("#integral_c").text(data.integral+"暂时");
+				$("#amount").text(data.amount);
+				$("#member_rank_id").text(data.member_rank_id);
+				
+			
+			}
+		
+		});	
+		
+		
 
-    </div>
-    <script type="text/javascript">
-        $("#menus").click(function () {
-            $("#menu").modal("show");
-           // $("#maincontent").hide();
-        })
+	});
+</script>
 
-        $(".icon-angle-down").click(function () {
-            //$("#maincontent").show();
-            $("#menu").modal("hide");
-        })
-    </script>
-    
 
 <script type="text/javascript">
 //<![CDATA[

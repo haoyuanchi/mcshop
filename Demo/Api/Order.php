@@ -251,6 +251,7 @@ class Api_Order extends PhalApi_Api {
         foreach ($this->cartIds as $key => $cartId) {
             $cartDetail = $modelCartDetail->getByCartId($cartId);
             $orderItem['barcode_id'] = $cartDetail['barcode_id'];
+            $orderItem['good_id'] = $cartDetail['good_id'];
             $orderItem['full_name'] = $cartDetail['full_name'];
             $orderItem['name'] = $cartDetail['name'];
             $orderItem['price'] = $cartDetail['price'];

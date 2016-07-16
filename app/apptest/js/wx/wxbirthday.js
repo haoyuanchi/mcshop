@@ -6,18 +6,14 @@ $(document).ready(function () {
 
 	//$(".modal-dialog").css("width", "auto");
 	$(".modal-content").css("min-height", winHeight);
-	$("#btn1").click(function(){
+	
+	$("#btn2").click(function(){
 		$(".nav-tabs a").eq(1).click();
 		$(".modal-content").css("min-height", winHeight);
 
 	})
-	$("#btn2").click(function(){
-		$(".nav-tabs a").eq(2).click();
-		$(".modal-content").css("min-height", winHeight);
-
-	})
 	$("#btn3").click(function(){
-		$(".nav-tabs a").eq(3).click();
+		$(".nav-tabs a").eq(2).click();
 		$(".modal-content").css("min-height", winHeight);
 
 	})

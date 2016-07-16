@@ -27,75 +27,71 @@ in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5
 <script src="js/mobiscroll.trial/js/mobiscroll.custom-2.16.1.min.js" type="text/javascript"></script>
 <script src="js/wx/wxbase.js" type="text/javascript"></script>
 <script src="js/wx/jsapi.js" type="text/javascript"></script>
-<script src="Scripts/angular-1.0.0rc10.min.js" type="text/javascript"></script>
-<div id="maincontent" ng-app="userCenter" ng-controll="list">  
+
+<div id="maincontent">  
     <div id="main" class="full">
-        <table>
-            <tr>
-            <td style="width :100%;">
-                <div id="vipBg" >
-                    <img src="Demo/Resources/images/Mall/banner_bg.png"/>
-					<div style="text-align:center;font-size:1em;top:50%;">
-                       
-                                <div class="headArea">
-									<img id="vipHead"  ng-show="wx_headimgurl" ng-src='{{wx_headimgurl}}' />
-								</div>
-								<span>MO&Co. 8折卡</span>
-								<br>
-								<span>积分：30000分</span>
-								<span>券：1000分</span>
-			
-                    </div>
-                </div>
-            </td>
-
-            </tr>
-         </table>
-
+	<div class="banner">
+		<div id="vip_info">
+			<div id="vip_avator">
+				<img src="" id="wx_img">
+			</div>
+				<p>MO&amp;Co.会员卡<span id="member_rank_scale"></span><br>积分：<span id="integral"></span>分</p>
+		</div>
+	</div>
+	
         <table id="brand">
             <tr>
 
-				<td class="grey" id="brand_jnby">
+				<td class="grey" id="brand_MO">
 					<img class="brandImg" src="Demo/Resources/images/Mall/1.png" />
-					<div style="position: absolute;top: 100px;z-index: 10;display: inline-table"  class="hidden" id="ewm_ed">
-						<img   src="Demo/Resources/images/Mall/ewm.png" />
-						<span>长按二维码关注Edition 10 服务号查看VIP信息</span>
-					</div>
 				</td>
-                <td class="grey" id="brand_croquis">
+                <td class="grey" id="brand_ED">
 					<img class="brandImg" src="Demo/Resources/images/Mall/2.png" />
 								
 				</td>	
             </tr>
         </table>
-        <table id="panelList">
-            <tr>
-                <td><a href='wx_userorder.html?hash=jnby&flag=ALL'><img src="Demo/Resources/images/Mall/nav_icon_dd.png" /><span>订单</span></a></td>
-                <td><a href='wx_userorder.html?hash=jnby&flag=S'><img src="Demo/Resources/images/Mall/nav_icon_psd.png" /><span>配送单</span></a></td>
-                <td><a href='wx_Cart.html?hash=jnby'><img src="Demo/Resources/images/Mall/nav_icon_gwc.png" /><span>购物车</span></a></td>
-			</tr>
-			<tr>
-				<td><a href='WX_Collect.html?hash=jnby'><img src="Demo/Resources/images/Mall/nav_icon_sc.png" /><span>收藏</span></a></td>
-				<td ><a href='../mobile/mobileIndex.html'><img src="Demo/Resources/images/Mall/nav_icon_eshop.png" /><span>E-SHOP</span></a></td>
-				<td><a href='wx_redeem.html?hash=jnby'><img src="Demo/Resources/images/Mall/nav_icon_jfdh.png" /><span>积分兑换</span></a></td>
-			</tr>
-			<tr>
-				<td id="vouchermsg"><a href='wx_userticket.html?hash=jnby'><img src="Demo/Resources/images/Mall/nav_icon_djq.png" /><span>代金券</span></a></td>
-				<td id="vouchermsg"><a href='wx_birthday.html?hash=jnby'><img src="Demo/Resources/images/Mall/nav_icon_srlw.png" /><span>生日礼物</span></a></td>
-           
-				<td><a href='wx_userinfo.html?hash=jnby'><img src="Demo/Resources/images/Mall/nav_icon_grzl.png" /><span>个人资料</span></a></td>
-			</tr>
-            <tr>
-                <td><a href='wx_viprules.html?hash=jnby' ><img src="Demo/Resources/images/Mall/nav_icon_hyzc.png" /><span>会员章程</span></a></td>
-				<td><a href='wx_activity.html?hash=jnby'><img src="Demo/Resources/images/Mall/nav_icon_hdzx.png" /><span>活动中心</span></a></td>
-				<td>
-					<div id="help"><img src="Demo/Resources/images/Mall/nav_icon_fwzx.png" /><span>服务中心</span></div>
-				</td>
-            </tr>
-        </table>
+		<div id="btn_div" class="">
+			
+			<div id="vip_btns">
+				<table cellpadding="0" cellspacing="0" border="0" width="100%">
+					<tbody>
+						<tr>
+							<td width="33%"><a href='wx_userorder.html?hash=jnby&flag=ALL' class="btn_1 ui-link"  ><span>订单</span></a></td>
+							<td><a href='wx_userorder.html?hash=jnby&flag=S'  class="btn_2 ui-link" ><span>配送单</span></a></td>
+						   <td width="33%"><a href='../mobile/cart/index.html' class="btn_3 ui-link" rel="external" ><span>购物车</span></a></td>
+						</tr>
+						<tr>
+							<td><a href='WX_Collect.html?hash=jnby'  class="btn_8 ui-link" ><span>收藏</span></a></td>
+							<td><a href='../mobile/mobileIndex.html'  class="btn_7 ui-link" ><span>E-SHOP</span></a></td>
+						   <td><a href='wx_redeem.html?hash=jnby' class="btn_9 ui-link" ><span>积分兑换</span></a></td>
+						</tr>
+						<tr>
+							<td><a href='wx_userticket.html?hash=jnby'  class="btn_8 ui-link" ><span>代金券</span></a></td>
+							<td><a href='wx_birthday.html?hash=jnby'  class="btn_7 ui-link" ><span>生日礼物</span></a></td>
+						   <td><a href='wx_userinfo.html?hash=jnby' class="btn_9 ui-link" ><span>个人资料</span></a></td>
+						</tr>
+						<tr>
+							<td><a href='wx_viprules.html?hash=jnby'  class="btn_8 ui-link" ><span>会员章程</span></a></td>
+							<td><a href='wx_activity.html?hash=jnby'  class="btn_7 ui-link" ><span>活动中心</span></a></td>
+						   <td><a href='javascript:0' id="help" class="btn_7 ui-link" ><span>服务中心</span></a></td>
+						</tr>
+								
+								
+				</tbody></table>
+			</div>
+		</div>
     </div>
 	<script src="js/wx/wxusercenter.js" type="text/javascript"></script>
     <script src="Scripts/jquery-barcode.js" type="text/javascript"></script>
+</div>
+<div  class="hidden" id="ewm">
+	<div>
+		<img src="Demo/Resources/images/Mall/ed_qrcode.jpg" />
+		<br>长按二维码关注Edition 10服务号<br>
+			查看VIP会员信息
+	</div>
+
 </div>
 <div  id="usercenter_help" class="hidden">
 		<p>全国客服免费热线：</p>
@@ -110,17 +106,10 @@ in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5
 
 </div>
 <script type="text/javascript">
-	var app=angular.module("userCenter",[]);
-	app.controller("list",function($scope,$http){
-		var url="http://114.55.38.119/mcshop/Public/demo/?service=User.GetBaseInfo&user_id=1033";
-		$http.get(url).success(function(response) { 
-			if(response.data.info.wx_headimgurl){
-				$scope.wx_headimgurl = response.data.info.wx_headimgurl;
-			}
-			$scope.midCategory_list = response.data.midCategory_list;
-			$scope.brandCategory_list = response.data.brandCategory_list;
-		});	
-	});
+$(".banner").css("min-height", window.innerHeight-378);
+	$(window).resize(function(){
+		$(".banner").css("min-height", window.innerHeight-378);
+	 });
 </script>
 </body>
 </html>

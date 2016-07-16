@@ -260,7 +260,7 @@ $().ready(function() {
 		}
 	});
 	
-	getCartNumber();
+	//getCartNumber();
 
 });
 

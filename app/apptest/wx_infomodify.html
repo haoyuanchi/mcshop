@@ -31,6 +31,7 @@ in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5
 <script src="js/wx/wxbase.js" type="text/javascript"></script>
 <script src="js/wx/menu.js" type="text/javascript"></script>
 <script src="js/wx/jsapi.js" type="text/javascript"></script>
+<script src="Scripts/PCASClass.js" type="text/javascript"></script>
 
 <div id="maincontent">
         
@@ -40,42 +41,82 @@ in_rentid = '1';in_weid = '2738574294';in_hash = 'jnby';in_openid = 'oVFOhjjd8F5
 				请选择您所需要修改的资料，填写新资料后提交即可，不填写则不更新，处于个人隐私保护，旧资料不作显示
 			</p>
 			<p>
-				<select class="form-control">
-					<option>请选择所在省级地区</option>
-				</select>
+				<!--<select class="form-control" name="p1"></select>-->
+				<select  class="form-control" name="province3" id="province"></select>
+			</p>
 			<p>
+				<select class="form-control" name="city3" id="city"></select>
+			</p>
 			<p>
-				<textarea class="form-control" id="textarea" placeholder="详细地址"></textarea>
+				<select class="form-control" name="area3" id="area"></select>
+			</p>
+			
 			<p>
+				<textarea class="form-control" id="detail" placeholder="详细地址"></textarea>
+			</p>
 			
 			<p>
 				<span style="width:24%;display:inline-block">生日</span>
-								<input type="text" value="" placeholder="yyyy" style="width:24%"></input>
-				<input type="text" value="" placeholder="mm" style="width:24%"></input>
-				<input type="text" value="" placeholder="dd" style="width:24%"></input>
+								<input  id="birthday_y" type="text" value="" placeholder="yyyy" style="width:24%" ></input>
+				<input id="birthday_m" type="text" value="" placeholder="mm" style="width:24%"></input>
+				<input id="birthday_d" type="text" value="" placeholder="dd" style="width:24%"></input>
 			</p>
 			<p>
-				<input type="text" class="form-control" placeholder="请填写手机号码" ></input>
+				<input id="tel" type="text" class="form-control" placeholder="请填写手机号码" ></input>
 			</p>
 			<p>
-				<input type="text" class="form-control" placeholder="行业" ></input>
+				<input  id="profession" type="text" class="form-control" placeholder="行业" ></input>
 			</p>
 			<p>
-				<input type="text" class="form-control" placeholder="职业" ></input>
+				<input  id="job"  type="text" class="form-control" placeholder="职业" ></input>
 			</p>
 			<p>
-				<input type="text" class="form-control" placeholder="爱好" ></input>
+				<input id="hobby"  type="text" class="form-control" placeholder="爱好" ></input>
 			</p>
 			<div style="text-align:center">
-				<input class="btn btn-default btn-submit"  style=" margin-top: 20px;"  type="button" value="确认提交">
+				<input class="btn btn-default btn-submit"  style=" margin-top: 20px;"  type="button" value="确认提交" onclick="submit()">
 			</div>	
 		</div>
     </div>
    
-        <script src="Scripts/jquery-barcode.js" type="text/javascript"></script>
-		<script src="js/wx/wxredeem.js" type="text/javascript"></script>
     </div>
+<script type="text/javascript">
+	new PCAS("province3","city3","area3");
+	function submit(){
+		var province=$("#province").val();
+		var city=$("#city").val();
+		var area=$("#area").val();
+		var detail=$("#detail").val();
+		var birthday_y=$("#birthday_y").val();
+		var birthday_m=$("#birthday_m").val();
+		var birthday_d=$("#birthday_d").val();
+		var profession=$("#profession").val();
+		var tel=$("#tel").val();
+		var job=$("#job").val();
+		var hobby=$("#hobby").val();
+	    var postdata={user_id:"9137",province:province,city:city,area:area,detail:detail,birthday_y:birthday_y,birthday_m:birthday_m,birthday_d:birthday_d,profession:profession,tel:tel,job:job,hobby:hobby}	
+		var url="http://114.55.38.119/mcshop/Public/demo/?service=User.ModifyInfo"
+		$.ajax({
+			type:"post",
+			url:url,
+			data:postdata,
+			success:function(result){
+				var data=result.data;
+				if(data.code==0){
+					Msg.show("修改成功",0);
+					
+				}
+				else{
+					Msg.show("修改失败", 1);
+				}
 
+			}
+			
+		})
+	}
+	
+	
+</script> 
     
 </form>
 </body>

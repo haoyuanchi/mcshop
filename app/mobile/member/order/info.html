@@ -12,387 +12,225 @@
 <script type="text/javascript" src="../../../resources/shop/js/jquery.lSelect.js"></script>
 <script type="text/javascript" src="../../../resources/mobile/js/common.js"></script>
 <script type="text/javascript" src="../../../resources/mobile/js/mobile.js"></script>
-<script type="text/javascript">
-$().ready(function() {
-	m$.header.titleContent.setTitle("处理订单");
-	var $orderForm = $("#orderForm");
-	var $receiverId = $("#receiverId");
-	var $consignee = $("#consignee");
-	var $phone = $("#phone");
-	var $address = $("#address");
-	var $zipCode = $("#zipCode");
-	var $invoiceTypeSelect = $(".select_box");
-	var $code = $("#code");
-	
-	var $invoiceTypeIdInput = $("#invoiceTypeIdInput");
-	var $invoiceTypeInput = $("#invoiceTypeInput");
-	var $invoiceTitleInput =$("#invoiceTitleInput");
-	
-	var $invoiceTypeSpan = $("#invoiceTypeSpan");
-	var $invoiceTypeContentSpan =$("#invoiceTypeContentSpan");
-	
-	var $invoiceTypeId = $("#invoiceTypeId");
-	var $invoiceTitle = $("#invoiceTitle");
-	var $isInvoice = $("#isInvoice");
-	var $confirmBut = $("#confirmBut");
-	var $cancelBut = $("#cancelBut");
-	var $paymentPluginId = $("#paymentPluginId");
-	
-	var $amountPayable = $("#amountPayable");
-	var $couponDiscount = $("#couponDiscount");
-	
-	
-	$("#modify_orderAreaId").lSelect({
-	    url: "/common/area.jhtml"
-	});
-	
-	/**收货地址*/
-	$(".receiverList").each(function(){
-		var i=$(this);
-		var p=i.find("ul>li");
-		p.click(function(){
-			if(!!$(this).hasClass("selected")){
-				$(this).removeClass("selected");
-			}else{
-				$(this).addClass("selected").siblings("li").removeClass("selected");
-				$receiverId.val($(this).attr("dataid"));
-				$consignee.html($(this).find("#receiverConsignee").html());
-				$phone.html($(this).find("#receiverPhone").html());
-				$address.html($(this).find("#receiverAddress").html());
-				$zipCode.html($(this).find("#receiverZipCode").html());
-			}
-		})
-	});
-	
-	/**微信选择*/
-	$("#paymentPluginModal").each(function(){
-		var i=$(this);
-		var $paymentPluginText = $("#paymentPluginText")
-		var p=i.find("ul>li");
-		p.click(function(){
-			if(!!$(this).hasClass("selected")){
-				$(this).removeClass("selected");
-			}else{
-				$(this).addClass("selected").siblings("li").removeClass("selected");
-				$paymentPluginId.val($(this).attr("dataid"));
-				$paymentPluginText.html($(this).attr("dataval"));
-			}
-		})
-	});
-	
-	$("#option_invoice a").click(function(){
-		$invoiceTypeIdInput.attr("value",$(this).attr("val"));
-		$invoiceTypeInput.attr("value",$(this).html());
-	});
-	
-	$invoiceTypeSelect.click(function(){
-		$("#option_invoice").toggle();
-	});
-	
-	$invoiceTypeIdInput.change(function(){
-		if(!$invoiceTypeIdInput.val()){
-			$invoiceTitleInput.val("");
-		}
-	});
-	
-	$("#confirm").click(function(){
-		if($invoiceTypeIdInput.val()){
-			var selectText = $invoiceTypeIdInput.find("option:selected").text();
-			$invoiceTypeId.val($invoiceTypeIdInput.val());
-			$invoiceTitle.val($invoiceTitleInput.val());
-			$("#isInvoice").val(true);
-			
-			$invoiceTypeSpan.html(selectText);
-			$invoiceTypeContentSpan.html($invoiceTitleInput.val());
-			$(".invoiceTypeInfo").each(function(){
-				//$(this).css("display","block");
-			});
-		}
-		else{
-			$("#isInvoice").val(false);
-			//$invoiceTitleInput.val("");
-			
-			$invoiceTypeSpan.html("-");
-			$invoiceTypeContentSpan.html("-");
-			$(".invoiceTypeInfo").each(function(){
-				//$(this).css("display","none");
-			});
-		}
-		$("#invoiceInfoModal").removeClass("md-show");
-		$("#invoiceInfoModal").removeClass("md-overflow");
-	});
-	
-	/** 优惠券信息确认*/
-	$confirmBut.click(function(){
-		var $couponCode = $("#couponCode");
-		if ($code.val() == "") {
-			if ($.trim($couponCode.val()) == "") {
-				return false;
-			}
-		$.ajax({
-				url: moshop.base + "/mobile/member/order/couponValidate.jhtml",
-				type: "POST",
-				data: {
-					code: $couponCode.val()
-				},
-				dataType: "json",
-				cache: false,
-				beforeSend: function() {
-					$confirmBut.prop("disabled", true);
-				},
-				success: function(data) {
-					if(data.message.type == "success"){
-						$code.val($couponCode.val());
-						$confirmBut.text("取 消");
-						calculate();
-					}
-					else{
-						m$.ui.dialog.dialogShow({
-					         'title': '提示',
-					         'content': data.message.content
-							       				},
-						       [{
-						         'text': '确定'
-						       }]);
-							  
-						}
-				},
-				complete: function() {
-					$confirmBut.prop("disabled", false);
-				}
-			});
-		} else {
-			$code.val("");
-			$confirmBut.text("确 认");
-			calculate();
-		}
-	});
-	
-	// 计算
-	function calculate() {
-		$.ajax({
-			url: "calculate.jhtml",
-			type: "POST",
-			data: $orderForm.serialize(),
-			dataType: "json",
-			cache: false,
-			success: function(data) {
-				if (data.message.type == "success") {
-					if (data.couponDiscount > 0) {
-						$couponDiscount.text(currency(data.couponDiscount, true));
-						$couponDiscount.parent().parent().show();
-					} else {
-						$couponDiscount.parent().parent().hide();
-					}
-					$amountPayable.text(currency(data.amountPayable, true, false));
-				} else {
-					$.message(data.message);
-					setTimeout(function() {
-						location.reload(true);
-					}, 3000);
-				}
-			}
-		});
-	}
-});
+<script type="text/javascript" src="../../../resources/mobile/js/angular-1.0.0rc10.min.js" ></script>
 
-function addNewAddress(){
-   var $receiverModifyAreaSpan = $("#receiverModifyAreaSpan");
-   var $areaSelects = $receiverModifyAreaSpan.find("select");
-   m$.business.cart.addAddress($receiverModifyAreaSpan,$areaSelects);
-}
-
-</script>
 </head>
 <body class="body_margin">
-	<div class="fullscreen">
+<div class="fullscreen" ng-app="orderInfo" ng-controller="orderInfoList">
 		<!-- header -->
-<header class="header" id="header">
-   <div id="headerTitleContent" style="text-align: center;">
-	  <a href="javascript:history.go(-1);">
-		<img src="../../../resources/mobile/images/icon_back.png" class="header_img" />
-	  </a>
-    </div>
-</header>		<!-- /header -->	
-		<!-- start 订单详情 -->
-		<div class="moMobileContent orderInfo">
-		<form id="orderForm" action="create.jhtml" method="post" onsubmit="return false;"> 
-				<input type="hidden" id="receiverId" name="receiverId" />
-				<input type="hidden" id="cartToken" name="cartToken" value="11860d9f8031ae65f3c3bc6b604a07af" />
-				<!--
-				<input type="hidden" id="paymentPluginId" name="paymentPluginId" value="alipayWapPlugin" />
-				-->
-				<input type="hidden" id="paymentPluginId" name="paymentPluginId" value="wxJsPlugin" />
-				<input type="hidden" id="invoiceTypeId" name="invoiceTypeId">
-				<input type="hidden" id="invoiceTitle" name="invoiceTitle">
-				<div class="orderInfoContent">
-					<div>
-						<ul>
-						    <li class="md-trigger" data-modal="orderProductInfoModal">
-						        <table>
-						            <tr>
-						                <th>
-						                    产品信息
-						                </th>
-						                <td rowspan="3" class="rightArrow">
-						                   <img src="../../../resources/mobile/images/icon_rightarrow.png" width="8px"/>
-						                </td>
-						            </tr>
-						            <tr>
-						                <td>
-						                    8件产品
-						                </td>
-						            </tr>
-						            <tr>
-						                <td>
-						                    <label for="amountPayable">实付金额:</label>
-						                    <span id="amountPayable">￥6253.20</span>
-						                </td>
-						            </tr>
-						        </table>
-						    </li>
-						    <li class="md-trigger" data-modal="receiverModal">
-						        <table>
-						            <tr>
-						                <th>
-						                   收货信息
-						                </th>
-						                <td rowspan="5" class="rightArrow">
-						                   <img src="../../../resources/mobile/images/icon_rightarrow.png" width="8px"/>
-						                </td>
-						            </tr>
-							             <tr>
-							                <td>
-							                    点击新增收货地址
-							                </td>
-							            </tr>
-						         </table>
-						    </li>
-						    <!--
-						    <li  class="md-trigger" data-modal="paymentPluginModal">
-						         <table>
-						            <tr>
-						                <th>
-						                   支付方式
-						                </th>
-						                <td rowspan="2" class="rightArrow">
-						                   <img src="/resources/mobile/images/icon_rightarrow.png" width="8px"/>
-						                </td>
-						            </tr>
-						            <tr>
-						                <td>
-							               <span id="paymentPluginText">微信支付</span>
-						                </td>
-						            </tr>
-						         </table>
-						    </li>
-						    -->
-						    <li class="md-trigger" data-modal="invoiceInfoModal">
-						         <table>
-						            <tr>
-						                <th>
-						                   发票信息	
-						                </th>
-						                <td rowspan="3" class="rightArrow">
-						                   <img src="../../../resources/mobile/images/icon_rightarrow.png" width="8px"/>
-						                </td>
-						                <input type="hidden" id="isInvoice" name="isInvoice">
-						            </tr>
-						            <tr class="invoiceTypeInfo">
-						                <td>
-					                   		<label for="invoiceType">发票类型：</label>
-							                    <span id="invoiceTypeSpan">
-												  -
-							                    </span>
-							                 </label>
-						                </td>
-						            </tr>
-						            <tr class="invoiceTypeInfo">
-						                <td>
-					                   		<label for="invoiceTypeContent">发票抬头：</label>
-							                    <span id="invoiceTypeContentSpan">
-												  -
-							                    </span>
-							                 </label>
-						                </td>
-						            </tr>
-						         </table>
-						    </li>
-						    <li>
-						         <table>
-						            <tr>
-						                <th>
-						                   备注
-						                </th>
-						            </tr>
-						            <tr>
-						                <td>
-						                   <input type="text" class="box_input" placeholder="备注" id="markinfo" name="markinfo">
-						                </td>
-						            </tr>
-						         </table>
-						    </li>
-						    <li>
-						         <table>
-						            <tr>
-						                <th>
-						                   优惠券
-						                </th>
-						            </tr>
-						            <tr>
-						            <!-- 
- 
-						                	<img id="confirmBut" src="/resources/mobile/images/right.png" style="width: 36px;height: 36px;cursor: pointer;"/>
-						                -->
-					                	<td>
-					                	    <input type="hidden" id="code" name="code" maxlength="200" />
-						                	<input type="text" class="box_input" placeholder="优惠码" id="couponCode" name="couponCode" style="width:76%;border-right:none;float:left;"/>
-						                	<button  type="button"  class="couponButton" id="confirmBut">确 认</button>
-					                	</td>
-					                   
-						                </td>
-						            </tr>
-						              <tr style="display:none">
-						                <td>
-						                    <label for="couponDiscount">优惠金额:</label>
-						                    <span id="couponDiscount">￥0.00</span>
-						                </td>
-						            </tr>
-						         </table>
-						    </li>
-						    <li>
-						    </li>
-						</ul>
-						<dl id="shippingMethod" style="display:none">
-							    <dt>配送方式</dt>
-									<dd>
-										<label for="shippingMethod_1">
-											<input class="shippingMethod" type="radio" id="shippingMethod_1"  name="shippingMethodId" value="1" />
-											<span>
-													<em style="border-right: none; background: url() center no-repeat;">&nbsp;</em>
-												<strong>普通快递</strong>
-											</span>
-											<span>系统将根据您的收货地址自动匹配快递公司进行配送，享受免运费服务</span>
-										</label>
-									</dd>
-									<dd>
-										<label for="shippingMethod_2">
-											<input class="shippingMethod" type="radio" id="shippingMethod_2" checked="checked" name="shippingMethodId" value="2" />
-											<span>
-													<em style="border-right: none; background: url() center no-repeat;">&nbsp;</em>
-												<strong>顺丰速递</strong>
-											</span>
-											<span>需支付10元配送费用，不享受免运费服务</span>
-										</label>
-									</dd>
-						</dl>
-						<div class="nextBtnDiv">
-						    <button type="button" id="submitOrderInfo" onclick="m$.business.cart.submitOrderInfo();">提交订单</button>
-						</div>
-					</div>
-				</div>
-			</form>
+	<header class="header" id="header">
+		<div id="headerTitleContent" style="text-align: center;">
+		  <a href="javascript:history.back();">
+			<img src="../../../resources/mobile/images/icon_back.png" class="header_img" />
+		  </a>
 		</div>
+	</header>		
+	<!-- /header -->	
+	<!-- start 订单详情 -->
+	<div class="moMobileContent orderInfo">
+
+			<input type="hidden" id="receiverId" name="receiverId" value="{{addr_list[0].id}}" /> 
+			<input type="hidden" id="cartToken" name="cartToken" value="" />
+			<!--
+			<input type="hidden" id="paymentPluginId" name="paymentPluginId" value="alipayWapPlugin" />
+			-->
+			<input type="hidden" id="paymentPluginId" name="paymentPluginId" value="wxJsPlugin" />
+			<!--发票类型及发票抬头 -->
+			<input type="hidden" id="invoiceTypeId" name="invoiceTypeId">
+			<input type="hidden" id="invoiceTitle" name="invoiceTitle">
+		<div class="orderInfoContent">
+			<div>
+				<ul>
+					<li class="md-trigger" data-modal="orderProductInfoModal">
+						<table>
+							<tr>
+								<th>
+									产品信息
+								</th>
+								<td rowspan="3" class="rightArrow">
+								   <img src="../../../resources/mobile/images/icon_rightarrow.png" width="8px"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									{{total_quantity}}件产品
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="amountPayable">实付金额:</label>
+									<span id="amountPayable">￥{{total_price}}</span>
+								</td>
+							</tr>
+						</table>
+					</li>
+					<li class="md-trigger" data-modal="receiverModal">
+						<table>
+							<tr>
+								<th>
+								   收货信息
+								</th>
+								<td rowspan="5" class="rightArrow">
+								   <img src="../../../resources/mobile/images/icon_rightarrow.png" width="8px"/>
+								</td>
+							</tr>
+							<tr ng-show="addr_list">
+								<td>
+									<label for="consignee">收件人:</label>
+									<span id="consignee">{{addr_list[0].consignee}}</span>
+								</td>
+							</tr>
+							<tr ng-show="addr_list">
+								<td>
+									<label for="phone">手机号码:</label>
+									<span id="phone">{{addr_list[0].phone}}</span>
+								</td>
+							</tr>
+							<tr ng-show="addr_list">
+								<td>
+									<label for="address">地址:</label>
+									<span id="address">
+									  {{addr_list[0].area_name}}
+									</span>
+								</td>
+							</tr>
+							<tr ng-show="addr_list">
+								<td>
+									<label for="zipCode">邮编:</label>
+									<span id="zipCode">{{addr_list[0].zip_code}}</span>
+								</td>
+							</tr>
+							 <tr ng-show="!addr_list">
+								<td>
+									点击新增收货地址
+								</td>
+							</tr>
+						 </table>
+					</li>
+					<!--
+					<li  class="md-trigger" data-modal="paymentPluginModal">
+						 <table>
+							<tr>
+								<th>
+								   支付方式
+								</th>
+								<td rowspan="2" class="rightArrow">
+								   <img src="/resources/mobile/images/icon_rightarrow.png" width="8px"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+								   <span id="paymentPluginText">微信支付</span>
+								</td>
+							</tr>
+						 </table>
+					</li>
+					-->
+					<li class="md-trigger" data-modal="invoiceInfoModal">
+						 <table>
+							<tr>
+								<th>
+								   发票信息	
+								</th>
+								<td rowspan="3" class="rightArrow">
+								   <img src="../../../resources/mobile/images/icon_rightarrow.png" width="8px"/>
+								</td>
+								<input type="hidden" id="isInvoice" name="isInvoice">
+							</tr>
+							<tr class="invoiceTypeInfo">
+								<td>
+									<label for="invoiceType">发票类型：</label>
+										<span id="invoiceTypeSpan">
+										  -
+										</span>
+									 </label>
+								</td>
+							</tr>
+							<tr class="invoiceTypeInfo">
+								<td>
+									<label for="invoiceTypeContent">发票抬头：</label>
+										<span id="invoiceTypeContentSpan">
+										  -
+										</span>
+									 </label>
+								</td>
+							</tr>
+						 </table>
+					</li>
+					<li>
+						 <table>
+							<tr>
+								<th>
+								   备注
+								</th>
+							</tr>
+							<tr>
+								<td>
+								   <input type="text" class="box_input" placeholder="备注" id="markinfo" name="markinfo">
+								</td>
+							</tr>
+						 </table>
+					</li>
+					<li>
+						 <table>
+							<tr>
+								<th>
+								   优惠券
+								</th>
+							</tr>
+							<tr>
+							<!-- 
+
+									<img id="confirmBut" src="/resources/mobile/images/right.png" style="width: 36px;height: 36px;cursor: pointer;"/>
+								-->
+								<td>
+									<input type="hidden" id="code" name="code" maxlength="200" />
+									<input type="text" class="box_input" placeholder="优惠码" id="couponCode" name="couponCode" style="width:76%;border-right:none;float:left;"/>
+									<button  type="button"  class="couponButton" id="confirmBut">确 认</button>
+								</td>
+							   
+								</td>
+							</tr>
+							  <tr style="display:none">
+								<td>
+									<label for="couponDiscount">优惠金额:</label>
+									<span id="couponDiscount">￥{{}}</span>
+								</td>
+							</tr>
+						 </table>
+					</li>
+					<li>
+					</li>
+				</ul>
+				<dl id="shippingMethod" style="display:none">
+						<dt>配送方式</dt>
+							<dd>
+								<label for="shippingMethod_1">
+									<input class="shippingMethod" type="radio" id="shippingMethod_1"  name="shippingMethodId" value="1" />
+									<span>
+											<em style="border-right: none; background: url() center no-repeat;">&nbsp;</em>
+										<strong>普通快递</strong>
+									</span>
+									<span>系统将根据您的收货地址自动匹配快递公司进行配送，享受免运费服务</span>
+								</label>
+							</dd>
+							<dd>
+								<label for="shippingMethod_2">
+									<input class="shippingMethod" type="radio" id="shippingMethod_2" checked="checked" name="shippingMethodId" value="2" />
+									<span>
+											<em style="border-right: none; background: url() center no-repeat;">&nbsp;</em>
+										<strong>顺丰速递</strong>
+									</span>
+									<span>需支付10元配送费用，不享受免运费服务</span>
+								</label>
+							</dd>
+				</dl>
+				<div class="nextBtnDiv">
+					<button type="button" id="submitOrderInfo" onclick="m$.business.cart.submitOrderInfo();">提交订单</button>
+				</div>
+			</div>
+		</div>
+	</div>
 		<!-- end 订单详情 -->
 		<!-- the overlay element -->
 		<div class="md-overlay"></div>
@@ -401,261 +239,87 @@ function addNewAddress(){
 		<div class="md-modal md-orderProductInfoModal" id="orderProductInfoModal">
 			<div class="md-content">
 				<div>
-						<ul>
-							    <li>
-							         <table cellpadding="5" cellspacing="0">
-							             <tbody>
-							                 <tr>
-							                      <td rowspan="3">
-							                         <a href="/mobile/product/content.jhtml?productId=10836">
-							                            <img src="http://images.mo-co.com/upload/image/201606/a26916bb-8d7a-48cb-b322-6dd56b46a6ee.jpg@100w_100Q_1x.jpg" style="width:70px"/>
-							                          </a>
-							                     </td>
-							                      <td  colspan="2" style="width: 100%;">
-							                         <a  href="/mobile/product/content.jhtml?productId=10836">
-							                             <strong>镂空连衣裙</strong>
-							                         </a>
-							                         <br />
-							                         <lable for="merchantNumber">编号:</lable> 
-								                     <span id="merchantNumber">MA162SKT67</span>
-							                     </td>
-							                      <td colspan="2" style="vertical-align: top;">
-							                       
-							                     </td>
-							                 </tr>
-							                 
-							                  <tr>
-							                   <td colspan="2">
-							                       <label for="productSize">
-						                     		    尺码
-						                     		</label>
-				                     		        <span id="productSize">
-													   XS(150/76A)
-													</span>
-							                   </td>
-							                   <td>
-												  ￥2098.60
-							                   </td>
-							                 </tr>
-							                 <tr>
-												<td>
-													<label for="productColor">
-						                     		    颜色
-						                     		</label>
-				                     		        <span id="productColor">
-														     本白色
-													</span>
-												</td>
-												<td>
-						                     		
-												</td>
-												<td>
-						                     		<div class="little-border" id="quantityVal">
-														<div class="little-boder-item">
-															<span>2件</span>
-														</div>
-													</div>
-												</td>
-							                 </tr>
-							             </tbody>
-							         </table>
-							    </li>
-							    <li>
-							         <table cellpadding="5" cellspacing="0">
-							             <tbody>
-							                 <tr>
-							                      <td rowspan="3">
-							                         <a href="/mobile/product/content.jhtml?productId=11026">
-							                            <img src="http://images.mo-co.com/upload/image/201606/f095f784-1ba8-4ec4-9edc-39c54021df68.jpg@100w_100Q_1x.jpg" style="width:70px"/>
-							                          </a>
-							                     </td>
-							                      <td  colspan="2" style="width: 100%;">
-							                         <a  href="/mobile/product/content.jhtml?productId=11026">
-							                             <strong>背带连衣裙</strong>
-							                         </a>
-							                         <br />
-							                         <lable for="merchantNumber">编号:</lable> 
-								                     <span id="merchantNumber">MA162SKT68</span>
-							                     </td>
-							                      <td colspan="2" style="vertical-align: top;">
-							                       
-							                     </td>
-							                 </tr>
-							                 
-							                  <tr>
-							                   <td colspan="2">
-							                       <label for="productSize">
-						                     		    尺码
-						                     		</label>
-				                     		        <span id="productSize">
-													   M(160/84A)
-													</span>
-							                   </td>
-							                   <td>
-												  ￥1818.60
-							                   </td>
-							                 </tr>
-							                 <tr>
-												<td>
-													<label for="productColor">
-						                     		    颜色
-						                     		</label>
-				                     		        <span id="productColor">
-														     黑色
-													</span>
-												</td>
-												<td>
-						                     		
-												</td>
-												<td>
-						                     		<div class="little-border" id="quantityVal">
-														<div class="little-boder-item">
-															<span>2件</span>
-														</div>
-													</div>
-												</td>
-							                 </tr>
-							             </tbody>
-							         </table>
-							    </li>
-							    <li>
-							         <table cellpadding="5" cellspacing="0">
-							             <tbody>
-							                 <tr>
-							                      <td rowspan="3">
-							                         <a href="/mobile/product/content.jhtml?productId=11020">
-							                            <img src="http://images.mo-co.com/upload/image/201606/4846022e-2b82-4d84-9ce4-e02441f80fae.jpg@100w_100Q_1x.jpg" style="width:70px"/>
-							                          </a>
-							                     </td>
-							                      <td  colspan="2" style="width: 100%;">
-							                         <a  href="/mobile/product/content.jhtml?productId=11020">
-							                             <strong>短裤牛仔半身裙</strong>
-							                         </a>
-							                         <br />
-							                         <lable for="merchantNumber">编号:</lable> 
-								                     <span id="merchantNumber">MA162SKT42</span>
-							                     </td>
-							                      <td colspan="2" style="vertical-align: top;">
-							                       
-							                     </td>
-							                 </tr>
-							                 
-							                  <tr>
-							                   <td colspan="2">
-							                       <label for="productSize">
-						                     		    尺码
-						                     		</label>
-				                     		        <span id="productSize">
-													   M(160/66A)
-													</span>
-							                   </td>
-							                   <td>
-												  ￥1398.00
-							                   </td>
-							                 </tr>
-							                 <tr>
-												<td>
-													<label for="productColor">
-						                     		    颜色
-						                     		</label>
-				                     		        <span id="productColor">
-														     牛仔蓝色
-													</span>
-												</td>
-												<td>
-						                     		
-												</td>
-												<td>
-						                     		<div class="little-border" id="quantityVal">
-														<div class="little-boder-item">
-															<span>2件</span>
-														</div>
-													</div>
-												</td>
-							                 </tr>
-							             </tbody>
-							         </table>
-							    </li>
-							    <li>
-							         <table cellpadding="5" cellspacing="0">
-							             <tbody>
-							                 <tr>
-							                      <td rowspan="3">
-							                         <a href="/mobile/product/content.jhtml?productId=11038">
-							                            <img src="http://images.mo-co.com/upload/image/201606/5def3f37-e1f6-47e2-95a5-a00469232283.jpg@100w_100Q_1x.jpg" style="width:70px"/>
-							                          </a>
-							                     </td>
-							                      <td  colspan="2" style="width: 100%;">
-							                         <a  href="/mobile/product/content.jhtml?productId=11038">
-							                             <strong>圆领不规则T恤</strong>
-							                         </a>
-							                         <br />
-							                         <lable for="merchantNumber">编号:</lable> 
-								                     <span id="merchantNumber">MA162TST26</span>
-							                     </td>
-							                      <td colspan="2" style="vertical-align: top;">
-							                       
-							                     </td>
-							                 </tr>
-							                 
-							                  <tr>
-							                   <td colspan="2">
-							                       <label for="productSize">
-						                     		    尺码
-						                     		</label>
-				                     		        <span id="productSize">
-													   M(160/84A)
-													</span>
-							                   </td>
-							                   <td>
-												  ￥938.00
-							                   </td>
-							                 </tr>
-							                 <tr>
-												<td>
-													<label for="productColor">
-						                     		    颜色
-						                     		</label>
-				                     		        <span id="productColor">
-														     黑色
-													</span>
-												</td>
-												<td>
-						                     		
-												</td>
-												<td>
-						                     		<div class="little-border" id="quantityVal">
-														<div class="little-boder-item">
-															<span>2件</span>
-														</div>
-													</div>
-												</td>
-							                 </tr>
-							             </tbody>
-							         </table>
-							    </li>
-						</ul>
+					<ul>
+						<li ng-repeat="item in good_list">
+							 <table cellpadding="5" cellspacing="0">
+								 <tbody>
+									 <tr>
+										 <td rowspan="3">
+											 <a  ng-href="../../mobile/product/content.html?productId={{item.good_id}}">
+												 <img ng-src="{{item.color_image_thumbnail}}" style="width:70px">
+											  </a>
+										 </td>
+										  <td colspan="2" style="width: 100%;">
+											 <a ng-href="../../mobile/product/content.html?productId={{item.good_id}}">
+												 <strong>{{item.name}}</strong>
+											 </a>
+											 <br>
+											 <lable for="merchantNumber">编号:</lable> 
+											 <span id="merchantNumber">{{item.code}}</span>
+										 </td>
+										  <td colspan="2" style="vertical-align: top;">
+										   
+										 </td>
+									 </tr>
+									 
+									  <tr>
+									   <td colspan="2">
+										   <label for="productSize">
+												尺码
+											</label>
+											<span id="productSize">
+											   <span>{{item.size_name}}</span>
+											</span>
+									   </td>
+									   <td>
+										  ￥{{item.price_origin*item.quantity}}
+									   </td>
+									 </tr>
+									 <tr>
+										<td>
+											<label for="productColor">
+												颜色
+											</label>
+											<span id="productColor">
+													{{item.color_name}}
+											</span>
+										</td>
+										<td>
+											
+										</td>
+										<td>
+											<div class="little-border" id="quantityVal">
+												<div class="little-boder-item">
+													<span>{{item.quantity}}件</span>
+												</div>
+											</div>
+										</td>
+									 </tr>
+								 </tbody>
+							 </table>
+						</li>
+					</ul>
 						<table style="padding-top: 10px;font-size: 13px;padding-bottom: 30px;width: 100%;">
 						    <tr>
 						        <td>
-						            <label for="cartQuantity">8</label>
+						            <label for="cartQuantity" id="total_quantity">{{total_quantity}}</label>
 						            <span id="cartQuantity">件商品&nbsp;&nbsp;</span>
 						        </td>
 						        <td style="text-align: right;">
 						            <label for="sellingPrice">商品总额:</label>
-						            <span id="sellingPrice">￥7932.00</span>
+						            <span id="sellingPrice">￥{{total_price_origin}}</span>
 						        </td>
 						    </tr>
 						    <tr>
 						        <td style="text-align: right;" colspan="2" >
 						            <label for="effectivePrice">实付款:</label>
-							        <span id="effectivePrice">￥6253.20</span>
+							        <span id="effectivePrice">￥{{total_price}}</span>
 						        </td>
 						    </tr>
 						    <tr>
 						        <td style="text-align: right;" colspan="2" >
 						            <label for="beEconomical">节省:</label>
-							        <span id="beEconomical">￥1678.80</span>
+							        <span id="beEconomical">￥{{tol_save}}</span>
 						        </td>
 						    </tr>
 						</table>
@@ -670,7 +334,47 @@ function addNewAddress(){
 		<div class="md-modal md-receiverModal" id="receiverModal">
 			<div class="md-content">
 				<div>
-					<table style="width: 100%;">
+					<dl class="clearfix receiverList" ng-show="addr_list">
+						<dd>
+							<ul class="receiverEntry">
+								<li dataid="{{item.id}}" ng-repeat="item in addr_list">
+								    <a href="javascript:;">
+										 <table>
+								            <tr>
+								                <td>
+								                    <label for="receiverConsignee">收件人:</label>
+								                    <span id="receiverConsignee">{{item.consignee}}</span>
+								                </td>
+								            </tr>
+								            <tr>
+								                <td>
+								                    <label for="receiverPhone">手机号码:</label>
+								                    <span id="receiverPhone">{{item.phone}}</span>
+								                </td>
+								            </tr>
+								            <tr>
+								                <td>
+								                    <label for="receiverAddress">地址:</label>
+								                    <span id="receiverAddress" style="overflow:hidden">
+								                        {{item.area_name}}  
+								                    </span>
+								                </td>
+								            </tr>
+								            <tr>
+								                <td>
+								                    <label for="receiverZipCode">邮编:</label>
+								                    <span id="receiverZipCode">{{item.zip_code}}</span>
+								                </td>
+								            </tr>
+								         </table>
+								    </a>
+								    <i></i>
+								</li>
+							</ul>
+						</dd>
+					</dl>
+					<button class="md-close" ng-show="addr_list">确定</button>
+					<table style="width: 100%;" ng-show="!addr_list">
 					    <tr>
 						    <td>
 						        <button id="addReceiver" class="md-trigger" data-modal="addReceiverModal">新增</button>
@@ -689,28 +393,26 @@ function addNewAddress(){
 		<div class="md-modal md-addReceiverModal" id="addReceiverModal">
 			<div class="md-content">
 				<div>
-				    <form id="receiverFormAdd" action="/mobile/member/submitNewAddress.jhtml" method="post" novalidate="novalidate">
-				    	<div class="box">
-							<span class="fieldSet" id="receiverModifyAreaSpan">
-								<input type="hidden" id="modify_orderAreaId" name="modify_orderAreaId" treePath=""/>
-							</span>
-						</div>
-						<div class="box">
-							<input type="text" name="address" class="box_input" placeholder="&nbsp;&nbsp;寄送地址"/>
-						</div>
-						<div class="box">
-							<input type="text" name="consignee"  class="box_input" placeholder="&nbsp;&nbsp;收货人"/>
-						</div>
-						<div class="box">
-							<input type="text" name="phone"  class="box_input" placeholder="&nbsp;&nbsp;手机号码"/>
-						</div>
-						<div class="box">
-							<input type="text" name="zipCode"  class="box_input" placeholder="&nbsp;&nbsp;邮编"/>
-						</div>
-						<div class="address-btn">
-							<button type="button" name="btn-confirm" onClick="addNewAddress()">确认</button>
-						</div>
-				    </form>	
+					<div class="box">
+						<span class="fieldSet" id="receiverModifyAreaSpan">
+							<input type="hidden" id="modify_orderAreaId" name="modify_orderAreaId" treePath=""/>
+						</span>
+					</div>
+					<div class="box">
+						<input type="text" name="address" class="box_input" placeholder="&nbsp;&nbsp;寄送地址"/>
+					</div>
+					<div class="box">
+						<input type="text" name="consignee"  class="box_input" placeholder="&nbsp;&nbsp;收货人"/>
+					</div>
+					<div class="box">
+						<input type="text" name="phone"  class="box_input" placeholder="&nbsp;&nbsp;手机号码"/>
+					</div>
+					<div class="box">
+						<input type="text" name="zipCode"  class="box_input" placeholder="&nbsp;&nbsp;邮编"/>
+					</div>
+					<div class="address-btn">
+						<button type="button" name="btn-confirm" onClick="addNewAddress()">确认</button>
+					</div>
 				    <button class="md-close">取消</button>
 				</div>
 			</div>
@@ -724,7 +426,7 @@ function addNewAddress(){
 					<div class="box">
 						<select name="invoiceTypeIdInput" id="invoiceTypeIdInput" class="box_input" style="width: 98%;">
 								<option value="">请选择发票类型</option>
-									<option value="3">MO&Co.摩珂服装</option>
+								<option value="3">MO&Co.摩珂服装(待处理)</option>
 				        </select>
 			        </div>
                  	<div class="box">
@@ -784,11 +486,56 @@ function addNewAddress(){
 		<em></em>
 	</a>
 </nav>
-	<span style="display: none;">
-		<script type="text/javascript" src="http://pw.cnzz.com/c.php?id=1251613148&l=2" charset="gb2312"></script>
-	</span>
 		<!-- /footer -->
 	</div>
 	<script type="text/javascript" src="../../../resources/mobile/js/modernizr.js"></script>
+<script type="text/javascript">
+//1. 获取要付款的购物篮cart_id 分两种情况
+//2. 获取订单处理页面信息 orderInfo
+  var ArrayCart_id =new Array();
+  var app=angular.module('orderInfo',[]);
+  app.controller("orderInfoList",function($scope,$http){
+	 var url_getCartID="http://114.55.38.119/mcshop/Public/demo/?service=Cart.GetList&user_id=9137";
+
+	 $http.get(url_getCartID).success(function(response) { 
+		for(var i=0;i<response.data.cart_list.length;i++){
+			ArrayCart_id.push(response.data.cart_list[i].cart_id);
+		}
+		var url_GenOrder="http://114.55.38.119/mcshop/Public/demo/?service=Order.GenOrderByCart";
+		ArrayCart_id  = ArrayCart_id.toString();
+		var url_GenOrder="http://114.55.38.119/mcshop/Public/demo/?service=Order.GenOrderByCart&user_id=9137&cart_ids="+ArrayCart_id;
+		/*$http({  //post方法有问题
+			method:"post",
+			url:url_GenOrder,
+			data:{user_id:9137,cart_ids:ArrayCart_id }
+		}).success(function(response){
+		 var data =response.data;
+		 $scope.total_quantity = data.total_quantity; 
+		 /*$scope.total_price = data.total_price;
+		 $scope.total_price_origin = data.total_price_origint;
+		 $scope.total_save = data.total_save;
+		 $scope.addr_list = data.addr_list;
+		 $scope.good_list = data.good_list;
+		});	*/	
+		$http.get(url_GenOrder).success(function(response) { 
+		 var data =response.data;
+		 $scope.total_quantity = data.total_quantity; 
+		 $scope.total_price = data.total_price;
+		 $scope.total_price_origin = data.total_price_origin;
+		 $scope.tol_save = data.tol_save;
+		 $scope.addr_list = data.addr_list;
+		 $scope.good_list = data.good_list;
+		 var sobj = document.createElement('script');
+		sobj.type = "text/javascript";
+		sobj.src = "info_js.js";
+		var headobj = document.getElementsByTagName('head')[0];
+		headobj.appendChild(sobj);
+		 });
+		
+	});
+});
+
+
+</script>
 </body>
 </html>

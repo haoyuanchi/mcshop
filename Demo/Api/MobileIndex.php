@@ -86,6 +86,9 @@ class Api_MobileIndex extends PhalApi_Api {
             $ret['brandCategory_list'][$key]['img'] = $brand['cover'];
         }
 
+        //setcookie('brand_info', serialize($brands), '360', '/');
+        setcookie('brand_info', json_encode($brands));
+
         return $ret;
     }
 }

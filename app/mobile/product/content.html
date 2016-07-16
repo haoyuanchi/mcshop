@@ -1,9 +1,9 @@
 <!DOCTYPE html><!DOCTYPE html>
 <html>
 <head>
-	<title>背带连衣裙</title>
-		<meta name="keywords" content="背带连衣裙" />
-		<meta name="description" content="背带连衣裙" />
+	<title></title>
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no,width=320,target-densitydpi=142">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -60,139 +60,17 @@ $().ready(function() {
 	
 	$.ajax({
 		type:"post",
-		url:"http://114.55.38.119/mcshop/Public/demo/?service=Good.GetInfo",
+		url:"http://114.55.38.119/mcshop/Public/demo/?service=Good.GetInfo&user_id=9137",
 		data:{"good_id":request("productId")},
 		dataType: "json",
 		cache: false,
 		async: false,
 		success: function (result) {
-			var data1={
-				"code": 0,
-				"good": {
-					"name": "背带连衣裙",
-					"code": "MA162JEY06",
-					"price_orign": "500.36",
-					"price_sale": "450",
-					"rejected":"http://www.mo-co.com/info/buyingguide.jhtml?id=56&m=quitchange",  
-					"sizeTable_list":[
-						{
-						"image":"http://images.mo-co.com/upload/image/201603/d011c9cd-f1ea-4f85-b237-a419cbfecc3d.png"
-						},
-						{
-						"image":"http://images.mo-co.com/upload/image/201606/58eb8aa2-fcf4-47ce-8ab8-b7c653e547bc.jpg"
-						}
-					],
-					"delivery_info": "<p class='zonasPrenda' style='margin-top:0px;margin-bottom:0px;white-space:normal;padding:0px;font-size:10px;font-family:Arial, clean, sans-serif;line-height:19.200000762939453px;background-color:#FFFFFF;'>请提供您的送货地址（具体的提货时间取决于您所在的城市）＊</p><p class='zonasPrenda' style='margin-top:0px;margin-bottom:0px;white-space:normal;padding:0px;font-size:10px;font-family:Arial, clean, sans-serif;line-height:19.200000762939453px;background-color:#FFFFFF;'>＊ 目标区域：</p><p class='zonasPrenda' style='margin-top:0px;margin-bottom:0px;white-space:normal;padding:0px;font-size:10px;font-family:Arial, clean, sans-serif;line-height:19.200000762939453px;background-color:#FFFFFF;'>- 区域１（预计送货时间２－３个工作日) : 江西，河北，浙江，天津，上海，辽宁，江苏，广东，福建，重庆，北京，安徽</p><p class='zonasPrenda' style='margin-top:0px;margin-bottom:0px;white-space:normal;padding:0px;font-size:10px;font-family:Arial, clean, sans-serif;line-height:19.200000762939453px;background-color:#FFFFFF;'>- 区域２（预计送货时间３－５个工作日）: 青海，甘肃，内蒙古，云南，贵州，山西，宁夏，黑龙江，海南，吉林，陕西，广西，四川，湖北，湖南，山东，河南</p><p class='zonasPrenda'style='margin-top:0px;margin-bottom:0px;white-space:normal;padding:0px;font-size:10px;font-family:Arial, clean,  sans-serif;line-height:19.200000762939453px;background-color:#FFFFFF;'>- 区域３（预计送货时间５－７个工作日）: 西藏，新疆</p>" ,
-					"ingredient": "<p class='p1'><span class='s1'>棉</span>57.3%<span class='s1'>，聚酯纤维</span>38.8%<span class='s1'>，氨纶</span>3.9%<span class='s1'>，里料：聚酯纤维</span>100%<span class='s2'>。</span></p>",
-					"tips":"<p class='p1'>低温烘干，低温熨烫，单独洗涤，不可浸泡</p>",
-					"maintain": [
-						{
-						"image":"http://images.mo-co.com/upload/image/201410/5fa2b113-cafe-45f7-a84e-96df2ff45807.png",
-						"explain":"不可干洗"
-						},
-						{
-						"image":"http://images.mo-co.com/upload/image/201410/43bf23c4-1445-4f80-b379-c9397dd46433.png",
-						"explain":"不可漂白"
-						},
-						{
-						"image":"http://images.mo-co.com/upload/image/201410/a1226ea1-02cc-4ed3-8e84-90b506571281.png",
-						"explain":"最高洗涤温度30℃ 缓和程序"
-						},
-						{
-						"image":"http://images.mo-co.com/upload/image/201410/3cda8773-1465-4fa7-befa-9c364c840e62.png",
-						"explain":"在阴凉处悬挂晾干"
-						}
-					],
-					"image_list": [
-						{
-							"image_url": "http://images.mo-co.com/upload/image/201605/c55b5d21-328f-4a51-9f30-328d52bf3b03-source.jpg@640w_100Q_1x.jpg"
-						},
-						{
-							"image_url": "http://images.mo-co.com/upload/image/201605/bd6484f1-1e48-4a1b-96a5-c4ae169ae41a-source.jpg@640w_100Q_1x.jpg"
-						},
-						{
-							"image_url": "http://images.mo-co.com/upload/image/201605/b5925066-5aff-480b-a930-50a8a722a539-source.jpg@640w_100Q_1x.jpg"
-						},
-						{
-							"image_url": "http://images.mo-co.com/upload/image/201605/b5925066-5aff-480b-a930-50a8a722a539-source.jpg@640w_100Q_1x.jpg"
-						},
-						{
-							"image_url": "http://images.mo-co.com/upload/image/201605/b5925066-5aff-480b-a930-50a8a722a539-source.jpg@640w_100Q_1x.jpg"
-						},
-						{
-							"image_url": "http://images.mo-co.com/upload/image/201605/e7698226-b48f-46de-a002-f0c9fece36dd-source.jpg@640w_100Q_1x.jpg"
-						},
-						{
-							"image_url": "http://images.mo-co.com/upload/image/201605/86dc827f-7520-4bde-aa5a-29d52102048f-source.jpg@640w_100Q_1x.jpg"
-						}
-					],
-					"spec_list": [
-						{
-							"product_id": 10403,
-							"color_id": 346,
-							"color_value": "本白色",
-							"color_image": "http://images.mo-co.com/upload/image/201605/5dfe9367-8e9e-40f8-86a9-e8af77479f77.jpg",
-							"size_id": "45",
-							"size_value": "M(160/84A)",
-							"remain_number": 8,
-							"isMarketable": "true"
-						},
-						{
-							"product_id": 10404,
-							"color_id": 346,
-							"color_value": "本白色",
-							"color_image": "http://images.mo-co.com/upload/image/201605/5dfe9367-8e9e-40f8-86a9-e8af77479f77.jpg",
-							"size_id": "44",
-							"size_value": "S(155/80A)",
-							"remain_number": 8,
-							"isMarketable": "true"
-						},
-						{
-							"product_id": 10405,
-							"color_id": 346,
-							"color_value": "本白色",
-							"color_image": "http://images.mo-co.com/upload/image/201605/5dfe9367-8e9e-40f8-86a9-e8af77479f77.jpg",
-							"size_id": "43",
-							"size_value": "XS(150/76A)",
-							"remain_number": 0,
-							"isMarketable": "false"
-						},
-						{
-							"product_id": 10406,
-							"color_id": 589,
-							"color_value": "绿眼石色",
-							"color_image": "http://images.mo-co.com/upload/image/201605/83290ca0-8282-4d80-b1d3-6f1bd1029ca6.jpg",
-							"size_id": "45",
-							"size_value": "M(160/84A)",
-							"remain_number": 8,
-							"isMarketable": "true"
-						},
-						{
-							"product_id": 10407,
-							"color_id": 589,
-							"color_value": "绿眼石色",
-							"color_image": "http://images.mo-co.com/upload/image/201605/83290ca0-8282-4d80-b1d3-6f1bd1029ca6.jpg",
-							"size_id": "44",
-							"size_value": "S(155/80A)",
-							"remain_number": 8,
-							"isMarketable": "true"
-						},
-						{
-							"product_id": 10408,
-							"color_id": 589,
-							"color_value": "绿眼石色",
-							"color_image": "http://images.mo-co.com/upload/image/201605/83290ca0-8282-4d80-b1d3-6f1bd1029ca6.jpg",
-							"size_id": "43",
-							"size_value": "XS(150/76A)",
-							"remain_number": 8,
-							"isMarketable": "true"
-						}
-					]
-				},
-				"mes": "xxxx"
-			}
 		//生成productMap 
 			var data=result.data;
+			 $("title").eq(0).text(data.good.name);
+			 $("keywords").eq(0).attr("content",data.good.name);
+			 $("description").eq(0).attr("content",data.good.name);
 			for(var i=0;i<data.good.spec_list.length;i++){
 				var spec_list =data.good.spec_list[i];
 				productMap[spec_list.id]={};
@@ -549,12 +427,6 @@ function buyNow(specificationValuesSize,$currentProductId) {
 				             <li>
 				                 <button class="md-trigger plusInfoOtherButton" data-modal="returnGoodsModal">退货</button>
 				             </li>
-					             <li>
-					                 |
-					             </li>
-					              <li>
-					                  <button class="md-trigger plusInfoOtherButton" data-modal="promotionModal">促?</button>
-					             </li>
 				         </ul>
 				    </div>
 				</li>

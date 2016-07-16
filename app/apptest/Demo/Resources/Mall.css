@@ -680,7 +680,7 @@ table#panelList td:last-child {
 
 #panelList {
     background-color: #fff;
-    margin-top: 10px;
+  /*  margin-top: 10px;*/
 }
 
 #panelList td{
@@ -1420,6 +1420,22 @@ span.back
 	margin-top:0px;
 	
 }
+#ewm{
+	position: fixed;
+    bottom: 0px;
+    z-index: 10;
+    display: block;
+    background: rgba(0,0,0,0.6);
+    width: 100%;	
+}
+#ewm div{
+	margin: 20px auto 20px auto;
+    width: 224px;
+    color: #fff;
+    text-shadow: none;
+    font-size: 14px;
+    text-align: center;
+}
 
 /**代金券相关**/
 .ticket_list{
@@ -1494,4 +1510,80 @@ input{
 }
 .orderlist{
 	color:#fff;
+}
+#main .banner{
+    background: url("images/Mall/banner_bg.png") no-repeat 50% 50% #000;
+    background-size: auto 100%;
+	margin:0px;
+}
+	
+#brand{
+	/*position: absolute;*/
+    left: 0px;
+    bottom: 325px;
+    width: 100%;
+    border-bottom: 1px solid #9e9e9e;
+}
+.brandImg{
+	height:50px;
+}
+
+#vip_info {
+    position: absolute;
+    width: 180px;
+    left: 50%;
+    bottom: 10px;
+    margin-left: -90px;
+}
+#vip_avator {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: 0px auto;
+    background-color: #000;
+    overflow: hidden;
+    background: url("../../images/moco_btn_icon.jpg") no-repeat 50% 50% #000;
+    background-size: 60px auto;
+}
+#vip_info p {
+    text-align: center;
+    color: #fff;
+    text-shadow: none;
+    font-size: 13px;
+}
+#vip_btns {
+    width: 100%;
+    margin: 0px auto 0px auto;
+  /*  position: absolute;*/
+    bottom: 0px;
+    left: 0px;
+	background-color: #fff;
+}
+#vip_btns td {
+    border: 1px solid #e6e6e6;
+}
+#vip_btns td a {
+    display: block;
+    min-height: 80px;
+    background-size: auto 120px;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    position: relative;
+}
+#vip_btns td a span {
+    position: absolute;
+    display: block;
+    font-size: 14px;
+    color: #666;
+    width: 80px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-left: -40px;
+    margin-top: 4px;
+    text-align: center;
+    background-color: #fff;
+    padding-top: 4px;
+    font-shadow: none;
+    font-family: Microsoft YaHei,Helvetica ,Apple LiGothic Medium,Arial;
 }

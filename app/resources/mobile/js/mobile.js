@@ -516,17 +516,17 @@ function getOrderList(listUrl, listParam, asyType) {
     		var quantity = $quantity.val();
 			if (/^\d*[1-9]\d*$/.test(quantity) && parseInt(quantity) > 0) {
 				$.ajax({
-					url: "http://localhost/mcshop/Public/demo/?service=Cart.Add",
+					url: "http://114.55.38.119/mcshop/Public/demo/?service=Cart.Add",
 					type: "POST",
-					data: {good_id: $currentProductId.val() , quantity: quantity},
+					data: {user_id:9137,barcode_id: $currentProductId.val() , quantity: quantity},
 					dataType: "json",
 					cache: false,
-					error: function(message) {
-						var message={"type": "success", "content": "您选购的商品已加入购物车<br />购物车共有<span>4</span>件商品，合计:<span>￥3796.00</span>"};
-					    if(message['type'] == 'success'){
+					success: function(message) {
+						var content= "您选购的商品已加入购物车<br />购物车共有<span>"+message.data.total_quantity+"</span>件商品，合计:<span>￥"+message.data.total_price+"</span>";
+					    if(message.data.type == 'success'){
 						    m$.ui.dialog.dialogShow({
 			                    'title': '成功加入购物袋',
-			                    'content':message['content']
+			                    'content':content
 			                },
 			                [{
 			                    'text': '确定'
@@ -541,7 +541,7 @@ function getOrderList(listUrl, listParam, asyType) {
 						else{
 						    m$.ui.dialog.dialogShow({
 				                'title': '提示',
-				                'content': message['content']
+				                'content': message.data.msg
 				            },
 				            [{
 				                'text': '确定'
@@ -572,10 +572,11 @@ function getOrderList(listUrl, listParam, asyType) {
         		'text': '确定',
         		'func': function() {
         			$.ajax({
-        				url: moshop.base + "/mobile/cart/delete.jhtml",
+        				url: "http://114.55.38.119/mcshop/Public/demo/?service=Cart.Del",
         				type: "POST",
         				data: {
-        					id: cartItemId
+        					cart_id: cartItemId,
+							user_id:9137,
         				},
         				dataType: "json",
         				cache: false,
@@ -632,16 +633,19 @@ function getOrderList(listUrl, listParam, asyType) {
 			window.location=moshop.base +  '../member/order/info.html';
     	},
     	submitOrderInfo: function(){
-			var $orderForm = $("#orderForm");
+			//var $orderForm = $("#orderForm");
 			var $receiverId = $("#receiverId");
-			var $cartToken = $("#cartToken");
-			var $paymentPluginId = $("#paymentPluginId");
-			var $shippingMethodId = $('input[name="shippingMethodId"]:checked');
-			var $invoiceTypeId = $("#invoiceTypeId");
-			var $invoiceTitle = $("#invoiceTitle");
-			var $isInvoice = $("#isInvoice");
-			var $markinfo = $("#markinfo");
-			var $code = $("#code");
+			//var $cartToken = $("#cartToken");
+			//var $paymentPluginId = $("#paymentPluginId");
+			//var $shippingMethodId = $('input[name="shippingMethodId"]:checked');
+			var total_price = $("#sellingPrice").text().replace("￥","");
+			var total_quantity = $("#total_quantity").text();
+			var total_point = total_price;
+			var $invoiceTypeId = $("#invoiceTypeId"); //发票类型
+			var $invoiceTitle = $("#invoiceTitle");//发票抬头
+			//var $isInvoice = $("#isInvoice");  //是否填了发票信息
+			var $markinfo = $("#markinfo"); //备注
+			//var $code = $("#code");  //优惠码
 			if(!$receiverId.val()){
 				m$.ui.dialog.dialogShow({
     				'title': '提示',
@@ -652,7 +656,7 @@ function getOrderList(listUrl, listParam, asyType) {
     			}]);
     			return false;
 			}
-			if(!$cartToken.val()){
+			/*if(!$cartToken.val()){
 				m$.ui.dialog.dialogShow({
     				'title': '提示',
     				'content': '购物车信息有误'
@@ -681,35 +685,36 @@ function getOrderList(listUrl, listParam, asyType) {
     				'text': '确定'
     			}]);
     			return false;
-			}
+			}*/
 			$.ajax({
-				url: $orderForm.attr("action"),
+				url: "http://114.55.38.119/mcshop/Public/demo/?service=Order.CommitOrder",
 				type: "POST",
 				data: {
-					receiverId: $receiverId.val(),
-					cartToken: $cartToken.val(),
-					paymentPluginId: $paymentPluginId.val(),
-					shippingMethodId: $shippingMethodId.val(),
+					user_id:9137,
+					addr_id: $receiverId.val(),
+				    cart_ids:ArrayCart_id,
+					total_price:total_price,
+					total_quantity:total_quantity,
+					total_point:total_point,
 					invoiceTypeId: $invoiceTypeId.val(),
 					invoiceTitle: $invoiceTitle.val(),
-					isInvoice: $isInvoice.val(),
-					markinfo:$markinfo.val(),
-					code:$code.val()
+					comment:$markinfo.val(),
+
 				},
 				dataType: "json",
 				cache: false,
 				success: function(message) {
-					if (message.type == "success") {
-						window.location= moshop.base +  '/mobile/member/order/payment.jhtml?sn=' + message['content'];
+					if (message.data.code==0) {
+						window.location= '../order/payment.html?order_id=' + message.data.order.order_id;
 					} else {
 						m$.ui.dialog.dialogShow({
 						    'title': '提示',
-						    'content':message['content']
+						    'content':message.data.msg,
 						},
 						[{
 						    'text': '确定',
 		    				'func': function() {
-		    					window.location= moshop.base +  '/mobile/cart/index.jhtml';
+		    					window.location= '../cart/index.html';
 		    				}
 						}]);
 					}
@@ -839,18 +844,23 @@ function getOrderList(listUrl, listParam, asyType) {
         },
         favorites: function(productId) {
         	    $.ajax({
-        	        url: "http://localhost/mcshop/Public/demo/?service=Collection.Add",
+        	        url: "http://114.55.38.119/mcshop/Public/demo/?service=Collection.Add",
         	        type: "GET",
         	        data: {
+						user_id:9137,
         	            good_id: productId
         	        },
         	        dataType: "json",
         	        cache: false,
-        	        error: function(message) {
-						var message={"type": "warn","content": "商品收藏成功"};
+        	        success: function(message) {
+						 var content;
+                         if(message.data.msg=="success"){
+							 content="商品收藏成功";
+							 
+						 }
         	            m$.ui.dialog.dialogShow({
         	                'title': '提示',
-        	                'content': message.content
+        	                'content': content
         	            },
         	            [{
         	                'text': '确定'
