@@ -8,6 +8,7 @@ class Api_Coupon extends PhalApi_Api {
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
                 'isUsed' => array('name' => 'is_used', 'type' => 'int', 'require' => false, 'default'=>'0', 'desc' => '是否已经使用'),
                 'isDated' => array('name' => 'is_dated', 'type' => 'int', 'require' => false, 'default'=>'0', 'desc' => '是否已经过期'),
+                'couponType' => array('name' => 'coupon_type', 'type' => 'int', 'require' => false, 'default'=>'0', 'desc' => ' null：全部 0：未使用 1：已使用 2：已过期'),
             ),
 
         );
@@ -26,8 +27,12 @@ class Api_Coupon extends PhalApi_Api {
     public function getCouponList() {
         $ret['code'] = 0;
 
-        $model = new Model_ViewCoupon();
-        $couponList = $model->getListByUserId($this->userId, $this->isUsed, $this->isDated);
+        $url = "http://113.108.202.195:8081/epoService/vipJson/proc.action?do=ticket&openId=123456&brand=1&ctype=0&procOutCursorCount=1";
+        $curl = new PhalApi_CUrl(2);
+        $couponList = json_decode($curl->get($url));
+
+        /*$model = new Model_ViewCoupon();
+        $couponList = $model->getListByUserId($this->userId, $this->isUsed, $this->isDated);*/
         $ret['coupon_list'] = $couponList;
 
         $ret['code'] = 0;

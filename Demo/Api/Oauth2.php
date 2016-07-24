@@ -36,6 +36,9 @@ class Api_Oauth2 extends PhalApi_Api {
         $accessToken = $rs->access_token;
 
         // 根据用户openid获取用户信息
+        /*$url = "http://113.108.202.195:8081/epoService/vipJson/proc.action?do=customer_get&openId=$openId&brand=1";
+        $userInfo = json_decode($curl->get($url));*/
+
         $domain = new Domain_WxUser();
         $wxUserInfo = $domain->getWxUserInfo($openId, $accessToken);
 

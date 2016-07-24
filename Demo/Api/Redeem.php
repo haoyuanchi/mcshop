@@ -35,8 +35,6 @@ class Api_Redeem extends PhalApi_Api {
 				'provinceId' => array('name' => 'provice_id', 'type' => 'int', 'require' => true, 'desc' => '省id'),
 				'cityId' => array('name' => 'city_id', 'type' => 'int', 'require' => true, 'desc' => '市id'),
             ),
-			
-
         );
     }
 
@@ -60,6 +58,15 @@ class Api_Redeem extends PhalApi_Api {
      */
     public function redeemMO() {
         $ret['code'] = 0;
+
+        /*$openId = $this->userId;
+        $brandId = $this->brandId;
+        $integral = $this->redeemIndegral;
+        $value = $this->coupon;
+        $url = "http://113.108.202.195:8081/epoService/vipJson/proc.action?do=integral&openId=$openId&brand=$brandId&integral=$integral&value=$value";
+        $curl = new PhalApi_CUrl(2);
+        $ret = json_decode($curl->get($url));
+        return $ret;*/
 
         // TODO 增加原子操作
         $modelUser = new Model_User();
@@ -130,6 +137,16 @@ class Api_Redeem extends PhalApi_Api {
      */
     public function redeemEd() {
         $ret['code'] = 0;
+
+        /*$openId = $this->userId;
+        $brandId = $this->brandId;
+        $integral = $this->redeemIndegral;
+        $value = $this->coupon;
+        $url = "http://113.108.202.195:8081/epoService/vipJson/proc.action?do=integral&openId=$openId&brand=$brandId&integral=$integral&value=$value";
+        $curl = new PhalApi_CUrl(2);
+        $ret = json_decode($curl->get($url));
+
+        return $ret;*/
 
         // TODO 增加原子操作
         $modelUser = new Model_User();

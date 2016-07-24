@@ -102,7 +102,7 @@ class Model_User extends PhalApi_Model_NotORM {
         // 获取用户的购物车数量
         $modelCartTotal = new Model_ViewCartTotal();
         $cart_info = $modelCartTotal->getByUserId($userInfo['id']);
-        $ret['cart_info'] = $cart_info;
+        $ret['cart_quantity'] = $cart_info['total_quantity'];
 
         return $ret;
     }

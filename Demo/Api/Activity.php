@@ -18,9 +18,13 @@ class Api_Activity extends PhalApi_Api {
      * @return string msg 提示信息
      */
     public function getCoupon() {
-        
+        $curl = new PhalApi_CUrl(2);
+        $url = "";
 
+        // 执行url获取openid 和 Access Token
+        $ret = json_decode($curl->get($url));
+
+        return $ret;
     }
-	
 
 }
