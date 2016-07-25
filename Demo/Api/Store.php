@@ -17,7 +17,7 @@ class Api_Store extends PhalApi_Api {
                 'city' => array('name' => 'city', 'type' => 'string', 'require' => true, 'desc' => '市'),
             ),
             'getNearbyStoreList' => array(
-                'brandId' => array('name' => 'brand_id', 'type' => 'string', 'require' => true, 'desc' => '品牌名称， MO 或者 ED '),
+                'brandName' => array('name' => 'brand_name', 'type' => 'string', 'require' => true, 'desc' => '品牌名称， MO 或者 ED '),
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'require' => true, 'desc' => '用户id'),
                 'latitude' => array('name' => 'latitude', 'type' => 'float', 'require' => true, 'desc' => '纬度，浮点数，范围为90 ~ -90'),
                 'longitude' => array('name' => 'longitude', 'type' => 'float', 'require' => true, 'desc' => '经度，浮点数，范围为180 ~ -180'),
@@ -61,7 +61,7 @@ class Api_Store extends PhalApi_Api {
         $squares = $this->__returnSquarePoint($this->longitude, $this->latitude);
 
         $model = new Model_Store();
-        $ret['store_list'] = $model->getNearByList($squares, $this->$brandName);
+        $ret['store_list'] = $model->getNearByList($squares, $this->brandName);
 
         $ret['msg'] = '';
 
