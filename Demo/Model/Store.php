@@ -8,23 +8,28 @@
 
 class Model_Store extends PhalApi_Model_NotORM {
     protected function getTableName($id) {
-        return 'area';
+        return 'store';
     }
 
-    public function getListByProvinceId($provinceId){
+    public function getNearByList($squares, $brandName){
         $rows = $this->getORM()
             ->select('*')
-            ->where('province_id', $provinceId)
-            ->order('name')
+            ->where('east_longitude > ? and east_longitude < ?', $squares['left-top']['lng'], $squares['right-bottom']['lng'])
+            ->where('northern_latitude > ? and northern_latitude < ?', $squares['right-bottom']['lat'], $squares['left-top']['lat'])
+            ->where('brand LIKE ?', "$brandName%")
+            ->order('storename')
             ->fetchAll();
+
         return $rows;
     }
 
-    public function getListByCityId($cityId){
+    public function getListByCity($province, $city, $brandName){
         $rows = $this->getORM()
             ->select('*')
-            ->where('city_id', $cityId)
-            ->order('name')
+            ->where('province LIKE ?', "$province%")
+            ->where('city LIKE ?', "$city%")
+            ->where('brand LIKE ?', "$brandName%")
+            ->order('storename')
             ->fetchAll();
         return $rows;
     }
