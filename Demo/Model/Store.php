@@ -14,8 +14,8 @@ class Model_Store extends PhalApi_Model_NotORM {
     public function getNearByList($squares, $brandName){
         $rows = $this->getORM()
             ->select('*')
-            ->where('east_longitude > ? and east_longitude < ?', $squares['left-top']['lng'], $squares['right-bottom']['lng'])
-            ->where('northern_latitude > ? and northern_latitude < ?', $squares['right-bottom']['lat'], $squares['left-top']['lat'])
+            ->where('longitude > ? and longitude < ?', $squares['left-top']['lng'], $squares['right-bottom']['lng'])
+            ->where('latitude > ? and latitude < ?', $squares['right-bottom']['lat'], $squares['left-top']['lat'])
             ->where('brand LIKE ?', "$brandName%")
             ->order('storename')
             ->fetchAll();

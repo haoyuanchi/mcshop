@@ -77,7 +77,7 @@ class Api_Store extends PhalApi_Api {
      *@param distance float 该点所在圆的半径，该圆与此正方形内切，默认值为 2千米
      *@return array 正方形的四个点的经纬度坐标
      */
-    function __returnSquarePoint($lng, $lat, $distance = 2){
+    function __returnSquarePoint($lng, $lat, $distance = 100){
 
         $dlng =  2 * asin(sin($distance / (2 * self::EARTH_RADIUS)) / cos(deg2rad($lat)));
         $dlng = rad2deg($dlng);
