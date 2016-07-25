@@ -25,10 +25,10 @@ class Model_Good extends PhalApi_Model_NotORM {
         $sql = 'select t1.id as good_id, t2.id as brand_id, t1.category_id, t1.code, t1.price_origin, t1.price_point, t1.image, t1.name, t1.price, t2.cover'
             .' from mc_good as t1 left join mc_brand t2 on t1.brand_id=t2.id'
             .' where t1.brand_id=:brand_id'
-            .' order by sort desc'
+            .' order by :sort desc'
             .' limit :start, :num';
 
-        $params = array(':brand_id' => $brandId, ':start' => $start, ':num' => $num);
+        $params = array(':brand_id' => $brandId, ':start' => $start, ':num' => $num, ':sort' => $sort);
 
         $rows = $this->getORM()->queryAll($sql, $params);
         return $rows;
