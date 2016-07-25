@@ -79,10 +79,10 @@ class Api_Store extends PhalApi_Api {
      */
     function __returnSquarePoint($lng, $lat, $distance = 2){
 
-        $dlng =  2 * asin(sin($distance / (2 * EARTH_RADIUS)) / cos(deg2rad($lat)));
+        $dlng =  2 * asin(sin($distance / (2 * self::EARTH_RADIUS)) / cos(deg2rad($lat)));
         $dlng = rad2deg($dlng);
 
-        $dlat = $distance/EARTH_RADIUS;
+        $dlat = $distance/ self::EARTH_RADIUS;
         $dlat = rad2deg($dlat);
 
         return array(
