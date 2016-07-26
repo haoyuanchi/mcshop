@@ -26,7 +26,7 @@ abstract class Pay_Base {
     }
 
     /**
-     * 生成订单号
+     * 生成订单号  TODO
      * 可根据自身的业务需求更改
      */
     public function createOrderNo() {
@@ -40,6 +40,7 @@ abstract class Pay_Base {
      * 建立提交表单
      */
     abstract public function buildRequestForm($vo);
+
 
     /**
      * 构造表单

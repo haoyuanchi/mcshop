@@ -1,52 +1,42 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: hychi
- * Date: 2016/6/22
- * Time: 16:56
+/*
+ * +----------------------------------------------------------------------
+ * | 支付
+ * +----------------------------------------------------------------------
+ * | Copyright (c) 2015 summer All rights reserved.
+ * +----------------------------------------------------------------------
+ * | Author: summer <aer_c@qq.com> <qq7579476>
+ * +----------------------------------------------------------------------
+ * | This is not a free software, unauthorized no use and dissemination.
+ * +----------------------------------------------------------------------
+ * | Date
+ * +----------------------------------------------------------------------
  */
 
 class Api_Pay extends PhalApi_Api {
 
-    public function getRules() {
+	public function getRules() {
         return array(
-            'getOrderInfo' => array(
-                'orderId' => array('name' => 'order_id', 'type' => 'int',  'require' => true, 'desc' => '订单ID'),
-            ),
-            'getMultiOrderInfo' => array(
-                'userIds' => array('name' => 'user_ids', 'type' => 'array', 'format' => 'explode', 'require' => true, 'desc' => '用户ID，多个以逗号分割'),
+            'index' => array(
+                'type' 	=> array('name' => 'type', 'type' =>'enum', 'require' => true, 'range' => array('aliwap', 'wechat'), 'desc' => '引擎类型，比如aliwap')
             ),
         );
-    }
+	}
 
-    /**
-     * 获取订单详情
-     * @desc 获取订单详情 收银台页面
-     * @return int code 操作码
-	 * @return object order 订单信息对象
-     * @return string order.id 订单id
-     * @return string order.code 订单编号
-     * @return string order.delivery  订单快递方式
-     * @return string order.tol_price 订单价格实付金额
-     * @return string order.pay   订单支付方式 -- 目前只支持微信支付
-	 * @return object order.address   订单收货信息
-	 * @return string order.address.name   订单收货信息_收货人
-	 * @return string order.address.tel   订单收货信息_收货人电话
-	 * @return string order.address.addr   订单收货信息_收货人地址
-	 * @return string order.address.postcodes   订单收货信息_收货人邮编
-	 * @return string msg 提示信息
-     */
-    public function getOrderInfo() {
+	/**
+	 * 支付接口
+	 * @return [type] [description]
+	 */
+	public function index(){
+		//获取对应的支付引擎
+        DI()->pay->set($this->type);
 
-    }
-
-    /**
-     * 批量获取订单信息
-     * @desc 用于获取多个订单基本信息
-     */
-    public function getMultiOrderInfo() {
-
-    }
-
-
+        $data = array();
+        $data['order_no'] = DI()->pay->createOrderNo();
+        $data['title'] = '测试的订单';
+        $data['body'] = '测试的订单';
+        $data['price'] = '0.01';
+        echo DI()->pay->buildRequestForm($data);
+        exit;
+	}
 }

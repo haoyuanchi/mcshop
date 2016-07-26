@@ -20,6 +20,41 @@ return array(
         ),*/
     ),
 
+    /**
+     * 支付相关配置
+     */
+    'Pay' => array(
+        //异步/同步地址
+        'notify_url' => 'http://bbbccc.moco.com.cn/PhalApi/Public/pay/',
+
+        //支付宝wap端设置
+        'aliwap' => array(
+            //收款账号邮箱
+            'email' => 'admin@admin.com',
+
+            //加密key
+            'key' => 'xxx',
+
+            //合作者ID
+            'partner' => '123456'
+        ),
+
+        //微信支付设置
+        'wechat' => array(
+            //公众号的唯一标识
+            'appid' => 'wxac6c150d38e45e9f',
+
+            //商户号
+            'mchid' => '1225312702',
+
+            //公众号的appsecret
+            'appsecret' => '2e1aa740dfe08639edea2bb4ed1432d7',
+
+            //微信支付Key
+            'key' => 'e10adc3949ba59abbe56e057f20f883e'
+        ),
+    ),
+
     'Wechat' => array(
         'plugins' => array(
             Wechat_InMessage::MSG_TYPE_TEXT => array('Plugin_Menu',),

@@ -175,6 +175,7 @@ class Pay_Engine_Wechat extends Pay_Base {
     public function verifyNotify($notify) {
     	//xml转array
     	$this->values = $this->xmlToArray($notify);
+
 		if($this->values['return_code'] != 'SUCCESS'){
 			DI()->logger->log('payError','支付失败', $this->values);
 			return false;
@@ -185,7 +186,7 @@ class Pay_Engine_Wechat extends Pay_Base {
 			return false;
 		}
 
-		//写入订单信息
+		//写入订单信息  TODO
 		$this->setInfo($this->values);
 		return true;
     }
@@ -354,12 +355,12 @@ EOT;
 	 * 
 	 * @return openid
 	 */
-	private function getOpenidFromMp($code){
+	private function getOpenidFromMp($code, $second = 30){
 		$url = $this->__createOauthUrlForOpenid($code);
 		//初始化curl
 		$ch = curl_init();
 		//设置超时
-		curl_setopt($ch, CURLOPT_TIMEOUT, $this->curl_timeout);
+		curl_setopt($ch, CURLOPT_TIMEOUT, $second);
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,FALSE);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,FALSE);
