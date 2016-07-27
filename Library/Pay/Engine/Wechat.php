@@ -48,7 +48,7 @@ class Pay_Engine_Wechat extends Pay_Base {
 
 	public function check() {
         if (!$this->config['appid'] || !$this->config['mchid'] || !$this->config['appsecret'] || !$this->config['key']) {
-        	DI()->logger->log('payError','wechat setting error');
+        	DI()->logger->log('payError','wechat setting error', 'wechat setting error');
             return false;
         }
         return true;
@@ -61,9 +61,11 @@ class Pay_Engine_Wechat extends Pay_Base {
      */
     public function buildRequestForm($data) {
     	//获取Openid
-    	$open_id = $this->getOpenid();
+    	//$open_id = $this->getOpenid();
 
-        DI()->logger->debug('openid', $open_id);
+        $open_id = $data['openid'];
+
+        DI()->logger->log('payError', 'openid', $open_id);
     
     	$this->param['appid'] = $this->config['appid'];
         $this->param['mch_id'] = $this->config['mchid'];
@@ -99,7 +101,7 @@ class Pay_Engine_Wechat extends Pay_Base {
 			return false;
 		}
 
-        DI()->logger->debug('支付的html', $this->values);
+        DI()->logger->log('payError', 'openid', $this->values);
 
 		//获取jsapi支付的参数
 		$this->getJsApiParameters();
@@ -107,7 +109,7 @@ class Pay_Engine_Wechat extends Pay_Base {
 		//输出HTML唤起微信支付
 		$html = $this->showHtml($this->param);
 
-        DI()->logger->debug('支付的html', $html);
+        DI()->logger->log('payError', '支付的html', $html);
 
         return $html;
     }
@@ -341,6 +343,9 @@ EOT;
 			//触发微信返回code码
 			$baseUrl = urlencode('http://'.$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
 			$url = $this->__createOauthUrlForCode($baseUrl);
+
+
+
 			Header("Location: $url");
 			exit();
 		} else {
