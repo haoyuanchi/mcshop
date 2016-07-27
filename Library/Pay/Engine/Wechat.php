@@ -63,6 +63,8 @@ class Pay_Engine_Wechat extends Pay_Base {
     	//获取Openid
     	//$open_id = $this->getOpenid();
 
+        DI()->logger->error('开始输出', $data);
+
         $open_id = $data['openid'];
 
         DI()->logger->log('payError', 'openid', $open_id);

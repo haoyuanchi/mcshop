@@ -16,6 +16,7 @@ $loader = new PhalApi_Loader(API_ROOT, 'Library');
 //header("Access-Control-Allow-Origin", "*");
 header('Access-Control-Allow-Origin:*');
 header("Access-Control-Allow-Methods", "POST,OPTIONS,GET");
+header('Access-Control-Allow-Headers:x-requested-with,content-type');
 
 /** ---------------- 注册&初始化 基本服务组件 ---------------- **/
 
