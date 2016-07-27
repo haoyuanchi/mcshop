@@ -22,7 +22,6 @@ header('Access-Control-Allow-Headers:x-requested-with,content-type');*/
 header('Access-Control-Allow-Methods: "OPTIONS, GET, POST"');
 header('Access-Control-Allow-Credentials: true');
 header('Access-Control-Allow-Headers: "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"');
-header('Access-Control-Max-Age: "3600"');
 
 /** ---------------- 注册&初始化 基本服务组件 ---------------- **/
 
