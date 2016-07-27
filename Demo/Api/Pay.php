@@ -20,7 +20,7 @@ class Api_Pay extends PhalApi_Api {
             'pay' => array(
                 'type' 	=> array('name' => 'type', 'type' =>'enum', 'require' => true, 'range' => array('aliwap', 'wechat'), 'desc' => '引擎类型，比如aliwap'),
                 'orderNo' => array('name' => 'order_no', 'type' =>'string', 'require' => true, 'desc' => '订单编号'),
-                'price' => array('name' => 'total_price', 'type' => 'string', 'require' => true, 'desc' => '支付价格'),
+                'price' => array('name' => 'price', 'type' => 'string', 'require' => true, 'desc' => '支付价格'),
             ),
         );
 	}
