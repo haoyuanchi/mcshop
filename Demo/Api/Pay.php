@@ -36,11 +36,8 @@ class Api_Pay extends PhalApi_Api {
         DI()->pay->set($this->type);
 
         // 获取openid
-        DI()->logger->error('weixin user openid', array('openId' => $this->openid));
-
         $data = array();
         //$data['order_no'] = $this->orderNo;
-
         $data['openid'] = $this->openid;
         $data['order_no'] = date('YmdHis'). ''. PhalApi_Tool::createRandNumber(4);
         $data['title'] = '测试的订单';

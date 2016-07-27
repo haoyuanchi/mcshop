@@ -64,11 +64,7 @@ class Pay_Engine_Wechat extends Pay_Base {
     	//$open_id = $this->getOpenid();
 
         DI()->logger->error('开始输出', $data);
-
         $open_id = $data['openid'];
-
-        DI()->logger->log('payError', 'openid', $open_id);
-    
     	$this->param['appid'] = $this->config['appid'];
         $this->param['mch_id'] = $this->config['mchid'];
         $this->param['nonce_str'] = $this->createNoncestr(32);
@@ -88,8 +84,10 @@ class Pay_Engine_Wechat extends Pay_Base {
         //转换为XML
         $xml = $this->arrayToXml($this->param);
 
+        DI()->logger->log('输出xml','xml', $xml);
+
         //提交XML信息后，将返回的XML转换成数组
-        $response = $this->postXmlCurl($xml, $this->pay_url, false, 6);
+        $response = $this->postXmlCurl($xml, $this->pay_url, false);
         $this->values = $this->xmlToArray($response);
 
 		if($this->values['return_code'] != 'SUCCESS'){
