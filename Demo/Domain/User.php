@@ -6,7 +6,32 @@ class Domain_User {
         $info= $model->getByOpenId($openId);
 
         if (empty($info)) {
-            // 获取微信用户信息，保存到user表
+            // 第一次绑定，查看是否存在用户
+            $userInfo = $model->getByTelName($tel, $name);
+
+            if(!empty($userInfo)){
+                // 更新用户的微信信息
+                $wxmodel = new Model_WxUser();
+                $wxInfo = $wxmodel->getByWxOpenId($openId);
+
+                $user['wx_open_id'] = $openId;
+                $user['wx_city'] = $wxInfo['city'];
+                $user['wx_headimgurl'] = $wxInfo['headimgurl'];
+                $user['wx_nickname'] = $wxInfo['nickname'];
+                $user['wx_province'] = $wxInfo['province'];
+                $user['wx_sex'] = $wxInfo['sex'];
+                $user['wx_privilege'] = $wxInfo['privilege'];
+
+                $model->update($userInfo['id'], $user);
+
+                $user_id = $userInfo['id'];
+            } else {
+                //用户登录信息错误
+                DI()->logger->error('用户登录信息输入有误', array('openId' => $openId, 'name'=>$name, 'tel'=>$tel));
+                return $userInfo;
+            }
+
+            /*// 获取微信用户信息，保存到user表
             $wxmodel = new Model_WxUser();
             $wxInfo = $wxmodel->getByWxOpenId($openId);
 
@@ -24,7 +49,7 @@ class Domain_User {
             $user['wx_sex'] = $wxInfo['sex'];
             $user['wx_privilege'] = $wxInfo['privilege'];
 
-            $user_id = $model->insert($user);
+            $user_id = $model->insert($user);*/
         } else {
             $user_id = $info['id'];
         }

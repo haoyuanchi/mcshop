@@ -25,6 +25,18 @@ class Model_User extends PhalApi_Model_NotORM {
         return $ret;
     }
 
+    public function getByTelName($tel, $name){
+        $userInfo =  $this->getORM()
+            ->select('*')
+            ->where('mobile = ?', $tel)
+            ->where('name = ?', $name)
+            ->fetch();
+
+        $ret = $this->formatBaseInfo($userInfo);
+
+        return $ret;
+    }
+
     public function getByOpenId($openId){
         $userInfo =  $this->getORM()
             ->select('*')
@@ -68,6 +80,10 @@ class Model_User extends PhalApi_Model_NotORM {
     }
 
     public function formatBaseInfo($userInfo){
+        if(empty($userInfo)){
+            return $userInfo;
+        }
+        $ret['id'] = $userInfo['id'];
         $ret['name'] = $userInfo['name'];
         $ret['mobile'] = $userInfo['mobile'];
         $ret['address'] = $userInfo['address'];
