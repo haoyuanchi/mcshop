@@ -50,6 +50,7 @@ class PhalApi {
         $rs = DI()->response;
 
         // 解决跨域问题
+        header("Access-Control-Allow-Origin", "*");
         header('Access-Control-Allow-Origin:*');
         header('Access-Control-Allow-Headers: X-Requested-With');
 
