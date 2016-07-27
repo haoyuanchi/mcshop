@@ -14,6 +14,8 @@ $loader = new PhalApi_Loader(API_ROOT, 'Library');
 
 // 支持跨域请求
 //header("Access-Control-Allow-Origin", "*");
+header('Access-Control-Allow-Origin:*');
+header("Access-Control-Allow-Methods", "POST,OPTIONS,GET");
 
 /** ---------------- 注册&初始化 基本服务组件 ---------------- **/
 
