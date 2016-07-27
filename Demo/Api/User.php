@@ -1,6 +1,8 @@
 <?php
 
 class Api_User extends PhalApi_Api {
+    private $verifyBaseUrl = 'http://113.108.202.195:8081/epoService/wxJson/updateVip.action?';
+
     public function getRules() {
         return array(
             'bind' => array(
@@ -31,6 +33,9 @@ class Api_User extends PhalApi_Api {
 			'getGift' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
 				'address' => array('name' => 'address', 'type' => 'string', 'require' => false, 'desc' => '全部地址'),
+            ),
+            'getVerifyCode' => array(
+                'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
             ),
         );
     }
@@ -134,7 +139,6 @@ class Api_User extends PhalApi_Api {
         /*$modelCurrentBirth = new Model_ViewMemberCurrentBirth();
         $ret['is_authority'] = $modelCurrentBirth->isGiftAuthority($this->userId);*/
 
-
         $modelUser = new Model_User();
         $userInfo = $modelUser->getByUserId($this->userId);
 
@@ -185,4 +189,31 @@ class Api_User extends PhalApi_Api {
 
         return $ret;
     }
+
+    /**
+     * 获取五折卡验证码
+     * @desc 获取五折卡验证码
+     * @return int code 操作码
+     * @return int verify_code 五折卡验证码
+     * @return string msg 提示信息
+     */
+    public function getVerifyCode(){
+        $ret['code'] = 0;
+
+        $userModel = new Model_User();
+        $userInfo = $userModel->getByUserId($this->userId);
+
+        $token = sha1($userInfo['vip_number'].'+moco@wechat2013');
+        $url = $this->verifyBaseUrl.'token='.$token.'&c='.$userInfo['vip_number'].'&n='.$userInfo['name'].'&type=9';
+
+        $curl = new PhalApi_CUrl(2);
+        $rs = json_decode($curl->get($url));
+
+        $ret['verify_code'] = $rs['data']['code'];
+
+        $ret['msg'] = '';
+
+        return $ret;
+    }
+
 }

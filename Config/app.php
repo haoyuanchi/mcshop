@@ -45,13 +45,13 @@ return array(
             'appid' => 'wxac6c150d38e45e9f',
 
             //商户号
-            'mchid' => '1225312702',
+            'mchid' => '1351002901',
 
             //公众号的appsecret
             'appsecret' => '2e1aa740dfe08639edea2bb4ed1432d7',
 
             //微信支付Key
-            'key' => 'e10adc3949ba59abbe56e057f20f883e'
+            'key' => 'qw1b6Q56e053610fR4T2A7fQ3EF530I9'
         ),
     ),
 

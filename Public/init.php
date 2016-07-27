@@ -12,6 +12,8 @@ defined('API_ROOT') || define('API_ROOT', dirname(__FILE__) . '/..');
 require_once API_ROOT . '/PhalApi/PhalApi.php';
 $loader = new PhalApi_Loader(API_ROOT, 'Library');
 
+// 支持跨域请求
+header("Access-Control-Allow-Origin", "*");
 
 /** ---------------- 注册&初始化 基本服务组件 ---------------- **/
 
@@ -35,13 +37,13 @@ SL('zh_cn');
 
 /** ---------------- 定制注册 可选服务组件 ---------------- **/
 
+/*DI()->curl = new PhalApi_CUrl();*/
+
 /**
 //签名验证服务
 DI()->filter = 'PhalApi_Filter_SimpleMD5';
  */
 
-// 支付接口
-DI()->pay = new Pay_Lite();
 
 //缓存 - Memcache/Memcached
 DI()->memcache = function () {
@@ -60,4 +62,4 @@ if (!empty($_GET['callback'])) {
 
 
 
-
+DI()->pay = new Pay_Lite();

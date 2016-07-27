@@ -56,8 +56,8 @@ class Pay_Engine_Wechat extends Pay_Base {
 
     /**
      * 请求支付
-     * @param  [type] $data [description]
-     * @return [type]       [description]
+     * @param  $data 数据
+     * @return html
      */
     public function buildRequestForm($data) {
     	//获取Openid
@@ -203,7 +203,6 @@ class Pay_Engine_Wechat extends Pay_Base {
 
     /**
      * 异步通知验证失败返回信息
-     * @return [type] [description]
      */
     public function notifyError(){
         $return = array();
@@ -230,8 +229,6 @@ class Pay_Engine_Wechat extends Pay_Base {
 
     /**
      * 获取微信支付回调信息，以html形式输出
-     * @param  [type] $jsApiParameters [description]
-     * @return [type]                  [description]
      */
     private function showHtml($jsApiParameters){
 
@@ -298,7 +295,7 @@ EOT;
 	/**
 	 * 
 	 * 获取jsapi支付的参数
-	 * @param array $UnifiedOrderResult 统一支付接口返回的数据
+	 * @param UnifiedOrderResult 统一支付接口返回的数据
 	 * @throws WxPayException
 	 * 
 	 * @return json数据，可直接填入js函数作为参数
@@ -480,8 +477,6 @@ EOT;
 
     /**
      * 将xml转为array
-     * @param string $xml
-     * @throws WxPayException
      */
 	public function xmlToArray($xml){	
         //将XML转为array
@@ -499,6 +494,7 @@ EOT;
 	 * @param bool $useCert 是否需要证书，默认不需要
 	 * @param int $second   url执行超时时间，默认30s
 	 * @throws WxPayException
+     * @return data 数据
 	 */
 	private function postXmlCurl($xml, $url, $useCert = false, $second = 30){		
 		$ch = curl_init();
