@@ -103,6 +103,8 @@ class Pay_Engine_Wechat extends Pay_Base {
 		//输出HTML唤起微信支付
 		$html = $this->showHtml($this->param);
 
+        DI()->logger->debug('支付的html', $html);
+
         return $html;
     }
 
