@@ -6,7 +6,7 @@ class Api_User extends PhalApi_Api {
     public function getRules() {
         return array(
             'bind' => array(
-                'openId' => array('name' => 'openid', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
+                'openId' => array('name' => 'openid', 'type' => 'string', 'require' => true, 'desc' => '用户ID'),
                 'name' => array('name' => 'name', 'type' => 'string', 'require' => true, 'desc' => '用户姓名'),
                 'tel' => array('name' => 'tel', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户手机号'),
             ),
@@ -48,7 +48,7 @@ class Api_User extends PhalApi_Api {
      */
     public function bind() {
         $domain = new Domain_User();
-        $userId = $domain->bing($this->openId, $this->name, $this->tel);
+        $userId = $domain->bind($this->openId, $this->name, $this->tel);
         $info = $domain->getBaseInfo($userId);
         return $info;
     }

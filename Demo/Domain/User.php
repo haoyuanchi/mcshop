@@ -1,7 +1,7 @@
 <?php
 
 class Domain_User {
-    public function bing($openId, $name, $tel){
+    public function bind($openId, $name, $tel){
         $model = new Model_User();
         $info= $model->getByOpenId($openId);
 
