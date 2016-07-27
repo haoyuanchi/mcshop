@@ -11,9 +11,6 @@ DI()->loader->addDirs('Library');
 
 
 /** ---------------- 响应接口请求 ---------------- **/
-
-DI()->pay = new Pay_Lite();
-
 $api = new PhalApi();
 $rs = $api->response();
 $rs->output();

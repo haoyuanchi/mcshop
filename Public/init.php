@@ -13,7 +13,6 @@ require_once API_ROOT . '/PhalApi/PhalApi.php';
 $loader = new PhalApi_Loader(API_ROOT, 'Library');
 
 
-
 /** ---------------- 注册&初始化 基本服务组件 ---------------- **/
 
 //自动加载
@@ -40,6 +39,9 @@ SL('zh_cn');
 //签名验证服务
 DI()->filter = 'PhalApi_Filter_SimpleMD5';
  */
+
+// 支付接口
+DI()->pay = new Pay_Lite();
 
 //缓存 - Memcache/Memcached
 DI()->memcache = function () {

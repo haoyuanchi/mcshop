@@ -69,7 +69,7 @@ class Pay_Engine_Wechat extends Pay_Base {
         $this->param['body'] = $data['body'];
         $this->param['attach'] = $data['title'];
         $this->param['out_trade_no'] = $data['order_no'];
-        //$this->param['fee_type'] = 'CNY';
+        $this->param['fee_type'] = $data['fee_type'];
         $this->param['total_fee'] = $data['price'] * 100;
         $this->param['spbill_create_ip'] = PhalApi_Tool::getClientIp();
         $this->param['notify_url'] = $this->config['notify_url'];

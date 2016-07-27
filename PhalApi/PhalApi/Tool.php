@@ -48,4 +48,17 @@ class PhalApi_Tool {
         $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         return substr(str_shuffle(str_repeat($chars, rand(5, 8))), 0, $len);
     }
+
+
+    /**
+     * 随机数字字符串生成
+     *
+     * @param int $len 需要随机的长度，不要太长
+     * @return string
+     */
+    public static function createRandNumber($len) {
+        $chars = '0123456789';
+        return substr(str_shuffle(str_repeat($chars, rand(5, 8))), 0, $len);
+    }
+
 }
