@@ -232,7 +232,7 @@ class Api_Order extends PhalApi_Api {
         $order['total_quantity'] = $this->totalQuantity;
         $order['total_point'] = floatval($this->totalPoint);
         // TODO 订单编号的设置
-        $order['sn'] = date('YmdHis'). ''. PhalApi_Tool::createRandNumber(4); ;         // 当前系统时间加随机序列
+        $order['sn'] = date('YmdHis'). ''. PhalApi_Tool::createRandNumber(4);         // 当前系统时间加随机序列
         $order['create_date'] = date('Y-m-d H:i:s');
         $order['modify_date'] = date('Y-m-d H:i:s');
         $order['expired_date'] = date('Y-m-d H:i:s', time() + 60 * 60 * 24 * 60);

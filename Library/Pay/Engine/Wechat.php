@@ -62,6 +62,8 @@ class Pay_Engine_Wechat extends Pay_Base {
     public function buildRequestForm($data) {
     	//获取Openid
     	$open_id = $this->getOpenid();
+
+        DI()->logger->debug('openid', $open_id);
     
     	$this->param['appid'] = $this->config['appid'];
         $this->param['mch_id'] = $this->config['mchid'];
@@ -96,6 +98,8 @@ class Pay_Engine_Wechat extends Pay_Base {
 			DI()->logger->log('payError','签名错误', $this->values);
 			return false;
 		}
+
+        DI()->logger->debug('支付的html', $this->values);
 
 		//获取jsapi支付的参数
 		$this->getJsApiParameters();

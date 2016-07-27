@@ -35,7 +35,10 @@ class Api_Pay extends PhalApi_Api {
         DI()->pay->set($this->type);
 
         $data = array();
-        $data['order_no'] = $this->orderNo;
+        //$data['order_no'] = $this->orderNo;
+
+        $data['order_no'] = date('YmdHis'). ''. PhalApi_Tool::createRandNumber(4);
+
         $data['title'] = '测试的订单';
         $data['body'] = '测试的订单';
         $data['price'] = '0.01';
