@@ -134,14 +134,18 @@ class Api_User extends PhalApi_Api {
         $userInfo['profession'] = $this->profession;    // 行业
         $userInfo['occupation'] = $this->occupation;
         $userInfo['hobby'] = $this->hobby;
-        $userInfo['store_code'] = $this->storeCode;
 
         $userModel = new Model_User();
 
         if($this->userType == 2){
             if(!empty($this->storeCode)){
                 // 提交申请进行用户店铺修改
+                $modifyApply['store_code'] = $this->storeCode;
+                $modifyApply['user_id'] = $this->userId;
+                $modifyApply['create_date'] = date('Y-m-d H:i:s');
 
+                $modelModifyLog = new Model_ModifyApplyLog();
+                $modelModifyLog->insert($modifyApply);
             }
 
             $ret['is_success'] = $userModel->update($this->userId, $userInfo);
