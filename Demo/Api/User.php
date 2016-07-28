@@ -157,6 +157,13 @@ class Api_User extends PhalApi_Api {
 
             $ret['user'] = $userModel->getByUserId($this->userId);
         } else if($this->userType == 1) {
+            $user = $userModel->getByOpenId($this->openId);
+            if(!empty($user)){
+                $ret['code'] = 1;
+                $ret['msg'] = '该微信已经被注册，请核证后在试';
+                return $ret;
+            }
+
             $userInfo['create_date'] = date('Y-m-d H:i:s');
             $userInfo['modify_date'] = date('Y-m-d H:i:s');
 
