@@ -178,7 +178,7 @@ class Api_User extends PhalApi_Api {
             $curl = new PhalApi_CUrl(2);
             $userERP = json_decode($curl->get($addUserUrl));
 
-            DI()->logger->info('增加用户返回数据', serialize($userERP));
+            //DI()->logger->info('增加用户返回数据', serialize($userERP));
 
             $userInfo['vip_code'] = $userERP['data']['vipno'];
             $userInfo['vip_number'] = $userERP['data']['vipcard'];
