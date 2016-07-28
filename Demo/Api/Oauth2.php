@@ -46,10 +46,10 @@ class Api_Oauth2 extends PhalApi_Api {
         $useModel = new model_User();
         $isFirstBind = $useModel->isFirstBind($this->openId);
 
-        DI()->logger->info('用户是否第一次绑定', $isFirstBind);
-
         // 跳转到绑定页面
         if($isFirstBind){
+            DI()->logger->info('用户第一次绑定', $isFirstBind);
+
             setcookie('openId',$this->openId, time()+86400*360, '/'); //设置cookie长期有效
             $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/member/member.html";
             header("Location:{$url}");
