@@ -123,6 +123,11 @@ class Model_User extends PhalApi_Model_NotORM {
         $cart_info = $modelCartTotal->getByUserId($userInfo['id']);
         $ret['cart_quantity'] = $cart_info['total_quantity'];
 
+        // 获取用户所属店铺
+        $modelStore = new Model_Store();
+        $store_info = $modelStore->getByStoreCode($userInfo['store_code']);
+        $ret['store_info'] = $store_info;
+
         return $ret;
     }
 }

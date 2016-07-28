@@ -11,6 +11,14 @@ class Model_Store extends PhalApi_Model_NotORM {
         return 'store';
     }
 
+    public function getByStoreCode($storeCode){
+        $row = $this->getORM()
+            ->select('*')
+            ->where('code = ?', $storeCode)
+            ->fetch();
+        return $row;
+    }
+
     public function getNearByList($squares, $brandName){
         $rows = $this->getORM()
             ->select('*')
