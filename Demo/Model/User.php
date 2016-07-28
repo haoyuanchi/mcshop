@@ -106,6 +106,9 @@ class Model_User extends PhalApi_Model_NotORM {
         $ret['province'] = $userInfo['province'];
         $ret['city'] = $userInfo['city'];
         $ret['area'] = $userInfo['area'];
+        $ret['occupation'] = $userInfo['occupation'];
+        $ret['profession'] = $userInfo['profession'];
+        $ret['hobby'] = $userInfo['hobby'];
 
         // 获取用户的等级信息
         $modelRank = new Model_MemberRank();

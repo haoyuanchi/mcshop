@@ -27,6 +27,7 @@ class Api_User extends PhalApi_Api {
 				'profession' => array('name' => 'profession', 'type' => 'string', 'require' => true, 'desc' => '行业'),
 				'occupation' => array('name' => 'occupation', 'type' => 'string', 'require' => true, 'desc' => '职业'),
 				'hobby' => array('name' => 'hobby', 'type' => 'string', 'require' => true, 'desc' => '爱好'),
+                'storeCode' => array('name' => 'store_code', 'type' => 'string', 'require' => false, 'desc' => '用户所属店铺'),
             ),
 			'getGiftAuthority' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
@@ -130,6 +131,14 @@ class Api_User extends PhalApi_Api {
         $userInfo['profession'] = $this->profession;    // 行业
         $userInfo['occupation'] = $this->job;
         $userInfo['hobby'] = $this->hobby;
+        $userInfo['store_code'] = $this->storeCode;
+
+        if($this->userType == 2){
+            if(!empty($this->storeCode)){
+                // 提交申请进行用户店铺修改
+
+            }
+        }
 
         $userModel = new Model_User();
 
