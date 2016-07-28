@@ -126,7 +126,7 @@ class Model_User extends PhalApi_Model_NotORM {
         // 获取用户所属店铺
         $modelStore = new Model_Store();
         $store_info = $modelStore->getByStoreCode($userInfo['store_code']);
-        $ret['store_info'] = $store_info;
+        $ret['store_info'] = empty($store_info) ? "e-shop" : $store_info;
 
         return $ret;
     }
