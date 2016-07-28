@@ -132,7 +132,7 @@ class Api_User extends PhalApi_Api {
 
         $userInfo['mobile'] = $this->tel;
         $userInfo['profession'] = $this->profession;    // 行业
-        $userInfo['occupation'] = $this->job;
+        $userInfo['occupation'] = $this->occupation;
         $userInfo['hobby'] = $this->hobby;
         $userInfo['store_code'] = $this->storeCode;
 
