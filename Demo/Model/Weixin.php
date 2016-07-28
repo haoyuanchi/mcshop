@@ -6,7 +6,7 @@
  * Time: 9:20
  */
 
-class Model_WxUser extends PhalApi_Model_NotORM {
+class Model_Winxin extends PhalApi_Model_NotORM {
     protected function getTableName($id) {
         return 'member_weixin';
     }

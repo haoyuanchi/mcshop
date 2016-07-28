@@ -42,6 +42,8 @@ class Api_Oauth2 extends PhalApi_Api {
         $domain = new Domain_WxUser();
         $wxUserInfo = $domain->getWxUserInfo($openId, $accessToken);
 
+        DI()->logger->info('用户的openid', $openId);
+
         // 判断是否绑定，没有绑定强制绑定
         $useModel = new model_User();
         $isFirstBind = $useModel->isFirstBind($this->openId);
