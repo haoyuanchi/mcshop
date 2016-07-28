@@ -180,8 +180,8 @@ class Api_User extends PhalApi_Api {
 
             DI()->logger->info('增加用户返回数据', serialize($userERP));
 
-            $userInfo['vip_code'] = $ret['data']['vipno'];
-            $userInfo['vip_number'] = $ret['data']['vipcard'];
+            $userInfo['vip_code'] = $userERP['data']['vipno'];
+            $userInfo['vip_number'] = $userERP['data']['vipcard'];
 
             $userId = $userModel->insert($userInfo);
 
