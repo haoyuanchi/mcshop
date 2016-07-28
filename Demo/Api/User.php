@@ -10,6 +10,7 @@ class Api_User extends PhalApi_Api {
         return array(
             'bind' => array(
                 'openId' => array('name' => 'openid', 'type' => 'string', 'require' => true, 'desc' => '用户ID'),
+                'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
                 'name' => array('name' => 'name', 'type' => 'string', 'require' => true, 'desc' => '用户姓名'),
                 'tel' => array('name' => 'tel', 'type' => 'string', 'require' => true, 'desc' => '用户手机号'),
             ),
@@ -55,7 +56,7 @@ class Api_User extends PhalApi_Api {
         $ret['code'] = 0;
 
         $domain = new Domain_User();
-        $userInfo = $domain->bind($this->openId, $this->name, $this->tel);
+        $userInfo = $domain->bind($this->openId, $this->name, $this->tel, $this->brandId);
         if($userInfo == false){
             $ret['code'] = 1;
             $ret['msg'] = "请确认你所填号码名字和服务门店所留号码名字一致";

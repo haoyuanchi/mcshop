@@ -1,7 +1,7 @@
 <?php
 
 class Domain_User {
-    public function bind($openId, $name, $tel){
+    public function bind($openId, $name, $tel, $brandId){
         $model = new Model_User();
         $info= $model->getByOpenId($openId);
 
