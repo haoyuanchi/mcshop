@@ -12,7 +12,9 @@ class Model_Winxin extends PhalApi_Model_NotORM {
     }
 
     public function isFirstWxChat($openId) {
-        $num = $this->getORM()->where('openid', $openId)->count('id');
+        $num = $this->getORM()
+            ->where('openid', $openId)
+            ->count('id');
         return $num == 0 ? true : false;
     }
 
