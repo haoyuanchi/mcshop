@@ -2,14 +2,14 @@
 
 class Api_User extends PhalApi_Api {
     private $verifyBaseUrl = 'http://113.108.202.195:8081/epoService/wxJson/updateVip.action?';
-    private $queryUserBaseUrl = 'http://113.108.202.195:8081/epoService/vipJson/proc.action?do=customer_get&';
-    private $addUserBaseUrl = 'http://113.108.202.195:8081/epoService/vipJson/proc.action?do=customer_add&';
-    private $updateUserBaseUrl = 'http://113.108.202.195:8081/epoService/vipJson/proc.action?do=customer_up&';
+    private $queryUserBaseUrl = 'http://113.108.202.195:8081/epoService/vipJson/proc.action?do=customer_get';
+    private $addUserBaseUrl = 'http://113.108.202.195:8081/epoService/vipJson/proc.action?do=customer_add';
+    private $updateUserBaseUrl = 'http://113.108.202.195:8081/epoService/vipJson/proc.action?do=customer_up';
 
     public function getRules() {
         return array(
             'bind' => array(
-                'openId' => array('name' => 'openid', 'type' => 'string', 'require' => true, 'desc' => '用户ID'),
+                'openId' => array('name' => 'openid', 'type' => 'string', 'require' => true, 'desc' => '用户微信ID'),
                 'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
                 'name' => array('name' => 'name', 'type' => 'string', 'require' => true, 'desc' => '用户姓名'),
                 'tel' => array('name' => 'tel', 'type' => 'string', 'require' => true, 'desc' => '用户手机号'),
@@ -18,8 +18,11 @@ class Api_User extends PhalApi_Api {
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
             ),
 			'modifyInfo' => array(
-                'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => false, 'desc' => '用户ID'),
+                'openId' => array('name' => 'openid', 'type' => 'string', 'require' => true, 'desc' => '用户微信ID'),
+                'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
                 'userType' => array('name' => 'user_type', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户类型， 1表示新注册，2表示完善资料'),
+                'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => false, 'desc' => '用户ID, 用户类型为2的时候，必填'),
+                'userName' => array('name' => 'user_name', 'type' => 'string', 'require' => false, 'desc' => '用户的姓名，请填写真实的姓名，后面无法更改，用户类型为1的时候，必填'),
 				'province' => array('name' => 'province', 'type' => 'string', 'require' => true, 'desc' => '省'),
 				'city' => array('name' => 'city', 'type' => 'string', 'require' => true, 'desc' => '市'),
 				'area' => array('name' => 'area', 'type' => 'string', 'require' => true, 'desc' => '县区'),
@@ -136,6 +139,7 @@ class Api_User extends PhalApi_Api {
         $userInfo['occupation'] = $this->occupation;
         $userInfo['hobby'] = $this->hobby;
 
+
         $userModel = new Model_User();
 
         if($this->userType == 2){
@@ -153,6 +157,32 @@ class Api_User extends PhalApi_Api {
 
             $ret['user'] = $userModel->getByUserId($this->userId);
         } else if($this->userType == 1) {
+            $userInfo['create_date'] = date('Y-m-d H:i:s');
+            $userInfo['modify_date'] = date('Y-m-d H:i:s');
+
+            $userInfo['name'] = $this->userName;
+            $userInfo['store_code'] = $this->storeCode;
+            $userInfo['wx_open_id'] = $this->openId;
+
+            $userInfo['brandId'] = $this->brandId;
+
+            if($this->brandId == 18){
+                $brandId = 1;
+            }elseif($this->brandId == 19){
+                $brandId = 2;
+            }
+            $birthday = $userInfo['birth'];
+
+            // 调用接口获取用户的vip卡号
+            $addUserUrl = "$this->addUserBaseUrl&openId=$this->openId&brand=$brandId&phone=$this->tel&name=$this->userName&birthday=$birthday&storecode=$this->storeCode";
+            $curl = new PhalApi_CUrl(2);
+            $userERP = json_decode($curl->get($addUserUrl));
+
+            DI()->logger->info('增加用户返回数据', $userERP);
+
+            $userInfo['vip_code'] = $ret['data']['vipno'];
+            $userInfo['vip_number'] = $ret['data']['vipcard'];
+
             $userId = $userModel->insert($userInfo);
 
             // 强制更新
