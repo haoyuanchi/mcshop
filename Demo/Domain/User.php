@@ -14,6 +14,11 @@ class Domain_User {
                 $wxmodel = new Model_WxUser();
                 $wxInfo = $wxmodel->getByWxOpenId($openId);
 
+                if(empty($wxInfo)){
+                    DI()->logger->error('用户的openid有误', array('openId' => $openId));
+                    return false;
+                }
+
                 $user['wx_open_id'] = $openId;
                 $user['wx_city'] = $wxInfo['city'];
                 $user['wx_headimgurl'] = $wxInfo['headimgurl'];

@@ -25,7 +25,7 @@ return array(
      */
     'Pay' => array(
         //异步/同步地址
-        'notify_url' => 'http://bbbccc.moco.com.cn/PhalApi/Public/pay/',
+        'notify_url' => 'http://bbbccc.moco.com.cn/mcshop/Public/demo/?service=Pay.Notify',
 
         //支付宝wap端设置
         'aliwap' => array(
