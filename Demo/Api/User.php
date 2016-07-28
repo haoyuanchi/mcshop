@@ -2,6 +2,9 @@
 
 class Api_User extends PhalApi_Api {
     private $verifyBaseUrl = 'http://113.108.202.195:8081/epoService/wxJson/updateVip.action?';
+    private $queryUserBaseUrl = 'http://113.108.202.195:8081/epoService/vipJson/proc.action?do=customer_get&';
+    private $addUserBaseUrl = 'http://113.108.202.195:8081/epoService/vipJson/proc.action?do=customer_add&';
+    private $updateUserBaseUrl = 'http://113.108.202.195:8081/epoService/vipJson/proc.action?do=customer_up&';
 
     public function getRules() {
         return array(
@@ -14,7 +17,7 @@ class Api_User extends PhalApi_Api {
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
             ),
 			'modifyInfo' => array(
-                'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
+                'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => false, 'desc' => '用户ID'),
                 'userType' => array('name' => 'user_type', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户类型， 1表示新注册，2表示完善资料'),
 				'province' => array('name' => 'province', 'type' => 'string', 'require' => true, 'desc' => '省'),
 				'city' => array('name' => 'city', 'type' => 'string', 'require' => true, 'desc' => '市'),
@@ -133,19 +136,24 @@ class Api_User extends PhalApi_Api {
         $userInfo['hobby'] = $this->hobby;
         $userInfo['store_code'] = $this->storeCode;
 
+        $userModel = new Model_User();
+
         if($this->userType == 2){
             if(!empty($this->storeCode)){
                 // 提交申请进行用户店铺修改
 
             }
+
+            $ret['is_success'] = $userModel->update($this->userId, $userInfo);
+
+            $ret['user'] = $userModel->getByUserId($this->userId);
+        } else if($this->userType == 1) {
+            $userId = $userModel->insert($userInfo);
+
+            // 强制更新
+            $ret['user'] = $userModel->getByUserId($userId);
         }
 
-        $userModel = new Model_User();
-
-        $ret['is_success'] = $userModel->update($this->userId, $userInfo);
-
-        // 强制更新
-        $ret['user'] = $userModel->getByUserId($this->userId);
         return $ret;
     }
 	
