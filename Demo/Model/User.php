@@ -7,7 +7,9 @@ class Model_User extends PhalApi_Model_NotORM {
     }
 
     public function isFirstBind($openId) {
-        $num = $this->getORM()->where('wx_open_id', $openId)->count('id');
+        $num = $this->getORM()
+            ->where('wx_open_id', $openId)
+            ->count('id');
         return $num == 0 ? true : false;
     }
 
