@@ -46,7 +46,7 @@ class Api_Oauth2 extends PhalApi_Api {
 
         // 判断是否绑定，没有绑定强制绑定
         $useModel = new model_User();
-        $isFirstBind = $useModel->isFirstBind($this->openId);
+        $isFirstBind = $useModel->isFirstBind($openId);
 
         // 跳转到绑定页面
         if($isFirstBind){
