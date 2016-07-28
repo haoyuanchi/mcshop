@@ -62,7 +62,7 @@ class Api_Oauth2 extends PhalApi_Api {
         }
 
         // 已经绑定则返回用户信息并跳转到首页
-        $userInfo = $useModel->getByOpenId($this->openId);
+        $userInfo = $useModel->getByOpenId($openId);
         setcookie('user_info', json_encode($userInfo), time()+36000, '/');
 
         //判断用户信息是否完善，如果不完善则跳转到用户信息完善页面
@@ -120,7 +120,7 @@ class Api_Oauth2 extends PhalApi_Api {
         }
 
         // 已经绑定则返回用户信息并跳转到首页
-        $userInfo = $useModel->getByOpenId($this->openId);
+        $userInfo = $useModel->getByOpenId($openId);
         setcookie('user_info', json_encode($userInfo), time()+36000, '/');
 
         //判断用户信息是否完善，如果不完善则跳转到用户信息完善页面
