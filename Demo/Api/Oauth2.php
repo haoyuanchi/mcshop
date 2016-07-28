@@ -49,7 +49,7 @@ class Api_Oauth2 extends PhalApi_Api {
         // 跳转到绑定页面
         if($isFirstBind){
             setcookie('openId',$this->openId, time()+86400*360, '/'); //设置cookie长期有效
-            $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/mobileIndex.html";
+            $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/member/member.html";
             header("Location:{$url}");
             exit;
         }
@@ -57,7 +57,14 @@ class Api_Oauth2 extends PhalApi_Api {
         // 已经绑定则返回用户信息并跳转到首页
         $userInfo = $useModel->getByOpenId($this->openId);
         setcookie('user_info', json_encode($userInfo), time()+36000, '/');
-        //setcookie('user_id', $userInfo['id'], '86400 * 360');
+
+        //判断用户信息是否完善，如果不完善则跳转到用户信息完善页面
+        if(empty($userInfo['name']) || empty($userInfo['mobile']) || empty($userInfo['address']) || empty($userInfo['birth'])){
+            $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/usercenter/wx_infomodify.html";
+            header("Location:{$url}");
+            exit;
+        }
+
         // 跳转到首页
         //setcookie('brand_id',$this->brandId, '360', '/'); //设置cookie 6分钟有效
         setcookie('brand_id',$this->brandId, time()+36000,'/'); //设置cookie 600分钟有效

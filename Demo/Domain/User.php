@@ -29,7 +29,7 @@ class Domain_User {
 
                 $model->update($userInfo['id'], $user);
 
-                $user_id = $userInfo['id'];
+                $ret = $model->getByOpenId($openId);;
             } else {
                 //用户登录信息错误
                 DI()->logger->error('用户登录信息输入有误', array('openId' => $openId, 'name'=>$name, 'tel'=>$tel));
@@ -56,10 +56,10 @@ class Domain_User {
 
             $user_id = $model->insert($user);*/
         } else {
-            $user_id = $info['id'];
+            $ret = $info;
         }
 
-        return $user_id;
+        return $ret;
     }
 
     public function getBaseInfo($userId) {
@@ -97,5 +97,15 @@ class Domain_User {
         $rs = $modelProxy->getData($query);
          */
         return $ret;
+    }
+
+    public function isComplete($userInfo){
+        if(empty($userInfo['name']) || empty($userInfo['mobile']) || empty($userInfo['address']) ||
+            empty($userInfo['birth']) || empty($userInfo['occupation']) || empty($userInfo['hobby']) || empty($userInfo['profession']))
+        {
+            return false;
+
+        }
+        return true;
     }
 }

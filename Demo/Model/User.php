@@ -94,7 +94,7 @@ class Model_User extends PhalApi_Model_NotORM {
         $ret['vip_code'] = $userInfo['vip_code'];
         $ret['vip_number'] = $userInfo['vip_number'];
         $ret['integral'] = $userInfo['integral'];
-        $ret['username'] = $userInfo['username'];
+        $ret['email'] = $userInfo['username'];
         $ret['language'] = $userInfo['language_preference'];
         $ret['bust'] = $userInfo['bust'];
         $ret['hip'] = $userInfo['hip'];

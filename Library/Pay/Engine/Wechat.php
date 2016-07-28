@@ -177,6 +177,8 @@ class Pay_Engine_Wechat extends Pay_Base {
     	//xml转array
     	$this->values = $this->xmlToArray($notify);
 
+        DI()->logger->log('notify','支付回调信息', $this->values);
+
 		if($this->values['return_code'] != 'SUCCESS'){
 			DI()->logger->log('payError','支付失败', $this->values);
 			return false;

@@ -15,6 +15,7 @@ class Api_User extends PhalApi_Api {
             ),
 			'modifyInfo' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
+                'userType' => array('name' => 'user_type', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户类型， 1表示新注册，2表示完善资料'),
 				'province' => array('name' => 'province', 'type' => 'string', 'require' => true, 'desc' => '省'),
 				'city' => array('name' => 'city', 'type' => 'string', 'require' => true, 'desc' => '市'),
 				'area' => array('name' => 'area', 'type' => 'string', 'require' => true, 'desc' => '县区'),
@@ -23,8 +24,8 @@ class Api_User extends PhalApi_Api {
 				'birM' => array('name' => 'birthday_m', 'type' => 'string', 'require' => true, 'desc' => '出生月'),
 				'birD' => array('name' => 'birthday_d', 'type' => 'string', 'require' => true, 'desc' => '出生日'),
 				'tel' => array('name' => 'tel', 'type' => 'string', 'require' => true, 'desc' => '电话'),
-				'pro' => array('name' => 'profession', 'type' => 'string', 'require' => true, 'desc' => '行业'),
-				'job' => array('name' => 'job', 'type' => 'string', 'require' => true, 'desc' => '职业'),
+				'profession' => array('name' => 'profession', 'type' => 'string', 'require' => true, 'desc' => '行业'),
+				'occupation' => array('name' => 'occupation', 'type' => 'string', 'require' => true, 'desc' => '职业'),
 				'hobby' => array('name' => 'hobby', 'type' => 'string', 'require' => true, 'desc' => '爱好'),
             ),
 			'getGiftAuthority' => array(
@@ -50,14 +51,24 @@ class Api_User extends PhalApi_Api {
         $ret['code'] = 0;
 
         $domain = new Domain_User();
-        $userId = $domain->bind($this->openId, $this->name, $this->tel);
-        if($userId == null){
+        $userInfo = $domain->bind($this->openId, $this->name, $this->tel);
+        if($userInfo == false){
             $ret['code'] = 1;
             $ret['msg'] = "请确认你所填号码名字和服务门店所留号码名字一致";
             return $ret;
+        } else if($domain->isComplete($userInfo) == false) {
+            $ret['code'] = 2;
+            $ret['msg'] = "跳转到用户信息完善页面进行用户信息完善";
+            $ret['user_info'] = $userInfo;
+            $ret['redirect_url'] = "http://bbbccc.moco.com.cn/mcshop/app/mobile/usercenter/wx_infomodify.html";
+            return $ret;
+        } else {
+            $ret['msg'] = '绑定成功';
+            $ret['user_info'] = $userInfo;
+            $ret['redirect_url'] = "http://bbbccc.moco.com.cn/mcshop/app/mobile/mobileIndex.html";
+            return $ret;
         }
 
-        $info = $domain->getBaseInfo($userId);
         return $info;
     }
 
@@ -116,7 +127,7 @@ class Api_User extends PhalApi_Api {
         $userInfo['birth'] =date("Y-m-d", strtotime($this->birY.'-'.$this->birM.'-'.$this->birD));
 
         $userInfo['mobile'] = $this->tel;
-        //$userInfo['pro'] = $this->pro;    // 行业
+        $userInfo['profession'] = $this->profession;    // 行业
         $userInfo['occupation'] = $this->job;
         $userInfo['hobby'] = $this->hobby;
 
