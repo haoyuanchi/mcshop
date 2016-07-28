@@ -10,6 +10,8 @@ class Model_User extends PhalApi_Model_NotORM {
         $num = $this->getORM()
             ->where('wx_open_id', $openId)
             ->count('id');
+
+        DI()->logger->info('是否有这个用户', $num);
         return $num == 0 ? true : false;
     }
 
