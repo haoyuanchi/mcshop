@@ -46,6 +46,9 @@ class Api_Oauth2 extends PhalApi_Api {
         $useModel = new model_User();
         $isFirstBind = $useModel->isFirstBind($openId);
 
+        //setcookie('brand_id',$this->brandId, '360', '/'); //设置cookie 6分钟有效
+        setcookie('brand_id',$this->brandId, time()+36000,'/'); //设置cookie 600分钟有效
+
         // 跳转到绑定页面
         if($isFirstBind){
             //DI()->logger->info('用户第一次绑定', $isFirstBind);
@@ -60,7 +63,6 @@ class Api_Oauth2 extends PhalApi_Api {
         $userInfo = $useModel->getByOpenId($this->openId);
         setcookie('user_info', json_encode($userInfo), time()+36000, '/');
 
-
         //判断用户信息是否完善，如果不完善则跳转到用户信息完善页面
         $domainUser = new Domain_User();
         if($domainUser->isComplete($userInfo) == false){
@@ -74,8 +76,6 @@ class Api_Oauth2 extends PhalApi_Api {
         //DI()->logger->info('用户信息完善，直接跳转', $userInfo);
 
         // 跳转到首页
-        //setcookie('brand_id',$this->brandId, '360', '/'); //设置cookie 6分钟有效
-        setcookie('brand_id',$this->brandId, time()+36000,'/'); //设置cookie 600分钟有效
         $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/mobileIndex.html";
         header("Location:{$url}");
         exit;
