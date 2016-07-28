@@ -68,6 +68,7 @@ class Api_Oauth2 extends PhalApi_Api {
         //判断用户信息是否完善，如果不完善则跳转到用户信息完善页面
         $domainUser = new Domain_User();
         if($domainUser->isComplete($userInfo) == false){
+            setcookie('use_type', 2, time() + 360, '/');
             $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/usercenter/wx_infomodify.html";
             header("Location:{$url}");
             exit;
@@ -128,6 +129,7 @@ class Api_Oauth2 extends PhalApi_Api {
         if($domainUser->isComplete($userInfo) == false){
             //DI()->logger->info('用户资料不完善', $userInfo);
 
+            setcookie('use_type', 2, time() + 360, '/');
             $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/usercenter/wx_infomodify.html";
             header("Location:{$url}");
             exit;
