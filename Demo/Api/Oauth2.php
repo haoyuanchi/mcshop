@@ -42,15 +42,13 @@ class Api_Oauth2 extends PhalApi_Api {
         $domain = new Domain_WxUser();
         $wxUserInfo = $domain->getWxUserInfo($openId, $accessToken);
 
-        DI()->logger->info('用户的openid', $openId);
-
         // 判断是否绑定，没有绑定强制绑定
         $useModel = new model_User();
         $isFirstBind = $useModel->isFirstBind($openId);
 
         // 跳转到绑定页面
         if($isFirstBind){
-            DI()->logger->info('用户第一次绑定', $isFirstBind);
+            //DI()->logger->info('用户第一次绑定', $isFirstBind);
 
             setcookie('openId',$this->openId, time()+86400*360, '/'); //设置cookie长期有效
             $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/member/member.html";
@@ -66,14 +64,14 @@ class Api_Oauth2 extends PhalApi_Api {
         //判断用户信息是否完善，如果不完善则跳转到用户信息完善页面
         $domainUser = new Domain_User();
         if($domainUser->isComplete($userInfo) == false){
-            DI()->logger->info('用户资料不完善', $userInfo);
+            //DI()->logger->info('用户资料不完善', $userInfo);
 
             $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/usercenter/wx_infomodify.html";
             header("Location:{$url}");
             exit;
         }
 
-        DI()->logger->info('用户信息完善，直接跳转', $userInfo);
+        //DI()->logger->info('用户信息完善，直接跳转', $userInfo);
 
         // 跳转到首页
         //setcookie('brand_id',$this->brandId, '360', '/'); //设置cookie 6分钟有效
