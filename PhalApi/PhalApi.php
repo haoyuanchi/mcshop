@@ -48,7 +48,7 @@ class PhalApi {
      */
     public function response() {
         // 解决跨域问题
-        header('content-type: application/json; charset=utf-8');
+        header('content-type: application:json; charset=utf-8');
         header('Access-Control-Allow-Origin: *');
         //header("Access-Control-Allow-Credentials: true");
         header('Access-Control-Allow-Headers: X-Requested-With，Content-Type');
