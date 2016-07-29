@@ -57,6 +57,4 @@ if (!empty($_GET['callback'])) {
 }
  */
 
-
-
 DI()->pay = new Pay_Lite();

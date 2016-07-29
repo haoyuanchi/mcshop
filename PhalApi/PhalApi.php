@@ -47,14 +47,14 @@ class PhalApi {
 ```
      */
     public function response() {
+        $rs = DI()->response;
+
         // 解决跨域问题
         header('content-type: application:json; charset=utf-8');
         header('Access-Control-Allow-Origin: *');
         //header("Access-Control-Allow-Credentials: true");
         header('Access-Control-Allow-Headers: X-Requested-With，Content-Type');
         header('Access-Control-Allow-Methods: OPTIONS, GET, POST');
-
-        $rs = DI()->response;
 
         try {
             $api = PhalApi_ApiFactory::generateService(); 
