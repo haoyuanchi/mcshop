@@ -1,16 +1,16 @@
 <?php
 
 class Api_Coupon extends PhalApi_Api {
+    private $baseUrl = 'http://113.108.202.195:8081/epoService/vipJson/proc.action?do=ticket';
+
     public function getRules() {
         return array(
             'getCouponList' => array(
                 'brandId' => array('name' => 'brand_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '品牌ID'),
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
-                'isUsed' => array('name' => 'is_used', 'type' => 'int', 'require' => false, 'default'=>'0', 'desc' => '是否已经使用'),
-                'isDated' => array('name' => 'is_dated', 'type' => 'int', 'require' => false, 'default'=>'0', 'desc' => '是否已经过期'),
-                'couponType' => array('name' => 'coupon_type', 'type' => 'int', 'require' => false, 'default'=>'0', 'desc' => ' null：全部 0：未使用 1：已使用 2：已过期'),
+                'openId' => array('name' => 'openid', 'type' => 'string', 'require' => true, 'desc' => '用户openid'),
+                'couponType' => array('name' => 'coupon_type', 'type' => 'int', 'require' => false, 'default'=>'0', 'desc' => ' 0：全部 1：未使用 2：已使用 3：已过期'),
             ),
-
         );
     }
 
@@ -27,12 +27,22 @@ class Api_Coupon extends PhalApi_Api {
     public function getCouponList() {
         $ret['code'] = 0;
 
-        $url = "http://113.108.202.195:8081/epoService/vipJson/proc.action?do=ticket&openId=123456&brand=1&ctype=0&procOutCursorCount=1";
-        $curl = new PhalApi_CUrl(2);
-        $couponList = json_decode($curl->get($url));
+        if($this->brandId == 18){
+            $brandId = 1;
+        }else if($this->brandId == 19){
+            $brandId = 23;
+        }else {
+            $ret['code'] = 1;
+            $ret['msg'] = '请输入正确的品牌编号';
+            return $ret;
+        }
 
-        /*$model = new Model_ViewCoupon();
-        $couponList = $model->getListByUserId($this->userId, $this->isUsed, $this->isDated);*/
+        /*$url = "$this->baseUrl&userId=$this->openId&brand=$brandId&ctype=$this->couponType&procOutCursorCount=1";
+        $curl = new PhalApi_CUrl(2);
+        $couponList = json_decode($curl->get($url));*/
+
+        $model = new Model_ViewCoupon();
+        $couponList = $model->getListByUserId($this->userId, $this->brandId, $this->couponType);
         $ret['coupon_list'] = $couponList;
 
         $ret['code'] = 0;

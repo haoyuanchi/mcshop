@@ -12,17 +12,6 @@ defined('API_ROOT') || define('API_ROOT', dirname(__FILE__) . '/..');
 require_once API_ROOT . '/PhalApi/PhalApi.php';
 $loader = new PhalApi_Loader(API_ROOT, 'Library');
 
-// 支持跨域请求
-/*//header("Access-Control-Allow-Origin", "*");
-header('Access-Control-Allow-Origin:*');
-/*header("Access-Control-Allow-Methods", "POST,OPTIONS,GET");
-header('Access-Control-Allow-Headers:x-requested-with,content-type');*/
-
-/*header("Access-Control-Allow-Origin: ".$_SERVER['HTTP_ORIGIN']);*/
-/*header('Access-Control-Allow-Methods: "OPTIONS, GET, POST"');
-header('Access-Control-Allow-Credentials: true');
-header('Access-Control-Allow-Headers: "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"');*/
-
 /** ---------------- 注册&初始化 基本服务组件 ---------------- **/
 
 //自动加载

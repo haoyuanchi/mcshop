@@ -176,7 +176,7 @@ class Api_User extends PhalApi_Api {
             if($this->brandId == 18){
                 $brandId = 1;
             }elseif($this->brandId == 19){
-                $brandId = 2;
+                $brandId = 23;
             }
             $birthday = $userInfo['birth'];
 

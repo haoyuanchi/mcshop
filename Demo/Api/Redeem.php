@@ -8,6 +8,8 @@
 
 class Api_Redeem extends PhalApi_Api {
 
+    private $redeemBaseUrl = 'http://113.108.202.195:8081/epoService/vipJson/proc.action?do=integral';
+
     public function getRules() {
         return array(
             'getTheRules' => array(
@@ -15,8 +17,10 @@ class Api_Redeem extends PhalApi_Api {
             ),
             'redeemMO' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
+                'openId' => array('name' => 'openid', 'type' => 'string', 'require' => true, 'desc' => '用户openid'),
 				'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
-				'redeemNumber' => array('name' => 'redeem_number', 'type' => 'int', 'require' => true, 'desc' => '兑换数量(MO)'),
+                'redeemIntegral' => array('name' => 'redeem_integral', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '兑换积分'),
+                'couponValue' => array('name' => 'coupon_value', 'type' => 'float', 'require' => true, 'desc' => '兑换的面值'),
             ),
             'getValue' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
@@ -25,9 +29,10 @@ class Api_Redeem extends PhalApi_Api {
             ),
             'redeemEd' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
+                'openId' => array('name' => 'openid', 'type' => 'string', 'require' => true, 'desc' => '用户openid'),
 				'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
                 'redeemIntegral' => array('name' => 'redeem_integral', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '兑换积分'),
-				'coupon' => array('name' => 'coupon', 'type' => 'float', 'require' => true, 'desc' => '兑换的面值'),
+				'couponValue' => array('name' => 'coupon_value', 'type' => 'float', 'require' => true, 'desc' => '兑换的面值'),
             ),
             'getStore' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
@@ -59,41 +64,60 @@ class Api_Redeem extends PhalApi_Api {
     public function redeemMO() {
         $ret['code'] = 0;
 
-        /*$openId = $this->userId;
-        $brandId = $this->brandId;
-        $integral = $this->redeemIndegral;
-        $value = $this->coupon;
-        $url = "http://113.108.202.195:8081/epoService/vipJson/proc.action?do=integral&openId=$openId&brand=$brandId&integral=$integral&value=$value";
-        $curl = new PhalApi_CUrl(2);
-        $ret = json_decode($curl->get($url));
-        return $ret;*/
+        $openId = $this->openId;
 
-        // TODO 增加原子操作
+        if($this->brandId == 18){
+            $brandId = 1;
+        }else if($this->brandId == 19){
+            $brandId = 23;
+        }else {
+            $ret['code'] = 1;
+            $ret['msg'] = '请输入正确的品牌编号';
+            return $ret;
+        }
+
+        $redeemIntegral = $this->redeemIntegral;
+        $value = $this->couponValue;
+
         $modelUser = new Model_User();
         $userInfo = $modelUser->getByUserId($this->userId);
 
-        if($userInfo['integral'] < $this->redeemNumber * 10000){
-            $ret['code'] = 1;
+        if($userInfo['integral'] < $redeemIntegral){
+            $ret['code'] = 2;
             $ret['msg'] = '积分不足，请重新输入兑换数量';
             return $ret;
         }
-        // 增加500优惠券
-        $modelCoupon = new Model_Coupon();
-        $coupon['create_date'] = date('Y-m-d H:i:s');
-        $coupon['modify_date'] = date('Y-m-d H:i:s');
-        $coupon['expiry_date'] = date('Y-m-d H:i:s', time() + 60 * 60 * 24 * 60);
-        //TODO
-        $coupon['code'] = 'VX151A0004861656';
-        $coupon['member_id'] = $this->userId;
-        $coupon['coupon_id'] = 1;
-        $coupon['coupon_price'] = 500;
 
-        $couponId = $modelCoupon->insert($coupon);
+        $url = "$this->redeemBaseUrl&openId=$openId&brand=$brandId&integral=$redeemIntegral&value=$value";
+        $curl = new PhalApi_CUrl(2);
+        $urlRet = json_decode($curl->get($url));
 
-        $userInfoNew['integral'] = $userInfo['integral'] - $this->redeemNumber * 10000;
-        $userId = $modelUser->update($this->userId, $userInfoNew);
+        if($urlRet->success == 1){
+            $urlData =  $urlRet->data;
+            // 增加500优惠券
+            $modelCoupon = new Model_Coupon();
+            $coupon['create_date'] = date('Y-m-d H:i:s');
+            $coupon['modify_date'] = date('Y-m-d H:i:s');
+            $coupon['expiry_date'] = date('Y-m-d H:i:s', time() + 60 * 60 * 24 * 60);
 
-        $ret['couponId'] = $couponId;
+            $coupon['code'] = $urlData->couponno;
+            $coupon['member_id'] = $this->userId;
+            $coupon['coupon_id'] = 1;
+            $coupon['coupon_price'] = $urlData->value;
+            $coupon['project_code'] = $urlData->projectcode;
+
+            $couponId = $modelCoupon->insert($coupon);
+
+            //$userInfoNew['integral'] = $userInfo['integral'] - $this->redeemNumber * 10000;
+            $userInfoNew['integral'] = $urlData->integral;
+            $userId = $modelUser->update($this->userId, $userInfoNew);
+
+            $ret['couponId'] = $couponId;
+        } else {
+            $ret['code'] = 3;
+            $ret['msg'] = $urlRet->errMsg;
+
+        }
 
         $ret['msg'] = '';
 
@@ -138,17 +162,69 @@ class Api_Redeem extends PhalApi_Api {
     public function redeemEd() {
         $ret['code'] = 0;
 
-        /*$openId = $this->userId;
-        $brandId = $this->brandId;
-        $integral = $this->redeemIndegral;
-        $value = $this->coupon;
-        $url = "http://113.108.202.195:8081/epoService/vipJson/proc.action?do=integral&openId=$openId&brand=$brandId&integral=$integral&value=$value";
+        $openId = $this->openId;
+
+        if($this->brandId == 18){
+            $brandId = 1;
+        }else if($this->brandId == 19){
+            $brandId = 23;
+        }else {
+            $ret['code'] = 1;
+            $ret['msg'] = '请输入正确的品牌编号';
+            return $ret;
+        }
+
+        $redeemIntegral = $this->redeemIntegral;
+        $value = $this->couponValue;
+
+        $modelUser = new Model_User();
+        $userInfo = $modelUser->getByUserId($this->userId);
+
+        if($userInfo['integral'] < $redeemIntegral){
+            $ret['code'] = 2;
+            $ret['msg'] = '积分不足，请重新输入兑换数量';
+            return $ret;
+        }
+
+        $url = "$this->redeemBaseUrl&openId=$openId&brand=$brandId&integral=$redeemIntegral&value=$value";
         $curl = new PhalApi_CUrl(2);
-        $ret = json_decode($curl->get($url));
+        $urlRet = json_decode($curl->get($url));
 
-        return $ret;*/
+        if($urlRet->success == 1){
+            $urlData =  $urlRet->data;
 
-        // TODO 增加原子操作
+            $modelCoupon = new Model_Coupon();
+            $coupon['create_date'] = $urlData->startdate;
+            $coupon['modify_date'] = date('Y-m-d H:i:s');
+            $coupon['expiry_date'] = $urlData->enddate;
+
+            $coupon['brand_id'] = $this->brandId;
+
+            $coupon['code'] = $urlData->couponno;
+            $coupon['member_id'] = $this->userId;
+            $coupon['coupon_id'] = 1;
+            $coupon['coupon_price'] = $urlData->value;
+            $coupon['project_code'] = $urlData->projectcode;
+
+            $couponId = $modelCoupon->insert($coupon);
+
+            //$userInfoNew['integral'] = $userInfo['integral'] - $this->redeemNumber * 10000;
+            $userInfoNew['integral'] = $urlData->integral;
+            $userId = $modelUser->update($this->userId, $userInfoNew);
+
+            $ret['couponId'] = $couponId;
+
+        } else {
+            $ret['code'] = 3;
+            $ret['msg'] = $urlRet->errMsg;
+            return $ret;
+        }
+
+        $ret['msg'] = '';
+
+        return $ret;
+
+        /*// TODO 增加原子操作
         $modelUser = new Model_User();
         $userInfo = $modelUser->getByUserId($this->userId);
 
@@ -194,9 +270,9 @@ class Api_Redeem extends PhalApi_Api {
 
         $ret['couponId'] = $couponId;
 
-        $ret['msg'] = '';
+        $ret['msg'] = '';*/
 
-        return $ret;
+        //return $ret;
     }
 	
     /**
