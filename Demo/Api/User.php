@@ -138,6 +138,18 @@ class Api_User extends PhalApi_Api {
         $userInfo['profession'] = $this->profession;    // 行业
         $userInfo['occupation'] = $this->occupation;
         $userInfo['hobby'] = $this->hobby;
+        $userInfo['brand_id'] = $this->brandId;
+        $birthday = $userInfo['birth'];
+
+        if($this->brandId == 18){
+            $brandId = 1;
+        }elseif($this->brandId == 19){
+            $brandId = 23;
+        } else {
+            $ret['code'] = 1;
+            $ret['msg'] = '请输入正确的品牌编号';
+            return $ret;
+        }
 
 
         $userModel = new Model_User();
@@ -155,6 +167,11 @@ class Api_User extends PhalApi_Api {
 
             $ret['is_success'] = $userModel->update($this->userId, $userInfo);
 
+            /*// 调用接口获取用户的vip卡号
+            $updateUserUrl = "$this->updateUserBaseUrl&openId=$this->openId&brand=$brandId&phone=$this->tel&birthday=$birthday";
+            $curl = new PhalApi_CUrl(2);
+            $userERP = json_decode($curl->get($addUserUrl));*/
+
             $ret['user'] = $userModel->getByUserId($this->userId);
         } else if($this->userType == 1) {
             $user = $userModel->getByOpenId($this->openId);
@@ -171,14 +188,7 @@ class Api_User extends PhalApi_Api {
             $userInfo['store_code'] = $this->storeCode;
             $userInfo['wx_open_id'] = $this->openId;
 
-            $userInfo['brand_id'] = $this->brandId;
 
-            if($this->brandId == 18){
-                $brandId = 1;
-            }elseif($this->brandId == 19){
-                $brandId = 23;
-            }
-            $birthday = $userInfo['birth'];
 
             // 调用接口获取用户的vip卡号
             $addUserUrl = "$this->addUserBaseUrl&openId=$this->openId&brand=$brandId&phone=$this->tel&name=$this->userName&birthday=$birthday&storecode=$this->storeCode";
