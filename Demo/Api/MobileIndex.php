@@ -14,7 +14,7 @@ class Api_MobileIndex extends PhalApi_Api {
 
             ),
             'getIndex' => array(
-                'code' => array('name' => 'code', 'type' => 'string', 'require' => false, 'default'=>'moco', 'desc' => '品牌code'),
+                'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id,  18 : 表示 moco，  19： 表示edtion10'),
             ),
         );
     }
@@ -66,7 +66,7 @@ class Api_MobileIndex extends PhalApi_Api {
         $model = new Model_Brand();
         $brands = $model->getList();
 
-        if($this->code=='moco') {
+        if($this->brandId == 18) {
             $ret['topCategory']['tag_id'] = $top['id'];
             $ret['topCategory']['image'] = $top['mo_mobile_cover'];
         }
