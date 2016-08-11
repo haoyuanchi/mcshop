@@ -30,7 +30,8 @@ class Api_Good extends PhalApi_Api {
                 'size' => array('name' => 'size', 'type' => 'int', 'min' => 1, 'require' => false, 'default'=>6, 'desc' => '查询数量'),
                 'sort' => array('name' => 'order_type', 'type' => 'string', 'require' => false, 'default'=>'create_date', 'desc' => '排序方式'),
             ),
-			'getListByTSearch' => array(
+			'getListBySearch' => array(
+                'brandId' => array('name' => 'brand_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '商品品牌id'),
 				'search' => array('name' => 'search_value', 'type' => 'string', 'min' => 1, 'require' => true, 'desc' => '搜索关键字'),
                 'page' => array('name' => 'page', 'type' => 'int', 'min' => 0, 'require' => false, 'default'=>0, 'desc' => '第几页'),
                 'size' => array('name' => 'size', 'type' => 'int', 'min' => 1, 'require' => false, 'default'=>10, 'desc' => '查询数量'),
@@ -282,7 +283,7 @@ class Api_Good extends PhalApi_Api {
 
         // 是否已经收藏
         $modelCollect = new Model_Collection();
-        $ret['good']['is_collected'] = $modelCollect->isCollected($this->userId, $this->goodId);
+        $ret['good']['is_collected'] = $modelCollect->isCollected($this->userId, $this->brandId, $this->goodId);
 
         $ret['msg'] = '';
 

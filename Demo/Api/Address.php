@@ -19,7 +19,7 @@ class Api_Address extends PhalApi_Api {
 			'getAreaList' => array(
                 'city' => array('name' => 'city_id', 'type' => 'int', 'require' => true, 'desc' => '市id'),
             ),
-			'newAddress' => array(
+			'addAddress' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'require' => true, 'desc' => '用户id'),
 				'province' => array('name' => 'province', 'type' => 'string', 'require' => true, 'desc' => '省'),
                 'city' => array('name' => 'city', 'type' => 'string', 'require' => true, 'desc' => '市'),
@@ -27,7 +27,7 @@ class Api_Address extends PhalApi_Api {
                 'detail' => array('name' => 'detail', 'type' => 'string', 'require' => true, 'desc' => '详细'),
 				'name' => array('name' => 'name', 'type' => 'string', 'require' => true, 'desc' => '收件人姓名'),
 				'tel' => array('name' => 'tel', 'type' => 'string', 'require' => true, 'desc' => '收件人电话'),
-				'postcodes' => array('name' => 'postcodes', 'type' => 'string', 'require' => true, 'desc' => '邮编'),
+				'postcode' => array('name' => 'postcode', 'type' => 'string', 'require' => true, 'desc' => '邮编'),
             ),
 			'editAddress' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'require' => true, 'desc' => '用户id'),
@@ -38,7 +38,7 @@ class Api_Address extends PhalApi_Api {
                 'detail' => array('name' => 'detail', 'type' => 'string', 'require' => true, 'desc' => '详细'),
 				'name' => array('name' => 'name', 'type' => 'string', 'require' => true, 'desc' => '收件人姓名'),
 				'tel' => array('name' => 'tel', 'type' => 'string', 'require' => true, 'desc' => '收件人电话'),
-				'postcodes' => array('name' => 'postcodes', 'type' => 'string', 'require' => true, 'desc' => '邮编'),
+				'postcode' => array('name' => 'postcode', 'type' => 'string', 'require' => true, 'desc' => '邮编'),
             ),
 			'getAddress' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'require' => true, 'desc' => '用户id'),
@@ -111,23 +111,27 @@ class Api_Address extends PhalApi_Api {
 	 * @return int addr_id 新生成的收货地址编号
      * @return string msg 提示信息
      */
-    public function newAddress() {
+    public function addAddress() {
+        $ret['code'] = 0;
+
         $addr['address'] = $this->province.$this->city.$this->area.$this->detail;
         $addr['province'] = $this->province;
         $addr['city'] = $this->city;
         $addr['area'] = $this->area;
         $addr['detail'] = $this->detail;
-        $addr['name'] = $this->name;
-        $addr['tel'] = $this->tel;
-        $addr['postcodes'] = $this->postcodes;
+        $addr['consignee'] = $this->name;
+        $addr['phone'] = $this->tel;
+        $addr['postcode'] = $this->postcode;
         $addr['create_date'] = date('Y-m-d H:i:s');
-        $addr['address'] = $this->address;
-        $addr['member_id'] = $this->userId;
+        $addr['modify_date'] = date('Y-m-d H:i:s');
+        $addr['user_id'] = $this->userId;
 
         $model = new Model_Address();
         $addrId = $model->insert($addr);
 
         $ret['addr_id'] = $addrId;
+
+        $ret['msg'] = '';
         return $ret;
     }
 	
@@ -146,11 +150,11 @@ class Api_Address extends PhalApi_Api {
         $addr['city'] = $this->city;
         $addr['area'] = $this->area;
         $addr['detail'] = $this->detail;
-        $addr['name'] = $this->name;
-        $addr['tel'] = $this->tel;
-        $addr['postcodes'] = $this->postcodes;
-        $addr['create_date'] = date('Y-m-d H:i:s');
-        $addr['address'] = $this->address;
+        $addr['consignee'] = $this->name;
+        $addr['phone'] = $this->tel;
+        $addr['postcode'] = $this->postcode;
+        $addr['modify_date'] = date('Y-m-d H:i:s');
+        $addr['user_id'] = $this->userId;
 
         $model = new Model_Address();
         $ret['addr_id'] = $model->update($this->addrId, $addr);

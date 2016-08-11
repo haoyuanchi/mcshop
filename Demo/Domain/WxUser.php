@@ -14,6 +14,154 @@ class Domain_WxUser
     protected $snsapi_base_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?';
     protected $openid_url = 'https://api.weixin.qq.com/sns/oauth2/access_token?';
 
+    private $queryMemberBaseUrl = 'http://113.108.202.195:8081/epoService/vipJson/proc.action?do=customer_get';
+
+    public function getWxUserInfo($openId, $brandId, $accessToken)
+    {
+        $model = new Model_WxUser();
+        $isFirstWxChat = $model->isFirstWxChat($openId, $brandId);
+        if ($isFirstWxChat) {
+            $wxUserInfo = $this->_getWxUserInfoByToken($openId, $accessToken);
+            $wxUser['create_date'] = date('Y-m-d H:i:s');
+            $wxUser['modify_date'] = date('Y-m-d H:i:s');
+            $wxUser['openid'] = $wxUserInfo->openid;
+            $wxUser['nickname'] = $wxUserInfo->nickname;
+            $wxUser['sex'] = $wxUserInfo->sex;
+            $wxUser['city'] = $wxUserInfo->city;
+            $wxUser['province'] = $wxUserInfo->province;
+            $wxUser['country'] = $wxUserInfo->country;
+            $wxUser['headimgurl'] = $wxUserInfo->headimgurl;
+            $wxUser['privilege'] = serialize($wxUserInfo->privilege);
+            $wxUser['brand_id'] = $brandId;
+
+            // 插入数据库
+            $wxUserId = $model->insert($wxUser);
+            if ($wxUserId <= 0) {
+                //异常1：用户创建失败
+                DI()->logger->error('failed to create weixin user', array('openId' => $openId));
+                throw new PhalApi_Exception_InternalServerError(T('failed to create weixin user'));
+                return;
+            }
+        }
+        $wxUserInfo = $model->getByOpenIdWithCache($openId, $brandId);
+        return $wxUserInfo;
+    }
+
+    // TODO
+    public function bind($userId, $brandId, $name, $tel){
+        // 先从本地数据库查
+        $model = new Model_WxUser();
+        $userInfo = $model->getByTelName($brandId, $name, $tel);
+
+        if(empty($userInfo)){
+            // 调用接口获取用户的信息
+            $queryMemberUrl = "$this->queryMemberBaseUrl&openId=&brand=$brandId&phone=$tel&name=$name";
+            $curl = new PhalApi_CUrl(2);
+            $memberInfoERP = json_decode($curl->get($queryMemberUrl));
+
+            if($memberInfoERP->success == 0){
+                DI()->logger->error('用户登录信息输入有误', array('userId' => $userId, 'brandId'=>$brandId, 'name'=>$name, 'tel'=>$tel));
+                return false;
+            }
+
+            $memberDataERP = $memberInfoERP->data;
+
+            // 把用户信息存入到本地数据库
+            $memberInfo['birth'] = $memberDataERP->birthdate;
+            $memberInfo['gender'] = $memberDataERP->gender;
+            $memberInfo['mobile'] = $memberDataERP->phone;
+            $memberInfo['name'] = $memberDataERP->name;
+            $memberInfo['vip_no'] = $memberDataERP->vipno;
+            $memberInfo['vip_cardno'] = $memberDataERP->vipcardno;
+            $memberInfo['integral'] = $memberDataERP->integral;
+            $memberInfo['clear_integral'] = $memberDataERP->clearfun;
+            $memberInfo['valid_integral'] = $memberDataERP->fun;
+            $memberInfo['store_code'] = $memberDataERP->storecode;
+            $memberInfo['store_name'] = $memberDataERP->storename;
+            $memberInfo['province'] = $memberDataERP->areaprovname;
+            $memberInfo['city'] = $memberDataERP->areacityname;
+            $memberInfo['area'] = $memberDataERP->areadistname;
+            $memberInfo['detail'] = $memberDataERP->areaothers;
+            $memberInfo['address'] = $memberDataERP->areaprovname . $memberDataERP->areacityname. $memberDataERP->areadistname . $memberDataERP->areaothers;
+
+            $model->update($userId, $memberInfo);
+        }
+
+        $userInfo = $model->getByUserId($userId);
+
+        return $userInfo;
+    }
+
+    /**
+     * 获取用户的全部信息， 包括微信信息、会员信息、购物车信息等
+     */
+    public function getUserInfo($userId, $brandId){
+        // 根据userid 获取 openid
+        $modelUser = new Model_WxUser();
+        $userInfo = $modelUser->getByUserId($userId);
+
+        // 获取用户的购物车数量
+        $modelCartTotal = new Model_ViewCartTotal();
+        $cart_info = $modelCartTotal->getByUserId($userId, $brandId);
+        $userInfo['cart_quantity'] = $cart_info['total_quantity'];
+
+        return $userInfo;
+    }
+
+    /* 微信号是否被注册 */
+    public function isRegisterByOpenId($openId, $brandId){
+        // 调用接口获取用户的信息
+        $queryMemberUrl = "$this->queryMemberBaseUrl&openId=$openId&brand=$brandId&phone=&name=";
+        $curl = new PhalApi_CUrl(2);
+        $memberInfoERP = json_decode($curl->get($queryMemberUrl));
+
+        if($memberInfoERP->success == 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    /* 检测是否绑定 */
+    public function checkIsBind($userId){
+        // 判断是否绑定，没有绑定强制绑定
+        $useModel = new model_WxUser();
+        $isFirstBind = $useModel->isFirstBind($userId);
+
+        // 跳转到绑定页面
+        if($isFirstBind){
+            $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/member/member.html";
+            header("Location:{$url}");
+            exit;
+        }
+    }
+
+    /* 用户信息是否完善 */
+    public function isComplete($userInfo){
+        if(empty($userInfo['name']) || empty($userInfo['mobile']) || empty($userInfo['address']) ||
+            empty($userInfo['birth']) || empty($userInfo['occupation']) || empty($userInfo['hobby']) || empty($userInfo['profession']))
+        {
+            return false;
+
+        }
+        return true;
+    }
+
+    /* 注册用户信息 */
+    public function register($userId, $memberInfo){
+        $modelUser = new Model_WxUser();
+        $memberInfo['bind_date'] = date('Y-m-d H:i:s');
+        return $modelUser->update($userId, $memberInfo);
+    }
+
+    /* 修改用户信息 */
+    public function update($userId, $memberInfo){
+        $modelUser = new Model_WxUser();
+        $memberInfo['modify_date'] = date('Y-m-d H:i:s');
+        return $modelUser->update($userId, $memberInfo);
+    }
+
+
     protected function getOpenidWithCode($code){
         $curl = new PhalApi_CUrl(2);
         $url = $this->__createOauthUrlForOpenid($code);
@@ -28,34 +176,6 @@ class Domain_WxUser
         $url = $this->__createOauthUrlForCode($baseUrl);
         Header("Location: $url");
         exit();
-    }
-
-    public function getWxUserInfo($openId, $accessToken)
-    {
-        $model = new Model_WxUser();
-        $isFirstWxChat = $model->isFirstWxChat($openId);
-        if ($isFirstWxChat) {
-            $wxUserInfo = $this->_getWxUserInfoByToken($openId, $accessToken);
-            $wxUser['openid'] = $wxUserInfo->openid;
-            $wxUser['nickname'] = $wxUserInfo->nickname;
-            $wxUser['sex'] = $wxUserInfo->sex;
-            $wxUser['city'] = $wxUserInfo->city;
-            $wxUser['country'] = $wxUserInfo->country;
-            $wxUser['headimgurl'] = $wxUserInfo->headimgurl;
-            $wxUser['privilege'] = serialize($wxUserInfo->privilege);
-            //$wxUser['unionid'] = $wxUserInfo->unionid;
-
-            // 插入数据库
-            $wxUserId = $model->insert($wxUser);
-            if ($wxUserId <= 0) {
-                //异常1：用户创建失败
-                DI()->logger->error('failed to create weixin user', array('openId' => $openId));
-                throw new PhalApi_Exception_InternalServerError(T('failed to create weixin user'));
-                return;
-            }
-        }
-        $wxUserInfo = $model->getByOpenIdWithCache($openId);
-        return $wxUserInfo;
     }
 
     private function _getWxUserInfoByToken($openId, $accessToken){
@@ -116,6 +236,48 @@ class Domain_WxUser
 
         $buff = trim($buff, "&");
         return $buff;
+    }
+
+
+    private function __formatBaseInfo($userInfo, $memberInfo){
+
+        $ret['id'] = $userInfo['id'];
+        $ret['wx_open_id'] = $userInfo['openid'];
+        $ret['wx_nickname'] = $userInfo['nickname'];
+        $ret['wx_head_img_url'] = $userInfo['headimgurl'];
+        $ret['wx_gender'] = ($userInfo['sex'] == 1 ) ? '男' : (($userInfo['gender'] == 2 ) ? '女' : '未知');
+
+
+        $ret['name'] = $memberInfo['name'];
+        $ret['mobile'] = $memberInfo['mobile'];
+        $ret['birth'] = $memberInfo['birth'];
+        $ret['address'] = $memberInfo['address'];
+        $ret['gender'] = ($memberInfo['gender'] == 0 ) ? '男' : '女';
+        $ret['vip_no'] = $memberInfo['vip_no'];
+        $ret['vip_cardno'] = $memberInfo['vip_cardno'];
+
+        $ret['integral'] = $memberInfo['integral'];
+        $ret['clear_integral'] = $memberInfo['clear_integral'];
+        $ret['valid_integral'] = $memberInfo['valid_integral'];
+
+        $ret['occupation'] = $memberInfo['occupation'];
+        $ret['profession'] = $memberInfo['profession'];
+        $ret['hobby'] = $memberInfo['hobby'];
+
+        $ret['province'] = $memberInfo['province'];
+        $ret['city'] = $memberInfo['city'];
+        $ret['area'] = $memberInfo['area'];
+        $ret['detail'] = $memberInfo['detail'];
+        $ret['address'] = $memberInfo['address'];
+
+        // 获取用户的等级信息
+        $ret['member_rank_id'] = $memberInfo['member_rank_id'];
+        $ret['member_rank_code'] = $memberInfo['member_rank_code'];
+        $ret['member_rank_name'] = $memberInfo['member_rank_name'];
+        // TODO 折扣率
+        // $ret['member_rank_scale'] = $memberInfo['scale'];
+
+        return $ret;
     }
 
 

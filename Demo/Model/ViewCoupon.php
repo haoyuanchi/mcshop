@@ -16,14 +16,14 @@ class Model_ViewCoupon extends PhalApi_Model_NotORM {
             // 全部
             $rows = $this->getORM()
                 ->select('*')
-                ->where('member_id', $userId)
+                ->where('user_id', $userId)
                 ->where('brand_id', $brandId)
                 ->fetchAll();
         } elseif($couponType == 1){
             // 未使用
             $rows = $this->getORM()
                 ->select('*')
-                ->where('member_id', $userId)
+                ->where('user_id', $userId)
                 ->where('brand_id', $brandId)
                 ->where('is_used', 0)
                 ->fetchAll();
@@ -31,7 +31,7 @@ class Model_ViewCoupon extends PhalApi_Model_NotORM {
             // 已使用
             $rows = $this->getORM()
                 ->select('*')
-                ->where('member_id', $userId)
+                ->where('user_id', $userId)
                 ->where('brand_id', $brandId)
                 ->where('is_used', 1)
                 ->fetchAll();
@@ -39,7 +39,7 @@ class Model_ViewCoupon extends PhalApi_Model_NotORM {
             // 已过期
             $rows = $this->getORM()
                 ->select('*')
-                ->where('member_id', $userId)
+                ->where('user_id', $userId)
                 ->where('brand_id', $brandId)
                 ->where('is_expired', 1)
                 ->fetchAll();

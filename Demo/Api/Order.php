@@ -10,20 +10,24 @@ class Api_Order extends PhalApi_Api {
         return array(
             'getList' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
+                'brandId' => array('name' => 'brand_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '品牌ID'),
                 'payStatus' => array('name' => 'pay_status', 'type' => 'int', 'require' => false, 'desc' => '支付状态，0：未支付，1：已支付'),
                 'deliverStatus' => array('name' => 'deliver_status', 'type' => 'int', 'require' => false, 'desc' => '发货状态，0：未发货，1：正在发货，2：已签收'),
                 'refundStatus' => array('name' => 'refund_status', 'type' => 'int', 'require' => false, 'desc' => '退款状态，0：未退款，1：正在退款，2：退款成功'),
             ),
             'getInfo' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
+                'brandId' => array('name' => 'brand_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '品牌ID'),
                 'orderId' => array('name' => 'order_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '订单ID'),
             ),
             'genOrderByCart' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
+                'brandId' => array('name' => 'brand_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '品牌ID'),
                 'cartIds' => array('name' => 'cart_ids', 'type' => 'array', 'format' => 'explode', 'require' => true, 'desc' => '购物篮ID，多个以逗号分割'),
             ),
             'commitOrder' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
+                'brandId' => array('name' => 'brand_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '品牌ID'),
                 'cartIds' => array('name' => 'cart_ids', 'type' => 'array', 'format' => 'explode', 'require' => true, 'desc' => '购物篮ID，多个以逗号分割'),
                 'totalPrice' => array('name' => 'total_price', 'type' => 'string', 'require' => true, 'desc' => '总价格'),
                 'totalQuantity' => array('name' => 'total_quantity', 'type' => 'int', 'require' => true, 'desc' => '总数量'),
@@ -51,16 +55,16 @@ class Api_Order extends PhalApi_Api {
         $modelOrder = new Model_Order();
 
         if(!empty($this->payStatus)){
-            $orderList = $modelOrder->getPayListByUserId($this->userId, $this->payStatus);
+            $orderList = $modelOrder->getPayListByUserId($this->userId, $this->brandId, $this->payStatus);
         }
         else if(!empty($this->deliverStatus)){
-            $orderList = $modelOrder->getDeliverListByUserId($this->userId, $this->deliverStatus);
+            $orderList = $modelOrder->getDeliverListByUserId($this->userId, $this->brandId, $this->deliverStatus);
         }
         else if(!empty($this->refundStatus)){
-            $orderList = $modelOrder->getRefundListByUserId($this->userId, $this->refundStatus);
+            $orderList = $modelOrder->getRefundListByUserId($this->userId, $this->brandId, $this->refundStatus);
         }
         else {
-            $orderList = $modelOrder->getAllListByUserId($this->userId);
+            $orderList = $modelOrder->getAllListByUserId($this->userId, $this->brandId);
         }
 
         $modelOrderItem = new Model_OrderItem();
@@ -151,12 +155,12 @@ class Api_Order extends PhalApi_Api {
     public function genOrderByCart() {
         // 根据cartid 获取 cart 信息
         $modelTotal = new Model_ViewCartTotal();
-        $total = $modelTotal->getByUserId($this->userId);
+        $total = $modelTotal->getByUserId($this->userId, $this->brandId);
 
         $ret['total_quantity'] = $total['total_quantity'];
         $ret['total_price_origin'] = $total['total_price_origin'];
         $ret['total_price'] = $total['total_price'];
-        $ret['tol_save'] = $ret['total_price_origin'] - $ret['total_price'];
+        $ret['total_save'] = $ret['total_price_origin'] - $ret['total_price'];
 
         $modelCart = new Model_ViewCartDetail();
 
@@ -172,8 +176,8 @@ class Api_Order extends PhalApi_Api {
         $ret['addr_list'] = $addrList;
 
         // 获取优惠券列表
-        $modelCoupon = new Model_ViewCoupon();
-        $coupon_list = $modelCoupon->getListByUserId($this->userId, 0, 0);
+        $modelCoupon = new Model_Coupon();
+        $coupon_list = $modelCoupon->getListByUserId($this->userId, $this->brandId, 0);
         $ret['coupon_list'] = $coupon_list;
 
         return $ret;
@@ -190,13 +194,18 @@ class Api_Order extends PhalApi_Api {
     public function commitOrder() {
         $ret['code'] = 0;
 
+        // 检测是否绑定
+        $domain = new Domain_WxUser();
+        $domain->checkIsBind($this->userId);
+
         // 获取收货信息
         $modelAddr = new Model_Address();
         $addr = $modelAddr->get($this->addressId);
-        $order['address'] = $addr['address'];
-        $order['zip_code'] = $addr['zip_code'];
+        $order['province'] = $addr['province'];
+        $order['city'] = $addr['city'];
         $order['area'] = $addr['area'];
-        $order['area_name'] = $addr['area_name'];
+        $order['address'] = $addr['address'];
+        $order['postcode'] = $addr['postcode'];
         $order['consignee'] = $addr['consignee'];
         $order['phone'] = $addr['phone'];
 
@@ -222,12 +231,13 @@ class Api_Order extends PhalApi_Api {
             $couponInfoNew['used_date'] = date('Y-m-d H:i:s');
             $modelCoupon->update($this->couponId, $couponInfoNew);*/
 
-            $modelCoupon->updateSetUsed($this->couponId);
+            $modelCoupon->updateSetUsed($this->couponId, $this->brandId);
         }
 
         // 如果是购物车，清空用户的购物车
         // 1. 生成订单
-        $order['member_id'] = $this->userId;
+        $order['user_id'] = $this->userId;
+        $order['brand_id'] = $this->brandId;
         $order['total_price'] = floatval($this->totalPrice);
         $order['total_quantity'] = $this->totalQuantity;
         $order['total_point'] = floatval($this->totalPoint);
@@ -258,6 +268,12 @@ class Api_Order extends PhalApi_Api {
             $orderItem['quantity'] = $cartDetail['quantity'];
             $orderItem['sn'] = $cartDetail['barcode'];
             $orderItem['thumbnail'] = $cartDetail['image'];
+            $orderItem['size_code'] = $cartDetail['size_code'];
+            $orderItem['size_name'] = $cartDetail['size_name'];
+            $orderItem['color_name'] = $cartDetail['color_name'];
+            $orderItem['color_code'] = $cartDetail['color_code'];
+            $orderItem['create_date'] = date('Y-m-d H:i:s');
+            $orderItem['modify_date'] = date('Y-m-d H:i:s');
 
             $orderItemId = $modelOrderItem->insert($orderItem);
 
@@ -268,12 +284,12 @@ class Api_Order extends PhalApi_Api {
         }
 
         // 修改用户积分
-        $modelUser = new Model_User();
+        /*$modelUser = new Model_User();
         $info = $modelUser->getByUserId($this->userId);
         $userInfoNew['integral'] = $info['integral'] + $this->totalPoint;
-        $modelUser->update($this->userId, $userInfoNew);
+        $modelUser->update($this->userId, $userInfoNew);*/
 
-        $ret['msg'] = 0;
+        $ret['msg'] = '';
 
         return $ret;
     }

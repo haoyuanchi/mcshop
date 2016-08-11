@@ -18,6 +18,7 @@ class Api_Pay extends PhalApi_Api {
 	public function getRules() {
         return array(
             'pay' => array(
+                'brandId' => array('name' => 'brand_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '品牌ID'),
                 'openid' => array('name' => 'openid', 'type' =>'string', 'require' => true, 'desc' => 'openid'),
                 'type' 	=> array('name' => 'type', 'type' =>'enum', 'require' => true, 'range' => array('aliwap', 'wechat'), 'desc' => '引擎类型，比如aliwap'),
                 'orderNo' => array('name' => 'order_no', 'type' =>'string', 'require' => true, 'desc' => '订单编号'),

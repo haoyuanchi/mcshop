@@ -7,13 +7,13 @@
  */
 class Model_Address extends PhalApi_Model_NotORM {
     protected function getTableName($id) {
-        return 'member_address';
+        return 'user_address';
     }
 
     public function getListByUserId($userId){
         $rows = $this->getORM()
             ->select('*')
-            ->where('member_id', $userId)
+            ->where('user_id', $userId)
             ->order('create_date')
             ->fetchAll();
         return $rows;

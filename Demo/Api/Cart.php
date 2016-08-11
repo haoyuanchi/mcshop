@@ -12,18 +12,22 @@ class Api_Cart extends PhalApi_Api {
         return array(
             'getList' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'require' => true, 'desc' => '用户id'),
+                'brandId' => array('name' => 'brand_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '品牌ID'),
             ),
             'add' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'require' => true, 'desc' => '用户id'),
+                'brandId' => array('name' => 'brand_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '品牌ID'),
                 'barcodeId' => array('name' => 'barcode_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '商品条形码ID--spec_id(barcode_id)'),
                 'quantity' => array('name' => 'quantity', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '购买数量'),
             ),
             'del' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'require' => true, 'desc' => '用户id'),
+                'brandId' => array('name' => 'brand_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '品牌ID'),
                 'cartId' => array('name' => 'cart_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '购物车ID'),
             ),
             'update' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'require' => true, 'desc' => '用户id'),
+                'brandId' => array('name' => 'brand_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '品牌ID'),
                 'cartId' => array('name' => 'cart_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '购物车ID'),
                 'barcodeId' => array('name' => 'barcode_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '商品条形码ID--spec_id(barcode_id)'),
                 'quantity' => array('name' => 'quantity', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '购买数量'),
@@ -67,15 +71,15 @@ class Api_Cart extends PhalApi_Api {
 
         // 获取购物车的商品总数和价格总数
         $modelTotal = new Model_ViewCartTotal();
-        $total = $modelTotal->getByUserId($this->userId);
+        $total = $modelTotal->getByUserId($this->userId, $this->brandId);
 
         $ret['total_quantity'] = $total['total_quantity'];
         $ret['total_price_origin'] = $total['total_price_origin'];
         $ret['total_price'] = $total['total_price'];
-        $ret['tol_save'] = $ret['total_price_origin'] - $ret['total_price'];
+        $ret['total_save'] = $ret['total_price_origin'] - $ret['total_price'];
 
         $modelCart = new Model_ViewCartDetail();
-        $cartList = $modelCart->getListByUserId($this->userId);
+        $cartList = $modelCart->getListByUserId($this->userId, $this->brandId);
 
         if(empty($cartList)){
             $ret['cart_list'] = null;
@@ -161,7 +165,8 @@ class Api_Cart extends PhalApi_Api {
     public function add() {
         $ret['code'] = 0;
 
-        $cart['member_id'] = $this->userId;
+        $cart['user_id'] = $this->userId;
+        $cart['brand_id'] = $this->brandId;
         $cart['barcode_id'] = $this->barcodeId;
         $cart['quantity'] = $this->quantity;
         $cart['create_date'] = date('Y-m-d H:i:s');
@@ -169,7 +174,7 @@ class Api_Cart extends PhalApi_Api {
 
         $model = new Model_Cart();
 
-        $cartId = $model->insert_update($this->userId, $this->barcodeId, $cart);
+        $cartId = $model->insert_update($this->userId, $this->brandId, $this->barcodeId, $cart);
 
         if($cartId > 0){
             $ret['type'] = 'success';
@@ -182,7 +187,7 @@ class Api_Cart extends PhalApi_Api {
 
         // 获取购物车的商品总数和价格总数
         $modelTotal = new Model_ViewCartTotal();
-        $total = $modelTotal->getByUserId($this->userId);
+        $total = $modelTotal->getByUserId($this->userId, $this->brandId);
 
         $ret['cart_id'] = $cartId;
 
@@ -207,6 +212,7 @@ class Api_Cart extends PhalApi_Api {
         $cartId = $model->delete($this->cartId);
         if($cartId <= 0){
             $ret['code'] = 1;
+            $ret['msg'] = '删除失败';
         }
 
         $ret['msg'] = '';

@@ -12,13 +12,16 @@ class Api_Collection extends PhalApi_Api {
         return array(
             'getList' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'require' => true, 'desc' => '用户id'),
+                'brandId' => array('name' => 'brand_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '品牌ID'),
             ),
             'add' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'require' => true, 'desc' => '用户id'),
+                'brandId' => array('name' => 'brand_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '品牌ID'),
                 'goodId' => array('name' => 'good_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '商品id'),
             ),
             'del' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'require' => true, 'desc' => '用户id'),
+                'brandId' => array('name' => 'brand_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '品牌ID'),
                 'goodId' => array('name' => 'good_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '商品id'),
             ),
         );
@@ -41,7 +44,7 @@ class Api_Collection extends PhalApi_Api {
         $ret['code'] = 0;
 
         $model = new Model_Collection();
-        $collectionList = $model->getListByUserId($this->userId);
+        $collectionList = $model->getListByUserId($this->userId, $this->brandId);
 
         $modelGood = new Model_Good();
         foreach($collectionList as $key=>$collection){
@@ -74,12 +77,13 @@ class Api_Collection extends PhalApi_Api {
         $ret['code'] = 0;
 
         $collection['good_id'] = $this->goodId;
-        $collection['member_id'] = $this->userId;
+        $collection['user_id'] = $this->userId;
+        $collection['brand_id'] = $this->brandId;
         $collection['create_date'] = date('Y-m-d H:i:s');
 
         $model = new Model_Collection();
 
-        if($model->isCollected($this->userId, $this->goodId)){
+        if($model->isCollected($this->userId, $this->brandId, $this->goodId)){
             $ret['code'] = 1;
             $ret['msg'] = '该商品已收藏';
             return $ret;
@@ -99,8 +103,16 @@ class Api_Collection extends PhalApi_Api {
     public function del() {
         $ret['code'] = 0;
         $model = new Model_Collection();
-        $ret['is_success'] =  $model->deleteByGoodId($this->userId, $this->goodId);
-        $ret['msg'] = 'success';
+
+        if(!$model->isCollected($this->userId, $this->brandId, $this->goodId)){
+            $ret['code'] = 1;
+            $ret['msg'] = '该商品未被收藏';
+            return $ret;
+        }
+
+        $model->deleteByGoodId($this->userId, $this->brandId, $this->goodId);
+
+        $ret['msg'] = '';
         return $ret;
     }
 

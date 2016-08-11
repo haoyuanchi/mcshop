@@ -18,8 +18,8 @@ class Api_Notify extends PhalApi_Api {
 	public function getRules() {
         return array(
             'index' => array(
-                'type' 	=> array('name' => 'type', 'type' =>'string', 'require' => true, 'desc' => '引擎类型，比如alipay'),
-                'method'    => array('name' => 'method', 'type' =>'string', 'desc' => '回调类型，notify异步/return同步'),
+                'type' => array('name' => 'type', 'type' =>'string', 'require' => true, 'desc' => '引擎类型，比如alipay'),
+                'method' => array('name' => 'method', 'type' =>'string', 'desc' => '回调类型，notify异步/return同步'),
             ),
         );
 	}

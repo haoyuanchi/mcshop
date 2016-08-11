@@ -8,7 +8,7 @@
 
 class Model_ModifyApplyLog extends PhalApi_Model_NotORM {
     protected function getTableName($id) {
-        return 'member_modify_apply_log';
+        return 'user_modify_apply_log';
     }
 
 

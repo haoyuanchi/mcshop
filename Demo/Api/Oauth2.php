@@ -45,29 +45,17 @@ class Api_Oauth2 extends PhalApi_Api {
         $userInfo = json_decode($curl->get($url));*/
 
         $domain = new Domain_WxUser();
-        $wxUserInfo = $domain->getWxUserInfo($openId, $accessToken);
-
-        // 判断是否绑定，没有绑定强制绑定
-        $useModel = new model_User();
-        $isFirstBind = $useModel->isFirstBind($openId);
+        $wxUserInfo = $domain->getWxUserInfo($openId, $this->brandId, $accessToken);
 
         setcookie('brand_id',$this->brandId, time()+36000,'/'); //设置cookie 600分钟有效
-
-        // 跳转到绑定页面
-        if($isFirstBind){
-            setcookie('openId', $openId, time()+86400*360, '/'); //设置cookie长期有效
-            $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/member/member.html";
-            header("Location:{$url}");
-            exit;
-        }
-
-        // 已经绑定则返回用户信息并跳转到首页
-        $userInfo = $useModel->getByOpenId($openId);
+        $userInfo = $domain->getUserInfo($wxUserInfo['id'], $this->brandId);
         setcookie('user_info', json_encode($userInfo), time()+36000, '/');
 
-        //判断用户信息是否完善，如果不完善则跳转到用户信息完善页面
-        $domainUser = new Domain_User();
-        if($domainUser->isComplete($userInfo) == false){
+        // 检测是否绑定
+        $domain->checkIsBind($this->userId);
+
+        // 判断用户信息是否完善，如果不完善则跳转到用户信息完善页面
+        if($domain->isComplete($userInfo) == false){
             setcookie('user_type', 2, time() + 360, '/');
             $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/usercenter/wx_infomodify.html";
             header("Location:{$url}");
@@ -96,46 +84,16 @@ class Api_Oauth2 extends PhalApi_Api {
         $openId = $rs->openid;
         $accessToken = $rs->access_token;
 
-        // 根据用户openid获取用户信息
-        /*$url = "http://113.108.202.195:8081/epoService/vipJson/proc.action?do=customer_get&openId=$openId&brand=1";
-        $userInfo = json_decode($curl->get($url));*/
-
         $domain = new Domain_WxUser();
-        $wxUserInfo = $domain->getWxUserInfo($openId, $accessToken);
-
-        // 判断是否绑定，没有绑定强制绑定
-        $useModel = new model_User();
-        $isFirstBind = $useModel->isFirstBind($openId);
+        $wxUserInfo = $domain->getWxUserInfo($openId, $this->brandId, $accessToken);
 
         //setcookie('brand_id',$this->brandId, '360', '/'); //设置cookie 6分钟有效
         setcookie('brand_id',$this->brandId, time()+36000,'/'); //设置cookie 600分钟有效
 
-        // 跳转到绑定页面
-        if($isFirstBind){
-            //DI()->logger->info('用户第一次绑定', $isFirstBind);
-
-            setcookie('openId', $openId, time()+86400*360, '/'); //设置cookie长期有效
-            $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/member/member.html";
-            header("Location:{$url}");
-            exit;
-        }
 
         // 已经绑定则返回用户信息并跳转到首页
-        $userInfo = $useModel->getByOpenId($openId);
+        $userInfo = $domain->getUserInfo($wxUserInfo['id'], $this->brandId);
         setcookie('user_info', json_encode($userInfo), time()+36000, '/');
-
-        //判断用户信息是否完善，如果不完善则跳转到用户信息完善页面
-        $domainUser = new Domain_User();
-        if($domainUser->isComplete($userInfo) == false){
-            //DI()->logger->info('用户资料不完善', $userInfo);
-
-            setcookie('user_type', 2, time() + 360, '/');
-            $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/usercenter/wx_infomodify.html";
-            header("Location:{$url}");
-            exit;
-        }
-
-        //DI()->logger->info('用户信息完善，直接跳转', $userInfo);
 
         // 跳转到首页
         $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/mobileIndex.html";

@@ -15,19 +15,7 @@ class Api_Redeem extends PhalApi_Api {
             'getTheRules' => array(
 				'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id，不同品牌兑换规则不同'),
             ),
-            'redeemMO' => array(
-                'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
-                'openId' => array('name' => 'openid', 'type' => 'string', 'require' => true, 'desc' => '用户openid'),
-				'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
-                'redeemIntegral' => array('name' => 'redeem_integral', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '兑换积分'),
-                'couponValue' => array('name' => 'coupon_value', 'type' => 'float', 'require' => true, 'desc' => '兑换的面值'),
-            ),
-            'getValue' => array(
-                'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
-				'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
-                'redeemIntegral' => array('name' => 'redeem_integral', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '兑换积分'),
-            ),
-            'redeemEd' => array(
+            'redeem' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户id'),
                 'openId' => array('name' => 'openid', 'type' => 'string', 'require' => true, 'desc' => '用户openid'),
 				'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
@@ -56,12 +44,12 @@ class Api_Redeem extends PhalApi_Api {
     }
 
     /**
-     * MO品牌的积分兑换
-     * @desc MO品牌的积分兑换
+     * 用户的积分兑换
+     * @desc 用户积分兑换
 	 * @return int code 操作码
 	 * @return string msg 提示信息
      */
-    public function redeemMO() {
+    public function redeem() {
         $ret['code'] = 0;
 
         $openId = $this->openId;
@@ -79,8 +67,14 @@ class Api_Redeem extends PhalApi_Api {
         $redeemIntegral = $this->redeemIntegral;
         $value = $this->couponValue;
 
-        $modelUser = new Model_User();
-        $userInfo = $modelUser->getByUserId($this->userId);
+        $domain = new Domain_WxUser();
+        $userInfo = $domain->getUserInfo($this->userId, $this->brandId);
+
+        if(empty($userInfo)){
+            $ret['code'] = 5;
+            $ret['msg'] = '用户未绑定';
+            return $ret;
+        }
 
         if($userInfo['integral'] < $redeemIntegral){
             $ret['code'] = 2;
@@ -94,186 +88,39 @@ class Api_Redeem extends PhalApi_Api {
 
         if($urlRet->success == 1){
             $urlData =  $urlRet->data;
-            // 增加500优惠券
+
             $modelCoupon = new Model_Coupon();
             $coupon['create_date'] = date('Y-m-d H:i:s');
             $coupon['modify_date'] = date('Y-m-d H:i:s');
             $coupon['expiry_date'] = date('Y-m-d H:i:s', time() + 60 * 60 * 24 * 60);
 
             $coupon['code'] = $urlData->couponno;
-            $coupon['member_id'] = $this->userId;
-            $coupon['coupon_id'] = 1;
-            $coupon['coupon_price'] = $urlData->value;
-            $coupon['project_code'] = $urlData->projectcode;
-
-            $couponId = $modelCoupon->insert($coupon);
-
-            //$userInfoNew['integral'] = $userInfo['integral'] - $this->redeemNumber * 10000;
-            $userInfoNew['integral'] = $urlData->integral;
-            $userId = $modelUser->update($this->userId, $userInfoNew);
-
-            $ret['couponId'] = $couponId;
-        } else {
-            $ret['code'] = 3;
-            $ret['msg'] = $urlRet->errMsg;
-
-        }
-
-        $ret['msg'] = '';
-
-        return $ret;
-    }
-	
-    /**
-     * Ed品牌输入兑换额获取可兑换面值
-     * @desc 获取应品牌的积分及兑换规则
-     * @return int coupon   可兑换面值
-	 * @return string msg 提示信息
-     */
-    public function getValue() {
-        $ret['code'] = 0;
-
-        // TODO 兑换面值的规则
-        if($this->redeemIntegral >= 10000 && $this->redeemIntegral <= 29999){
-            $coupon_value = intval(($this->redeemIntegral * 0.05) / 100) * 100;
-        }
-        else if($this->redeemIntegral >= 30000 && $this->redeemIntegral <= 49999){
-            $coupon_value = intval(($this->redeemIntegral * 0.055) / 100) * 100;
-        }
-        else if($this->redeemIntegral >= 50000){
-            $coupon_value = intval(($this->redeemIntegral * 0.06) / 100) * 100;
-        }
-        else{
-            $coupon_value = 0;
-        }
-
-        $ret['coupon_value'] = $coupon_value;
-        $ret['msg'] = '';
-
-        return $ret;
-    }
-
-    /**
-     * Ed品牌的积分兑换
-     * @desc Ed品牌的积分兑换
-	 * @return int code 操作码
-	 * @return string msg 提示信息
-     */
-    public function redeemEd() {
-        $ret['code'] = 0;
-
-        $openId = $this->openId;
-
-        if($this->brandId == 18){
-            $brandId = 1;
-        }else if($this->brandId == 19){
-            $brandId = 23;
-        }else {
-            $ret['code'] = 1;
-            $ret['msg'] = '请输入正确的品牌编号';
-            return $ret;
-        }
-
-        $redeemIntegral = $this->redeemIntegral;
-        $value = $this->couponValue;
-
-        $modelUser = new Model_User();
-        $userInfo = $modelUser->getByUserId($this->userId);
-
-        if($userInfo['integral'] < $redeemIntegral){
-            $ret['code'] = 2;
-            $ret['msg'] = '积分不足，请重新输入兑换数量';
-            return $ret;
-        }
-
-        $url = "$this->redeemBaseUrl&openId=$openId&brand=$brandId&integral=$redeemIntegral&value=$value";
-        $curl = new PhalApi_CUrl(2);
-        $urlRet = json_decode($curl->get($url));
-
-        if($urlRet->success == 1){
-            $urlData =  $urlRet->data;
-
-            $modelCoupon = new Model_Coupon();
-            $coupon['create_date'] = $urlData->startdate;
-            $coupon['modify_date'] = date('Y-m-d H:i:s');
-            $coupon['expiry_date'] = $urlData->enddate;
-
+            $coupon['user_id'] = $this->userId;
             $coupon['brand_id'] = $this->brandId;
-
-            $coupon['code'] = $urlData->couponno;
-            $coupon['member_id'] = $this->userId;
-            $coupon['coupon_id'] = 1;
             $coupon['coupon_price'] = $urlData->value;
             $coupon['project_code'] = $urlData->projectcode;
+            $coupon['project_name'] = $urlData->projectname;
 
             $couponId = $modelCoupon->insert($coupon);
 
-            //$userInfoNew['integral'] = $userInfo['integral'] - $this->redeemNumber * 10000;
-            $userInfoNew['integral'] = $urlData->integral;
-            $userId = $modelUser->update($this->userId, $userInfoNew);
+            $memberInfoNew['integral'] = $urlData->integral;
+            if($domain->update($this->userId, $this->brandId, $memberInfoNew) == 0){
+                $ret['code'] = 4;
+                $ret['msg'] = '更新会员积分失败';
+                return $ret;
+            }
 
             $ret['couponId'] = $couponId;
-
         } else {
             $ret['code'] = 3;
             $ret['msg'] = $urlRet->errMsg;
-            return $ret;
         }
 
         $ret['msg'] = '';
 
         return $ret;
-
-        /*// TODO 增加原子操作
-        $modelUser = new Model_User();
-        $userInfo = $modelUser->getByUserId($this->userId);
-
-        if($userInfo['integral'] < $this->redeemIntegral){
-            $ret['code'] = 1;
-            $ret['msg'] = '积分不足，请重新输入兑换数量';
-            return $ret;
-        }
-
-        $coupon_value = $this->coupon;
-
-        if($this->redeemIntegral >= 10000 && $this->redeemIntegral <= 29999){
-            //$coupon_value = intval(($this->integral * 0.05) / 100) * 100;
-            $usedIntegral = $coupon_value / 0.05;
-        }
-        else if($this->redeemIntegral >= 30000 && $this->redeemIntegral <= 49999){
-            //$coupon_value = intval(($this->integral * 0.055) / 100) * 100;
-            $usedIntegral = $coupon_value / 0.055;
-        }
-        else if($this->redeemIntegral >= 50000){
-            //$coupon_value = intval(($this->integral * 0.06) / 100) * 100;
-            $usedIntegral = $coupon_value / 0.06;
-        }
-        else{
-            //$coupon_value = 0;
-            $usedIntegral = 0;
-        }
-
-        $modelCoupon = new Model_Coupon();
-        $coupon['create_date'] = date('Y-m-d H:i:s');
-        $coupon['modify_date'] = date('Y-m-d H:i:s');
-        $coupon['expiry_date'] = date('Y-m-d H:i:s', time() + 60 * 60 * 24 * 60);
-        //TODO
-        $coupon['code'] = 'VX151A0004861656';
-        $coupon['member_id'] = $this->userId;
-        $coupon['coupon_id'] = 1;
-        $coupon['coupon_price'] = $this->coupon;
-
-        $couponId = $modelCoupon->insert($coupon);
-
-        $userInfoNew['integral'] = $userInfo['integral'] - $usedIntegral;
-        $userId = $modelUser->update($this->userId, $userInfoNew);
-
-        $ret['couponId'] = $couponId;
-
-        $ret['msg'] = '';*/
-
-        //return $ret;
     }
+
 	
     /**
      * 获取适用店铺

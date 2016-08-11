@@ -36,14 +36,9 @@ class Api_Store extends PhalApi_Api {
         $ret['code'] = 0;
 
         $model = new Model_Store();
-        /*$modelBrand = new Model_Brand();
-        $brandInfo = $modelBrand->get($this->brandId);*/
-
         $ret['store_list'] = $model->getListByCity($this->province, $this->city, $this->brandName);
 
-
         $ret['msg'] = '';
-
         return $ret;
     }
 
@@ -78,7 +73,6 @@ class Api_Store extends PhalApi_Api {
      *@return array 正方形的四个点的经纬度坐标
      */
     function __returnSquarePoint($lng, $lat, $distance = 100){
-
         $dlng =  2 * asin(sin($distance / (2 * self::EARTH_RADIUS)) / cos(deg2rad($lat)));
         $dlng = rad2deg($dlng);
 

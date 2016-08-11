@@ -11,22 +11,24 @@ class Model_Cart extends PhalApi_Model_NotORM {
         return 'cart';
     }
 
-    public function isExits($userId, $barcodeId){
+    public function isExits($userId, $brandId, $barcodeId){
         $num = $this->getORM()
-            ->where('member_id', $userId)
+            ->where('user_id', $userId)
+            ->where('brand_id', $brandId)
             ->where('barcode_id', $barcodeId)
             ->count('id');
         return $num == 0 ? false : true;
     }
 
-    public function insert_update($userId, $barcodeId, $cart){
-        if($this->isExits($userId, $barcodeId)){
+    public function insert_update($userId, $brandId, $barcodeId, $cart){
+        if($this->isExits($userId, $brandId, $barcodeId)){
             // 更新
             $quantity = 'quantity + ' . $cart['quantity'];
             $cart['quantity'] = new NotORM_Literal($quantity);
 
             return $this->getORM()
-                ->where('member_id', $userId)
+                ->where('user_id', $userId)
+                ->where('brand_id', $brandId)
                 ->where('barcode_id', $barcodeId)
                 ->update($cart);
         }
@@ -35,10 +37,11 @@ class Model_Cart extends PhalApi_Model_NotORM {
         }
     }
 
-    public function getListByUserId($userId){
+    public function getListByUserId($userId, $brandId){
         $rows = $this->getORM()
             ->select('*')
-            ->where('member_id', $userId)
+            ->where('user_id', $userId)
+            ->where('brand_id', $brandId)
             ->order('create_date')
             ->fetchAll();
         return $rows;

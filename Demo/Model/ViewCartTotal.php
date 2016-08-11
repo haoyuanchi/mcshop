@@ -11,10 +11,11 @@ class Model_ViewCartTotal extends PhalApi_Model_NotORM {
         return 'v_cart_total';
     }
 
-    public function getByUserId($userId){
+    public function getByUserId($userId, $brandId){
         $row = $this->getORM()
             ->select('*')
-            ->where('member_id', $userId)
+            ->where('user_id', $userId)
+            ->where('brand_id', $brandId)
             ->fetch();
         return $row;
     }
