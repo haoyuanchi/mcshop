@@ -380,14 +380,13 @@ class Api_User extends PhalApi_Api {
         $userInfo = $model->getByUserId($this->userId);
 
         $token = sha1($userInfo['vip_cardno'].'+moco@wechat2013');
-        $url = $this->verifyBaseUrl.'token='.$token.'&c='.$userInfo['vip_cardno'].'&n='.$userInfo['name'].'&type=9';
+        $url = $this->mobileCodeBaseUrl.'token='.$token.'&vipCarCode='.$userInfo['vip_cardno'];
 
         $curl = new PhalApi_CUrl(2);
         $rs = json_decode($curl->get($url));
 
         if($rs->result == "true"){
-            $data = $rs->data;
-            $ret['verify_code'] = $data->code;
+            $ret['verify_code'] = $rs->verifySelf;
         }else{
             $ret['code'] = 1;
             $ret['msg'] = '获取验证码失败，请重试';
