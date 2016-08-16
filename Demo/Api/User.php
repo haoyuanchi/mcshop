@@ -324,6 +324,9 @@ class Api_User extends PhalApi_Api {
         $ret['gift']['is_authority'] = $userModel->isGiftAuthority($this->userId, $currentMonth);
 
         if($ret['gift']['is_authority']){
+            $domain = new Domain_WxUser();
+            $memberInfo = $domain->getUserInfo($this->userId, $this->brandId);
+
             // TODO 一年消费额满2w
             if($memberInfo['amount'] > 20000){
                 $ret['gift']['status'] = 2;

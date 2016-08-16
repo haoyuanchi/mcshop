@@ -24,14 +24,14 @@ class Domain_WxUser
             $wxUserInfo = $this->_getWxUserInfoByToken($openId, $accessToken);
             $wxUser['create_date'] = date('Y-m-d H:i:s');
             $wxUser['modify_date'] = date('Y-m-d H:i:s');
-            $wxUser['openid'] = $wxUserInfo->openid;
-            $wxUser['nickname'] = $wxUserInfo->nickname;
-            $wxUser['sex'] = $wxUserInfo->sex;
-            $wxUser['city'] = $wxUserInfo->city;
-            $wxUser['province'] = $wxUserInfo->province;
-            $wxUser['country'] = $wxUserInfo->country;
-            $wxUser['headimgurl'] = $wxUserInfo->headimgurl;
-            $wxUser['privilege'] = serialize($wxUserInfo->privilege);
+            $wxUser['wx_openid'] = $wxUserInfo->openid;
+            $wxUser['wx_nickname'] = $wxUserInfo->nickname;
+            $wxUser['wx_sex'] = $wxUserInfo->sex;
+            $wxUser['wx_city'] = $wxUserInfo->city;
+            $wxUser['wx_province'] = $wxUserInfo->province;
+            $wxUser['wx_country'] = $wxUserInfo->country;
+            $wxUser['wx_headimgurl'] = $wxUserInfo->headimgurl;
+            $wxUser['wx_privilege'] = serialize($wxUserInfo->privilege);
             $wxUser['brand_id'] = $brandId;
 
             // 插入数据库
@@ -43,7 +43,7 @@ class Domain_WxUser
                 return;
             }
         }
-        $wxUserInfo = $model->getByOpenIdWithCache($openId, $brandId);
+        $wxUserInfo = $model->getByWxOpenId($openId, $brandId);
         return $wxUserInfo;
     }
 
@@ -113,6 +113,11 @@ class Domain_WxUser
         // 根据userid 获取 openid
         $modelUser = new Model_WxUser();
         $userInfo = $modelUser->getByUserId($userId);
+
+        // 用户店铺信息
+        $modelStore = new Model_Store();
+        $store_info = $modelStore->getByStoreCode($userInfo['store_code']);
+        $userInfo['store_info'] = $store_info;
 
         // 获取用户的购物车数量
         $modelCartTotal = new Model_ViewCartTotal();
