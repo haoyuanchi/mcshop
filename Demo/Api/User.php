@@ -11,7 +11,7 @@ class Api_User extends PhalApi_Api {
     public function getRules() {
         return array(
             'bind' => array(
-                'openId' => array('name' => 'openid', 'type' => 'string', 'require' => true, 'desc' => '用户微信ID'),
+                'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
                 'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
                 'name' => array('name' => 'name', 'type' => 'string', 'require' => true, 'desc' => '用户姓名'),
                 'tel' => array('name' => 'tel', 'type' => 'string', 'require' => true, 'desc' => '用户手机号'),
@@ -81,7 +81,8 @@ class Api_User extends PhalApi_Api {
         $ret['code'] = 0;
 
         $domain = new Domain_WxUser();
-        $userInfo = $domain->bind($this->openId, $this->brandId, $this->name, $this->tel);
+
+        $userInfo = $domain->bind($this->userId, $this->brandId, $this->name, $this->tel);
         if($userInfo == false){
             $ret['code'] = 1;
             $ret['msg'] = "请确认你所填号码名字和服务门店所留号码名字一致";
@@ -223,7 +224,12 @@ class Api_User extends PhalApi_Api {
         $memberInfo['vip_type'] = $memberData->viptype;
         $memberInfo['store_name'] = $memberData->storename;
 
-        $ret['is_success'] = $domain->register($this->userId, $this->brandId, $memberInfo);
+        // 用户等级信息
+        $memberInfo['grade_id'] = $memberData->gradeId;
+        $memberInfo['grade_name'] = $memberData->gradeName;
+        $memberInfo['grade_discount'] = $memberData->gradeDiscount;
+
+        $ret['is_success'] = $domain->register($this->userId, $memberInfo);
 
         $ret['user'] = $domain->getUserInfo($this->userId, $this->brandId);
 
@@ -261,23 +267,34 @@ class Api_User extends PhalApi_Api {
         }
 
         $domain = new Domain_WxUser();
-        $ret['is_success'] = $domain->update($this->userId, $userInfo);
 
-        if($ret['is_success']){
-            if(!empty($this->storeCode)){
-                // 提交申请进行用户店铺修改
-                $modifyApply['store_code'] = $this->storeCode;
-                $modifyApply['user_id'] = $this->userId;
-                $modifyApply['create_date'] = date('Y-m-d H:i:s');
+        $userData = $domain->getUserInfo($this->userId, $this->brandId);
+        $name = $userData['name'];
+        $birth = $userData['birth'];
+        $sex = $userData['gender'];
+        // 调用接口获取用户的vip卡号
+        $updateUserUrl = "$this->updateUserBaseUrl&openId=$this->openId&brand=$brandId&phone=$this->tel&name=$name&birthday=$birth&sex=$sex";
+        $curl = new PhalApi_CUrl(2);
+        $memberERP = json_decode($curl->get($updateUserUrl));
 
-                $modelModifyLog = new Model_ModifyApplyLog();
-                $modelModifyLog->insert($modifyApply);
+        if($memberERP->success == "0"){
+            $ret['code'] = 1;
+            $ret['msg'] = '更新用户信息失败';
+            return $ret;
+        }else{
+            $ret['is_success'] = $domain->update($this->userId, $userInfo);
+
+            if($ret['is_success']){
+                if(!empty($this->storeCode)){
+                    // 提交申请进行用户店铺修改
+                    $modifyApply['store_code'] = $this->storeCode;
+                    $modifyApply['user_id'] = $this->userId;
+                    $modifyApply['create_date'] = date('Y-m-d H:i:s');
+
+                    $modelModifyLog = new Model_ModifyApplyLog();
+                    $modelModifyLog->insert($modifyApply);
+                }
             }
-
-            // 调用接口获取用户的vip卡号
-            $updateUserUrl = "$this->updateUserBaseUrl&openId=$this->openId&brand=$brandId&phone=$this->tel";
-            $curl = new PhalApi_CUrl(2);
-            $memberERP = json_decode($curl->get($updateUserUrl));
         }
 
         $ret['user'] = $domain->getUserInfo($this->userId, $this->brandId);

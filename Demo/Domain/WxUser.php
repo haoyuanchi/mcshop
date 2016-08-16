@@ -51,11 +51,20 @@ class Domain_WxUser
     public function bind($userId, $brandId, $name, $tel){
         // 先从本地数据库查
         $model = new Model_WxUser();
-        $userInfo = $model->getByTelName($brandId, $name, $tel);
+        $userInfo = $model->getByTelName($brandId, $tel, $name);
 
         if(empty($userInfo)){
+
+            if($brandId == 18){
+                $brandIdERP = 1;
+            }elseif($brandId == 19){
+                $brandIdERP = 23;
+            }else {
+                return false;
+            }
+
             // 调用接口获取用户的信息
-            $queryMemberUrl = "$this->queryMemberBaseUrl&openId=&brand=$brandId&phone=$tel&name=$name";
+            $queryMemberUrl = "$this->queryMemberBaseUrl&openId=&brand=$brandIdERP&phone=$tel&name=$name";
             $curl = new PhalApi_CUrl(2);
             $memberInfoERP = json_decode($curl->get($queryMemberUrl));
 
@@ -83,6 +92,11 @@ class Domain_WxUser
             $memberInfo['area'] = $memberDataERP->areadistname;
             $memberInfo['detail'] = $memberDataERP->areaothers;
             $memberInfo['address'] = $memberDataERP->areaprovname . $memberDataERP->areacityname. $memberDataERP->areadistname . $memberDataERP->areaothers;
+
+            // 用户等级信息
+            $memberInfo['grade_id'] = $memberDataERP->gradeId;
+            $memberInfo['grade_name'] = $memberDataERP->gradeName;
+            $memberInfo['grade_discount'] = $memberDataERP->gradeDiscount;
 
             $model->update($userId, $memberInfo);
         }

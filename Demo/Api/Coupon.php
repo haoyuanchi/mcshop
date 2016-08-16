@@ -37,13 +37,19 @@ class Api_Coupon extends PhalApi_Api {
             return $ret;
         }
 
-        /*$url = "$this->baseUrl&userId=$this->openId&brand=$brandId&ctype=$this->couponType&procOutCursorCount=1";
+        $url = "$this->baseUrl&userid=$this->openId&brand=$brandId&ctype=$this->couponType&procOutCursorCount=1";
         $curl = new PhalApi_CUrl(2);
-        $couponList = json_decode($curl->get($url));*/
+        $couponList = json_decode($curl->get($url));
 
-        $model = new Model_ViewCoupon();
-        $couponList = $model->getListByUserId($this->userId, $this->brandId, $this->couponType);
-        $ret['coupon_list'] = $couponList;
+        /*$model = new Model_Coupon();
+        $couponList = $model->getListByUserId($this->userId, $this->brandId, $this->couponType);*/
+        if($couponList->success == '1'){
+            $ret['coupon_list'] = $couponList->data->data;
+        }else{
+            $ret['code'] = 1;
+            $ret['msg'] = '获取优惠券列表失败';
+            return $ret;
+        }
 
         $ret['code'] = 0;
         return $ret;
