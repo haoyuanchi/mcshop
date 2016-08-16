@@ -89,10 +89,9 @@ class Api_Oauth2 extends PhalApi_Api {
 
         //setcookie('brand_id',$this->brandId, '360', '/'); //设置cookie 6分钟有效
         setcookie('brand_id',$this->brandId, time()+36000,'/'); //设置cookie 600分钟有效
-
-
-        // 已经绑定则返回用户信息并跳转到首页
         $userInfo = $domain->getUserInfo($wxUserInfo['id'], $this->brandId);
+
+        DI()->logger->info('userinfo', array('userinfo' => $userInfo));
         setcookie('user_info', json_encode($userInfo), time()+36000, '/');
 
         // 跳转到首页
