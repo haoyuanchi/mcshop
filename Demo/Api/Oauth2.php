@@ -52,11 +52,11 @@ class Api_Oauth2 extends PhalApi_Api {
         setcookie('user_info', json_encode($userInfo), time()+36000, '/');
 
         // 检测是否绑定
-        $domain->checkIsBind($this->userId);
+        $domain->checkIsBind($wxUserInfo['id']);
 
         // 判断用户信息是否完善，如果不完善则跳转到用户信息完善页面
         if($domain->isComplete($userInfo) == false){
-            setcookie('user_type', 2, time() + 360, '/');
+            //setcookie('user_type', 2, time() + 360, '/');
             $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/usercenter/wx_infomodify.html";
             header("Location:{$url}");
             exit;

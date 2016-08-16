@@ -45,7 +45,6 @@ class Domain_WxUser
         }
         $wxUserInfo = $model->getByWxOpenId($openId, $brandId);
 
-        DI()->logger->info('userinfo', array('userinfo' => $wxUserInfo));
         return $wxUserInfo;
     }
 
