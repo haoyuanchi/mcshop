@@ -189,6 +189,7 @@ class Api_User extends PhalApi_Api {
         $memberInfo['profession'] = $this->profession;    // 行业
         $memberInfo['occupation'] = $this->occupation;
         $memberInfo['hobby'] = $this->hobby;
+        $memberInfo['brand_id'] = $this->brandId;
 
         $birthday = $memberInfo['birth'];
 
@@ -248,6 +249,7 @@ class Api_User extends PhalApi_Api {
         $userInfo['province'] = $this->province;
         $userInfo['city'] = $this->city;
         $userInfo['area'] = $this->area;
+        $userInfo['detail'] = $this->detail;
         $userInfo['address'] = $this->province.$this->city.$this->area.$this->detail;
 
         $userInfo['mobile'] = $this->tel;
