@@ -218,6 +218,12 @@ class Api_User extends PhalApi_Api {
         $curl = new PhalApi_CUrl(2);
         $memberERP = json_decode($curl->get($addUserUrl));
 
+        if($memberERP->success == '0'){
+            $ret['code'] = 1;
+            $ret['msg'] = $memberERP->errMsg;
+            return;
+        }
+
         $memberData = $memberERP->data;
 
         $memberInfo['vip_no'] = $memberData->vipno;
