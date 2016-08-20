@@ -12,6 +12,8 @@ defined('API_ROOT') || define('API_ROOT', dirname(__FILE__) . '/..');
 require_once API_ROOT . '/PhalApi/PhalApi.php';
 $loader = new PhalApi_Loader(API_ROOT, 'Library');
 
+$loader->addDirs('Library');
+
 /** ---------------- 注册&初始化 基本服务组件 ---------------- **/
 
 //自动加载
@@ -57,4 +59,4 @@ if (!empty($_GET['callback'])) {
 }
  */
 
-DI()->pay = new Pay_Lite();
+
