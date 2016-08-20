@@ -29,7 +29,7 @@ class Model_Payment extends PhalApi_Model_NotORM {
         if($this->isExits($order_no)){
             // 更新
             return $this->getORM()
-                ->where('user_id', $order_no)
+                ->where('order_no', $order_no)
                 ->update($payInfo);
         }
         else{
