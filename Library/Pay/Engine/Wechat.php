@@ -114,9 +114,9 @@ class Pay_Engine_Wechat extends Pay_Base {
         $payInfo['trade_type'] = 'JSAPI';
 
         $payInfo['payment_method'] = 'wechat';
-        $payInfo['status'] = '';
+        $payInfo['status'] = 0;
         DI()->logger->debug('payment 信息', $payInfo);
-        $paymentId = $paymentModel->insert($payInfo);
+        $paymentId = $paymentModel->insert_update($data['order_no'], $payInfo);
 
         DI()->logger->debug('payment id', $paymentId);
 
@@ -255,7 +255,7 @@ class Pay_Engine_Wechat extends Pay_Base {
         $payInfo['trade_no'] = $info['trade_no'];
         $payInfo['payment_date'] = date('Y-m-d H:i:s');
         $payInfo['modify_date'] = date('Y-m-d H:i:s');
-        $payInfo['status'] = ($notify['return_code'] == 'SUCCESS') ? '支付成功' : '支付失败';
+        $payInfo['status'] = ($notify['return_code'] == 'SUCCESS') ? 1 : 2;
         $paymentModel->updateOrderBySn($info['out_trade_no'], $payInfo);
     }
 

@@ -40,6 +40,7 @@ class Api_Order extends PhalApi_Api {
             ),
             'getOrderPayStatus' => array(
                 'orderId' => array('name' => 'order_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '订单ID'),
+                'orderNo' => array('name' => 'order_no', 'type' => 'sting', 'require' => true, 'desc' => '订单编号'),
             ),
         );
     }
@@ -194,11 +195,18 @@ class Api_Order extends PhalApi_Api {
      * @return string msg 提示信息
      */
     public function getOrderPayStatus(){
-        $model = new Model_Order();
-        $payStatus = $model->getPayStatusByOrderId($this->orderId);
+        $model = new Model_Payment();
+        $payStatus = $model->getPayStatusByOrderNo($this->orderNo);
         $ret['code'] = 0;
 
-        $ret['pay_status'] = $payStatus;
+        if(empty($payStatus)){
+            $ret['code'] = 1;
+            $ret['msg'] = '订单支付未创建';
+            return;
+        }else{
+            $ret['pay_status'] = $payStatus;
+        }
+
         $ret['msg'] = '';
 
         return $ret;
