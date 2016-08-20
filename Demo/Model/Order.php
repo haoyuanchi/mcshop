@@ -11,6 +11,14 @@ class Model_Order extends PhalApi_Model_NotORM {
         return 'order';
     }
 
+    public function getPayStatusByOrderId($orderId){
+        $row = $this->getORM()
+            ->select('payment_status')
+            ->where('id', $orderId)
+            ->fetch();
+        return $row;
+    }
+
     public function updateOrderBySn($sn, $orderInfo){
         $rows = $this->getORM()
             ->where('sn', $sn)

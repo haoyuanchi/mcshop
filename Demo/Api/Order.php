@@ -38,6 +38,9 @@ class Api_Order extends PhalApi_Api {
                 'comment' => array('name' => 'comment', 'type' => 'string', 'require' => false, 'desc' => '备注'),
                 'couponId' => array('name' => 'coupon_id', 'type' => 'int', 'require' => false, 'desc' => '优惠券id'),
             ),
+            'getOrderPayStatus' => array(
+                'orderId' => array('name' => 'order_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '订单ID'),
+            ),
         );
     }
 
@@ -179,6 +182,24 @@ class Api_Order extends PhalApi_Api {
         $modelCoupon = new Model_Coupon();
         $coupon_list = $modelCoupon->getListByUserId($this->userId, $this->brandId, 0);
         $ret['coupon_list'] = $coupon_list;
+
+        return $ret;
+    }
+
+    /**
+     * 获取订单支付状态
+     * @desc 获取订单支付状态
+     * @return int code 操作码，0表示成功
+     * @return int pay_status 订单列表
+     * @return string msg 提示信息
+     */
+    public function getOrderPayStatus(){
+        $model = new Model_Order();
+        $payStatus = $model->getPayStatusByOrderId($this->orderId);
+        $ret['code'] = 0;
+
+        $ret['pay_status'] = $payStatus;
+        $ret['msg'] = '';
 
         return $ret;
     }
