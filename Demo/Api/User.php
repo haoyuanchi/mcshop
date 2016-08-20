@@ -420,10 +420,11 @@ class Api_User extends PhalApi_Api {
 
         if($rs->result == "true"){
             $ret['verify_code'] = $rs->verifySelf;
-            DI()->logger->info('用户验证码', array('code'=>$rs->verifySelf, 'userid'=>$userInfo['id'], 'date'=>date('Y-m-d H:i:s')));
+            DI()->logger->debug('用户验证码', array('code'=>$rs->verifySelf, 'userid'=>$userInfo['id'], 'date'=>date('Y-m-d H:i:s')));
         }else{
             $ret['code'] = 1;
             $ret['msg'] = '获取验证码失败，请重试';
+            DI()->logger->error('获取验证码失败', array('date'=>date('Y-m-d H:i:s'), 'userid'=>$userInfo['id'], 'error'=>$rs->errMsg));
             return $ret;
         }
 
