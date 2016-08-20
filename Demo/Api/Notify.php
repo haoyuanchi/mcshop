@@ -65,6 +65,9 @@ class Api_Notify extends PhalApi_Api {
 
                     $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/member/order/paySuccess.html?order_id=$order_id";
                     header("Location:{$url}");
+
+                    DI()->logger->debug("调试链接", array('url'=>$url));
+
                     exit; //需要结束程序
                 }
             }else{
