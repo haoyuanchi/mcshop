@@ -47,6 +47,7 @@ class Api_Notify extends PhalApi_Api {
 
             // 根据订单号更新订单的状态
             $OrderModel = new Model_Order();
+            $orderInfo['amount_paid'] = $info['money'];
             $orderInfo['payment_status'] = 1;
             $orderInfo['payment_method_name'] = $this->type;
             $orderInfo['payment_plugin_id'] = $this->type;
