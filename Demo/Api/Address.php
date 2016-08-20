@@ -40,6 +40,10 @@ class Api_Address extends PhalApi_Api {
 				'tel' => array('name' => 'tel', 'type' => 'string', 'require' => true, 'desc' => '收件人电话'),
 				'postcode' => array('name' => 'postcode', 'type' => 'string', 'require' => true, 'desc' => '邮编'),
             ),
+            'delAddress' => array(
+                'userId' => array('name' => 'user_id', 'type' => 'int', 'require' => true, 'desc' => '用户id'),
+                'addrId' => array('name' => 'addr_id', 'type' => 'int', 'require' => true, 'desc' => '收货地址id'),
+            ),
 			'getAddress' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'require' => true, 'desc' => '用户id'),
 				'addrId' => array('name' => 'addr_id', 'type' => 'int', 'require' => true, 'desc' => '收货地址id'),
@@ -162,8 +166,28 @@ class Api_Address extends PhalApi_Api {
         $ret['msg'] = '';
         return $ret;
     }
-	
-	/**
+
+    /**
+     * 删除收货地址
+     * @desc 删除收货地址
+     * @return int code 操作码
+     * @return int is_deleted 是否删除收货地址
+     * @return string msg 提示信息
+     */
+    public function delAddress() {
+        $ret['code'] = 0;
+
+        $model = new Model_Address();
+        $ret['is_deleted'] = $model->delete($this->addrId);
+
+        $ret['msg'] = '';
+        return $ret;
+    }
+
+
+
+
+    /**
      * 获取收货地址列表
      * @desc 获取收货地址列表
      * @return int code 操作码

@@ -67,6 +67,29 @@ class Model_Good extends PhalApi_Model_NotORM {
         return $ret;
     }
 
+    public function getListBySearch($brandId, $search, $start, $num, $sort){
+        $sql = 'select t1.id as good_id, t2.id as brand_id, t1.category_id, t1.code, t1.price_origin, t1.price_point, t1.image, t1.name, t1.price, t2.cover'
+            .' from mc_good as t1 left join mc_brand t2 on t1.brand_id=t2.id'
+            .' where t1.brand_id=:brand_id and t1.name like :search'
+            .' order by :sort desc'
+            .' limit :start, :num';
+
+        $params = array(':brand_id' => $brandId, ':search' => $search, ':sort'=>$sort, ':start' => $start, ':num' => $num);
+
+        $rows = $this->getORM()->queryAll($sql, $params);
+        return $rows;
+    }
+
+    public function getCountBySearch($brandId, $search){
+        $sql = 'select count(t1.id) as total'
+            .' from mc_good as t1 left join mc_brand t2 on t1.brand_id=t2.id'
+            .' where t1.brand_id=:brandId and t1.name like :search';
+        $params = array(':brandId' => $brandId, ':search' => $search);
+        $rows = $this->getORM()->queryAll($sql, $params);
+        $ret = $rows[0]['total'];
+        return $ret;
+    }
+
     public function getListByTag($brandId, $tagId, $start, $num, $sort){
         $sql = 'select t1.id as good_id, t2.tag_id, t3.name, t3.ed_mobile_cover, t3.mo_mobile_cover,'
             .' t1.category_id, t1.code, t1.price_origin, t1.price_point, t1.image, t1.name, t1.price'

@@ -177,6 +177,26 @@ class Api_Good extends PhalApi_Api {
      * @return string msg 提示信息
      */
     public function getListBySearch() {
+        $model = new Model_Good();
+        $page_size = $this->size;
+        $start = $this->page * $page_size;
+        $search = "%$this->search%";
+        $list = $model->getListBySearch($this->brandId, $search, $start, $page_size, $this->sort);
+        $count = $model->getCountBySearch($this->brandId, $search);
+        $tol_page = ceil($count / $page_size);
+
+        if(count($list) > 0){
+            $ret['brand_img'] = $list[0]['cover'];
+            $ret['total_pages'] = $tol_page;
+            $ret['good_list'] = $list;
+            $ret['good_number'] = count($list);
+        }
+        else{
+            $ret['total_pages'] = $tol_page;
+            $ret['good_number'] = count($list);
+        }
+
+        return $ret;
 
     }
 
