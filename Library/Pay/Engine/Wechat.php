@@ -104,7 +104,6 @@ class Pay_Engine_Wechat extends Pay_Base {
 		//输出HTML唤起微信支付
 		//$html = $this->showHtml($this->param);
 
-
         return $this->param;
     }
 
@@ -320,7 +319,7 @@ EOT;
         $jsApiObj["package"] = "prepay_id=".$this->values['prepay_id'];
         $jsApiObj["signType"] = "MD5";
         $jsApiObj["paySign"] = $this->getSign($jsApiObj);
-        $this->param = json_encode($jsApiObj);
+        //$this->param = json_encode($jsApiObj);
 
         return $this->param;
 	}
