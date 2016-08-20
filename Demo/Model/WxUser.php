@@ -26,7 +26,7 @@ class Model_WxUser extends PhalApi_Model_NotORM {
             ->where('is_binded', 1)
             ->count('id');
 
-        return $num == 1 ? true : false;
+        return $num == 0 ? true : false;
     }
 
     public function getAddress($userId){
