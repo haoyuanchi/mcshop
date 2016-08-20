@@ -57,7 +57,7 @@ class Pay_Engine_Wechat extends Pay_Base {
     /**
      * 请求支付
      * @param  $data 数据
-     * @return html
+     * @return 支付参数
      */
     public function buildRequestForm($data) {
     	//获取Openid
@@ -102,9 +102,10 @@ class Pay_Engine_Wechat extends Pay_Base {
 		$this->getJsApiParameters();
 
 		//输出HTML唤起微信支付
-		$html = $this->showHtml($this->param);
+		//$html = $this->showHtml($this->param);
 
-        return $html;
+
+        return $this->param;
     }
 
     /**

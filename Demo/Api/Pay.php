@@ -30,9 +30,11 @@ class Api_Pay extends PhalApi_Api {
     /**
      * 支付接口
      * @desc 支付接口
-     * @return html 返回支付发起请求
+     * @return param 返回支付发起请求
      */
 	public function pay(){
+        $ret['code'] = 0;
+
 		//获取对应的支付引擎
         DI()->pay->set($this->type);
 
@@ -45,7 +47,18 @@ class Api_Pay extends PhalApi_Api {
         $data['body'] = '测试的订单';
         $data['price'] = '0.01';
         $data['fee_type'] = 'CNY';
-        echo DI()->pay->buildRequestForm($data);
-        exit;
+
+        $param = DI()->pay->buildRequestForm($data);
+        if($param){
+            $ret['param'] = $param;
+        }else{
+            $ret['code'] = 1;
+            $ret['msg'] = '支付失败，请重试！';
+            return $ret;
+        }
+
+        $ret['msg'] = '';
+
+        return $ret;
 	}
 }
