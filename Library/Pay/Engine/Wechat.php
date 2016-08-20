@@ -350,6 +350,8 @@ EOT;
         $jsApiObj["paySign"] = $this->getSign($jsApiObj);
         //$this->param = json_encode($jsApiObj);
 
+        DI()->logger->debug('$jsApiObj 信息', $jsApiObj);
+
         return $jsApiObj;
 	}
 
