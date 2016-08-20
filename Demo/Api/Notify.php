@@ -45,8 +45,12 @@ class Api_Notify extends PhalApi_Api {
             //获取订单信息
             $info = DI()->pay->getInfo();
 
-            //TODO 更新对应的订单信息,返回布尔类型
-            $res = true;
+            // 根据订单号更新订单的状态
+            $OrderModel = new Model_Order();
+            $orderInfo['payment_status'] = 1;
+            $orderInfo['payment_method_name'] = $this->type;
+            $orderInfo['payment_plugin_id'] = $this->type;
+            $res = $OrderModel->updateOrderBySn($info['out_trade_no'], $orderInfo);
             
             //订单更新成功
             if($res){
@@ -62,10 +66,8 @@ class Api_Notify extends PhalApi_Api {
                     DI()->pay->notifySuccess();
 
                     /*$order_id = $info['out_trade_no'];
-
                     $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/member/order/paySuccess.html?order_id=$order_id";
                     header("Location:{$url}");
-
                     DI()->logger->debug("调试链接", array('url'=>$url));*/
 
                     exit; //需要结束程序
@@ -79,11 +81,10 @@ class Api_Notify extends PhalApi_Api {
             DI()->pay->notifyError();
             DI()->logger->log('payError','Verify error', array('Type' => $this->type, 'Method'=> $this->method, 'Data' => $notify));
 
-            $values = DI()->pay->xmlToArray($notify);
+            /*$values = DI()->pay->xmlToArray($notify);
             $order_id = $values['out_trade_no'];
-
             $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/member/order/paySuccess.html?order_id=$order_id";
-            header("Location:{$url}");
+            header("Location:{$url}");*/
             exit; //需要结束程序
         }
 	}

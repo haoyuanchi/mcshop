@@ -11,6 +11,13 @@ class Model_Order extends PhalApi_Model_NotORM {
         return 'order';
     }
 
+    public function updateOrderBySn($sn, $orderInfo){
+        $rows = $this->getORM()
+            ->where('sn', $sn)
+            ->update($orderInfo);
+        return $rows;
+    }
+
     public function getAllListByUserId($userId, $brandId){
         $rows = $this->getORM()
             ->select('*')

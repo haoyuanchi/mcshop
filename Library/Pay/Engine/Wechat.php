@@ -98,6 +98,25 @@ class Pay_Engine_Wechat extends Pay_Base {
 			return false;
 		}
 
+        // 插入支付列表
+        $paymentModel = new Model_Payment();
+        $payInfo['create_date'] = date('Y-m-d H:i:s');
+        $payInfo['modify_date'] = date('Y-m-d H:i:s');
+        $payInfo['expire_date'] = date('Y-m-d H:i:s', time() + 60 * 60 * 24 * 60);
+        $payInfo['order_no'] = $data['order_no'];
+        $payInfo['amount'] = $data['price'];
+        $payInfo['openid'] = $open_id;
+
+        $payInfo['body'] = $data['body'];
+        $payInfo['title'] = $data['title'];
+        $payInfo['fee_type'] = $data['fee_type'];
+        $payInfo['create_ip'] = PhalApi_Tool::getClientIp();
+        $payInfo['trade_type'] = 'JSAPI';
+
+        $payInfo['payment_method'] = 'wechat';
+        $payInfo['status'] = '';
+        $paymentModel->insert($payInfo);
+
 		//获取jsapi支付的参数
         return $this->getJsApiParameters();
 
@@ -227,6 +246,14 @@ class Pay_Engine_Wechat extends Pay_Base {
         //微信交易号
         $info['trade_no'] = $notify['transaction_id'];
         $this->info = $info;
+
+        // 更新支付列表
+        $paymentModel = new Model_Payment();
+        $payInfo['trade_no'] = $info['trade_no'];
+        $payInfo['payment_date'] = date('Y-m-d H:i:s');
+        $payInfo['modify_date'] = date('Y-m-d H:i:s');
+        $payInfo['status'] = ($notify['return_code'] == 'SUCCESS') ? '支付成功' : '支付失败';
+        $paymentModel->updateOrderBySn($info['out_trade_no'], $payInfo);
     }
 
     /**
