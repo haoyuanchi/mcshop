@@ -48,7 +48,13 @@ class Api_Oauth2 extends PhalApi_Api {
         setcookie('user_info', json_encode($userInfo), time()+36000, '/');
 
         // 检测是否绑定
-        $domain->checkIsBind($wxUserInfo['id']);
+        $isBinded = $domain->checkIsBind($wxUserInfo['id']);
+        // 未绑定，跳转到绑定页面
+        if(!$isBinded){
+            $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/member/member.html";
+            header("Location:{$url}");
+            exit;
+        }
 
         // 判断用户信息是否完善，如果不完善则跳转到用户信息完善页面
         if($domain->isComplete($userInfo) == false){
