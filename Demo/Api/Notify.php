@@ -59,14 +59,14 @@ class Api_Notify extends PhalApi_Api {
                     unset($GLOBALS['PAY_NOTIFY']);
 
                     //支付接口需要返回的信息，通知接口我们已经接收到了支付成功的状态
-                    //DI()->pay->notifySuccess();
+                    DI()->pay->notifySuccess();
 
-                    $order_id = $info['out_trade_no'];
+                    /*$order_id = $info['out_trade_no'];
 
                     $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/member/order/paySuccess.html?order_id=$order_id";
                     header("Location:{$url}");
 
-                    DI()->logger->debug("调试链接", array('url'=>$url));
+                    DI()->logger->debug("调试链接", array('url'=>$url));*/
 
                     exit; //需要结束程序
                 }
