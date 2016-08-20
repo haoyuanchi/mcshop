@@ -16,6 +16,12 @@ class Api_User extends PhalApi_Api {
                 'name' => array('name' => 'name', 'type' => 'string', 'require' => true, 'desc' => '用户姓名'),
                 'tel' => array('name' => 'tel', 'type' => 'string', 'require' => true, 'desc' => '用户手机号'),
             ),
+            'isRegister' => array(
+                'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
+                'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
+                'name' => array('name' => 'name', 'type' => 'string', 'require' => true, 'desc' => '用户姓名'),
+                'tel' => array('name' => 'tel', 'type' => 'string', 'require' => true, 'desc' => '用户手机号'),
+            ),
             'getMobileValidationCode' => array(
                 'vipCardCode' => array('name' => 'vip_cardno', 'type' => 'string', 'require' => true, 'desc' => 'vip卡号'),
             ),
@@ -69,6 +75,25 @@ class Api_User extends PhalApi_Api {
                 'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
             ),
         );
+    }
+
+
+    /**
+     * 是否注册用户
+     * @desc 是否注册用户
+     * @return int user_id
+     * @return string msg 提示信息
+     */
+    public function isRegister(){
+        $ret['code'] = 0;
+
+        $domain = new Domain_WxUser();
+
+        $ret['is_register'] = $domain->isRegister($this->userId, $this->brandId, $this->name, $this->tel);
+
+        $ret['msg'] = "请确认你所填号码名字和服务门店所留号码名字一致";
+
+        return $ret;
     }
 
     /**

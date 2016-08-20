@@ -48,6 +48,34 @@ class Domain_WxUser
         return $wxUserInfo;
     }
 
+    public function isRegister($userId, $brandId, $name, $tel){
+        // 先从本地数据库查
+        $model = new Model_WxUser();
+        $userInfo = $model->getByTelName($brandId, $tel, $name);
+
+        if(empty($userInfo)) {
+            if ($brandId == 18) {
+                $brandIdERP = 1;
+            } elseif ($brandId == 19) {
+                $brandIdERP = 23;
+            } else {
+                return false;
+            }
+
+            // 调用接口获取用户的信息
+            $queryMemberUrl = "$this->queryMemberBaseUrl&openId=&brand=$brandIdERP&phone=$tel&name=$name";
+            $curl = new PhalApi_CUrl(2);
+            $memberInfoERP = json_decode($curl->get($queryMemberUrl));
+
+            if ($memberInfoERP->success == 0) {
+                DI()->logger->error('用户登录信息输入有误', array('userId' => $userId, 'brandId' => $brandId, 'name' => $name, 'tel' => $tel));
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     // TODO
     public function bind($userId, $brandId, $name, $tel){
         // 先从本地数据库查
