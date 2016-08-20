@@ -30,10 +30,12 @@ abstract class Pay_Base {
      * 可根据自身的业务需求更改
      */
     public function createOrderNo() {
-        $year_code = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J');
+        return date('YmdHis'). ''. PhalApi_Tool::createRandNumber(4);
+
+        /*$year_code = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J');
         return $year_code[intval(date('Y')) - 2010] .
                 strtoupper(dechex(date('m'))) . date('d') .
-                substr(time(), -5) . substr(microtime(), 2, 5) . sprintf('d', rand(0, 99));
+                substr(time(), -5) . substr(microtime(), 2, 5) . sprintf('d', rand(0, 99));*/
     }
 
     /**
