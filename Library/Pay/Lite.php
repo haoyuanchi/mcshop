@@ -63,8 +63,6 @@ class Pay_Lite {
         //获取配置
         $config = DI()->config->get('app.Pay.' . $this->engine);
 
-        DI()->logger->debug('payinfo', 'engine config', $this->engine);
-
         if(!$config){
           DI()->logger->log('payError','No engine config', $this->engine);
           return false;
