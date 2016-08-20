@@ -23,7 +23,7 @@ class Model_WxUser extends PhalApi_Model_NotORM {
     public function isFirstBind($userId) {
         $num = $this->getORM()
             ->where('id', $userId)
-            ->where('vip_no', null)
+            ->where('is_binded', 1)
             ->count('id');
 
         return $num == 1 ? true : false;

@@ -71,6 +71,33 @@ class Domain_WxUser
                 DI()->logger->error('用户登录信息输入有误', array('userId' => $userId, 'brandId' => $brandId, 'name' => $name, 'tel' => $tel));
                 return false;
             }
+
+            $memberDataERP = $memberInfoERP->data;
+
+            // 把用户信息存入到本地数据库
+            $memberInfo['birth'] = $memberDataERP->birthdate;
+            $memberInfo['gender'] = $memberDataERP->gender;
+            $memberInfo['mobile'] = $memberDataERP->phone;
+            $memberInfo['name'] = $memberDataERP->name;
+            $memberInfo['vip_no'] = $memberDataERP->vipno;
+            $memberInfo['vip_cardno'] = $memberDataERP->vipcardno;
+            $memberInfo['integral'] = $memberDataERP->integral;
+            $memberInfo['clear_integral'] = $memberDataERP->clearfun;
+            $memberInfo['valid_integral'] = $memberDataERP->fun;
+            $memberInfo['store_code'] = $memberDataERP->storecode;
+            $memberInfo['store_name'] = $memberDataERP->storename;
+            $memberInfo['province'] = $memberDataERP->areaprovname;
+            $memberInfo['city'] = $memberDataERP->areacityname;
+            $memberInfo['area'] = $memberDataERP->areadistname;
+            $memberInfo['detail'] = $memberDataERP->areaothers;
+            $memberInfo['address'] = $memberDataERP->areaprovname . $memberDataERP->areacityname. $memberDataERP->areadistname . $memberDataERP->areaothers;
+
+            // 用户等级信息
+            $memberInfo['grade_id'] = $memberDataERP->gradeId;
+            $memberInfo['grade_name'] = $memberDataERP->gradeName;
+            $memberInfo['grade_discount'] = $memberDataERP->gradeDiscount;
+
+            $model->update($userId, $memberInfo);
         }
 
         return true;
@@ -121,6 +148,7 @@ class Domain_WxUser
             $memberInfo['area'] = $memberDataERP->areadistname;
             $memberInfo['detail'] = $memberDataERP->areaothers;
             $memberInfo['address'] = $memberDataERP->areaprovname . $memberDataERP->areacityname. $memberDataERP->areadistname . $memberDataERP->areaothers;
+            $memberInfo['is_binded'] = 1;
 
             // 用户等级信息
             $memberInfo['grade_id'] = $memberDataERP->gradeId;
@@ -129,6 +157,9 @@ class Domain_WxUser
 
             $model->update($userId, $memberInfo);
         }
+
+        $memberInfo['is_binded'] = 1;
+        $model->update($userId, $memberInfo);
 
         $userInfo = $model->getByUserId($userId);
 
