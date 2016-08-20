@@ -40,9 +40,9 @@ class Api_Pay extends PhalApi_Api {
 
         // 获取openid
         $data = array();
-        //$data['order_no'] = $this->orderNo;
+
         $data['openid'] = $this->openid;
-        $data['order_no'] = date('YmdHis'). ''. PhalApi_Tool::createRandNumber(4);
+        $data['order_no'] = $this->orderNo;
         $data['title'] = '测试的订单';
         $data['body'] = '测试的订单';
         $data['price'] = '0.01';
