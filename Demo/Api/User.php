@@ -221,7 +221,7 @@ class Api_User extends PhalApi_Api {
         if($memberERP->success == '0'){
             $ret['code'] = 1;
             $ret['msg'] = $memberERP->errMsg;
-            return;
+            return $ret;
         }
 
         $memberData = $memberERP->data;
