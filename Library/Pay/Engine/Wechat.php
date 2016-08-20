@@ -115,7 +115,10 @@ class Pay_Engine_Wechat extends Pay_Base {
 
         $payInfo['payment_method'] = 'wechat';
         $payInfo['status'] = '';
-        $paymentModel->insert($payInfo);
+        DI()->logger->debug('payment 信息', $payInfo);
+        $paymentId = $paymentModel->insert($payInfo);
+
+        DI()->logger->debug('payment id', $paymentId);
 
 		//获取jsapi支付的参数
         return $this->getJsApiParameters();
