@@ -8,8 +8,6 @@ require_once dirname(__FILE__) . '/init.php';
 //装载你的接口
 DI()->loader->addDirs('Demo');
 
-DI()->loader->addDirs('Library');
-DI()->pay = new Pay_Lite();
 
 /** ---------------- 响应接口请求 ---------------- **/
 
