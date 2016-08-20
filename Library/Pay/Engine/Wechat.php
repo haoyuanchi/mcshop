@@ -99,12 +99,11 @@ class Pay_Engine_Wechat extends Pay_Base {
 		}
 
 		//获取jsapi支付的参数
-		$this->getJsApiParameters();
+        return $this->getJsApiParameters();
 
 		//输出HTML唤起微信支付
 		//$html = $this->showHtml($this->param);
 
-        return $this->param;
     }
 
     /**
@@ -321,7 +320,7 @@ EOT;
         $jsApiObj["paySign"] = $this->getSign($jsApiObj);
         //$this->param = json_encode($jsApiObj);
 
-        return $this->param;
+        return $jsApiObj;
 	}
 
     /**
