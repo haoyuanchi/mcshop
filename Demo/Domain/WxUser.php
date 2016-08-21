@@ -298,6 +298,12 @@ class Domain_WxUser
         return $modelUser->update($userId, $memberInfo);
     }
 
+    public function update($userId, $memberInfo){
+        $modelUser = new Model_WxUser();
+        $memberInfo['modify_date'] = date('Y-m-d H:i:s');
+        return $modelUser->update($userId, $memberInfo);
+    }
+
 
     protected function getOpenidWithCode($code){
         $curl = new PhalApi_CUrl(2);
