@@ -67,8 +67,8 @@ class Api_User extends PhalApi_Api {
             ),
 			'getGift' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
-                'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
 				'address' => array('name' => 'address', 'type' => 'string', 'require' => false, 'desc' => '全部地址'),
+				'tel' => array('name' => 'tel', 'type' => 'string', 'require' => false, 'desc' => '领取礼物的电话'),
             ),
             'getVerifyCode' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
@@ -389,7 +389,8 @@ class Api_User extends PhalApi_Api {
         $userModel = new Model_WxUser();
         $memberInfo['is_get_gift'] = 1;
         if(!empty($this->address)){
-            $memberInfo['address'] = $this->address;
+            $memberInfo['gift_address'] = $this->address;
+            $memberInfo['gift_tel'] = $this->tel;
         }
 
         $userModel->update($this->userId, $memberInfo);
