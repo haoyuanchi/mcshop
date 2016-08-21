@@ -112,7 +112,7 @@ class Api_Collection extends PhalApi_Api {
 
         $model->deleteByGoodId($this->userId, $this->brandId, $this->goodId);
 
-        $ret['msg'] = '';
+        $ret['msg'] = '取消成功';
         return $ret;
     }
 
