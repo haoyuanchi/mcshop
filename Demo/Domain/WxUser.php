@@ -184,12 +184,14 @@ class Domain_WxUser
         // 调用接口获取用户的信息
         $queryMemberUrl = "$this->queryMemberBaseUrl&openId=$openId&brand=$brandIdERP&phone=&name=";
         $curl = new PhalApi_CUrl(2);
-        $memberDataERP = json_decode($curl->get($queryMemberUrl));
+        $memberInfoERP = json_decode($curl->get($queryMemberUrl));
 
-        if($memberDataERP->success == 0){
+        if($memberInfoERP->success == 0){
             DI()->logger->error('用户信息获取失败', array('userId' => $userId, 'brandId'=>$brandId, 'openid'=>$openId));
             //return false;
         }else{
+            $memberDataERP = $memberInfoERP->data;
+
             $memberInfo['mobile'] = $memberDataERP->phone;
             $memberInfo['name'] = $memberDataERP->name;
             $memberInfo['vip_no'] = $memberDataERP->vipno;
