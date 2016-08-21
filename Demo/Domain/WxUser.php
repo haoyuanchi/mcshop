@@ -188,24 +188,24 @@ class Domain_WxUser
 
         if($memberDataERP->success == 0){
             DI()->logger->error('用户信息获取失败', array('userId' => $userId, 'brandId'=>$brandId, 'openid'=>$openId));
-            return false;
+            //return false;
+        }else{
+            $memberInfo['mobile'] = $memberDataERP->phone;
+            $memberInfo['name'] = $memberDataERP->name;
+            $memberInfo['vip_no'] = $memberDataERP->vipno;
+            $memberInfo['vip_cardno'] = $memberDataERP->vipcardno;
+            $memberInfo['integral'] = $memberDataERP->integral;
+            $memberInfo['clear_integral'] = $memberDataERP->clearfun;
+            $memberInfo['valid_integral'] = $memberDataERP->fun;
+            $memberInfo['store_code'] = $memberDataERP->storecode;
+            $memberInfo['store_name'] = $memberDataERP->storename;
+            // 用户等级信息
+            $memberInfo['grade_id'] = $memberDataERP->gradeId;
+            $memberInfo['grade_name'] = $memberDataERP->gradeName;
+            $memberInfo['grade_discount'] = $memberDataERP->gradeDiscount;
+
+            $modelUser->update($userId, $memberInfo);
         }
-
-        $memberInfo['mobile'] = $memberDataERP->phone;
-        $memberInfo['name'] = $memberDataERP->name;
-        $memberInfo['vip_no'] = $memberDataERP->vipno;
-        $memberInfo['vip_cardno'] = $memberDataERP->vipcardno;
-        $memberInfo['integral'] = $memberDataERP->integral;
-        $memberInfo['clear_integral'] = $memberDataERP->clearfun;
-        $memberInfo['valid_integral'] = $memberDataERP->fun;
-        $memberInfo['store_code'] = $memberDataERP->storecode;
-        $memberInfo['store_name'] = $memberDataERP->storename;
-        // 用户等级信息
-        $memberInfo['grade_id'] = $memberDataERP->gradeId;
-        $memberInfo['grade_name'] = $memberDataERP->gradeName;
-        $memberInfo['grade_discount'] = $memberDataERP->gradeDiscount;
-
-        $modelUser->update($userId, $memberInfo);
 
         $userInfo = $modelUser->getByUserId($userId);
 
