@@ -236,6 +236,6 @@ class Api_Address extends PhalApi_Api {
         $ret['address'] = $model->get($this->addrId);
 
         $ret['msg'] = '';
-        return;
+        return $ret;
     }
 }
