@@ -172,6 +172,38 @@ class Domain_WxUser
     public function getUserInfo($userId, $brandId){
         // 根据userid 获取 openid
         $modelUser = new Model_WxUser();
+
+        // 从erp中获取信息
+        if($brandId == 18){
+            $brandIdERP = 1;
+        }elseif($brandId == 19){
+            $brandIdERP = 23;
+        }else {
+            return false;
+        }
+
+        $openId = $modelUser->getOpenidByUserId($userId);
+        // 调用接口获取用户的信息
+        $queryMemberUrl = "$this->queryMemberBaseUrl&openId=$openId&brand=$brandIdERP&phone=&name=";
+        $curl = new PhalApi_CUrl(2);
+        $memberDataERP = json_decode($curl->get($queryMemberUrl));
+
+        $memberInfo['mobile'] = $memberDataERP->phone;
+        $memberInfo['name'] = $memberDataERP->name;
+        $memberInfo['vip_no'] = $memberDataERP->vipno;
+        $memberInfo['vip_cardno'] = $memberDataERP->vipcardno;
+        $memberInfo['integral'] = $memberDataERP->integral;
+        $memberInfo['clear_integral'] = $memberDataERP->clearfun;
+        $memberInfo['valid_integral'] = $memberDataERP->fun;
+        $memberInfo['store_code'] = $memberDataERP->storecode;
+        $memberInfo['store_name'] = $memberDataERP->storename;
+        // 用户等级信息
+        $memberInfo['grade_id'] = $memberDataERP->gradeId;
+        $memberInfo['grade_name'] = $memberDataERP->gradeName;
+        $memberInfo['grade_discount'] = $memberDataERP->gradeDiscount;
+
+        $modelUser->update($userId, $memberInfo);
+
         $userInfo = $modelUser->getByUserId($userId);
 
         // 用户店铺信息

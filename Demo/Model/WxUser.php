@@ -11,6 +11,20 @@ class Model_WxUser extends PhalApi_Model_NotORM {
         return 'user_weixin';
     }
 
+    public function getOpenidByUserId($userId){
+        $key = 'openId' . $userId;
+        $openId = DI()->cache->get($key);
+        if ($openId === NULL) {
+            $openId = $this->getORM()
+                ->select('wx_openid')
+                ->where('id', $userId)
+                ->fetch();
+            DI()->cache->set($key, $openId, 600);
+        }
+        return $openId;
+    }
+
+
     public function isFirstWxChat($openId, $brandId) {
         $num = $this->getORM()
             ->where('wx_openid', $openId)
