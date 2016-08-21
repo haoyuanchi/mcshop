@@ -11,6 +11,19 @@ class Model_Order extends PhalApi_Model_NotORM {
         return 'order';
     }
 
+    public function getListByUserId($userId, $brandId, $payStatus, $deliverStatus, $refundStatus){
+        $rows = $this->getORM()
+            ->select('*')
+            ->where('user_id', $userId)
+            ->where('brand_id', $brandId)
+            ->where('payment_status', $payStatus)
+            ->where('deliver_status', $deliverStatus)
+            ->where('refund_status', $refundStatus)
+            ->order('create_date desc')
+            ->fetchAll();
+        return $rows;
+    }
+
     public function getPayStatusByOrderId($orderId){
         $row = $this->getORM()
             ->select('payment_status')

@@ -42,6 +42,9 @@ class Api_Order extends PhalApi_Api {
                 'orderId' => array('name' => 'order_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '订单ID'),
                 'orderNo' => array('name' => 'order_no', 'type' => 'sting', 'require' => true, 'desc' => '订单编号'),
             ),
+            'delOrder' => array(
+                'orderId' => array('name' => 'order_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '订单ID'),
+            ),
         );
     }
 
@@ -58,7 +61,13 @@ class Api_Order extends PhalApi_Api {
 
         $modelOrder = new Model_Order();
 
-        if(!empty($this->payStatus)){
+        if(!empty($this->payStatus) | !empty($this->deliverStatus) || !empty($this->refundStatus)) {
+            $orderList = $modelOrder->getListByUserId($this->userId, $this->brandId, $this->payStatus, $this->deliverStatus, $this->refundStatus);
+        }        else {
+            $orderList = $modelOrder->getAllListByUserId($this->userId, $this->brandId);
+        }
+
+        /*if(!empty($this->payStatus)){
             $orderList = $modelOrder->getPayListByUserId($this->userId, $this->brandId, $this->payStatus);
         }
         else if(!empty($this->deliverStatus)){
@@ -69,7 +78,7 @@ class Api_Order extends PhalApi_Api {
         }
         else {
             $orderList = $modelOrder->getAllListByUserId($this->userId, $this->brandId);
-        }
+        }*/
 
         $modelOrderItem = new Model_OrderItem();
 
@@ -317,6 +326,28 @@ class Api_Order extends PhalApi_Api {
         $info = $modelUser->getByUserId($this->userId);
         $userInfoNew['integral'] = $info['integral'] + $this->totalPoint;
         $modelUser->update($this->userId, $userInfoNew);*/
+
+        $ret['msg'] = '';
+
+        return $ret;
+    }
+
+
+    /**
+     * 删除订单
+     * @desc 删除订单
+     * @return int code 操作码
+     * @return string msg 提示信息
+     */
+    public function delOrder(){
+        $ret['code'] = 0;
+
+        $modelOrder = new Model_Order();
+        $modelOrder->delete($this->orderId);
+
+        // 把订单项删除
+        $modelOrderItem = new Model_OrderItem();
+        $modelOrderItem->deleteByOrderId($this->orderId);
 
         $ret['msg'] = '';
 

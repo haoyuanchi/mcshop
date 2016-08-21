@@ -11,6 +11,13 @@ class Model_OrderItem extends PhalApi_Model_NotORM {
         return 'order_item';
     }
 
+    public function deleteByOrderId($orderId){
+        $row = $this->getORM()
+            ->where('order', $orderId)
+            ->delete();
+        return $row;
+    }
+
     public function getAllListByUserId($userId){
         $rows = $this->getORM()
             ->select('*')
