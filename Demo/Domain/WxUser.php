@@ -265,12 +265,7 @@ class Domain_WxUser
         $useModel = new model_WxUser();
         $isFirstBind = $useModel->isFirstBind($userId);
 
-        // 跳转到绑定页面
-        if($isFirstBind){
-            $url="http://bbbccc.moco.com.cn/mcshop/app/mobile/member/member.html";
-            header("Location:{$url}");
-            exit;
-        }
+        return $isFirstBind;
     }
 
     /* 用户信息是否完善 */

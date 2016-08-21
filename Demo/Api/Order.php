@@ -238,7 +238,14 @@ class Api_Order extends PhalApi_Api {
 
         // 检测是否绑定
         $domain = new Domain_WxUser();
-        $domain->checkIsBind($this->userId);
+        $isFirstBind = $domain->checkIsBind($this->userId);
+        // 跳转到绑定页面
+        if($isFirstBind){
+            $ret['code'] = 1;
+            $ret['msg'] = '用户未绑定';
+            $ret['url'] = "http://bbbccc.moco.com.cn/mcshop/app/mobile/member/member.html";
+            return $ret;
+        }
 
         // 获取收货信息
         $modelAddr = new Model_Address();
