@@ -292,7 +292,7 @@ class Domain_WxUser
     }
 
     /* 修改用户信息 */
-    public function update($userId, $memberInfo){
+    public function updateIntegral($userId, $memberInfo){
         $modelUser = new Model_WxUser();
         $memberInfo['modify_date'] = date('Y-m-d H:i:s');
         return $modelUser->update($userId, $memberInfo);

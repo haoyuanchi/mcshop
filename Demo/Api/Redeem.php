@@ -104,7 +104,7 @@ class Api_Redeem extends PhalApi_Api {
             $couponId = $modelCoupon->insert($coupon);
 
             $memberInfoNew['integral'] = $urlData->integral;
-            if($domain->update($this->userId, $this->brandId, $memberInfoNew) == 0){
+            if($domain->updateIntegral($this->userId, $memberInfoNew) == 0){
                 $ret['code'] = 4;
                 $ret['msg'] = '更新会员积分失败';
                 return $ret;
