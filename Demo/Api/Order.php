@@ -61,9 +61,13 @@ class Api_Order extends PhalApi_Api {
 
         $modelOrder = new Model_Order();
 
-        if(!empty($this->payStatus) | !empty($this->deliverStatus) || !empty($this->refundStatus)) {
-            $orderList = $modelOrder->getListByUserId($this->userId, $this->brandId, $this->payStatus, $this->deliverStatus, $this->refundStatus);
-        }        else {
+        if(isset($this->payStatus) || isset($this->deliverStatus) || isset($this->refundStatus)) {
+            $payStatus = isset($this->payStatus) ? $this->payStatus : 0;
+            $deliverStatus = isset($this->deliverStatus) ? $this->deliverStatus : 0;
+            $refundStatus = isset($this->refundStatus) ? $this->refundStatus : 0;
+            $orderList = $modelOrder->getListByUserId($this->userId, $this->brandId, $payStatus, $deliverStatus, $refundStatus);
+        }
+        else {
             $orderList = $modelOrder->getAllListByUserId($this->userId, $this->brandId);
         }
 
