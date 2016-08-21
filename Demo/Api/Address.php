@@ -184,9 +184,6 @@ class Api_Address extends PhalApi_Api {
         return $ret;
     }
 
-
-
-
     /**
      * 获取收货地址列表
      * @desc 获取收货地址列表

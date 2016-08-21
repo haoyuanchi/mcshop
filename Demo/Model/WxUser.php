@@ -89,6 +89,15 @@ class Model_WxUser extends PhalApi_Model_NotORM {
     }
 
     /* 是否具备领取生日礼物权限 */
+    public function isGiftGet($userId){
+        $num = $this->getORM()
+            ->where('id', $userId)
+            ->where('is_get_gift', 1)
+            ->count('id');
+        return $num == 1 ? true : false;
+    }
+
+    /* 是否具备领取生日礼物权限 */
     public function isGiftAuthority($userId, $mouth){
         $num = $this->getORM()
             ->where('id', $userId)

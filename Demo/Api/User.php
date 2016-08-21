@@ -69,6 +69,7 @@ class Api_User extends PhalApi_Api {
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
 				'address' => array('name' => 'address', 'type' => 'string', 'require' => false, 'desc' => '全部地址'),
 				'tel' => array('name' => 'tel', 'type' => 'string', 'require' => false, 'desc' => '领取礼物的电话'),
+                'name' => array('name' => 'name', 'type' => 'string', 'require' => false, 'desc' => '领取礼物的姓名'),
             ),
             'getVerifyCode' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
@@ -354,6 +355,14 @@ class Api_User extends PhalApi_Api {
         $currentMonth = intval(date('m',time()));
 
         $userModel = new Model_WxUser();
+        $isGiftGet = $userModel->isGiftGet($this->userId);
+        if($isGiftGet){
+            $ret['gift']['is_gift_get'] = 1;
+            $ret['code'] = 1;
+            $ret['msg'] = '您当月的生日礼物已经领取，请勿重复领取';
+            return $ret;
+        }
+
         $ret['gift']['is_authority'] = $userModel->isGiftAuthority($this->userId, $currentMonth);
 
         if($ret['gift']['is_authority']){
@@ -391,6 +400,7 @@ class Api_User extends PhalApi_Api {
         if(!empty($this->address)){
             $memberInfo['gift_address'] = $this->address;
             $memberInfo['gift_tel'] = $this->tel;
+            $memberInfo['gift_name'] = $this->name;
         }
 
         $userModel->update($this->userId, $memberInfo);
