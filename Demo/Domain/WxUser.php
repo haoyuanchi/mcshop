@@ -166,10 +166,7 @@ class Domain_WxUser
         return $userInfo;
     }
 
-    /**
-     * 获取用户的全部信息， 包括微信信息、会员信息、购物车信息等
-     */
-    public function getUserInfo($userId, $brandId){
+    public function getUserInfoFromErp($userId, $brandId){
         // 根据userid 获取 openid
         $modelUser = new Model_WxUser();
 
@@ -204,6 +201,27 @@ class Domain_WxUser
 
         $modelUser->update($userId, $memberInfo);
 
+        $userInfo = $modelUser->getByUserId($userId);
+
+        // 用户店铺信息
+        $modelStore = new Model_Store();
+        $store_info = $modelStore->getByStoreCode($userInfo['store_code']);
+        $userInfo['store_info'] = $store_info;
+
+        // 获取用户的购物车数量
+        $modelCartTotal = new Model_ViewCartTotal();
+        $cart_info = $modelCartTotal->getByUserId($userId, $brandId);
+        $userInfo['cart_quantity'] = $cart_info['total_quantity'];
+
+        return $userInfo;
+    }
+
+    /**
+     * 获取用户的全部信息， 包括微信信息、会员信息、购物车信息等
+     */
+    public function getUserInfo($userId, $brandId){
+        // 根据userid 获取 openid
+        $modelUser = new Model_WxUser();
         $userInfo = $modelUser->getByUserId($userId);
 
         // 用户店铺信息

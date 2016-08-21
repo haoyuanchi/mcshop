@@ -179,7 +179,7 @@ class Api_User extends PhalApi_Api {
         $rs = array('code' => 0, 'msg' => '', 'info' => array());
 
         $domain = new Domain_WxUser();
-        $userInfo = $domain->getUserInfo($this->userId, $this->brandId);
+        $userInfo = $domain->getUserInfoFromErp($this->userId, $this->brandId);
 
         if (empty($userInfo)) {
             DI()->logger->debug('user not found', $this->userId);
