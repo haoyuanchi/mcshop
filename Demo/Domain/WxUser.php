@@ -81,7 +81,6 @@ class Domain_WxUser
             $memberInfo['name'] = $memberDataERP->name;
             $memberInfo['vip_no'] = $memberDataERP->vipno;
             $memberInfo['vip_cardno'] = $memberDataERP->vipcardno;
-            $memberInfo['vip_type'] = $memberDataERP->viptype;
             $memberInfo['integral'] = $memberDataERP->integral;
             $memberInfo['clear_integral'] = $memberDataERP->clearfun;
             $memberInfo['valid_integral'] = $memberDataERP->fun;
@@ -139,7 +138,6 @@ class Domain_WxUser
             $memberInfo['name'] = $memberDataERP->name;
             $memberInfo['vip_no'] = $memberDataERP->vipno;
             $memberInfo['vip_cardno'] = $memberDataERP->vipcardno;
-            $memberInfo['vip_type'] = $memberDataERP->viptype;
             $memberInfo['integral'] = $memberDataERP->integral;
             $memberInfo['clear_integral'] = $memberDataERP->clearfun;
             $memberInfo['valid_integral'] = $memberDataERP->fun;
@@ -198,7 +196,6 @@ class Domain_WxUser
             $memberInfo['name'] = $memberDataERP->name;
             $memberInfo['vip_no'] = $memberDataERP->vipno;
             $memberInfo['vip_cardno'] = $memberDataERP->vipcardno;
-            $memberInfo['vip_type'] = $memberDataERP->viptype;
             $memberInfo['integral'] = $memberDataERP->integral;
             $memberInfo['clear_integral'] = $memberDataERP->clearfun;
             $memberInfo['valid_integral'] = $memberDataERP->fun;
