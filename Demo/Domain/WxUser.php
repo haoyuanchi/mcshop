@@ -179,11 +179,17 @@ class Domain_WxUser
             return false;
         }
 
-        $openId = $modelUser->getOpenidByUserId($userId);
+        $rs = $modelUser->getOpenidByUserId($userId);
+        $openId = $rs['wx_openid'];
         // 调用接口获取用户的信息
         $queryMemberUrl = "$this->queryMemberBaseUrl&openId=$openId&brand=$brandIdERP&phone=&name=";
         $curl = new PhalApi_CUrl(2);
         $memberDataERP = json_decode($curl->get($queryMemberUrl));
+
+        if($memberDataERP->success == 0){
+            DI()->logger->error('用户信息获取失败', array('userId' => $userId, 'brandId'=>$brandId, 'openid'=>$openId));
+            return false;
+        }
 
         $memberInfo['mobile'] = $memberDataERP->phone;
         $memberInfo['name'] = $memberDataERP->name;
