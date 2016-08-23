@@ -22,9 +22,6 @@ class Api_User extends PhalApi_Api {
                 'name' => array('name' => 'name', 'type' => 'string', 'require' => true, 'desc' => '用户姓名'),
                 'tel' => array('name' => 'tel', 'type' => 'string', 'require' => true, 'desc' => '用户手机号'),
             ),
-            'getMobileValidationCode' => array(
-                'vipCardCode' => array('name' => 'vip_cardno', 'type' => 'string', 'require' => true, 'desc' => 'vip卡号'),
-            ),
             'getUserInfo' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
                 'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
@@ -74,6 +71,13 @@ class Api_User extends PhalApi_Api {
             'getVerifyCode' => array(
                 'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
                 'brandId' => array('name' => 'brand_id', 'type' => 'int', 'require' => true, 'desc' => '品牌id'),
+            ),
+            'getMobileValidationCode' => array(
+                'userId' => array('name' => 'user_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '用户ID'),
+                'tel' => array('name' => 'tel', 'type' => 'string', 'require' => true, 'desc' => '用户号码'),
+            ),
+            'verifyMobileCode' => array(
+                'codeId' => array('name' => 'code_id', 'type' => 'int', 'min' => 1, 'require' => true, 'desc' => '验证码id'),
             ),
         );
     }
@@ -132,19 +136,32 @@ class Api_User extends PhalApi_Api {
     /**
      * 获取手机短信验证码
      * @desc 获取短信验证码
-     * @return string msg 提示信息
+     * @return int code_id 验证码id
      */
     public function getMobileValidationCode() {
         $ret['code'] = 0;
 
-        $token = sha1($this->vipCardCode.'+moco@wechat2013');
-        $url = $this->mobileCodeBaseUrl.'token='.$token.'&vipCarCode='.$this->vipCardCode;
+        $verifyCode = PhalApi_Tool::createRandNumber(6);
+        $msg =  '亲，您的微信绑定VIP会员验证码：'.$verifyCode.'，该验证码10分钟后失效。';
+        $mobile = $this->tel;
+
+        $url = "http://erp3.mo-co.com:8182/erp/smsJson/sendMsg.action?userid=$mobile&message=$msg";
 
         $curl = new PhalApi_CUrl(2);
         $rs = json_decode($curl->get($url));
 
-        if($rs->result == "true"){
-            $ret['verify_code'] = $rs->verifySelf;
+        if($rs->success){
+            $mobileCodeInfo['user_id'] = $this->userId;
+            $mobileCodeInfo['mobile'] = $this->tel;
+            $mobileCodeInfo['code'] = $verifyCode;
+            $mobileCodeInfo['create_date'] = date('Y-m-d H:i:s');
+            $mobileCodeInfo['expiry_date'] = date('Y-m-d H:i:s', time() + 60 * 10); //十分钟有效期
+
+            $model = new Model_MobileCode();
+            $codeId = $model->insert($mobileCodeInfo);
+
+            $ret['code_id'] = $codeId;
+            $ret['verify_code'] = $verifyCode;
             $ret['msg'] = '';
         }
         else{
@@ -153,8 +170,33 @@ class Api_User extends PhalApi_Api {
             return $ret;
         }
 
+        /*if($rs->result == "true"){
+            $ret['verify_code'] = $rs->verifySelf;
+            $ret['msg'] = '';
+        }*/
+
         return $ret;
     }
+
+    /**
+     * 获取手机短信验证码
+     * @desc 获取短信验证码
+     * @return int code_id 验证码id
+     */
+    public function verifyMobileCode() {
+        $ret['code'] = 0;
+
+        $model = new Model_MobileCode();
+        $mobileCodeInfo['verify_date'] = date('Y-m-d H:i:s');
+        $mobileCodeInfo['is_verified'] = 1;
+        $model->update($this->codeId, $mobileCodeInfo);
+
+        $ret['msg'] = '';
+        return $ret;
+    }
+
+
+
 
     /**
      * 获取用户基本信息 
@@ -423,18 +465,21 @@ class Api_User extends PhalApi_Api {
         $model = new Model_WxUser();
         $userInfo = $model->getByUserId($this->userId);
 
-        $token = sha1($userInfo['vip_cardno'].'+moco@wechat2013');
-        $url = $this->mobileCodeBaseUrl.'token='.$token.'&vipCarCode='.$userInfo['vip_cardno'];
+        $vipCardNo = $userInfo['vip_cardno'];
+        $name = $userInfo['name'];
+
+        $token = sha1($vipCardNo.'+moco@wechat2013');
+        $url = $this->verifyBaseUrl.'token='.$token.'&c='.$vipCardNo.'&n='.$name.'&type=9';
 
         $curl = new PhalApi_CUrl(2);
         $rs = json_decode($curl->get($url));
 
         if($rs->result == "true"){
-            $ret['verify_code'] = $rs->verifySelf;
-            DI()->logger->debug('用户验证码', array('code'=>$rs->verifySelf, 'userid'=>$userInfo['id'], 'date'=>date('Y-m-d H:i:s')));
+            $ret['verify_code'] = $rs->data->code;
+            DI()->logger->debug('用户验证码', array('code'=>$rs->data->code, 'userid'=>$userInfo['id'], 'date'=>date('Y-m-d H:i:s')));
         }else{
             $ret['code'] = 1;
-            $ret['msg'] = '获取验证码失败，请重试';
+            $ret['msg'] = $rs->errMsg;
             DI()->logger->error('获取验证码失败', array('date'=>date('Y-m-d H:i:s'), 'userid'=>$userInfo['id'], 'error'=>$rs->errMsg));
             return $ret;
         }
