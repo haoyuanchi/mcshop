@@ -270,6 +270,11 @@ class Domain_WxUser
 
     /* 用户信息是否完善 */
     public function isComplete($userInfo){
+        //判断用户的等级, 微积分卡和积分卡不需要强制完善资料
+        if($userInfo['grade_discount'] > 0.88 ){
+            return true;
+        }
+
         if(empty($userInfo['name']) || empty($userInfo['mobile']) || empty($userInfo['address']) ||
             empty($userInfo['birth']) || empty($userInfo['occupation']) || empty($userInfo['hobby']) || empty($userInfo['profession']))
         {
